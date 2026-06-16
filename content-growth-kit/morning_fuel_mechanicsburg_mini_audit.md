@@ -1,4 +1,4 @@
-# Morning Fuel Mechanicsburg — MR Studio Mini-Audit
+# Morning Fuel Mechanicsburg — Lift Studio Mini-Audit
 
 **Business:** Morning Fuel
 **Location:** 4890 Carlisle Pike, Hampden Township (Mechanicsburg), PA 17050
@@ -288,5 +288,5 @@ From live reviews (TripAdvisor, Google, Yelp aggregates):
 
 ---
 
-*Prepared by Megan Reeves, MR Studio*
+*Prepared by Megan Reeves, Lift Studio*
 

@@ -144,7 +144,7 @@ Examples:
 
 Improve or replace these based on what you observe.
 
-## 10. Recommended Offer From MR Studio
+## 10. Recommended Offer From Lift Studio
 
 Recommend whether Morning Fuel should receive:
 

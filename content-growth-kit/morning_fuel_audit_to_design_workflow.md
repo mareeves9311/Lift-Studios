@@ -89,7 +89,7 @@ Surfaces to audit:
 
 Paste the audit output back into Codex and ask:
 
-> Turn this Morning Fuel audit into a design brief for Claude/Canva. I want a prospect-facing mockup attachment that shows what MR Studio would improve for Morning Fuel: brand/content direction, homepage section recommendations, Instagram content examples, UGC scripts, and a first-month content plan.
+> Turn this Morning Fuel audit into a design brief for Claude/Canva. I want a prospect-facing mockup attachment that shows what Lift Studio would improve for Morning Fuel: brand/content direction, homepage section recommendations, Instagram content examples, UGC scripts, and a first-month content plan.
 
 Codex should then create:
 
@@ -166,8 +166,8 @@ Send:
 
 1. Short specific outreach email/DM
 2. Morning Fuel mini-audit
-3. MR Studio Content Growth Kit overview PDF
+3. Lift Studio Content Growth Kit overview PDF
 4. Optional Morning Fuel-specific mockup attachment if polished enough
 
-If the Morning Fuel-specific mockup is not ready, send the mini-audit + MR Studio V2 overview first.
+If the Morning Fuel-specific mockup is not ready, send the mini-audit + Lift Studio Content Growth Kit overview first.
 

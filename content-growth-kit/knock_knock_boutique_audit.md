@@ -1,4 +1,4 @@
-# Knock Knock Boutique — MR Studio Mini-Audit
+# Knock Knock Boutique — Lift Studio Mini-Audit
 
 **Business:** Knock Knock Boutique
 **Locations:** 110 W Chocolate Ave, Hershey PA 17033 · 8 S Market St, Elizabethtown PA 17022
@@ -172,4 +172,4 @@ Month 1 focus:
 
 ---
 
-*Prepared by Megan Reeves, MR Studio*
+*Prepared by Megan Reeves, Lift Studio*
