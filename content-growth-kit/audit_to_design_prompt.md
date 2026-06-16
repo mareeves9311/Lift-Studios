@@ -19,7 +19,7 @@ Fill in the [brackets] with information from the audit document.
 
 ---
 
-Create a **sample work showcase** for **[Business Name]** — a real [business category] located in [location]. This is a MR Studio client deliverable that demonstrates what their brand, website, and social presence could look like with professional content direction. Every design decision should be specific to this business, not generic.
+Create a **sample work showcase** for **[Business Name]** — a real [business category] located in [location]. This is a Lift Studio client deliverable that demonstrates what their brand, website, and social presence could look like with professional content direction. Every design decision should be specific to this business, not generic.
 
 **About the Business**
 Name: [Business Name]

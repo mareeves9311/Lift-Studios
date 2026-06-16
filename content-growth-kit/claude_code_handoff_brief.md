@@ -1,8 +1,8 @@
-# Claude Code Handoff Brief: MR Studio Content Growth Kit
+# Claude Code Handoff Brief: Lift Studio Content Growth Kit
 
 ## Context
 
-I am building a MR/service called **MR Studio**.
+I am building a studio called **Lift Studio** (formerly MR Studio).
 
 The signature offer is the **Content Growth Kit**.
 
@@ -21,7 +21,7 @@ I do not want the positioning to be limited to only local businesses, because I 
 
 Current positioning:
 
-**MR Studio helps service-based and consumer-facing businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.**
+**Lift Studio helps service-based and consumer-facing businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.**
 
 ## Current System
 
@@ -107,7 +107,7 @@ Why this is the right example:
 ### Page 1: Cover
 
 Title:
-**MR Studio: Content Growth Kit**
+**Lift Studio: Content Growth Kit**
 
 Subtitle:
 Website, social, and content systems that make your business easier to trust, book, visit, or buy from.
@@ -117,7 +117,7 @@ Premium editorial-style collage, beauty/service business aesthetic, clean brand 
 
 ### Page 2: What This Is
 
-Explain that MR Studio creates practical, polished growth assets:
+Explain that Lift Studio creates practical, polished growth assets:
 
 - Mini-audits
 - Website first-impression direction
@@ -304,7 +304,7 @@ CTA:
 Send the mini-audit, approve a Starter Content Kit, or request a short walkthrough.
 
 Signoff:
-Megan Reeves, MR Studio
+Megan Reeves, Lift Studio
 
 ## Tool/Execution Questions For Claude
 

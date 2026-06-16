@@ -148,4 +148,4 @@ Once Morning Fuel is complete and the flow is validated:
    - Salon / beauty service
    - Fitness studio
    - Boutique retail
-4. Upload all reference files to the MR Studio claude.ai project as permanent project knowledge
+4. Upload all reference files to the Lift Studio claude.ai project as permanent project knowledge

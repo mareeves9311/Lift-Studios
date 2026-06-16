@@ -1,4 +1,4 @@
-# Codex Handoff Brief: MR Studio Content Growth Kit
+# Codex Handoff Brief: Lift Studio Content Growth Kit
 
 Last updated: 2026-06-10
 Picking up from: Claude Code session
@@ -7,10 +7,10 @@ Picking up from: Claude Code session
 
 ## What This Project Is
 
-**MR Studio** is Megan's MR. The signature offer is the **Content Growth Kit** — a monthly service that builds website and social content assets for service-based businesses.
+**Lift Studio** (formerly MR Studio) is Megan's studio. The signature offer is the **Content Growth Kit** — a monthly service that builds website and social content assets for service-based businesses.
 
 Current positioning:
-> MR Studio helps service-based and consumer-facing businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.
+> Lift Studio helps service-based and consumer-facing businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.
 
 First real prospect: **Morning Fuel** — a breakfast/brunch/coffee concept in Mechanicsburg, PA.
 
