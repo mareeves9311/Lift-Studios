@@ -2,7 +2,7 @@
 
 ## Positioning
 
-MR Studio helps service-based and consumer-facing businesses turn their website and social media into a clearer, more polished first impression.
+Lift Studio helps service-based and consumer-facing businesses turn their website and social media into a clearer, more polished first impression.
 
 The focus is:
 - Website and social audits
@@ -204,5 +204,5 @@ Most clients start with the Content Bank: 10 ready-to-film UGC-style video conce
 
 ## Scope Note
 
-MR Studio provides strategy, copy, content direction, and implementation-ready recommendations. Finished video production, full website builds, photography, and social media management can be added later or scoped separately.
+Lift Studio provides strategy, copy, content direction, and implementation-ready recommendations. Finished video production, full website builds, photography, and social media management can be added later or scoped separately.
 

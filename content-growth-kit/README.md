@@ -5,13 +5,13 @@ This folder is the starter system for selling monthly website audit, social UGC,
 ## Recommended Brand Name
 
 Business name:
-**MR Studio**
+**Lift Studio**
 
 Signature offer:
 **Content Growth Kit**
 
 Simple positioning:
-MR Studio helps local businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.
+Lift Studio helps local businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.
 
 Drive HQ:
 https://drive.google.com/drive/folders/1WF45mgKymDClCs_rLXjRZzOArscYb63L
@@ -86,7 +86,7 @@ Status:
 - Lookbook copy drafted
 - Outreach drafted
 - Tracker row prepared
-- Google Sheet integrated in `MR Automation - Lead Tracker`
+- Google Sheet integrated in Lift Studio Master Pipeline
 
 Follow-up before sending:
 - Review Instagram manually

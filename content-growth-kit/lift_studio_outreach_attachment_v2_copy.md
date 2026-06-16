@@ -1,4 +1,4 @@
-# MR Studio: Content Growth Kit
+# Lift Studio: Content Growth Kit
 
 Website, social, and content systems that make your business easier to trust, book, visit, or buy from.
 
@@ -6,7 +6,7 @@ Prepared by Megan Reeves
 
 ## Page 1: Cover
 
-MR Studio: Content Growth Kit
+Lift Studio: Content Growth Kit
 
 Website, social, and content systems that make your business easier to trust, book, visit, or buy from.
 
@@ -14,7 +14,7 @@ For service-based and consumer-facing businesses that want a stronger first impr
 
 ## Page 2: What This Is
 
-MR Studio creates practical, polished growth assets for businesses that already have something worth booking, visiting, or buying, but need their online presence to show it faster.
+Lift Studio creates practical, polished growth assets for businesses that already have something worth booking, visiting, or buying, but need their online presence to show it faster.
 
 What the Content Growth Kit can include:
 
@@ -316,5 +316,5 @@ Starter Content Kit
 This gives you a practical content bank, clearer direction, and a stronger first impression without committing to a large agency retainer.
 
 Megan Reeves
-MR Studio
+Lift Studio
 

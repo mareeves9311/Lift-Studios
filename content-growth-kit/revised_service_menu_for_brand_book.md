@@ -1,10 +1,10 @@
-# MR Studio Service Menu For Brand Book
+# Lift Studio Service Menu For Brand Book
 
 Use this as the updated services/pricing page source for Claude Design.
 
 ## Positioning
 
-MR Studio helps service-based and consumer-facing businesses turn their website and social media into a clearer, more polished first impression.
+Lift Studio helps service-based and consumer-facing businesses turn their website and social media into a clearer, more polished first impression.
 
 The focus is:
 - Website and social audits
@@ -107,7 +107,7 @@ Content Calendar Only:
 
 Use this language somewhere subtle:
 
-MR Studio provides strategy, copy, content direction, and implementation-ready recommendations. Finished video production, full website builds, photography, and social media management can be added later or scoped separately.
+Lift Studio provides strategy, copy, content direction, and implementation-ready recommendations. Finished video production, full website builds, photography, and social media management can be added later or scoped separately.
 
 ## Recommended Primary Offer
 

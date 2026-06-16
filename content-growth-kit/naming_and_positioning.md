@@ -2,7 +2,7 @@
 
 ## Recommended Name
 
-MR Studio
+Lift Studio
 
 ## Recommended Offer Name
 
@@ -21,11 +21,11 @@ The actual offer includes:
 - Homepage layout recommendations
 - Local discovery strategy
 
-"MR Studio" gives the business room to grow without sounding like a giant agency.
+"Lift Studio" gives the business room to grow without sounding like a giant agency.
 
 ## Simple Positioning Line
 
-MR Studio helps local businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.
+Lift Studio helps local businesses turn their website and social media into a stronger first impression, with monthly content kits that make them easier to trust, book, visit, or buy from.
 
 ## Shorter Version
 
@@ -90,7 +90,7 @@ Could overlap with local SEO language.
 ## Recommended Brand Architecture
 
 Business:
-MR Studio
+Lift Studio
 
 Signature offer:
 Content Growth Kit
@@ -111,7 +111,7 @@ Website + Brand Refresh
 
 Best,
 Megan
-MR Studio
+Lift Studio
 
 ## Note Before Finalizing
 
