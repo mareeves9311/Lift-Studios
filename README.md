@@ -19,6 +19,10 @@ Lift Studio Master Pipeline:
 
 https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit
 
+## Current Brand Website
+
+https://helloliftstudio.netlify.app/
+
 ## Working Rule
 
 When working in Codex or Claude, treat this folder as the project root. Add new Lift files here first, then sync or paste into Google Drive/Sheets as needed.

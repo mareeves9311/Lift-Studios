@@ -1,6 +1,6 @@
 # Lift Studio — Operating Status
 
-Last updated: 2026-06-16
+Last updated: 2026-06-16 (updated with live URL)
 
 ---
 
@@ -25,15 +25,15 @@ Last updated: 2026-06-16
 
 In order:
 
-1. **Confirm live website URL** — `site/index.html` exists but no deployment is confirmed; the placeholder `[Lift Studio website link]` appears in all outreach drafts and must be filled before sending
-2. **Send first outreach batch** — drafts are ready in `automation/lift_studio_wide_outreach_drafts_2026-06-16.md`; do not send until website URL is confirmed
+1. **Live website URL confirmed** — `https://helloliftstudio.netlify.app/`
+2. **First Gmail outreach batch drafted** — 29 drafts created in `helloliftstudio@gmail.com` from the `Outreach Drafts` tab, each with `About Lift Studio.pdf` plus `Lift Studio Service Menu.pdf`
 3. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
 
 | Decision | Status |
 |---|---|
-| Live website URL / deployment target | Not confirmed |
+| Live website URL | https://helloliftstudio.netlify.app/ — confirmed |
 | `brand-images/` vs `site/lift-studio-images/` duplication (same 7 PNGs) | Flagged; do not resolve yet |
 | Git/email identity for Lift Studio commits | `helloliftstudio@gmail.com` |
 | Outreach batch 1 send date | Not scheduled |
@@ -52,18 +52,16 @@ In order:
 - **Do not add AdviseHer files here.** AdviseHer lives at `/Users/meganreeves/Desktop/Projects/recommendation-intel/` and related Desktop paths. It is a separate project.
 - **Do not add AMP3 files here.** Lift Studio is its own workspace.
 - **Do not delete `brand-images/` or `site/lift-studio-images/`** until the duplication question is resolved and you have confirmed which location is canonical.
-- **Do not send outreach drafts** until `[Lift Studio website link]` placeholders are replaced with the confirmed live URL.
+- **Do not send outreach drafts automatically.** Drafts should be reviewed in Gmail before sending.
 - **Do not edit `claude-cowork-upload/` or `claude-cowork-upload-2/`** without explicit approval — these are historical snapshots. Held items C and D above are the only pending exceptions.
 - **Do not merge old MR Studio / Web Refresh Co. files without checking** whether an updated Lift Studio version already exists in `content-growth-kit/` or `automation/`.
 
 ## 5. Next Recommended Action
 
-**Confirm the live Lift Studio website URL.**
+**Review Gmail drafts for outreach batch 1.**
 
-Once the URL is confirmed:
-1. Do a single find-and-replace of `[Lift Studio website link]` in `automation/lift_studio_wide_outreach_drafts_2026-06-16.md` and `automation/outreach_templates.md`
-2. Add the URL to `README.md`
-3. Update this file
-4. Outreach batch 1 is then ready to send
+The live URL is confirmed and should be used anywhere the old placeholder appeared:
 
-If the site is not yet deployed, the deployment target decision (Netlify, GitHub Pages, custom domain) should be made first — the old Netlify site ID `c48dcab0-f87c-4474-a69b-b923730473ce` is archived in `_archive/cowork-upload-kit1-meta/` if needed for reference.
+`https://helloliftstudio.netlify.app/`
+
+Drafts include the Lift Studio brand book and service menu PDFs from `site/_lift-brand/`. Rows without public email addresses still need contact-form or manual outreach.

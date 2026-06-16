@@ -3,7 +3,7 @@
 Source list: `leads_batch_001_scored.csv`  
 Date: June 16, 2026  
 Attachments to include: `About Lift Studio.pdf`, `Lift Studio Service Menu.pdf`  
-Website link placeholder: `[Lift Studio website link]`
+Website link placeholder: `https://helloliftstudio.netlify.app/`
 
 ## Notes
 
@@ -25,7 +25,7 @@ From a quick look, I think there could be a strong opportunity to make the homep
 
 That is exactly the kind of thing Lift helps with: sharper first impressions, clearer service positioning, stronger CTAs, and content ideas that make a business easier to trust and book.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am also attaching the Lift Studio brand book and service menu so you can see how I think about this work. If it feels relevant, I would be happy to send over a few more specific thoughts for Alpine Glow.
 
@@ -48,7 +48,7 @@ From a quick look, Alesca already has a lot to work with. I think the opportunit
 
 Lift helps businesses clean up that in-between space where the offer is good, but the digital experience could do more of the selling.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu as well. If this is something you have been wanting to improve, I would be happy to send a few specific ideas for Alesca.
 
@@ -71,7 +71,7 @@ From a quick first impression, VeVe has a lot of service depth, which is a good 
 
 For med spas, those small clarity changes can make a big difference. People want to feel guided before they book.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am including the Lift Studio brand book and service menu for context. If helpful, I can send over a few more specific ideas for VeVe.
 
@@ -94,7 +94,7 @@ From a quick look, I think Setzer could have an opportunity to make the homepage
 
 That is the kind of work Lift focuses on: brand clarity, website first impressions, service positioning, and content direction built from the business's real offers.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu so you can get a feel for the approach. If this feels relevant, I would be happy to send a few quick ideas specific to Setzer.
 
@@ -117,7 +117,7 @@ From a quick look, I think G Nail Bar has an opportunity to make the website fee
 
 For a nail salon, that first impression matters. People are not only choosing a service, they are choosing a vibe, a level of quality, and a place they feel confident walking into.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu as well. If helpful, I would be happy to send over a few specific ideas for G Nail Bar.
 
@@ -140,7 +140,7 @@ From a quick look, I think Bellissima could benefit from a homepage that does mo
 
 That is where Lift can help: clearer homepage messaging, stronger service flow, social content ideas, and simple creative direction that makes a business feel more current without overcomplicating it.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu so you can see the approach. If this is on your list, I would be happy to send a few specific ideas for Bellissima.
 
@@ -163,7 +163,7 @@ From a quick look, I think there may be an opportunity to make the homepage feel
 
 That does not always require a full rebuild. Sometimes it is clearer copy, stronger page flow, and a more intentional path to consultation.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu for context. If helpful, I would be happy to send over a few thoughts specific to your site.
 
@@ -186,7 +186,7 @@ Interior design is such a visual, trust-based service. From a quick look, I thin
 
 Lift helps with that kind of digital first impression: brand clarity, homepage direction, content ideas, and messaging that makes the business feel as considered online as the work itself.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu as well. If this is something you have been thinking about, I would be happy to send a few specific ideas for MIKA.
 
@@ -209,7 +209,7 @@ From a quick look, I think Vara may have an opportunity to modernize the way the
 
 That is the kind of polish Lift focuses on: messaging, page flow, content direction, and small structural changes that make a business easier to choose.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am including the Lift Studio brand book and service menu for context. If helpful, I would be happy to send over a few specific thoughts for Vara.
 
@@ -232,7 +232,7 @@ From a quick look, I think there could be an opportunity to simplify the service
 
 Lift helps with that bridge between strong services and clear digital presentation: homepage first impressions, service positioning, content ideas, and practical brand direction.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu as well. If this feels relevant, I would be happy to send a few specific ideas for 7 Layers.
 
@@ -255,7 +255,7 @@ From a quick look, I think there may be an opportunity to make the wedding inqui
 
 Lift helps with first-impression strategy, homepage direction, service positioning, and content ideas that make a business easier to trust before someone reaches out.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu for context. If helpful, I would be happy to send a few specific ideas for MikCollective.
 
@@ -278,7 +278,7 @@ From a quick look, I think MediFresh may have an opportunity to tighten the home
 
 For med spas, clarity is part of trust. The easier it is for someone to understand the treatments, the outcomes, and the next step, the easier it is for them to book.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu so you can see the approach. If this feels useful, I would be happy to send a few more specific ideas for MediFresh.
 
@@ -301,7 +301,7 @@ From a quick look, I think Phoenix may have an opportunity to make the homepage 
 
 That is the kind of thing Lift helps with: clearer website first impressions, stronger CTAs, better service framing, and content ideas that support the same message on social.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu as well. If helpful, I would be happy to send over a few specific ideas for Phoenix.
 
@@ -324,7 +324,7 @@ From a quick look, I think Artistry may have an opportunity to create a stronger
 
 Lift helps businesses make those customer paths feel more intentional, while also building content ideas that keep the brand visible and consistent.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu for context. If this is something you have been wanting to improve, I would be happy to send a few specific ideas for Artistry.
 
@@ -347,7 +347,7 @@ From a quick look, I think there may be an opportunity to make the homepage feel
 
 That is the type of polish Lift helps with: stronger above-the-fold messaging, clearer service flow, trust-building copy, and content ideas that make the practice easier to understand.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu as well. If this feels relevant, I would be happy to send a few specific ideas for Gordner Prosthodontics.
 
@@ -370,7 +370,7 @@ From a quick look, I think there may be an opportunity to separate wedding and p
 
 Lift helps with that kind of first impression: stronger positioning, clearer inquiry flow, social content ideas, and brand direction that makes the business easier to trust.
 
-Here is the Lift Studio site: [Lift Studio website link]
+Here is the Lift Studio site: https://helloliftstudio.netlify.app/
 
 I am attaching the Lift Studio brand book and service menu for context. If helpful, I would be happy to send a few specific ideas for Eve's Photography.
 
