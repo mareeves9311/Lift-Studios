@@ -16,6 +16,8 @@ AdviseHer-related material has previously lived under paths like:
 
 ## Current Priorities
 
+See `STATUS.md` at the repo root for current operating state, open decisions, and next recommended action.
+
 - Maintain the Lift Studio Master Pipeline and Outreach Drafts.
 - Keep scripts, prompts, audit templates, and outreach copy in this repo.
 - Prefer updating existing files over creating duplicate versions.
