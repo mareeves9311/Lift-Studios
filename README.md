@@ -10,6 +10,8 @@ This repo is intentionally separate from AdviseHer. Do not add AdviseHer investo
 - `content-growth-kit/` - Lift Studio positioning, service menu, pricing, audit systems, prompts, examples, and client-facing content.
 - `claude-cowork-upload/` - prior Claude handoff folder, including before/after demo assets.
 - `claude-cowork-upload-2/` - second Claude handoff folder retained for completeness.
+- `site/` - current Lift Studio website files and brand PDFs.
+- `brand-images/` - standalone Lift Studio image assets.
 
 ## Active Sheet
 
@@ -21,3 +23,4 @@ https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9v
 
 When working in Codex or Claude, treat this folder as the project root. Add new Lift files here first, then sync or paste into Google Drive/Sheets as needed.
 
+If an older Claude project points to a folder named `Claude Cowork Upload - Lift Studio Content Growth Kit` or `Claude Cowork Upload - MR Studio Content Growth Kit`, switch it to this repo path instead.
