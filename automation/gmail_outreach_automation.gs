@@ -24,6 +24,37 @@ const CONFIG = {
   businessName: 'Lift Studio',
   defaultFollowUpDays: 3,
   maxDraftsPerRun: 10,
+  notifyEmail: 'helloliftstudio@gmail.com',
+};
+
+const LEAD_SEARCH_CONFIG = {
+  maxLeadsPerRun: 8,
+  businessTypes: [
+    'med spa',
+    'boutique salon or hair studio',
+    'wellness or esthetics studio',
+    'skincare clinic or facial bar',
+    'pizza shop or Italian restaurant',
+    'sit-down restaurant or cafe',
+    'specialty retail shop',
+    'nail salon or nail spa',
+    'real estate agent or real estate team',
+    'chiropractor or physical therapy clinic',
+  ],
+  locations: [
+    'Hershey PA',
+    'Hummelstown PA',
+    'Palmyra PA',
+    'Harrisburg PA',
+    'Camp Hill PA',
+    'Mechanicsburg PA',
+    'Carlisle PA',
+    'Middletown PA',
+    'Elizabethtown PA',
+    'Lebanon PA',
+    'Annville PA',
+    'Linglestown PA',
+  ],
 };
 
 const REQUIRED_HEADERS = [
@@ -78,6 +109,7 @@ function onOpen() {
 function addOutreachAutomationMenu_() {
   SpreadsheetApp.getUi()
     .createMenu('Outreach Automation')
+    .addItem('Find New Leads Now', 'findNewLeads')
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
@@ -105,6 +137,21 @@ function installOutreachAutomation() {
   // Remove any existing triggers so this is idempotent
   deleteExistingTriggers_('refreshSentAndReplies');
   deleteExistingTriggers_('createOutreachDrafts');
+  deleteExistingTriggers_('findNewLeads');
+
+  // 7 AM: find new leads (runs before 8 AM drafts so audits have time to complete)
+  ScriptApp.newTrigger('findNewLeads')
+    .timeBased()
+    .atHour(7)
+    .everyDays(1)
+    .create();
+
+  // 12 PM: find another batch of leads before the 1 PM draft run
+  ScriptApp.newTrigger('findNewLeads')
+    .timeBased()
+    .atHour(12)
+    .everyDays(1)
+    .create();
 
   // Hourly: scan sent folder and check for replies
   ScriptApp.newTrigger('refreshSentAndReplies')
@@ -128,6 +175,7 @@ function installOutreachAutomation() {
 
   SpreadsheetApp.getActive().toast(
     'Full outreach schedule installed:\n' +
+    '• New leads found daily at ~7 AM and ~12 PM\n' +
     '• Drafts created daily at ~8 AM and ~1 PM\n' +
     '• Sent mail + replies checked hourly\n\n' +
     'IMPORTANT: Go to Apps Script > Project Settings and verify your timezone is correct.'
@@ -143,6 +191,7 @@ function createOutreachDrafts() {
   const today = new Date();
   let created = 0;
   let skipped = 0;
+  const draftedBusinesses = [];
 
   rows.forEach((row, rowIndex) => {
     if (created >= CONFIG.maxDraftsPerRun) return;
@@ -181,8 +230,18 @@ function createOutreachDrafts() {
       automation_notes: 'Draft created automatically. Not sent.',
     });
 
+    draftedBusinesses.push(business);
     created += 1;
   });
+
+  if (created > 0) {
+    const list = draftedBusinesses.map(b => `• ${b}`).join('\n');
+    GmailApp.sendEmail(
+      CONFIG.notifyEmail,
+      `Lift Studio: ${created} outreach draft${created > 1 ? 's' : ''} ready to review`,
+      `Hi Megan,\n\n${created} Gmail draft${created > 1 ? 's are' : ' is'} ready for your review:\n\n${list}\n\nOpen Gmail → Drafts to review and send.\n\n— Lift Studio Automation`
+    );
+  }
 
   SpreadsheetApp.getActive().toast(`Created ${created} draft(s). Skipped ${skipped} lead(s) without email.`);
 }
@@ -663,6 +722,137 @@ function deleteExistingTriggers_(handlerName) {
       ScriptApp.deleteTrigger(trigger);
     }
   });
+}
+
+// ============================================================
+// LEAD SCOUT
+// Searches for new independent local businesses in Central PA and adds them
+// to the Pipeline sheet with Pipeline Stage = 'New Lead'.
+// The brand auditor trigger then picks them up within 5 minutes and audits them.
+// The 8 AM / 1 PM draft triggers then create Gmail drafts for audited leads.
+//
+// Runs automatically at 7 AM and 12 PM daily.
+// Also available manually: Outreach Automation > Find New Leads Now.
+// Requires ANTHROPIC_API_KEY in Script Properties.
+// ============================================================
+
+function findNewLeads() {
+  const apiKey = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_API_KEY');
+  if (!apiKey) {
+    SpreadsheetApp.getActive().toast('ANTHROPIC_API_KEY not set — add it in Apps Script Project Settings.');
+    return;
+  }
+
+  const sheet = getLeadsSheet_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+
+  const existingBrands = new Set(
+    data.rows
+      .map(row => value_(row, headers, 'business_name').toLowerCase().trim())
+      .filter(Boolean)
+  );
+
+  const leads = callClaudeLeadFinder_(apiKey, existingBrands);
+  if (!leads || !leads.length) {
+    SpreadsheetApp.getActive().toast('Lead Scout: no new leads found this run.');
+    return;
+  }
+
+  let nextRow = sheet.getLastRow() + 1;
+  let added = 0;
+
+  leads.forEach(lead => {
+    const name = (lead.business_name || '').trim();
+    if (!name || existingBrands.has(name.toLowerCase())) return;
+
+    writeLeadUpdates_(sheet, headers, nextRow, {
+      business_name: name,
+      pipeline_stage: 'New Lead',
+      instagram: lead.instagram || '',
+      contact_form: lead.website || '',
+      automation_notes: `Auto-found by Lead Scout. Category: ${lead.category || ''}. City: ${lead.city || ''}.`,
+      next_step: 'Audit queued — brand auditor will run within 5 minutes.',
+    });
+
+    existingBrands.add(name.toLowerCase());
+    nextRow++;
+    added++;
+  });
+
+  if (added) {
+    SpreadsheetApp.getActive().toast(`Lead Scout found ${added} new potential leads — audits starting shortly.`);
+    GmailApp.sendEmail(
+      CONFIG.notifyEmail,
+      `Lift Studio: ${added} new lead${added > 1 ? 's' : ''} added to pipeline`,
+      `Hi Megan,\n\nThe Lead Scout found ${added} new potential lead${added > 1 ? 's' : ''} in Central PA and added ${added > 1 ? 'them' : 'it'} to the Pipeline sheet.\n\nThe Brand Auditor will run mini-audits within the next few minutes. Once audited, Gmail drafts will be created at the next scheduled draft run.\n\n— Lift Studio Automation`
+    );
+  }
+}
+
+function callClaudeLeadFinder_(apiKey, existingBrands) {
+  const model = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_MODEL') || 'claude-sonnet-4-6';
+  const config = LEAD_SEARCH_CONFIG;
+
+  const existingList = Array.from(existingBrands).slice(0, 60).join(', ');
+  const typeList = config.businessTypes.map(t => `- ${t}`).join('\n');
+  const locationList = config.locations.map(l => `- ${l}`).join('\n');
+
+  const prompt = [
+    'You are a lead scout for Lift Studio, a boutique brand and content studio based in Central Pennsylvania.',
+    'Lift Studio helps independent local businesses with: brand clarity, website first impressions, content direction, and social media quick wins.',
+    '',
+    `Search for exactly ${config.maxLeadsPerRun} independent local businesses in Central PA that would benefit from these services.`,
+    '',
+    'Target business types (pick a variety):',
+    typeList,
+    '',
+    'Target locations (search across several of these):',
+    locationList,
+    '',
+    'Criteria for a strong lead:',
+    '- Independent / owner-operated — NOT a chain, franchise, or corporate location',
+    '- Has a website but it looks dated, generic, or is missing key brand personality',
+    '- Active on Instagram or clearly trying to build a following but not doing it well',
+    '- Established business (open at least 1 year)',
+    '- Local, approachable — the kind of business where the owner likely reads their own email',
+    '',
+    'Do NOT include any of these (already in pipeline):',
+    existingList ? existingList.slice(0, 600) : '(none yet)',
+    '',
+    'Use web search to find real, specific businesses with real websites. Do not make up businesses.',
+    '',
+    `Return ONLY a valid compact JSON array of exactly ${config.maxLeadsPerRun} businesses. No markdown, no explanation, no code block:`,
+    '[{"business_name":"Exact Name","website":"https://...","instagram":"@handle or empty","city":"City","category":"type"}]',
+  ].join('\n');
+
+  try {
+    const response = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+      method: 'post',
+      muteHttpExceptions: true,
+      contentType: 'application/json',
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+      payload: JSON.stringify({
+        model,
+        max_tokens: 2000,
+        tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 6 }],
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    });
+
+    if (response.getResponseCode() < 200 || response.getResponseCode() >= 300) return null;
+
+    const body = JSON.parse(response.getContentText());
+    const text = (body.content || [])
+      .filter(p => p.type === 'text')
+      .map(p => p.text)
+      .join('')
+      .trim();
+
+    const match = text.match(/\[[\s\S]*\]/);
+    if (!match) return null;
+    return JSON.parse(match[0]);
+  } catch (e) { return null; }
 }
 
 // ============================================================
