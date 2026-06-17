@@ -1165,6 +1165,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
               <th>Category</th>
               <th>City</th>
               <th>Status</th>
+              <th title="Email open/click tracking from Snov.io">Tracked</th>
               <th>Last Contact</th>
               <th>Follow-Up</th>
             </tr>
@@ -1312,6 +1313,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
       <div class="drawer-section-label">Outreach Timeline</div>
       <div class="timeline" id="drawer-timeline"></div>
     </div>
+    <div class="drawer-section" id="drawer-snov" style="display:none"></div>
     <div class="drawer-section">
       <div class="drawer-section-label">Email Draft Preview</div>
       <div class="email-preview" id="drawer-email"></div>
@@ -1351,6 +1353,12 @@ const COLUMN_MAP = {
   outreach_draft:         'draft_email',
   follow_up_1:            'follow_up_date',
   follow_up_2:            'follow_up_date_2',
+  email_opened:           'snov_email_opened',
+  snov_opened:            'snov_email_opened',
+  email_clicked:          'snov_email_clicked',
+  snov_clicked:           'snov_email_clicked',
+  open_count:             'snov_open_count',
+  snov_open_count:        'snov_open_count',
 };
 
 let allLeads = [];
@@ -1843,6 +1851,7 @@ function renderOutreach() {
       <td><span class="cat-badge ${getCatClass(lead.category)}">${lead.category || '—'}</span></td>
       <td style="color:var(--text-muted);font-size:12px">${lead.city || '—'}</td>
       <td><span class="status-badge ${getStatusClass(lead.outreach_status)}">${lead.outreach_status || 'Not contacted'}</span></td>
+      <td style="font-size:14px;letter-spacing:2px">${lead.snov_email_opened === 'Yes' ? '<span title="Opened">👁</span>' : ''}${lead.snov_email_clicked === 'Yes' ? '<span title="Clicked a link">🖱️</span>' : ''}${(!lead.snov_email_opened && !lead.snov_email_clicked) ? '<span style="color:var(--text-faint)">—</span>' : ''}</td>
       <td style="color:var(--text-muted);font-size:12px">${formatDate(lead.last_contacted) || '—'}</td>
       <td><span class="followup-date ${fuClass}">${formatDate(lead.follow_up_date) || '—'}</span></td>`;
     row.addEventListener('click', () => openDrawer(lead));
@@ -1906,6 +1915,33 @@ function openDrawer(lead) {
     else if (i === currentIdx) dotClass = 'current';
     return `<div class="timeline-step"><div class="timeline-dot ${dotClass}"></div><div class="timeline-label ${i === currentIdx ? 'current' : ''}">${s}</div></div>`;
   }).join('');
+
+  // Snov.io tracking
+  const snovEl = document.getElementById('drawer-snov');
+  const opened = lead.snov_email_opened === 'Yes';
+  const clicked = lead.snov_email_clicked === 'Yes';
+  const openCount = parseInt(lead.snov_open_count || '0', 10);
+  if (opened || clicked || openCount > 0) {
+    snovEl.style.display = 'block';
+    snovEl.innerHTML = `
+      <div class="drawer-section-label">📬 Email Tracking (Snov.io)</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px">
+        <div class="drawer-score-card">
+          <div class="drawer-score-val">${opened ? '👁 Yes' : '—'}</div>
+          <div class="drawer-score-lbl">Opened</div>
+        </div>
+        <div class="drawer-score-card">
+          <div class="drawer-score-val">${openCount > 0 ? openCount : '—'}</div>
+          <div class="drawer-score-lbl">Open Count</div>
+        </div>
+        <div class="drawer-score-card">
+          <div class="drawer-score-val">${clicked ? '🖱️ Yes' : '—'}</div>
+          <div class="drawer-score-lbl">Clicked</div>
+        </div>
+      </div>`;
+  } else {
+    snovEl.style.display = 'none';
+  }
 
   // Email preview
   const emailEl = document.getElementById('drawer-email');

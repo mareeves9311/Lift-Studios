@@ -116,7 +116,7 @@ const LIFT_DISPLAY_HEADERS = {
   automation_notes: 'Automation Notes',
 };
 
-function onOpen() {
+function addLiftPipelineMenu_() {
   SpreadsheetApp.getUi()
     .createMenu('Lift Pipeline')
     .addItem('Install automation', 'setupLiftBrandPipelineAutomation')

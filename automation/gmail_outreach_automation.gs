@@ -43,6 +43,9 @@ const REQUIRED_HEADERS = [
   'Gmail Last Checked',
   'Next Action',
   'Automation Notes',
+  'Email Opened',
+  'Email Clicked',
+  'Open Count',
 ];
 
 const HEADER_ALIASES = {
@@ -62,6 +65,9 @@ const HEADER_ALIASES = {
   gmail_last_checked: ['Gmail Last Checked', 'gmail_last_checked'],
   next_step: ['Next Action', 'Next Step', 'next_step'],
   automation_notes: ['Automation Notes', 'automation_notes'],
+  snov_email_opened: ['Email Opened', 'Snov Opened', 'snov_email_opened'],
+  snov_email_clicked: ['Email Clicked', 'Snov Clicked', 'snov_email_clicked'],
+  snov_open_count: ['Open Count', 'Snov Open Count', 'snov_open_count'],
 };
 
 function onOpen() {
@@ -75,6 +81,8 @@ function addOutreachAutomationMenu_() {
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
+    .addItem('Classify Replies + Draft Responses', 'classifyAndDraftReplies')
+    .addItem('Sync Snov.io Open/Click Tracking', 'syncSnovTrackingData')
     .addItem('Clean Up Inbox Now', 'runInboxHygiene')
     .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
     .addToUi();
@@ -311,6 +319,8 @@ function refreshSentAndReplies() {
     writeLeadUpdates_(sheet, headers, rowNumber, updates);
   });
 
+  syncSnovTrackingData_();
+  classifyAndDraftReplies();
   applyInboxLabels_();
 }
 
@@ -496,6 +506,140 @@ function getOrCreateLabel_(name) {
   return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name);
 }
 
+// ============================================================
+// REPLY CLASSIFIER + DRAFT GENERATOR
+// Runs automatically at end of every refreshSentAndReplies().
+// Also available manually: Outreach Automation > Classify Replies + Draft Responses.
+// Requires ANTHROPIC_API_KEY in Script Properties. Skips silently if not set.
+// ============================================================
+
+function classifyAndDraftReplies() {
+  const apiKey = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_API_KEY');
+  if (!apiKey) return;
+
+  const sheet = getLeadsSheet_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+  const rows = data.rows;
+  const senderEmail = CONFIG.senderEmail.toLowerCase();
+  const senderName = CONFIG.senderName.toLowerCase();
+  let processed = 0;
+
+  rows.forEach((row, rowIndex) => {
+    if (processed >= 5) return;
+    const responseStatus = value_(row, headers, 'response_status').toLowerCase();
+    const threadId = value_(row, headers, 'gmail_thread_id');
+    const business = value_(row, headers, 'business_name');
+    const rowNumber = rowIndex + 2;
+
+    if (!business || !threadId) return;
+    if (responseStatus !== 'needs review') return;
+
+    let thread;
+    try { thread = GmailApp.getThreadById(threadId); } catch (e) { return; }
+    if (!thread) return;
+
+    const messages = thread.getMessages();
+    const replyMessage = messages.find(m => {
+      const from = m.getFrom().toLowerCase();
+      return !from.includes(senderEmail) && !from.includes(senderName);
+    });
+    if (!replyMessage) return;
+
+    const replyText = replyMessage.getPlainBody().slice(0, 3000);
+    const result = callClaudeReplyClassifier_(apiKey, business, replyText);
+    if (!result) return;
+
+    writeLeadUpdates_(sheet, headers, rowNumber, {
+      pipeline_stage: result.pipeline_stage,
+      response_status: result.classification,
+      next_step: result.next_step,
+      automation_notes: `Auto-classified: ${result.classification}. Draft reply created for Megan review.`,
+    });
+
+    if (result.draft_reply) {
+      const origSubject = thread.getFirstMessageSubject();
+      const replySubject = origSubject.startsWith('Re:') ? origSubject : `Re: ${origSubject}`;
+      GmailApp.createDraft(
+        replyMessage.getReplyTo() || replyMessage.getFrom(),
+        replySubject,
+        result.draft_reply + '\n\n' + signature_(),
+        { name: CONFIG.senderName }
+      );
+    }
+
+    try {
+      thread.addLabel(getOrCreateLabel_('LS/Replied'));
+      if (/warm|interested/i.test(result.pipeline_stage)) {
+        thread.addLabel(getOrCreateLabel_('LS/Warm'));
+      }
+    } catch (e) {}
+
+    processed++;
+  });
+
+  if (processed) {
+    SpreadsheetApp.getActive().toast(`Classified ${processed} replies — draft responses created for Megan review.`);
+  }
+}
+
+function callClaudeReplyClassifier_(apiKey, businessName, replyText) {
+  const model = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_MODEL') || 'claude-sonnet-4-6';
+
+  const prompt = [
+    'You are managing cold outreach replies for Lift Studio, a boutique brand and content studio.',
+    `Megan sent a cold outreach email to ${businessName}. They replied. Classify the reply and draft a short response.`,
+    '',
+    'Reply received:',
+    '"""',
+    replyText,
+    '"""',
+    '',
+    'Return ONLY valid compact JSON, no markdown, no explanation:',
+    JSON.stringify({
+      classification: 'Interested | Maybe Later | Not a Fit | Bounced | Auto-Reply | Needs More Info',
+      pipeline_stage: 'Replied - Interested | Replied - Maybe Later | Closed - Not a Fit | Bounced | Replied - Auto-Reply | Replied - Needs More Info',
+      next_step: 'one sentence — what Megan should do next',
+      draft_reply: 'short email body from Megan, no subject line — empty string if Not a Fit / Bounced / Auto-Reply',
+    }),
+    '',
+    'Classification rules:',
+    '- Interested: asks for more info, pricing, a call, examples, says yes or maybe',
+    '- Maybe Later: positive but not now, follow up later',
+    '- Not a Fit: declines, not interested, already covered',
+    '- Bounced: delivery failure / out of service',
+    '- Auto-Reply: automated out-of-office only',
+    '- Needs More Info: asks what Lift would specifically do for them',
+    '',
+    'Draft reply rules:',
+    '- 3–5 sentences max, warm and direct, sounds like Megan wrote it personally',
+    '- Interested: acknowledge interest, offer a 15-min call or 3 specific ideas',
+    '- Maybe Later: acknowledge timing, confirm when to reconnect',
+    '- Needs More Info: offer to send a short note with 2–3 specific observations for their business',
+    '- Leave draft_reply as empty string for Not a Fit, Bounced, Auto-Reply',
+  ].join('\n');
+
+  try {
+    const response = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+      method: 'post',
+      muteHttpExceptions: true,
+      contentType: 'application/json',
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+      payload: JSON.stringify({
+        model,
+        max_tokens: 800,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    });
+    if (response.getResponseCode() < 200 || response.getResponseCode() >= 300) return null;
+    const text = (JSON.parse(response.getContentText()).content || [])
+      .filter(p => p.type === 'text').map(p => p.text).join('').trim();
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) return null;
+    return JSON.parse(match[0]);
+  } catch (e) { return null; }
+}
+
 function nextManualStep_(row, headers) {
   if (value_(row, headers, 'contact_form')) return 'Use contact form manually.';
   if (value_(row, headers, 'instagram')) return 'DM on Instagram and ask for best email.';
@@ -519,4 +663,97 @@ function deleteExistingTriggers_(handlerName) {
       ScriptApp.deleteTrigger(trigger);
     }
   });
+}
+
+// ============================================================
+// SNOV.IO EMAIL TRACKING SYNC
+// Reads open/click data from Snov.io Email Tracker API and
+// writes it back to the Pipeline sheet columns:
+//   Email Opened | Email Clicked | Open Count
+//
+// Required Script Properties (add in Apps Script > Project Settings):
+//   SNOV_CLIENT_ID     — from snov.io → Account → API
+//   SNOV_CLIENT_SECRET — from snov.io → Account → API
+//
+// Runs automatically every hour as part of refreshSentAndReplies().
+// Also available manually: Outreach Automation > Sync Snov.io Open/Click Tracking.
+// Skips silently if credentials are not set.
+// ============================================================
+
+function syncSnovTrackingData() {
+  syncSnovTrackingData_();
+  SpreadsheetApp.getActive().toast('Snov.io tracking data synced.');
+}
+
+function syncSnovTrackingData_() {
+  const props = PropertiesService.getScriptProperties();
+  const clientId = props.getProperty('SNOV_CLIENT_ID');
+  const clientSecret = props.getProperty('SNOV_CLIENT_SECRET');
+  if (!clientId || !clientSecret) return;
+
+  const token = getSnovAccessToken_(clientId, clientSecret);
+  if (!token) return;
+
+  const tracked = getSnovTrackedEmails_(token);
+  if (!tracked || !tracked.length) return;
+
+  // Build lookup: recipient email (lowercase) → tracking data
+  const trackingByEmail = {};
+  tracked.forEach(item => {
+    const addr = (item.recipient_email || item.email || '').toLowerCase().trim();
+    if (!addr) return;
+    if (!trackingByEmail[addr]) {
+      trackingByEmail[addr] = { opened: false, clicked: false, open_count: 0 };
+    }
+    const entry = trackingByEmail[addr];
+    if (item.opened || item.is_opened || item.open_count > 0) entry.opened = true;
+    if (item.clicked || item.is_clicked || item.click_count > 0) entry.clicked = true;
+    entry.open_count += parseInt(item.open_count || 0, 10);
+  });
+
+  const sheet = getLeadsSheet_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+
+  data.rows.forEach((row, rowIndex) => {
+    const email = value_(row, headers, 'email').toLowerCase().trim();
+    if (!email || !trackingByEmail[email]) return;
+    const t = trackingByEmail[email];
+    writeLeadUpdates_(sheet, headers, rowIndex + 2, {
+      snov_email_opened: t.opened ? 'Yes' : '',
+      snov_email_clicked: t.clicked ? 'Yes' : '',
+      snov_open_count: t.open_count > 0 ? String(t.open_count) : '',
+    });
+  });
+}
+
+function getSnovAccessToken_(clientId, clientSecret) {
+  try {
+    const resp = UrlFetchApp.fetch('https://api.snov.io/v1/oauth/access_token', {
+      method: 'post',
+      muteHttpExceptions: true,
+      contentType: 'application/x-www-form-urlencoded',
+      payload: `grant_type=client_credentials&client_id=${encodeURIComponent(clientId)}&client_secret=${encodeURIComponent(clientSecret)}`,
+    });
+    if (resp.getResponseCode() !== 200) return null;
+    return JSON.parse(resp.getContentText()).access_token || null;
+  } catch (e) { return null; }
+}
+
+function getSnovTrackedEmails_(token) {
+  // Snov.io Email Tracker API — returns list of tracked emails with open/click events.
+  // Endpoint may vary by account plan. If this returns empty, check your Snov.io
+  // account at app.snov.io → Email Tracker to confirm tracked emails exist,
+  // then update the URL to match the correct endpoint for your plan.
+  try {
+    const resp = UrlFetchApp.fetch('https://api.snov.io/v1/email-tracker/emails?limit=200', {
+      method: 'get',
+      muteHttpExceptions: true,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (resp.getResponseCode() !== 200) return [];
+    const body = JSON.parse(resp.getContentText());
+    // Handle different response shapes: { data: [...] } or [...] directly
+    return Array.isArray(body) ? body : (body.data || body.emails || body.items || []);
+  } catch (e) { return []; }
 }

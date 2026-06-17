@@ -65,7 +65,8 @@ In order:
 9. **Content bank added** — general Lift visual assets live under `content-bank/images/` rather than the repo root
 10. **Future agent roadmap added** — use `agents/FUTURE_AGENT_ROADMAP.md` to plan client-delivery, contracting, finance, QA, and retention agents before building them
 11. **Twice-daily outreach cadence added** — scheduled workflow aims to prepare 10 new audited brands and 10 new Gmail drafts by 8:00 a.m., then 10 additional audited brands and 10 additional Gmail drafts by 1:00 p.m.; see `automation/DAILY_8AM_SETUP.md`
-12. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
+12. **Pipeline sheet cleaned for automation** — `Pipeline` now uses one routing column (`Pipeline Stage`), one human action column (`Next Action`), one follow-up date, normalized A/B/C/Hold priority values, and four Gmail automation columns at the far right
+13. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
 
