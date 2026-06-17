@@ -26,7 +26,7 @@ Last updated: 2026-06-16 (updated with live URL)
 In order:
 
 1. **Live website URL confirmed** — `https://helloliftstudio.netlify.app/`
-2. **First Gmail outreach batch drafted** — 29 drafts created in `helloliftstudio@gmail.com` from the `Outreach Drafts` tab, each with `About Lift Studio.pdf` plus `Lift Studio Service Menu.pdf`
+2. **First Gmail outreach batch drafted** — 29 clean drafts created in `helloliftstudio@gmail.com` from the pipeline/outreach list, each with `About Lift Studio.pdf` plus `Lift Studio Service Menu.pdf`; drafts include the live site hyperlink and a plain-English SEO opportunity note
 3. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
@@ -49,7 +49,7 @@ In order:
 
 ## 4. Do-Not-Touch Warnings
 
-- **Do not add AdviseHer files here.** AdviseHer lives at `/Users/meganreeves/Desktop/Projects/recommendation-intel/` and related Desktop paths. It is a separate project.
+- **Do not add AdviseHer files here.** AdviseHer lives at `/Users/meganreeves/Documents/Projects/AdviseHer`. It is a separate project.
 - **Do not add AMP3 files here.** Lift Studio is its own workspace.
 - **Do not delete `brand-images/` or `site/lift-studio-images/`** until the duplication question is resolved and you have confirmed which location is canonical.
 - **Do not send outreach drafts automatically.** Drafts should be reviewed in Gmail before sending.
@@ -64,4 +64,4 @@ The live URL is confirmed and should be used anywhere the old placeholder appear
 
 `https://helloliftstudio.netlify.app/`
 
-Drafts include the Lift Studio brand book and service menu PDFs from `site/_lift-brand/`. Rows without public email addresses still need contact-form or manual outreach.
+Drafts include the Lift Studio brand book and service menu PDFs from `site/_lift-brand/`. Rows without public email addresses still need contact-form or manual outreach. There are also 5 older accidental `UPDATED:` drafts in Gmail that need manual deletion if they still appear, because attached drafts cannot be renamed or deleted through the current connector.
