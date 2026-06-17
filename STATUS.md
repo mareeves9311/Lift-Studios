@@ -21,10 +21,28 @@ Last updated: 2026-06-16 (updated with live URL)
 | Handoff briefs | `d440ab4` | Updated `claude_code_handoff_brief.md`, `codex_handoff_brief.md`, `system_flow.md`, `audit_to_design_prompt.md` to Lift Studio; retained "formerly MR Studio" provenance in handoff briefs |
 | Client deliverables | `9803528` | Updated Lift Studio attribution in Knock Knock Boutique and Morning Fuel audit, design brief, audit prompt, and workflow files |
 
-## 2. Dashboard
+## 2. Automation Schedule — ACTIVE
+
+| Trigger | Function | Status |
+|---|---|---|
+| Daily ~8 AM | `createOutreachDrafts()` | ✅ Live — installed 2026-06-17 |
+| Daily ~1 PM | `createOutreachDrafts()` | ✅ Live — installed 2026-06-17 |
+| Hourly | `refreshSentAndReplies()` | ✅ Live — scans sent folder, marks leads Sent, detects replies |
+| Every 5 min | `runQueuedLiftBrandAudits()` | Active if lift_brand_pipeline_automation.gs triggers installed |
+
+**Script location:** Google Sheet → Extensions > Apps Script (`gmail_outreach_automation.gs`)
+**Timezone:** Set to America/New_York — verify in Apps Script > Project Settings if drafts fire at wrong time.
+**Mac dependency:** Eliminated. All triggers run in Google cloud.
+**Broken LaunchAgent:** Can be decommissioned — `run_daily_8am_outreach.sh` was never created and is no longer needed.
+
+Next expected action: within 60 minutes, `refreshSentAndReplies` will scan sent folder and mark the 29 outreach emails as "Sent" in the pipeline sheet. Dashboard will reflect this on its next 60-second data refresh.
+
+---
+
+## 3. Dashboard
 
 - **Local path:** `site/dashboard/index.html`
-- **Netlify URL (after deploy):** `https://helloliftstudio.netlify.app/dashboard/`
+- **Netlify URL:** `https://stellar-cucurucho-d43ed7.netlify.app/` (deployed as a separate Netlify site, not a subfolder of helloliftstudio)
 - **Password:** `liftstudio2026` (stored in dashboard JS — change the `PASSWORD` constant to update)
 - **Data source:** Live Google Sheets CSV — auto-refreshes every 60 seconds
 - **Features:** Login gate, pipeline metrics + funnel, agent roster with detail modals, outreach tracker with lead drawer, follow-up queue, active clients, QC + Innovator status panels
