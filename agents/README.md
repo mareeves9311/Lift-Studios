@@ -16,3 +16,7 @@ See `OPERATING_SYSTEM.md` for how the agents work together from prospect researc
 ## Future Agents
 
 See `FUTURE_AGENT_ROADMAP.md` for the planned client-delivery, contracting, finance, QA, and retention agents to build once Lift starts converting clients.
+
+## Rendering Rules
+
+See `SIGNATURE_RENDERING_RULES.md` before creating Gmail drafts. Gmail/API-created drafts do not reliably inherit or preserve complex visual signatures, so signature rendering must be tested before each new batch template.

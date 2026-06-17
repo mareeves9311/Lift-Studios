@@ -26,8 +26,8 @@ Last updated: 2026-06-16 (updated with live URL)
 In order:
 
 1. **Live website URL confirmed** — `https://helloliftstudio.netlify.app/`
-2. **First Gmail outreach batch drafted** — 29 first-round drafts recreated in `helloliftstudio@gmail.com` from the pipeline/outreach list using the subject format `One thing I noticed about [Brand]`; each draft includes a specific hook, two audit-style observations, the live Lift Studio hyperlink, the embedded Lift Studio HTML signature, and the Lift Studio service menu PDF
-3. **Gmail signature asset added** — use `assets/lift-studio-gmail-signature.html` for future Lift outreach drafts; append only the signature table block, not the full HTML document wrapper
+2. **First Gmail outreach batch sent** — Megan sent all 29 first-round drafts from `helloliftstudio@gmail.com` using the subject format `One thing I noticed about [Brand]`; drafts included the service menu PDF, but the embedded visual signature did not render correctly and needs a safer structure before future batches
+3. **Gmail signature issue logged** — use `agents/SIGNATURE_RENDERING_RULES.md`; default to `assets/lift-studio-gmail-signature-simple.html` for API-created drafts until the more visual signature passes a live render test
 4. **Email marketer agent added** — use `agents/email_marketer.md` for Lift outbound draft workflow, including template, signature, attachment, verification, and caveat rules
 5. **New business auditor agent added** — use `agents/new_business_auditor.md` for local prospect research, audit scoring, lead qualification, and master sheet population before outreach
 6. **Follow-up pipeline manager agent added** — use `agents/follow_up_pipeline_manager.md` for reply monitoring, response classification, follow-up drafts, bounce handling, and pipeline hygiene
@@ -66,10 +66,10 @@ In order:
 
 ## 5. Next Recommended Action
 
-**Review Gmail drafts for outreach batch 1.**
+**Monitor replies and bounces for outreach batch 1.**
 
 The live URL is confirmed and should be used anywhere the old placeholder appeared:
 
 `https://helloliftstudio.netlify.app/`
 
-Drafts include the Lift Studio service menu PDF from `site/_lift-brand/`. Rows without public email addresses still need contact-form or manual outreach.
+The follow-up agent should now watch sent mail, replies, bounces, and auto-replies. Before the next draft batch, test the simplified signature in a single live draft/send first.
