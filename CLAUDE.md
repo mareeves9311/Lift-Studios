@@ -19,6 +19,7 @@ AdviseHer-related material has previously lived under paths like:
 See `STATUS.md` at the repo root for current operating state, open decisions, and next recommended action.
 
 - Maintain the Lift Studio Master Pipeline and Outreach Drafts.
+- Use `agents/new_business_auditor.md` for prospect research, lead scoring, local audits, and sheet population.
 - Use `agents/email_marketer.md` for outbound email draft creation and follow the signature/attachment rules there.
 - Keep scripts, prompts, audit templates, and outreach copy in this repo.
 - Prefer updating existing files over creating duplicate versions.
