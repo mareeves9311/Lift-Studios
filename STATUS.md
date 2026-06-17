@@ -30,7 +30,10 @@ In order:
 3. **Gmail signature asset added** — use `assets/lift-studio-gmail-signature.html` for future Lift outreach drafts; append only the signature table block, not the full HTML document wrapper
 4. **Email marketer agent added** — use `agents/email_marketer.md` for Lift outbound draft workflow, including template, signature, attachment, verification, and caveat rules
 5. **New business auditor agent added** — use `agents/new_business_auditor.md` for local prospect research, audit scoring, lead qualification, and master sheet population before outreach
-6. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
+6. **Follow-up pipeline manager agent added** — use `agents/follow_up_pipeline_manager.md` for reply monitoring, response classification, follow-up drafts, bounce handling, and pipeline hygiene
+7. **Agent operating system added** — use `agents/OPERATING_SYSTEM.md` to coordinate the full workflow across prospecting, drafting, review/send, reply monitoring, and escalation
+8. **Orchestrator agent added** — use `agents/orchestrator.md` to manage agent routing, handoffs, system checks, bottlenecks, and next-best actions
+9. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
 

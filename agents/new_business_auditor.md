@@ -23,6 +23,22 @@ The goal is volume with judgment: go wide across categories and nearby markets, 
 - Downstream partner agent:
   - `agents/email_marketer.md`
 
+## Connector / Skill Requirements
+
+Preferred connectors:
+
+- Web search for current prospect discovery, websites, public social pages, Google Business/Profile context, and contact paths.
+- Google Sheets / Drive connector for reading existing rows, deduping, and updating the Lift Studio Master Pipeline.
+- Gmail connector only for checking whether a prospect has already been contacted or bounced.
+- Canva / Claude Design only after a lead is warm or high-value enough to warrant proof-of-work.
+
+Preferred skills/workflows:
+
+- Google Sheets range-safe updates using column names, not fixed positions.
+- Current web research with source/date notes for any factual claims.
+- Contact discovery using only public business contact info.
+- Dedupe checks before adding a new row.
+
 ## Core Responsibilities
 
 1. Find new local-business prospects across approved geographies and categories.
@@ -108,17 +124,18 @@ Use judgment. A business does not need to be glamorous, but it does need either:
 
 For each city/category batch:
 
-1. Search Google/Maps/web for businesses by category and location.
-2. Open the website and obvious social profiles.
-3. Check whether the business is active and reachable.
-4. Capture the strongest public contact path:
+1. Check the master sheet first for existing brands, similar names, URLs, and emails.
+2. Search Google/Maps/web for businesses by category and location.
+3. Open the website and obvious social profiles.
+4. Check whether the business is active and reachable.
+5. Capture the strongest public contact path:
    - email
    - contact form
    - Instagram
    - phone
    - owner/decision-maker name if obvious
-5. Avoid duplicates already in the master sheet.
-6. Add qualified leads to the sheet with source and date found.
+6. Avoid duplicates already in the master sheet.
+7. Add qualified leads to the sheet with source and date found.
 
 Suggested search patterns:
 
@@ -321,6 +338,33 @@ Recommended fields to populate when available:
 
 If exact sheet column names differ, map to the closest available column and document the mapping in repo notes.
 
+## Dedupe Rules
+
+Before adding a row, check:
+
+- Business name exact match
+- Similar business name
+- Website domain
+- Instagram handle
+- Email address
+- Phone number when available
+
+If a possible duplicate exists, update the existing row instead of adding a new one. If unsure, add a note and mark `Hold` rather than creating a duplicate.
+
+## Source Notes
+
+For every researched lead, record where the information came from:
+
+- `Google search`
+- `Google Maps`
+- `Website`
+- `Instagram`
+- `Facebook`
+- `Referral/manual`
+- Specific URL when useful
+
+Use dates for time-sensitive claims like review count, ranking, hours, or current service availability.
+
 ## Quality Bar
 
 A lead is not useful just because it exists.
@@ -382,7 +426,8 @@ Then use:
    - categories covered
    - cities covered
    - next outreach-ready brands
-8. Commit any repo updates.
+8. Update `STATUS.md` if this changes the active pipeline state.
+9. Commit any repo updates.
 
 ## Example First Batch Targets
 
@@ -395,4 +440,3 @@ Start with:
 - Middletown salons, restaurants, dentists, wedding/event businesses, real estate agents
 
 Then expand based on which categories produce the strongest outreach-ready leads.
-

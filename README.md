@@ -7,7 +7,7 @@ This repo is intentionally separate from AdviseHer. Do not add AdviseHer investo
 ## Folder Map
 
 - `automation/` - lead generation, pipeline, Google Sheets/Apps Script, outreach automation, trackers, and workbook exports.
-- `agents/` - reusable workflow agents for Lift Studio, including the email marketer and new business auditor agents.
+- `agents/` - reusable workflow agents for Lift Studio, including the orchestrator, new business auditor, email marketer, and follow-up pipeline manager agents.
 - `content-growth-kit/` - Lift Studio positioning, service menu, pricing, audit systems, prompts, examples, and client-facing content.
 - `claude-cowork-upload/` - prior Claude handoff folder, including before/after demo assets.
 - `claude-cowork-upload-2/` - second Claude handoff folder retained for completeness.

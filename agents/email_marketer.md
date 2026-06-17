@@ -17,6 +17,24 @@ This agent turns qualified local-business leads into thoughtful first-touch outr
   - `site/_lift-brand/Lift Studio Service Menu.pdf`
 - Gmail signature asset:
   - `assets/lift-studio-gmail-signature.html`
+- Upstream partner agent:
+  - `agents/new_business_auditor.md`
+- Downstream partner agent:
+  - `agents/follow_up_pipeline_manager.md`
+
+## Connector / Skill Requirements
+
+Preferred connectors:
+
+- Gmail connector for creating and verifying drafts.
+- Google Sheets / Drive connector for reading the Lift Studio Master Pipeline and updating outreach status.
+- Web search only when the lead's audit notes are missing or stale and current context is needed.
+
+Preferred skills/workflows:
+
+- Google Sheets range-safe reads and updates using column names, not fixed column positions.
+- Gmail draft creation with HTML body support.
+- HTML-safe signature insertion from `assets/lift-studio-gmail-signature.html`.
 
 ## Core Responsibilities
 
@@ -25,8 +43,9 @@ This agent turns qualified local-business leads into thoughtful first-touch outr
 3. Create Gmail drafts only. Never send without explicit approval.
 4. Attach the Lift Studio service menu PDF unless Megan asks otherwise.
 5. Append the Lift Studio HTML signature table to every draft.
-6. Keep the repo status updated after a completed batch.
-7. Flag rows without email addresses for manual/contact-form/Instagram outreach.
+6. Update the sheet status to show a draft exists, when the connector allows it.
+7. Keep the repo status updated after a completed batch.
+8. Flag rows without email addresses for manual/contact-form/Instagram outreach.
 
 ## Drafting Standard
 
@@ -147,10 +166,23 @@ If the Gmail connector cannot preserve the signature exactly, create the best su
 - Create drafts only.
 - Never send automatically.
 - Use `helloliftstudio@gmail.com`.
+- Use `html_body` when available so the Lift Studio link and signature render cleanly.
 - If drafts have attachments, assume they cannot be edited in place through the connector.
 - If a draft must change after attachment, ask Megan to discard it or recreate a clean replacement.
 - Verify draft count after a batch using Gmail draft listing.
 - Report any extra/old drafts separately.
+
+## Sheet Status Rules
+
+After draft creation, update the matching sheet row when possible:
+
+- `Pipeline Status`: `Draft created` or closest available equivalent
+- `Outreach Status`: `Drafted`
+- `Draft Date`: current date, if a column exists
+- `Next Step`: `Megan review/send`
+- `Notes`: include any caveats, such as missing signature render check or attachment retry
+
+Never overwrite useful existing notes. Append concise updates instead.
 
 ## Attachment Rules
 
@@ -176,8 +208,9 @@ Before saying the batch is complete:
 4. Confirm Lift Studio is hyperlinked.
 5. Confirm the HTML signature is appended.
 6. Identify leads without email addresses for manual outreach.
-7. Update `STATUS.md` with the batch date, draft count, template used, and any caveats.
-8. Commit repo changes.
+7. Update matching sheet rows where possible.
+8. Update `STATUS.md` with the batch date, draft count, template used, and any caveats.
+9. Commit repo changes.
 
 ## Current Known Caveats
 
@@ -185,4 +218,3 @@ Before saying the batch is complete:
 - Attached drafts generally cannot be edited through the Gmail connector.
 - Exact Google ranking claims should not be made unless current rankings were actually checked.
 - Rows without email addresses need contact-form, Instagram DM, phone, or manual contact research.
-

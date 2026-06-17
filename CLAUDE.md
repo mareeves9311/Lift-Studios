@@ -19,8 +19,11 @@ AdviseHer-related material has previously lived under paths like:
 See `STATUS.md` at the repo root for current operating state, open decisions, and next recommended action.
 
 - Maintain the Lift Studio Master Pipeline and Outreach Drafts.
+- Read `agents/OPERATING_SYSTEM.md` before coordinating multi-agent Lift outreach work.
+- Use `agents/orchestrator.md` when deciding what Lift outreach agent should run next or when coordinating the full system.
 - Use `agents/new_business_auditor.md` for prospect research, lead scoring, local audits, and sheet population.
 - Use `agents/email_marketer.md` for outbound email draft creation and follow the signature/attachment rules there.
+- Use `agents/follow_up_pipeline_manager.md` for reply monitoring, follow-up drafting, bounce handling, and pipeline status updates.
 - Keep scripts, prompts, audit templates, and outreach copy in this repo.
 - Prefer updating existing files over creating duplicate versions.
 - If a Google Sheet or Drive file is updated, note the URL and date in the relevant repo file.
