@@ -33,7 +33,8 @@ In order:
 6. **Follow-up pipeline manager agent added** — use `agents/follow_up_pipeline_manager.md` for reply monitoring, response classification, follow-up drafts, bounce handling, and pipeline hygiene
 7. **Agent operating system added** — use `agents/OPERATING_SYSTEM.md` to coordinate the full workflow across prospecting, drafting, review/send, reply monitoring, and escalation
 8. **Orchestrator agent added** — use `agents/orchestrator.md` to manage agent routing, handoffs, system checks, bottlenecks, and next-best actions
-9. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
+9. **Content bank added** — general Lift visual assets live under `content-bank/images/` rather than the repo root
+10. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
 
