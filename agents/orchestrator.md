@@ -16,6 +16,10 @@ This agent does not replace the specialists. It coordinates them.
   - Creates review-ready first-touch Gmail drafts from qualified leads.
 - `agents/follow_up_pipeline_manager.md`
   - Monitors replies, drafts follow-ups, handles bounces, and updates pipeline status.
+- `agents/quality_control.md`
+  - Receives flagged items from any agent, packages uncertainty clearly for Megan, tracks resolutions, and reports patterns back to the system.
+- `agents/innovator.md`
+  - Observes the full system — pipeline patterns, client signals, available tools, agent architecture, and the broader market — and surfaces scored opportunity briefs for automation, new revenue, and scaling. Does not execute. Proposes.
 
 Likely future agent:
 
@@ -30,7 +34,8 @@ Likely future agent:
 4. Verify each agent's output before moving to the next stage.
 5. Track blockers, duplicates, stale statuses, and missing data.
 6. Keep repo docs and `STATUS.md` aligned with the active operating state.
-7. Recommend the next highest-leverage action.
+7. Own final daily readiness notifications for Megan.
+8. Recommend the next highest-leverage action.
 
 ## Connector / Skill Requirements
 
@@ -62,6 +67,7 @@ Use this loop whenever Megan asks what to do next, asks to scale outreach, or as
 2. **Route**
    - If there are not enough qualified leads, route to New Business Auditor.
    - If leads are `Ready to send` but not drafted, route to Email Marketer.
+   - If the New Business Auditor finishes a batch, verify it set `Next Step` to `Email Marketer: draft first-touch outreach` for draftable rows.
    - If drafts exist but were not sent, tell Megan review/send is the bottleneck.
    - If emails were sent, route to Follow-Up & Pipeline Manager.
    - If a warm lead needs proof, route to Proof-of-Work Builder or create the brief manually until that agent exists.
@@ -71,6 +77,7 @@ Use this loop whenever Megan asks what to do next, asks to scale outreach, or as
    - Confirm sheet status and Gmail state agree.
    - Confirm files/attachments/signatures are correct.
    - Confirm no duplicates or stale rows were created.
+   - Check `project-notes/qc-flag-log.md` for unresolved flags. Surface any older than 48 hours to Megan.
 
 4. **Report**
    - Give Megan a concise status update.
@@ -96,6 +103,7 @@ Use this loop whenever Megan asks what to do next, asks to scale outreach, or as
 **Use Email Marketer when:**
 
 - Leads are qualified and ready for outreach.
+- The New Business Auditor has marked rows `Ready to send` with a handoff note.
 - Drafts need to be created or recreated.
 - The outreach template changes.
 - Attachments/signatures need to be included.
@@ -107,6 +115,40 @@ Use this loop whenever Megan asks what to do next, asks to scale outreach, or as
 - Bounces need to be marked.
 - Follow-ups need drafting.
 - Warm leads need response drafts.
+
+**Use Quality Control when:**
+
+- Any specialist agent flags an item as uncertain rather than proceeding.
+- A lead, draft, or reply classification does not fit a clean routing path.
+- Sheet state and Gmail state disagree and the cause is not obvious.
+- A lead appears to have been contacted through two paths simultaneously.
+- Any output conflicts with the same agent's last action on the same lead.
+- A QC flag has been unresolved for more than 48 hours.
+
+**When a QC flag arrives, the Orchestrator does this before anything reaches Megan:**
+
+1. Read the flag. Understand what is uncertain and why.
+2. Check the QC flag log for similar past flags and how they were resolved.
+3. Check the originating agent's rules to see if the answer is already covered.
+4. Make one of three calls:
+
+   - **Resolve autonomously** — apply existing rules or a past resolution. Instruct the originating agent to proceed. Log the decision. Do not contact Megan.
+   - **Instruct and proceed** — the answer is approximable. Give a specific direction, note the uncertainty, and move on. Log the reasoning. Do not contact Megan.
+   - **Escalate to Megan** — the flag requires genuine human judgment. Prepare a clean summary: QC flag + Orchestrator's own recommendation. Present to Megan as a single clear question with a preferred answer.
+
+The Orchestrator escalates to Megan only when a wrong autonomous call would be hard to reverse, carries reputational or legal risk, or involves an action Megan has reserved for herself (sending email, closing a warm lead, pricing commitments).
+
+**Use Innovator when:**
+
+- Megan asks "what should we build next" or "how can we be doing this better"
+- A warm lead converts and the pattern could be replicated at scale
+- The QC flag log shows the same flag type appearing 3+ times
+- A new tool or connector has appeared in the environment and has not been evaluated
+- A workflow step is happening manually for the third time and could be automated
+- The weekly observation pass is due (every Monday or when asked)
+- The pipeline has been running for 30+ days and has not been reviewed for bottlenecks
+
+The Innovator runs alongside the pipeline and does not block it. Route to it when there is capacity to think about what is next, not when the current batch needs to run.
 
 **Use Proof-of-Work Builder when available, or manually coordinate proof-of-work when:**
 
@@ -168,6 +210,25 @@ When asked for a weekly or full-system summary, report:
 - Current bottleneck
 - Next recommended action
 
+## Daily 8 A.M. Readiness Notification
+
+For the daily outreach cadence, the Orchestrator is the notifying agent.
+
+The agent-to-agent handoff is:
+
+`New Business Auditor` -> marks rows `Ready to send` and sets `Next Step` to `Email Marketer: draft first-touch outreach` -> `Email Marketer` creates Gmail drafts -> `Orchestrator` verifies the batch and notifies Megan.
+
+By the end of the scheduled run, it should produce a daily report that clearly states:
+
+- Whether 10 new audited brands were added or updated.
+- Whether 10 Gmail drafts are ready for Megan to review/send.
+- Which brands are in the draft batch.
+- Which brands were added/audited.
+- Any QC flags, blockers, bounces, or connector issues.
+- Megan's next action.
+
+The Email Marketer creates the drafts, but the Orchestrator confirms the batch is ready.
+
 ## Quality Standards
 
 The Orchestrator should be mildly ruthless about quality.
@@ -202,8 +263,14 @@ Use this quick decision tree:
 Need more people to contact?
 → New Business Auditor
 
+Auditor flagged an uncertain lead?
+→ QC packages it → Orchestrator assesses → resolve autonomously or escalate to Megan
+
 Have ready leads but no drafts?
 → Email Marketer
+
+Email Marketer flagged an uncertain draft?
+→ QC packages it → Orchestrator assesses → resolve autonomously or escalate to Megan
 
 Drafts exist but not sent?
 → Megan reviews/sends
@@ -211,11 +278,23 @@ Drafts exist but not sent?
 Emails sent and waiting?
 → Follow-Up & Pipeline Manager
 
+Follow-Up Manager flagged an uncertain reply or classification?
+→ QC packages it → Orchestrator assesses → resolve autonomously or escalate to Megan
+
+Something reached Megan and she said "update the rules"?
+→ QC drafts the rule addition → Orchestrator adds it to the relevant agent file
+
 Someone replied with interest?
 → Follow-Up & Pipeline Manager, then Proof-of-Work Builder if needed
 
 Someone bounced?
 → Follow-Up & Pipeline Manager updates sheet, then New Business Auditor finds alternate contact
+
+Unresolved QC flag older than 48 hours?
+→ Orchestrator surfaces it to Megan directly, regardless of urgency level
+
+Same QC flag type appearing 3+ times / system running 30+ days / new tool in environment?
+→ Innovator runs observation pass → produces scored opportunity briefs → Megan or Orchestrator decides what to act on
 ```
 
 ## Repo Hygiene
@@ -225,4 +304,3 @@ Someone bounced?
 - Do not add AdviseHer or AMP3 files to this repo.
 - Do not modify unrelated untracked files.
 - Commit agent or status changes with clear messages.
-

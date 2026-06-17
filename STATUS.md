@@ -21,7 +21,18 @@ Last updated: 2026-06-16 (updated with live URL)
 | Handoff briefs | `d440ab4` | Updated `claude_code_handoff_brief.md`, `codex_handoff_brief.md`, `system_flow.md`, `audit_to_design_prompt.md` to Lift Studio; retained "formerly MR Studio" provenance in handoff briefs |
 | Client deliverables | `9803528` | Updated Lift Studio attribution in Knock Knock Boutique and Morning Fuel audit, design brief, audit prompt, and workflow files |
 
-## 2. Current Operating Priorities
+## 2. Dashboard
+
+- **Local path:** `site/dashboard/index.html`
+- **Netlify URL (after deploy):** `https://helloliftstudio.netlify.app/dashboard/`
+- **Password:** `liftstudio2026` (stored in dashboard JS — change the `PASSWORD` constant to update)
+- **Data source:** Live Google Sheets CSV — auto-refreshes every 60 seconds
+- **Features:** Login gate, pipeline metrics + funnel, agent roster with detail modals, outreach tracker with lead drawer, follow-up queue, active clients, QC + Innovator status panels
+- **Footer link:** Added discreetly to `site/index.html` footer as "Team Dashboard"
+
+---
+
+## 3. Current Operating Priorities
 
 In order:
 
@@ -35,7 +46,8 @@ In order:
 8. **Orchestrator agent added** — use `agents/orchestrator.md` to manage agent routing, handoffs, system checks, bottlenecks, and next-best actions
 9. **Content bank added** — general Lift visual assets live under `content-bank/images/` rather than the repo root
 10. **Future agent roadmap added** — use `agents/FUTURE_AGENT_ROADMAP.md` to plan client-delivery, contracting, finance, QA, and retention agents before building them
-11. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
+11. **Twice-daily outreach cadence added** — scheduled workflow aims to prepare 10 new audited brands and 10 new Gmail drafts by 8:00 a.m., then 10 additional audited brands and 10 additional Gmail drafts by 1:00 p.m.; see `automation/DAILY_8AM_SETUP.md`
+12. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
 
@@ -72,4 +84,4 @@ The live URL is confirmed and should be used anywhere the old placeholder appear
 
 `https://helloliftstudio.netlify.app/`
 
-The follow-up agent should now watch sent mail, replies, bounces, and auto-replies. Before the next draft batch, test the simplified signature in a single live draft/send first.
+The follow-up agent should now watch sent mail, replies, bounces, and auto-replies. The twice-daily scheduled workflow should prepare 10 audited brands and 10 new cold outreach drafts for the morning batch, plus 10 additional audited brands and 10 additional drafts for the midday batch, but the signature must be tested before relying on a visual signature for future sends.

@@ -5,9 +5,11 @@ Reusable agent specs for Lift Studio workflows.
 ## Available Agents
 
 - `orchestrator.md` - manages the full Lift outbound system, routes tasks to specialist agents, verifies handoffs, and recommends next actions.
-- `email_marketer.md` - owns outbound email marketing workflow, Gmail draft creation, signature/attachment rules, and outreach template standards.
 - `new_business_auditor.md` - owns top-of-funnel prospect research, local brand audits, lead scoring, and sheet population before outreach.
+- `email_marketer.md` - owns outbound email marketing workflow, Gmail draft creation, signature/attachment rules, and outreach template standards.
 - `follow_up_pipeline_manager.md` - owns reply monitoring, response classification, follow-up drafts, bounce handling, and pipeline hygiene after outreach.
+- `quality_control.md` - the confidence layer for the whole system. Any agent that is uncertain routes here. Packages flags clearly for Megan, tracks resolutions, and reports patterns so the system improves over time.
+- `innovator.md` - the growth and optimization layer. Observes the pipeline, clients, tools, platforms, and agent architecture. Surfaces scored opportunity briefs for automating more, adding revenue, and reducing Megan's time. Does not execute — proposes. Briefs live in `project-notes/innovator-backlog.md`.
 
 ## System Map
 

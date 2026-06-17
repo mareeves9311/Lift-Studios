@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lift Studio — OPS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --bg:            #080808;
+  --card:          #111111;
+  --card-border:   rgba(255,255,255,0.06);
+  --elevated:      #161616;
+  --elevated-border: rgba(255,255,255,0.10);
+  --gold:          #C8A96E;
+  --gold-dim:      rgba(200,169,110,0.15);
+  --gold-glow:     rgba(200,169,110,0.08);
+  --text:          #F2F2F2;
+  --text-muted:    #888888;
+  --text-faint:    #555555;
+  --green:         #4CAF6E;
+  --amber:         #E8A838;
+  --red:           #E85050;
+  --blue:          #60A5FA;
+  --divider:       rgba(255,255,255,0.05);
+  --font:          'Inter', system-ui, -apple-system, sans-serif;
+  --radius:        12px;
+  --radius-lg:     16px;
+  --shadow:        0 4px 24px rgba(0,0,0,0.5);
+  --header-h:      64px;
+}
+
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--gold); text-decoration: none; }
+a:hover { opacity: 0.8; }
+button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+
+/* ============================================================
+   LOGIN OVERLAY
+   ============================================================ */
+#login-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(-45deg, #080810, #0f1420, #0a1210, #130a08, #080810);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+  transition: opacity 0.6s ease;
+}
+#login-overlay.fade-out { opacity: 0; pointer-events: none; }
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.login-card {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 48px 40px;
+  width: 360px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  text-align: center;
+}
+
+.login-wordmark {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.login-sub {
+  font-size: 12px;
+  color: var(--text-faint);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.login-input-wrap {
+  position: relative;
+  margin-bottom: 12px;
+}
+.login-input-wrap input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-radius: 0;
+  padding: 12px 4px;
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+.login-input-wrap input::placeholder { color: var(--text-faint); letter-spacing: 0.04em; }
+.login-input-wrap input:focus { border-bottom-color: var(--gold); }
+.login-input-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.login-input-wrap:focus-within::after { width: 100%; left: 0; }
+
+.login-error {
+  font-size: 12px;
+  color: var(--red);
+  min-height: 18px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.login-error.visible { opacity: 1; }
+
+.login-btn {
+  width: 100%;
+  background: var(--gold);
+  color: #080808;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+.login-btn:hover { opacity: 0.9; }
+.login-btn:active { transform: scale(0.98); }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  10%,30%,50%,70%,90% { transform: translateX(-6px); }
+  20%,40%,60%,80%     { transform: translateX(6px); }
+}
+.shake { animation: shake 0.5s ease; }
+
+/* ============================================================
+   DASHBOARD WRAPPER
+   ============================================================ */
+#dashboard { display: none; }
+#dashboard.visible { display: block; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  display: flex; align-items: center;
+  padding: 0 28px;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--divider);
+}
+.header-left {
+  display: flex; align-items: center; gap: 10px;
+  flex: 1;
+}
+.header-wordmark {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ops-badge {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+.header-center {
+  flex: 1; text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+#live-clock {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.header-right {
+  flex: 1;
+  display: flex; align-items: center; gap: 16px;
+  justify-content: flex-end;
+}
+.sync-time {
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+.refresh-btn {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.refresh-btn:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
+.refresh-btn.spinning { animation: spin 0.8s linear; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.logout-btn {
+  font-size: 12px;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.logout-btn:hover { color: var(--red); }
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(var(--header-h) + 28px) 24px 60px;
+}
+
+/* Section wrapper */
+.section {
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.section.in-view { opacity: 1; transform: translateY(0); }
+
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.section-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+.section-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid rgba(200,169,110,0.2);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ============================================================
+   METRICS BAR
+   ============================================================ */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.metric-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.metric-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-1px); }
+.metric-card.gold-accent { border-color: rgba(200,169,110,0.2); background: rgba(200,169,110,0.04); }
+.metric-number {
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.metric-card.gold-accent .metric-number { color: var(--gold); }
+.metric-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.metric-pulse {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 6px;
+}
+.pulse-dot {
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulseDot 2s ease infinite;
+}
+@keyframes pulseDot {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+.pulse-label { font-size: 10px; color: var(--green); letter-spacing: 0.06em; }
+
+/* ============================================================
+   PIPELINE FUNNEL
+   ============================================================ */
+.funnel-wrap {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+}
+.funnel-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 20px;
+}
+.funnel-stages {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+}
+.funnel-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.funnel-stage-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  white-space: nowrap;
+}
+.funnel-bar-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.funnel-bar {
+  width: 80%;
+  height: 40px;
+  background: linear-gradient(90deg, #C8A96E, #A8853E);
+  border-radius: 4px;
+  position: relative;
+  transition: width 1s ease;
+}
+.funnel-bar.dim { background: rgba(200,169,110,0.15); border: 1px solid rgba(200,169,110,0.1); }
+.funnel-count {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text);
+  margin-top: 10px;
+}
+.funnel-pct {
+  font-size: 10px;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+.funnel-arrow {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  color: rgba(200,169,110,0.3);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   AGENT CARDS
+   ============================================================ */
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.agent-card {
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px 24px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.agent-card:hover {
+  border-color: rgba(255,255,255,0.18);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.agent-emoji {
+  font-size: 36px;
+  margin-bottom: 14px;
+  display: block;
+  line-height: 1;
+}
+.agent-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.agent-tagline {
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.agent-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.agent-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.status-dot.active {
+  background: var(--green);
+  animation: pulseDot 2s ease infinite;
+}
+.status-dot.standby { background: var(--text-faint); }
+.agent-status.active { color: var(--green); }
+.agent-status.standby { color: var(--text-faint); }
+
+/* ============================================================
+   AGENT MODAL
+   ============================================================ */
+#agent-modal {
+  position: fixed; inset: 0; z-index: 200;
+  display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+}
+#agent-modal.open { display: flex; }
+.agent-modal-card {
+  background: var(--elevated);
+  border: 1px solid var(--elevated-border);
+  border-radius: 20px;
+  padding: 40px;
+  width: 560px;
+  max-width: calc(100vw - 48px);
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+  position: relative;
+  animation: modalIn 0.28s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.modal-agent-top {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px;
+}
+.modal-agent-emoji { font-size: 48px; line-height: 1; }
+.modal-agent-name { font-size: 20px; font-weight: 700; color: var(--gold); }
+.modal-agent-tagline { font-size: 12px; color: var(--text-faint); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.modal-section { margin-bottom: 24px; }
+.modal-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+.modal-body {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+.modal-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.modal-list li {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.modal-list li::before {
+  content: '›';
+  position: absolute; left: 0;
+  color: var(--gold);
+}
+.modal-handoff {
+  font-size: 13px;
+  color: var(--text-muted);
+  background: var(--gold-glow);
+  border: 1px solid rgba(200,169,110,0.12);
+  border-radius: 8px;
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+.modal-rules { display: flex; flex-direction: column; gap: 8px; }
+.modal-rule {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-left: 12px;
+  border-left: 2px solid rgba(200,169,110,0.3);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   OUTREACH TABLE
+   ============================================================ */
+.outreach-controls {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-btns {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap; flex: 1;
+}
+.filter-btn {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.02);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex; align-items: center; gap: 6px;
+}
+.filter-btn:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
+.filter-btn.active {
+  background: var(--gold-dim);
+  border-color: rgba(200,169,110,0.3);
+  color: var(--gold);
+}
+.filter-btn .count-pill {
+  font-size: 9px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.08);
+  padding: 1px 5px;
+  border-radius: 10px;
+}
+.filter-btn.active .count-pill { background: rgba(200,169,110,0.2); }
+.search-wrap {
+  position: relative;
+}
+.search-wrap input {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 7px 12px 7px 32px;
+  font-family: var(--font);
+  font-size: 12px;
+  color: var(--text);
+  outline: none;
+  width: 200px;
+  transition: border-color 0.2s ease;
+}
+.search-wrap input::placeholder { color: var(--text-faint); }
+.search-wrap input:focus { border-color: rgba(200,169,110,0.3); }
+.search-icon {
+  position: absolute; left: 10px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+.table-wrap {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.data-table {
+  width: 100%; border-collapse: collapse;
+}
+.data-table th {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--divider);
+  background: rgba(255,255,255,0.01);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 13px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--divider);
+  vertical-align: middle;
+  transition: background 0.15s ease;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.01); }
+.data-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.data-table tbody tr:hover td { background: rgba(255,255,255,0.04); }
+.data-table .row-hidden { display: none; }
+.biz-name { font-weight: 500; color: var(--text); }
+
+/* Category badges */
+.cat-badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.cat-med-spa      { background: rgba(45,212,191,0.1);  color: #2DD4BF; border: 1px solid rgba(45,212,191,0.15); }
+.cat-salon        { background: rgba(167,139,250,0.1); color: #A78BFA; border: 1px solid rgba(167,139,250,0.15); }
+.cat-nail-salon   { background: rgba(244,114,182,0.1); color: #F472B6; border: 1px solid rgba(244,114,182,0.15); }
+.cat-dentist      { background: rgba(96,165,250,0.1);  color: #60A5FA; border: 1px solid rgba(96,165,250,0.15); }
+.cat-interior     { background: rgba(252,211,77,0.1);  color: #FCD34D; border: 1px solid rgba(252,211,77,0.15); }
+.cat-esthetician  { background: rgba(251,113,133,0.1); color: #FB7185; border: 1px solid rgba(251,113,133,0.15); }
+.cat-photographer { background: rgba(129,140,248,0.1); color: #818CF8; border: 1px solid rgba(129,140,248,0.15); }
+.cat-spa          { background: rgba(192,132,252,0.1); color: #C084FC; border: 1px solid rgba(192,132,252,0.15); }
+.cat-default      { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); }
+
+/* Status badges */
+.status-badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.status-not-contacted { background: rgba(255,255,255,0.05); color: var(--text-faint); border: 1px solid rgba(255,255,255,0.06); }
+.status-draft         { background: rgba(200,169,110,0.12); color: var(--gold); border: 1px solid rgba(200,169,110,0.2); }
+.status-sent          { background: rgba(96,165,250,0.12);  color: var(--blue); border: 1px solid rgba(96,165,250,0.2); }
+.status-interested    { background: rgba(76,175,110,0.12);  color: var(--green); border: 1px solid rgba(76,175,110,0.2); }
+.status-maybe         { background: rgba(232,168,56,0.12);  color: var(--amber); border: 1px solid rgba(232,168,56,0.2); }
+.status-bounced       { background: rgba(232,80,80,0.12);   color: var(--red); border: 1px solid rgba(232,80,80,0.2); }
+.status-followup      { background: rgba(232,168,56,0.12);  color: var(--amber); border: 1px solid rgba(232,168,56,0.2); }
+.status-default       { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.06); }
+
+.followup-date { font-size: 12px; }
+.followup-date.overdue { color: var(--red); font-weight: 500; }
+.followup-date.soon   { color: var(--amber); }
+
+/* ============================================================
+   LEAD DRAWER
+   ============================================================ */
+#drawer-backdrop {
+  position: fixed; inset: 0; z-index: 150;
+  background: rgba(0,0,0,0.6);
+  display: none;
+}
+#drawer-backdrop.open { display: block; }
+#lead-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 160;
+  width: 480px;
+  max-width: 100vw;
+  background: var(--elevated);
+  border-left: 1px solid var(--elevated-border);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: -8px 0 48px rgba(0,0,0,0.5);
+}
+#lead-drawer.open { transform: translateX(0); }
+.drawer-header {
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--divider);
+  position: relative;
+}
+.drawer-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.drawer-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.drawer-biz-name { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; padding-right: 48px; }
+.drawer-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.drawer-body { padding: 20px 24px; }
+.drawer-section { margin-bottom: 24px; }
+.drawer-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 10px;
+}
+.drawer-contact a {
+  font-size: 13px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 4px;
+}
+.drawer-score-row {
+  display: flex; gap: 12px;
+}
+.drawer-score-card {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+.drawer-score-val { font-size: 22px; font-weight: 300; color: var(--gold); }
+.drawer-score-lbl { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.finding-row {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin-bottom: 10px;
+}
+.finding-icon {
+  width: 24px; height: 24px;
+  background: var(--gold-dim);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.finding-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.offer-chip {
+  display: inline-flex;
+  background: var(--gold-dim);
+  border: 1px solid rgba(200,169,110,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 500;
+}
+.timeline {
+  position: relative;
+  padding-left: 24px;
+}
+.timeline::before {
+  content: '';
+  position: absolute; left: 6px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--divider);
+}
+.timeline-step {
+  position: relative;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.timeline-dot {
+  position: absolute; left: -20px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.timeline-dot.done { background: var(--green); border-color: var(--green); }
+.timeline-dot.current { background: var(--gold); border-color: var(--gold); animation: pulseDot 1.5s ease infinite; }
+.timeline-label { font-size: 12px; color: var(--text-muted); }
+.timeline-label.current { color: var(--gold); font-weight: 500; }
+.email-preview {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.email-preview-header {
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--divider);
+  padding: 12px 14px;
+}
+.email-meta { font-size: 11px; color: var(--text-faint); line-height: 1.8; }
+.email-meta span { color: var(--text-muted); }
+.email-preview-body {
+  padding: 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.drawer-notes { font-size: 13px; color: var(--text-muted); line-height: 1.5; font-style: italic; }
+.followup-row {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.followup-row .date-text { font-size: 14px; color: var(--text); }
+.followup-row .date-text.done-text {
+  text-decoration: line-through;
+  color: var(--text-faint);
+  position: relative;
+}
+.mark-done-btn {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(200,169,110,0.3);
+  color: var(--gold);
+  background: var(--gold-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mark-done-btn:hover { background: rgba(200,169,110,0.2); }
+.mark-done-btn.done-btn { border-color: rgba(76,175,110,0.3); color: var(--green); background: rgba(76,175,110,0.1); cursor: default; }
+
+/* ============================================================
+   FOLLOW-UP QUEUE
+   ============================================================ */
+.followup-queue {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.followup-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--divider);
+  transition: background 0.15s ease, opacity 0.3s ease, height 0.3s ease;
+}
+.followup-item:last-child { border-bottom: none; }
+.followup-item:hover { background: rgba(255,255,255,0.03); }
+.followup-biz { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+.urgency-pill {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.urgency-today    { background: rgba(232,80,80,0.15);  color: var(--red);   border: 1px solid rgba(232,80,80,0.2); }
+.urgency-tomorrow { background: rgba(232,168,56,0.15); color: var(--amber); border: 1px solid rgba(232,168,56,0.2); }
+.urgency-soon     { background: rgba(255,255,255,0.06); color: var(--text-faint); border: 1px solid rgba(255,255,255,0.08); }
+.queue-done-btn {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--card-border);
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.02);
+}
+.queue-done-btn:hover { border-color: var(--green); color: var(--green); background: rgba(76,175,110,0.08); }
+.empty-state {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 13px;
+}
+.empty-state .empty-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+.followup-item.fading-out { opacity: 0; pointer-events: none; }
+
+/* ============================================================
+   TWO-COL SECTIONS
+   ============================================================ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ============================================================
+   ACTIVE CLIENTS
+   ============================================================ */
+.clients-list { display: flex; flex-direction: column; gap: 12px; }
+.client-card {
+  background: rgba(200,169,110,0.04);
+  border: 1px solid rgba(200,169,110,0.2);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.client-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.client-meta { font-size: 12px; color: var(--text-faint); margin-bottom: 8px; }
+.client-notes { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+/* ============================================================
+   QC + INNOVATION
+   ============================================================ */
+.system-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  height: 100%;
+}
+.system-card-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px;
+}
+.system-card-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.qc-status-big {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.qc-status-number { font-size: 32px; font-weight: 300; color: var(--green); }
+.qc-status-label { font-size: 12px; color: var(--text-muted); }
+.qc-clean { font-size: 12px; color: var(--green); margin-bottom: 12px; }
+.qc-note { font-size: 11px; color: var(--text-faint); line-height: 1.5; }
+.inn-list { display: flex; flex-direction: column; gap: 10px; }
+.inn-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.inn-id {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.inn-title { font-size: 12px; color: var(--text-muted); flex: 1; line-height: 1.4; }
+.inn-score {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.inn-score.high { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(200,169,110,0.2); }
+.inn-score.med  { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); }
+.inn-link { font-size: 11px; color: var(--gold); margin-top: 14px; display: block; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1200px) {
+  .agents-grid { grid-template-columns: repeat(2, 1fr); }
+  .metrics-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .agents-grid { grid-template-columns: 1fr; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .two-col { grid-template-columns: 1fr; }
+  #lead-drawer { width: 100%; }
+  .funnel-stage-label { font-size: 8px; }
+  .header-center { display: none; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     LOGIN OVERLAY
+     ============================================================ -->
+<!-- CLIENT-SIDE PROTECTION ONLY: password is stored in JS source.
+     This is suitable for internal use to keep the page off the public internet.
+     It is not cryptographically secure. For server-level protection,
+     enable Netlify password protection under Site Settings > Access Control. -->
+<div id="login-overlay">
+  <div class="login-card">
+    <div class="login-wordmark">Lift Studio</div>
+    <div class="login-sub">Operations Dashboard</div>
+    <div class="login-input-wrap">
+      <input type="password" id="pw-input" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <div class="login-error" id="pw-error">Incorrect password. Try again.</div>
+    <button class="login-btn" id="login-btn">Enter</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     DASHBOARD
+     ============================================================ -->
+<div id="dashboard">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <span class="header-wordmark">Lift Studio</span>
+      <span class="ops-badge">OPS</span>
+    </div>
+    <div class="header-center">
+      <span id="live-clock"></span>
+    </div>
+    <div class="header-right">
+      <span class="sync-time" id="sync-time">Syncing...</span>
+      <button class="refresh-btn" id="refresh-btn" title="Refresh data">↻</button>
+      <span class="logout-btn" id="logout-btn">Log out</span>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- SECTION 1: METRICS -->
+    <div class="section" id="sec-metrics">
+      <div class="metrics-grid" id="metrics-grid">
+        <div class="metric-card" id="m-total">
+          <div class="metric-number" data-target="0">0</div>
+          <div class="metric-label">Total Leads</div>
+        </div>
+        <div class="metric-card" id="m-drafted">
+          <div class="metric-number" data-target="0">0</div>
+          <div class="metric-label">Drafts Created</div>
+        </div>
+        <div class="metric-card" id="m-sent">
+          <div class="metric-number" data-target="0">0</div>
+          <div class="metric-label">Emails Sent</div>
+          <div class="metric-pulse">
+            <span class="pulse-dot"></span>
+            <span class="pulse-label">Active</span>
+          </div>
+        </div>
+        <div class="metric-card" id="m-replies">
+          <div class="metric-number" data-target="0">0</div>
+          <div class="metric-label">Replies Received</div>
+        </div>
+        <div class="metric-card gold-accent" id="m-warm">
+          <div class="metric-number" data-target="0">0</div>
+          <div class="metric-label">Warm / Interested</div>
+        </div>
+        <div class="metric-card gold-accent" id="m-closed">
+          <div class="metric-number" data-target="0">0</div>
+          <div class="metric-label">Clients Closed</div>
+        </div>
+      </div>
+
+      <!-- FUNNEL -->
+      <div class="funnel-wrap">
+        <div class="funnel-title">Pipeline Funnel</div>
+        <div class="funnel-stages" id="funnel-stages">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: AGENTS -->
+    <div class="section" id="sec-agents">
+      <div class="section-header">
+        <div>
+          <div class="section-title">The Team</div>
+          <div class="section-sub">Your automated Lift Studio crew</div>
+        </div>
+      </div>
+      <div class="agents-grid" id="agents-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- SECTION 3: OUTREACH -->
+    <div class="section" id="sec-outreach">
+      <div class="section-header">
+        <div class="section-title">Outreach</div>
+        <span class="section-badge" id="outreach-count">—</span>
+      </div>
+      <div class="outreach-controls">
+        <div class="filter-btns" id="filter-btns">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="search-input" placeholder="Search brands...">
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Business</th>
+              <th>Category</th>
+              <th>City</th>
+              <th>Status</th>
+              <th>Last Contact</th>
+              <th>Follow-Up</th>
+            </tr>
+          </thead>
+          <tbody id="outreach-tbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTIONS 4 + 5: FOLLOW-UPS + CLIENTS -->
+    <div class="two-col">
+      <div class="section" id="sec-followups">
+        <div class="section-header">
+          <div class="section-title">⏰ Follow-Ups Due</div>
+        </div>
+        <div class="followup-queue" id="followup-queue">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+      <div class="section" id="sec-clients">
+        <div class="section-header">
+          <div class="section-title">★ Active Clients</div>
+        </div>
+        <div class="clients-list" id="clients-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6: QC + INNOVATION -->
+    <div class="section" id="sec-system">
+      <div class="section-header">
+        <div class="section-title">System Status</div>
+      </div>
+      <div class="two-col">
+        <div class="system-card">
+          <div class="system-card-header">
+            <span>✅</span>
+            <span class="system-card-title">Quality Control</span>
+          </div>
+          <div class="qc-status-big">
+            <div class="qc-status-number">0</div>
+            <div>
+              <div style="font-size:13px;color:var(--text);font-weight:500;">Open Flags</div>
+              <div class="pulse-dot" style="display:inline-block;margin-top:4px;background:var(--green)"></div>
+            </div>
+          </div>
+          <div class="qc-clean">System is running clean</div>
+          <div class="qc-note">Flags are logged in<br><code style="font-size:10px;color:var(--text-faint)">project-notes/qc-flag-log.md</code></div>
+          <div style="margin-top:14px;font-size:11px;color:var(--text-faint)">Last reviewed: Today</div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header">
+            <span>💡</span>
+            <span class="system-card-title">Open Opportunities</span>
+          </div>
+          <div class="inn-list">
+            <div class="inn-card">
+              <span class="inn-id">INN-001</span>
+              <span class="inn-title">Google Apps Script time triggers</span>
+              <span class="inn-score high">11/12</span>
+            </div>
+            <div class="inn-card">
+              <span class="inn-id">INN-002</span>
+              <span class="inn-title">Canva MCP for proof-of-work assets</span>
+              <span class="inn-score high">10/12</span>
+            </div>
+            <div class="inn-card">
+              <span class="inn-id">INN-006</span>
+              <span class="inn-title">Vibiz MCP: lead finding &amp; enrichment</span>
+              <span class="inn-score high">10/12</span>
+            </div>
+          </div>
+          <a href="#" class="inn-link">View full backlog →</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ============================================================
+     AGENT MODAL
+     ============================================================ -->
+<div id="agent-modal">
+  <div class="agent-modal-card">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-agent-top">
+      <span class="modal-agent-emoji" id="modal-emoji"></span>
+      <div>
+        <div class="modal-agent-name" id="modal-name"></div>
+        <div class="modal-agent-tagline" id="modal-tagline"></div>
+        <div style="margin-top:8px" id="modal-status-badge"></div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">What I Own</div>
+      <div class="modal-body" id="modal-owns"></div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">When I Activate</div>
+      <ul class="modal-list" id="modal-activates"></ul>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">What I Hand Off</div>
+      <div class="modal-handoff" id="modal-handoff"></div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">My Rules</div>
+      <div class="modal-rules" id="modal-rules"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     LEAD DRAWER
+     ============================================================ -->
+<div id="drawer-backdrop"></div>
+<div id="lead-drawer">
+  <div class="drawer-header">
+    <button class="drawer-close" id="drawer-close">✕</button>
+    <div class="drawer-biz-name" id="drawer-biz-name"></div>
+    <div class="drawer-meta" id="drawer-meta"></div>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-section">
+      <div class="drawer-section-label">Contact</div>
+      <div class="drawer-contact" id="drawer-contact"></div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">Scores</div>
+      <div class="drawer-score-row" id="drawer-scores"></div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">What We Found</div>
+      <div id="drawer-findings"></div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">Recommended Offer</div>
+      <div id="drawer-offer"></div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">Outreach Timeline</div>
+      <div class="timeline" id="drawer-timeline"></div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">Email Draft Preview</div>
+      <div class="email-preview" id="drawer-email"></div>
+    </div>
+    <div class="drawer-section" id="drawer-notes-section">
+      <div class="drawer-section-label">Notes</div>
+      <div class="drawer-notes" id="drawer-notes"></div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-label">Follow-Up</div>
+      <div class="followup-row">
+        <div class="date-text" id="drawer-followup-date">—</div>
+        <button class="mark-done-btn" id="drawer-mark-done">Mark done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCRIPT
+     ============================================================ -->
+<script>
+// CLIENT-SIDE PASSWORD — change this constant to update access
+const PASSWORD = 'liftstudio2026';
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQXeF-VWz7v8It9If6jyRereu6UGE0SZhtxCrl3vKfFULRscnr3dPBB-kJI5vcjnpXbq5pDe6y6IpEW/pub?gid=579235235&single=true&output=csv';
+const REFRESH_INTERVAL = 60000;
+
+let allLeads = [];
+let activeFilter = 'All';
+let searchQuery = '';
+let refreshTimer = null;
+
+// ============================================================
+// AUTH
+// ============================================================
+function checkAuth() {
+  if (sessionStorage.getItem('ls_auth') === 'ok') {
+    showDashboard();
+  }
+}
+
+function showDashboard() {
+  const overlay = document.getElementById('login-overlay');
+  const dash = document.getElementById('dashboard');
+  overlay.classList.add('fade-out');
+  setTimeout(() => { overlay.style.display = 'none'; }, 600);
+  dash.classList.add('visible');
+  initDashboard();
+}
+
+document.getElementById('login-btn').addEventListener('click', attemptLogin);
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+
+function attemptLogin() {
+  const val = document.getElementById('pw-input').value;
+  if (val === PASSWORD) {
+    sessionStorage.setItem('ls_auth', 'ok');
+    showDashboard();
+  } else {
+    const input = document.getElementById('pw-input');
+    const err = document.getElementById('pw-error');
+    input.classList.remove('shake');
+    void input.offsetWidth; // reflow to restart animation
+    input.classList.add('shake');
+    err.classList.add('visible');
+    input.value = '';
+  }
+}
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  sessionStorage.removeItem('ls_auth');
+  const dash = document.getElementById('dashboard');
+  const overlay = document.getElementById('login-overlay');
+  dash.classList.remove('visible');
+  overlay.style.display = 'flex';
+  overlay.classList.remove('fade-out');
+  document.getElementById('pw-input').value = '';
+  document.getElementById('pw-error').classList.remove('visible');
+  if (refreshTimer) clearInterval(refreshTimer);
+});
+
+// ============================================================
+// INIT
+// ============================================================
+function initDashboard() {
+  startClock();
+  renderAgents();
+  loadData();
+  refreshTimer = setInterval(loadData, REFRESH_INTERVAL);
+  staggerSections();
+}
+
+// ============================================================
+// CLOCK
+// ============================================================
+function startClock() {
+  function tick() {
+    const now = new Date();
+    document.getElementById('live-clock').textContent =
+      now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) +
+      ' · ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ============================================================
+// SECTION STAGGER
+// ============================================================
+function staggerSections() {
+  const sections = document.querySelectorAll('.section');
+  sections.forEach((s, i) => {
+    setTimeout(() => s.classList.add('in-view'), i * 80);
+  });
+}
+
+// ============================================================
+// CSV FETCH + PARSE
+// ============================================================
+function loadData() {
+  const btn = document.getElementById('refresh-btn');
+  btn.classList.add('spinning');
+  fetch(CSV_URL)
+    .then(r => { if (!r.ok) throw new Error('Network error'); return r.text(); })
+    .then(text => {
+      const rows = parseCSV(text);
+      allLeads = csvToObjects(rows);
+      renderAll();
+      const now = new Date();
+      document.getElementById('sync-time').textContent =
+        'Synced ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    })
+    .catch(() => {
+      document.getElementById('sync-time').textContent = 'Sync failed — check connection';
+    })
+    .finally(() => {
+      btn.classList.remove('spinning');
+    });
+}
+
+document.getElementById('refresh-btn').addEventListener('click', loadData);
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cell = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], n = text[i + 1];
+    if (inQ) {
+      if (c === '"' && n === '"') { cell += '"'; i++; }
+      else if (c === '"') { inQ = false; }
+      else { cell += c; }
+    } else {
+      if (c === '"') { inQ = true; }
+      else if (c === ',') { row.push(cell); cell = ''; }
+      else if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+      else if (c === '\r') { /* skip */ }
+      else { cell += c; }
+    }
+  }
+  if (cell || row.length) { row.push(cell); if (row.some(x => x)) rows.push(row); }
+  return rows;
+}
+
+function csvToObjects(rows) {
+  if (rows.length < 2) return [];
+  const headers = rows[0].map(h => h.trim());
+  return rows.slice(1).filter(r => r.some(c => c.trim())).map(row => {
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = (row[i] || '').trim(); });
+    return obj;
+  });
+}
+
+// ============================================================
+// RENDER ALL
+// ============================================================
+function renderAll() {
+  renderMetrics();
+  renderFunnel();
+  renderOutreach();
+  renderFollowUps();
+  renderClients();
+}
+
+// ============================================================
+// METRICS
+// ============================================================
+function countStatus(leads, fn) {
+  return leads.filter(fn).length;
+}
+
+function renderMetrics() {
+  const total    = allLeads.length;
+  const drafted  = countStatus(allLeads, l => /draft/i.test(l.outreach_status));
+  const sent     = countStatus(allLeads, l => /^sent$/i.test(l.outreach_status));
+  const replies  = countStatus(allLeads, l => /replied|warm|interested/i.test(l.outreach_status) || (l.response_status && l.response_status.trim()));
+  const warm     = countStatus(allLeads, l => /interested|warm/i.test(l.outreach_status));
+  const closed   = countStatus(allLeads, l => /client|closed.*won/i.test(l.outreach_status));
+
+  animateNumber('m-total',   total);
+  animateNumber('m-drafted', drafted);
+  animateNumber('m-sent',    sent);
+  animateNumber('m-replies', replies);
+  animateNumber('m-warm',    warm);
+  animateNumber('m-closed',  closed);
+
+  window._funnelData = { total, drafted, sent, replies, warm, closed };
+}
+
+function animateNumber(cardId, target) {
+  const el = document.querySelector('#' + cardId + ' .metric-number');
+  if (!el) return;
+  const start = parseInt(el.textContent) || 0;
+  const duration = 800;
+  const startTime = performance.now();
+  function step(now) {
+    const p = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(start + eased * (target - start));
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+
+// ============================================================
+// FUNNEL
+// ============================================================
+function renderFunnel() {
+  const d = window._funnelData || { total:0, drafted:0, sent:0, replies:0, warm:0, closed:0 };
+  const stages = [
+    { label: 'Total Leads',  count: d.total },
+    { label: 'Drafted',      count: d.drafted },
+    { label: 'Sent',         count: d.sent },
+    { label: 'Replied',      count: d.replies },
+    { label: 'Interested',   count: d.warm },
+    { label: 'Closed',       count: d.closed },
+  ];
+  const max = stages[0].count || 1;
+  const container = document.getElementById('funnel-stages');
+  container.innerHTML = '';
+  stages.forEach((s, i) => {
+    const pct = max > 0 ? Math.round((s.count / max) * 100) : 0;
+    const barWidth = Math.max(pct, 8);
+    const stage = document.createElement('div');
+    stage.className = 'funnel-stage';
+    stage.innerHTML = `
+      <div class="funnel-stage-label">${s.label}</div>
+      <div class="funnel-bar-wrap">
+        <div class="funnel-bar${s.count === 0 ? ' dim' : ''}" style="width:${barWidth}%;"></div>
+        <div class="funnel-count">${s.count}</div>
+        <div class="funnel-pct">${i === 0 ? '100%' : pct + '%'}</div>
+      </div>`;
+    container.appendChild(stage);
+    if (i < stages.length - 1) {
+      const arrow = document.createElement('div');
+      arrow.className = 'funnel-arrow';
+      arrow.textContent = '›';
+      container.appendChild(arrow);
+    }
+  });
+}
+
+// ============================================================
+// AGENTS
+// ============================================================
+const AGENTS = [
+  {
+    id: 'orchestrator', emoji: '🎯', name: 'Orchestrator', tagline: 'The Director',
+    desc: 'Manages the full system, routes all work, keeps score',
+    status: 'active',
+    owns: 'I run the entire Lift Studio outbound engine. Every lead, every draft, every follow-up passes through me. I decide what runs next, verify that handoffs are clean, and make sure the system scales without losing quality.',
+    activates: [
+      'Megan asks what to do next or to scale outreach',
+      'A specialist agent completes a batch and needs routing',
+      'A QC flag arrives and needs autonomous assessment',
+      'The pipeline stalls or sheet state and Gmail disagree',
+      'A QC flag has been unresolved for more than 48 hours'
+    ],
+    handoff: 'Daily batch report to Megan: leads added, drafts ready, replies, flags, and the single next recommended action.',
+    rules: [
+      'Never scale bad outreach — quality gates must pass before approving a batch',
+      'Megan approves all sends, replies, and lead closures — these actions are reserved',
+      'Resolve every QC flag autonomously if possible; escalate only what genuinely requires human judgment'
+    ]
+  },
+  {
+    id: 'auditor', emoji: '🔍', name: 'New Business Auditor', tagline: 'The Scout',
+    desc: 'Finds, vets, and scores new leads before outreach',
+    status: 'active',
+    owns: 'I find the leads. Every prospect in this pipeline came through me. I search categories and cities, pull websites and social profiles, score each business for fit, and write the audit notes that make every outreach email specific — not generic.',
+    activates: [
+      'The pipeline needs more qualified leads',
+      'A category or city needs to be researched',
+      'A bounced contact needs alternate contact research',
+      'A lead has insufficient audit notes for drafting'
+    ],
+    handoff: 'Scored, audited leads in the master sheet marked "Ready to send" with Next Step set to "Email Marketer: draft first-touch outreach."',
+    rules: [
+      'No lead moves forward without specific audit notes — thin notes produce generic emails',
+      'No duplicate leads — check before adding',
+      'Every lead needs a public contact path before being marked Ready to send'
+    ]
+  },
+  {
+    id: 'marketer', emoji: '✉️', name: 'Email Marketer', tagline: 'The Closer',
+    desc: 'Turns qualified leads into polished Gmail drafts',
+    status: 'active',
+    owns: 'I write the outreach. When a lead is ready, I turn the audit notes into a Gmail draft that sounds like Megan wrote it personally — a specific hook, two real observations, a clear offer. Never a template that sounds like a template.',
+    activates: [
+      'Leads are marked "Ready to send" by the Auditor',
+      'A new batch from the Auditor arrives with a handoff note',
+      'The outreach template changes',
+      'Drafts need to be recreated or signatures updated'
+    ],
+    handoff: 'Gmail drafts created, sheet rows updated to "Draft created" with Next Step: Megan review/send.',
+    rules: [
+      'Every draft must have a specific personalization hook — no generic openers',
+      'No invented claims — every observation must come from the audit notes',
+      'Signature and service menu attachment are required on every draft'
+    ]
+  },
+  {
+    id: 'followup', emoji: '📊', name: 'Follow-Up Manager', tagline: 'The Tracker',
+    desc: 'Monitors replies, bounces, and next steps after outreach',
+    status: 'active',
+    owns: 'I watch the threads. After Megan sends, I monitor Gmail for replies, bounces, and auto-replies. I classify everything, update the sheet, and draft the next message so Megan just has to review and hit send.',
+    activates: [
+      'Emails have been sent and replies may be coming in',
+      'Megan asks who replied',
+      'Follow-up dates arrive for unreplied leads',
+      'A bounce needs alternate contact research queued'
+    ],
+    handoff: 'Updated pipeline statuses in the sheet + drafted follow-up or reply emails in Gmail ready for Megan review.',
+    rules: [
+      'Never mark a lead dead if the reply is ambiguous — flag to QC instead',
+      'Always draft a response before asking Megan to act',
+      'Bounces get alternate contact research queued to the Auditor, not marked as closed'
+    ]
+  },
+  {
+    id: 'qc', emoji: '✅', name: 'Quality Control', tagline: 'The Reviewer',
+    desc: 'Catches uncertainty before it reaches Megan',
+    status: 'standby',
+    owns: 'I catch the hard calls. When any agent hits something uncertain — a borderline lead, a weak draft angle, an ambiguous reply — they route it to me. I package the uncertainty clearly and pass it to the Orchestrator before anything reaches Megan.',
+    activates: [
+      'Any agent is uncertain about a lead, draft, or reply classification',
+      'Pipeline state and Gmail state disagree',
+      'A reply is ambiguous, aggressive, or from an unexpected sender',
+      'The same judgment call has come up 3 or more times'
+    ],
+    handoff: 'Structured 7-field flag to the Orchestrator for autonomous assessment or escalation to Megan.',
+    rules: [
+      'Only flag genuine uncertainty — not imperfection. Most items pass through without a flag',
+      'Every flag must include a recommendation, not just the uncertainty',
+      'Track all resolutions so patterns surface and rules improve over time'
+    ]
+  },
+  {
+    id: 'innovator', emoji: '💡', name: 'Innovator', tagline: 'The Strategist',
+    desc: 'Watches the full system and spots what to build next',
+    status: 'active',
+    owns: "I watch everything — the pipeline patterns, the client signals, the tools available, the agent architecture. I'm always asking: what could we automate next? What opportunity are we missing? What new agent should exist? I surface scored opportunity briefs so the system keeps improving.",
+    activates: [
+      'Patterns emerge in the QC flag log (same flag 3+ times)',
+      'A new tool or connector becomes available that hasn\'t been evaluated',
+      'The same manual step happens for the third time',
+      'A warm lead converts and reveals a repeatable opportunity',
+      'The weekly observation pass is due'
+    ],
+    handoff: 'Scored opportunity briefs (12-point scale) to Megan and Orchestrator. Status tracked in project-notes/innovator-backlog.md.',
+    rules: [
+      'Score every opportunity before presenting — revenue impact + time saved + build complexity + evidence strength',
+      'Only raise a brief with supporting evidence — not just hunches',
+      'Never implement — only propose. Execution decisions belong to Megan'
+    ]
+  }
+];
+
+function renderAgents() {
+  const grid = document.getElementById('agents-grid');
+  grid.innerHTML = '';
+  AGENTS.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'agent-card';
+    card.innerHTML = `
+      <span class="agent-emoji">${a.emoji}</span>
+      <div class="agent-name">${a.name}</div>
+      <div class="agent-tagline">${a.tagline}</div>
+      <div class="agent-desc">${a.desc}</div>
+      <div class="agent-status ${a.status}">
+        <span class="status-dot ${a.status}"></span>
+        ${a.status === 'active' ? 'Active' : 'Standby'}
+      </div>`;
+    card.addEventListener('click', () => openAgentModal(a));
+    grid.appendChild(card);
+  });
+}
+
+// ============================================================
+// AGENT MODAL
+// ============================================================
+function openAgentModal(a) {
+  document.getElementById('modal-emoji').textContent = a.emoji;
+  document.getElementById('modal-name').textContent = a.name;
+  document.getElementById('modal-tagline').textContent = a.tagline;
+  document.getElementById('modal-status-badge').innerHTML =
+    `<div class="agent-status ${a.status}"><span class="status-dot ${a.status}"></span>${a.status === 'active' ? 'Active' : 'Standby'}</div>`;
+  document.getElementById('modal-owns').textContent = a.owns;
+  const ul = document.getElementById('modal-activates');
+  ul.innerHTML = a.activates.map(x => `<li>${x}</li>`).join('');
+  document.getElementById('modal-handoff').textContent = a.handoff;
+  document.getElementById('modal-rules').innerHTML =
+    a.rules.map(r => `<div class="modal-rule">${r}</div>`).join('');
+  document.getElementById('agent-modal').classList.add('open');
+}
+
+document.getElementById('modal-close').addEventListener('click', closeAgentModal);
+document.getElementById('agent-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('agent-modal')) closeAgentModal();
+});
+function closeAgentModal() {
+  document.getElementById('agent-modal').classList.remove('open');
+}
+
+// ============================================================
+// OUTREACH TABLE
+// ============================================================
+function getCatClass(cat) {
+  const c = (cat || '').toLowerCase();
+  if (c.includes('med spa') || c.includes('medspa')) return 'cat-med-spa';
+  if (c.includes('nail')) return 'cat-nail-salon';
+  if (c.includes('salon') && c.includes('spa')) return 'cat-spa';
+  if (c.includes('salon')) return 'cat-salon';
+  if (c.includes('dentist')) return 'cat-dentist';
+  if (c.includes('interior')) return 'cat-interior';
+  if (c.includes('esthetician') || c.includes('aesthetics')) return 'cat-esthetician';
+  if (c.includes('photographer') || c.includes('photography')) return 'cat-photographer';
+  return 'cat-default';
+}
+
+function getStatusClass(status) {
+  const s = (status || '').toLowerCase();
+  if (!s || s === 'not contacted') return 'status-not-contacted';
+  if (s.includes('draft')) return 'status-draft';
+  if (s === 'sent') return 'status-sent';
+  if (s.includes('interested') || s.includes('warm')) return 'status-interested';
+  if (s.includes('maybe') || s.includes('later') || s.includes('follow')) return 'status-followup';
+  if (s.includes('bounce')) return 'status-bounced';
+  if (s.includes('closed') || s.includes('paused') || s.includes('auto')) return 'status-default';
+  return 'status-default';
+}
+
+function formatDate(str) {
+  if (!str) return '';
+  const d = new Date(str);
+  if (isNaN(d)) return str;
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function followupClass(str) {
+  if (!str) return '';
+  const d = new Date(str);
+  if (isNaN(d)) return '';
+  const diff = (d - new Date()) / 86400000;
+  if (diff < 0) return 'overdue';
+  if (diff <= 2) return 'soon';
+  return '';
+}
+
+function renderOutreach() {
+  const statusCounts = {};
+  allLeads.forEach(l => {
+    const s = l.outreach_status || 'Not contacted';
+    statusCounts[s] = (statusCounts[s] || 0) + 1;
+  });
+
+  // Filter buttons
+  const filterBar = document.getElementById('filter-btns');
+  filterBar.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'filter-btn' + (activeFilter === 'All' ? ' active' : '');
+  allBtn.innerHTML = `All <span class="count-pill">${allLeads.length}</span>`;
+  allBtn.addEventListener('click', () => { activeFilter = 'All'; renderOutreach(); });
+  filterBar.appendChild(allBtn);
+
+  Object.entries(statusCounts).forEach(([status, cnt]) => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (activeFilter === status ? ' active' : '');
+    btn.innerHTML = `${status} <span class="count-pill">${cnt}</span>`;
+    btn.addEventListener('click', () => { activeFilter = status; renderOutreach(); });
+    filterBar.appendChild(btn);
+  });
+
+  document.getElementById('outreach-count').textContent = allLeads.length + ' leads';
+
+  // Table rows
+  const tbody = document.getElementById('outreach-tbody');
+  tbody.innerHTML = '';
+  const query = searchQuery.toLowerCase();
+
+  allLeads.forEach(lead => {
+    const matchesFilter = activeFilter === 'All' || lead.outreach_status === activeFilter;
+    const matchesSearch = !query || (lead.business_name || '').toLowerCase().includes(query);
+    const row = document.createElement('tr');
+    if (!matchesFilter || !matchesSearch) row.classList.add('row-hidden');
+    const fuClass = followupClass(lead.follow_up_date);
+    row.innerHTML = `
+      <td><span class="biz-name">${lead.business_name || '—'}</span></td>
+      <td><span class="cat-badge ${getCatClass(lead.category)}">${lead.category || '—'}</span></td>
+      <td style="color:var(--text-muted);font-size:12px">${lead.city || '—'}</td>
+      <td><span class="status-badge ${getStatusClass(lead.outreach_status)}">${lead.outreach_status || 'Not contacted'}</span></td>
+      <td style="color:var(--text-muted);font-size:12px">${formatDate(lead.last_contacted) || '—'}</td>
+      <td><span class="followup-date ${fuClass}">${formatDate(lead.follow_up_date) || '—'}</span></td>`;
+    row.addEventListener('click', () => openDrawer(lead));
+    tbody.appendChild(row);
+  });
+}
+
+document.getElementById('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  renderOutreach();
+});
+
+// ============================================================
+// LEAD DRAWER
+// ============================================================
+function openDrawer(lead) {
+  document.getElementById('drawer-biz-name').textContent = lead.business_name || '—';
+
+  // Meta
+  const meta = document.getElementById('drawer-meta');
+  meta.innerHTML = `
+    <span class="cat-badge ${getCatClass(lead.category)}">${lead.category || '—'}</span>
+    <span style="color:var(--text-faint);font-size:12px">${lead.city || ''}${lead.state ? ', ' + lead.state : ''}</span>
+    <span class="status-badge ${getStatusClass(lead.outreach_status)}">${lead.outreach_status || 'Not contacted'}</span>`;
+
+  // Contact
+  const contact = document.getElementById('drawer-contact');
+  let contactHTML = '';
+  if (lead.website) contactHTML += `<a href="${lead.website}" target="_blank">🌐 ${lead.website}</a>`;
+  if (lead.instagram) contactHTML += `<a href="https://instagram.com/${lead.instagram.replace('@','')}" target="_blank">📸 ${lead.instagram}</a>`;
+  if (lead.contact_name) contactHTML += `<div style="font-size:13px;color:var(--text-muted);margin-top:4px">👤 ${lead.contact_name}</div>`;
+  if (lead.email) contactHTML += `<div style="font-size:13px;color:var(--text-muted)">✉ ${lead.email}</div>`;
+  if (!contactHTML) contactHTML = '<span style="color:var(--text-faint);font-size:12px">No contact info captured yet</span>';
+  contact.innerHTML = contactHTML;
+
+  // Scores
+  document.getElementById('drawer-scores').innerHTML = `
+    <div class="drawer-score-card"><div class="drawer-score-val">${lead.score || '—'}</div><div class="drawer-score-lbl">Score</div></div>
+    <div class="drawer-score-card"><div class="drawer-score-val">${lead.revenue_potential || '—'}</div><div class="drawer-score-lbl">Revenue</div></div>
+    <div class="drawer-score-card"><div class="drawer-score-val">${lead.personalization_easy || '—'}</div><div class="drawer-score-lbl">Personalization</div></div>`;
+
+  // Findings
+  document.getElementById('drawer-findings').innerHTML = `
+    <div class="finding-row"><div class="finding-icon">🔎</div><div class="finding-text"><strong style="color:var(--text);font-size:12px">Primary:</strong> ${lead.top_issue || '—'}</div></div>
+    <div class="finding-row"><div class="finding-icon">💬</div><div class="finding-text"><strong style="color:var(--text);font-size:12px">Secondary:</strong> ${lead.secondary_issue || '—'}</div></div>`;
+
+  // Offer
+  document.getElementById('drawer-offer').innerHTML =
+    lead.recommended_offer ? `<span class="offer-chip">${lead.recommended_offer}</span>` : '<span style="color:var(--text-faint);font-size:12px">—</span>';
+
+  // Timeline
+  const stages = ['Not contacted', 'Draft created', 'Sent', 'Follow up', 'Replied'];
+  const currentStatus = lead.outreach_status || 'Not contacted';
+  const currentIdx = stages.findIndex(s => s.toLowerCase() === currentStatus.toLowerCase());
+  document.getElementById('drawer-timeline').innerHTML = stages.map((s, i) => {
+    let dotClass = '';
+    if (i < currentIdx) dotClass = 'done';
+    else if (i === currentIdx) dotClass = 'current';
+    return `<div class="timeline-step"><div class="timeline-dot ${dotClass}"></div><div class="timeline-label ${i === currentIdx ? 'current' : ''}">${s}</div></div>`;
+  }).join('');
+
+  // Email preview
+  const emailEl = document.getElementById('drawer-email');
+  if (lead.draft_email) {
+    const lines = lead.draft_email.trim().split('\n');
+    const subjectLine = lines[0] || '';
+    const body = lines.slice(2).join('\n').trim();
+    emailEl.innerHTML = `
+      <div class="email-preview-header">
+        <div class="email-meta">From: <span>helloliftstudio@gmail.com</span><br>To: <span>${lead.contact_name || lead.business_name}</span><br><span>${subjectLine}</span></div>
+      </div>
+      <div class="email-preview-body">${escapeHTML(body)}</div>`;
+  } else {
+    emailEl.innerHTML = '<div style="padding:14px;font-size:12px;color:var(--text-faint)">No draft yet</div>';
+  }
+
+  // Notes
+  const notesSection = document.getElementById('drawer-notes-section');
+  if (lead.notes) {
+    document.getElementById('drawer-notes').textContent = lead.notes;
+    notesSection.style.display = 'block';
+  } else {
+    notesSection.style.display = 'none';
+  }
+
+  // Follow-up
+  const fuDate = document.getElementById('drawer-followup-date');
+  const fuBtn  = document.getElementById('drawer-mark-done');
+  fuDate.textContent = formatDate(lead.follow_up_date) || 'No follow-up scheduled';
+  fuDate.classList.remove('done-text');
+  fuBtn.textContent = 'Mark done';
+  fuBtn.className = 'mark-done-btn';
+  fuBtn.onclick = () => {
+    fuDate.classList.add('done-text');
+    fuBtn.textContent = 'Done ✓';
+    fuBtn.className = 'mark-done-btn done-btn';
+  };
+
+  document.getElementById('drawer-backdrop').classList.add('open');
+  document.getElementById('lead-drawer').classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-backdrop').classList.remove('open');
+  document.getElementById('lead-drawer').classList.remove('open');
+}
+
+document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
+
+function escapeHTML(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ============================================================
+// FOLLOW-UP QUEUE
+// ============================================================
+function renderFollowUps() {
+  const now = new Date(); now.setHours(0,0,0,0);
+  const week = new Date(now); week.setDate(week.getDate() + 7);
+
+  const due = allLeads
+    .filter(l => {
+      if (!l.follow_up_date) return false;
+      const d = new Date(l.follow_up_date);
+      return !isNaN(d) && d <= week;
+    })
+    .sort((a, b) => new Date(a.follow_up_date) - new Date(b.follow_up_date))
+    .slice(0, 10);
+
+  const container = document.getElementById('followup-queue');
+  if (!due.length) {
+    container.innerHTML = '<div class="empty-state"><span class="empty-icon">✅</span>All clear — nothing due this week.</div>';
+    return;
+  }
+
+  container.innerHTML = '';
+  due.forEach(lead => {
+    const d = new Date(lead.follow_up_date); d.setHours(0,0,0,0);
+    const diff = Math.round((d - now) / 86400000);
+    let urgencyLabel, urgencyClass;
+    if (diff < 0)      { urgencyLabel = 'Overdue';   urgencyClass = 'urgency-today'; }
+    else if (diff === 0) { urgencyLabel = 'Today';   urgencyClass = 'urgency-today'; }
+    else if (diff === 1) { urgencyLabel = 'Tomorrow'; urgencyClass = 'urgency-tomorrow'; }
+    else                 { urgencyLabel = `In ${diff} days`; urgencyClass = 'urgency-soon'; }
+
+    const item = document.createElement('div');
+    item.className = 'followup-item';
+    item.innerHTML = `
+      <span class="followup-biz">${lead.business_name}</span>
+      <span class="cat-badge ${getCatClass(lead.category)}" style="font-size:9px">${lead.category}</span>
+      <span class="urgency-pill ${urgencyClass}">${urgencyLabel}</span>
+      <button class="queue-done-btn">Done</button>`;
+    item.querySelector('.queue-done-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      item.classList.add('fading-out');
+      setTimeout(() => item.remove(), 400);
+    });
+    item.addEventListener('click', () => openDrawer(lead));
+    container.appendChild(item);
+  });
+}
+
+// ============================================================
+// ACTIVE CLIENTS
+// ============================================================
+function renderClients() {
+  const clients = allLeads.filter(l => /client|closed.*won/i.test(l.outreach_status || ''));
+  const container = document.getElementById('clients-list');
+  if (!clients.length) {
+    container.innerHTML = `
+      <div class="followup-queue">
+        <div class="empty-state" style="background:rgba(200,169,110,0.03);border:1px solid rgba(200,169,110,0.1);border-radius:16px">
+          <span class="empty-icon">🚀</span>First client incoming.
+        </div>
+      </div>`;
+    return;
+  }
+  container.innerHTML = '';
+  clients.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'client-card';
+    card.innerHTML = `
+      <div class="client-name">${c.business_name}</div>
+      <div class="client-meta">${c.category} · ${c.city}, ${c.state}</div>
+      ${c.notes ? `<div class="client-notes">${c.notes}</div>` : ''}`;
+    container.appendChild(card);
+  });
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+checkAuth();
+</script>
+</body>
+</html>
