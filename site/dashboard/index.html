@@ -1339,6 +1339,20 @@ const PASSWORD = 'liftstudio2026';
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQXeF-VWz7v8It9If6jyRereu6UGE0SZhtxCrl3vKfFULRscnr3dPBB-kJI5vcjnpXbq5pDe6y6IpEW/pub?gid=579235235&single=true&output=csv';
 const REFRESH_INTERVAL = 60000;
 
+// Maps normalized CSV header keys → the property names used throughout this file.
+// Handles both old column names (Outreach Status) and new (Pipeline Stage), and
+// display-name columns (Brand, Primary Opportunity) vs. code-style keys.
+const COLUMN_MAP = {
+  brand:                  'business_name',
+  pipeline_stage:         'outreach_status',
+  outreach_status:        'outreach_status',
+  primary_opportunity:    'top_issue',
+  secondary_opportunity:  'secondary_issue',
+  outreach_draft:         'draft_email',
+  follow_up_1:            'follow_up_date',
+  follow_up_2:            'follow_up_date_2',
+};
+
 let allLeads = [];
 let activeFilter = 'All';
 let searchQuery = '';
@@ -1475,9 +1489,14 @@ function parseCSV(text) {
   return rows;
 }
 
+function normalizeColKey(h) {
+  const snake = h.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  return COLUMN_MAP[snake] || snake;
+}
+
 function csvToObjects(rows) {
   if (rows.length < 2) return [];
-  const headers = rows[0].map(h => h.trim());
+  const headers = rows[0].map(h => normalizeColKey(h));
   return rows.slice(1).filter(r => r.some(c => c.trim())).map(row => {
     const obj = {};
     headers.forEach((h, i) => { obj[h] = (row[i] || '').trim(); });
@@ -1509,7 +1528,7 @@ function renderMetrics() {
   const sent     = countStatus(allLeads, l => /^sent$/i.test(l.outreach_status));
   const replies  = countStatus(allLeads, l => /replied|warm|interested/i.test(l.outreach_status) || (l.response_status && l.response_status.trim()));
   const warm     = countStatus(allLeads, l => /interested|warm/i.test(l.outreach_status));
-  const closed   = countStatus(allLeads, l => /client|closed.*won/i.test(l.outreach_status));
+  const closed   = countStatus(allLeads, l => /client|closed.*won|^won$/i.test(l.outreach_status));
 
   animateNumber('m-total',   total);
   animateNumber('m-drafted', drafted);
@@ -1875,9 +1894,12 @@ function openDrawer(lead) {
     lead.recommended_offer ? `<span class="offer-chip">${lead.recommended_offer}</span>` : '<span style="color:var(--text-faint);font-size:12px">—</span>';
 
   // Timeline
-  const stages = ['Not contacted', 'Draft created', 'Sent', 'Follow up', 'Replied'];
+  const stages = ['Not contacted', 'Drafted', 'Sent', 'Replied', 'Won'];
   const currentStatus = lead.outreach_status || 'Not contacted';
-  const currentIdx = stages.findIndex(s => s.toLowerCase() === currentStatus.toLowerCase());
+  const currentIdx = stages.findIndex(s =>
+    s.toLowerCase() === currentStatus.toLowerCase() ||
+    (s === 'Drafted' && /draft/i.test(currentStatus))
+  );
   document.getElementById('drawer-timeline').innerHTML = stages.map((s, i) => {
     let dotClass = '';
     if (i < currentIdx) dotClass = 'done';
