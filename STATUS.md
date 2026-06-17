@@ -34,7 +34,8 @@ In order:
 7. **Agent operating system added** — use `agents/OPERATING_SYSTEM.md` to coordinate the full workflow across prospecting, drafting, review/send, reply monitoring, and escalation
 8. **Orchestrator agent added** — use `agents/orchestrator.md` to manage agent routing, handoffs, system checks, bottlenecks, and next-best actions
 9. **Content bank added** — general Lift visual assets live under `content-bank/images/` rather than the repo root
-10. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
+10. **Future agent roadmap added** — use `agents/FUTURE_AGENT_ROADMAP.md` to plan client-delivery, contracting, finance, QA, and retention agents before building them
+11. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
 

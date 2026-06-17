@@ -12,3 +12,7 @@ Reusable agent specs for Lift Studio workflows.
 ## System Map
 
 See `OPERATING_SYSTEM.md` for how the agents work together from prospect research through follow-up.
+
+## Future Agents
+
+See `FUTURE_AGENT_ROADMAP.md` for the planned client-delivery, contracting, finance, QA, and retention agents to build once Lift starts converting clients.
