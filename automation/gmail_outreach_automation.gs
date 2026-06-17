@@ -75,6 +75,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
+    .addItem('Clean Up Inbox Now', 'runInboxHygiene')
     .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
     .addToUi();
 }
@@ -309,6 +310,8 @@ function refreshSentAndReplies() {
 
     writeLeadUpdates_(sheet, headers, rowNumber, updates);
   });
+
+  applyInboxLabels_();
 }
 
 function ensureAutomationColumns_() {
@@ -420,6 +423,77 @@ function signature_() {
     `${CONFIG.senderEmail}`,
     `Lift Studio Overview: ${CONFIG.onePagerUrl}`,
   ].join('\n');
+}
+
+// ============================================================
+// INBOX HYGIENE
+// Runs automatically at the end of every refreshSentAndReplies().
+// Also available manually: Outreach Automation > Clean Up Inbox Now.
+// ============================================================
+
+function runInboxHygiene() {
+  applyInboxLabels_();
+  SpreadsheetApp.getActive().toast('Inbox hygiene complete — labels applied and closed threads archived.');
+}
+
+function applyInboxLabels_() {
+  const sheet = getLeadsSheet_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+  const rows = data.rows;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+
+  const lsOutreach = getOrCreateLabel_('LS/Outreach');
+  const lsReplied  = getOrCreateLabel_('LS/Replied');
+  const lsWarm     = getOrCreateLabel_('LS/Warm');
+  const lsBounced  = getOrCreateLabel_('LS/Bounced');
+  const lsFollowUp = getOrCreateLabel_('LS/Follow Up');
+
+  rows.forEach(row => {
+    const threadId = value_(row, headers, 'gmail_thread_id');
+    if (!threadId) return;
+
+    let thread;
+    try { thread = GmailApp.getThreadById(threadId); } catch (e) { return; }
+    if (!thread) return;
+
+    const stage          = value_(row, headers, 'pipeline_stage').toLowerCase();
+    const responseStatus = value_(row, headers, 'response_status').toLowerCase();
+    const followUpRaw    = value_(row, headers, 'follow_up_date');
+
+    // Every tracked outreach thread gets the base label
+    thread.addLabel(lsOutreach);
+
+    // Reply received
+    if (/replied|warm|interested|needs.?review/i.test(stage) || /needs.?review/i.test(responseStatus)) {
+      thread.addLabel(lsReplied);
+    }
+
+    // Warm / interested
+    if (/warm|interested/i.test(stage)) {
+      thread.addLabel(lsWarm);
+    }
+
+    // Bounce
+    if (/bounce/i.test(stage)) {
+      thread.addLabel(lsBounced);
+    }
+
+    // Follow-up overdue on a sent-but-unreplied thread
+    if (followUpRaw && /^sent$/i.test(stage)) {
+      const fuDate = new Date(followUpRaw); fuDate.setHours(0, 0, 0, 0);
+      if (!isNaN(fuDate) && fuDate <= today) thread.addLabel(lsFollowUp);
+    }
+
+    // Archive closed threads — not a fit or bounced with no path forward
+    if (/not.?a.?fit/i.test(stage) || /bounce/i.test(stage)) {
+      if (thread.isInInbox()) thread.moveToArchive();
+    }
+  });
+}
+
+function getOrCreateLabel_(name) {
+  return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name);
 }
 
 function nextManualStep_(row, headers) {
