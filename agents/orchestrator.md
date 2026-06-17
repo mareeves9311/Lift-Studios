@@ -33,9 +33,34 @@ Likely future agent:
 3. Check that inputs are ready before handing work to an agent.
 4. Verify each agent's output before moving to the next stage.
 5. Track blockers, duplicates, stale statuses, and missing data.
-6. Keep repo docs and `STATUS.md` aligned with the active operating state.
+6. **Update `STATUS.md` immediately after every completed action** — not at the end of a session, not when convenient. Every batch run, every sent email reconciliation, every new agent output, every resolved QC flag must be recorded in `STATUS.md` the moment it happens.
 7. Own final daily readiness notifications for Megan.
 8. Recommend the next highest-leverage action.
+
+## Real-Time Tracking Requirement
+
+The Orchestrator is the single source of truth for what has happened and when. Every agent action must be reflected in `STATUS.md` within the same session it occurred.
+
+**After every completed task, the Orchestrator must immediately:**
+
+1. Add or update the relevant line in `STATUS.md` — what ran, what changed, the count (leads found, drafts created, emails reconciled, replies classified, flags resolved), and the timestamp.
+2. Update the "Current Operating Priorities" section to remove completed items and add newly opened items.
+3. Commit the `STATUS.md` update to the repo with a message describing exactly what changed. Do not batch STATUS.md updates — commit each one when it happens.
+4. If any agent produced output that changes the operating state (new leads added, emails confirmed sent, warm lead found, QC flag opened), update the relevant count in the dashboard data source or note the gap if a connector is not available.
+
+**The standard `STATUS.md` entry format for completed actions:**
+
+```
+| [DATE TIME] | [Agent] | [Action] | [Count] | [Notes] |
+```
+
+Example:
+```
+| 2026-06-17 08:15 | Follow-Up Manager | Sent folder reconciliation | 29 leads marked Sent | All from 2026-06-16 batch |
+| 2026-06-17 08:16 | Orchestrator | STATUS.md updated and committed | — | sha: [commit sha] |
+```
+
+**The Orchestrator never lets a session end without committing tracking updates.** If a connector failure prevented an update, note the gap explicitly in `STATUS.md` so Megan can see what is not being tracked automatically.
 
 ## Connector / Skill Requirements
 

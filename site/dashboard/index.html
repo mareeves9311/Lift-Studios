@@ -6,32 +6,33 @@
 <title>Lift Studio — OPS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    DESIGN TOKENS
    ============================================================ */
 :root {
-  --bg:            #080808;
-  --card:          #111111;
-  --card-border:   rgba(255,255,255,0.06);
-  --elevated:      #161616;
-  --elevated-border: rgba(255,255,255,0.10);
-  --gold:          #C8A96E;
-  --gold-dim:      rgba(200,169,110,0.15);
-  --gold-glow:     rgba(200,169,110,0.08);
-  --text:          #F2F2F2;
-  --text-muted:    #888888;
-  --text-faint:    #555555;
-  --green:         #4CAF6E;
-  --amber:         #E8A838;
-  --red:           #E85050;
-  --blue:          #60A5FA;
-  --divider:       rgba(255,255,255,0.05);
-  --font:          'Inter', system-ui, -apple-system, sans-serif;
+  --bg:            #FBFAF6;
+  --card:          #F3F1EA;
+  --card-border:   rgba(46,68,53,0.10);
+  --elevated:      #FFFFFF;
+  --elevated-border: rgba(46,68,53,0.12);
+  --accent:        #2E4435;
+  --accent-dim:    rgba(46,68,53,0.10);
+  --accent-glow:   rgba(46,68,53,0.05);
+  --text:          #20241F;
+  --text-muted:    #5F635A;
+  --text-faint:    #9A9C92;
+  --green:         #3B5742;
+  --amber:         #C17D2A;
+  --red:           #C0392B;
+  --blue:          #2E6DA4;
+  --divider:       rgba(46,68,53,0.08);
+  --font:          'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-serif:    'Newsreader', Georgia, serif;
   --radius:        12px;
   --radius-lg:     16px;
-  --shadow:        0 4px 24px rgba(0,0,0,0.5);
+  --shadow:        0 4px 24px rgba(40,52,42,0.10);
   --header-h:      64px;
 }
 
@@ -47,7 +48,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-a { color: var(--gold); text-decoration: none; }
+a { color: var(--accent); text-decoration: none; }
 a:hover { opacity: 0.8; }
 button { font-family: var(--font); cursor: pointer; border: none; background: none; }
 
@@ -57,7 +58,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 #login-overlay {
   position: fixed; inset: 0; z-index: 1000;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(-45deg, #080810, #0f1420, #0a1210, #130a08, #080810);
+  background: linear-gradient(-45deg, #FBFAF6, #EEF2EC, #F4F2EA, #E4E0D6, #FBFAF6);
   background-size: 400% 400%;
   animation: gradientShift 18s ease infinite;
   transition: opacity 0.6s ease;
@@ -71,20 +72,19 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 
 .login-card {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #FFFFFF;
+  border: 1px solid rgba(46,68,53,0.12);
   border-radius: 20px;
   padding: 48px 40px;
   width: 360px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  box-shadow: 0 8px 40px rgba(40,52,42,0.12);
   text-align: center;
 }
 
 .login-wordmark {
   font-size: 22px;
   font-weight: 600;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 4px;
@@ -103,9 +103,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 .login-input-wrap input {
   width: 100%;
-  background: rgba(255,255,255,0.04);
+  background: rgba(46,68,53,0.03);
   border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(46,68,53,0.18);
   border-radius: 0;
   padding: 12px 4px;
   font-family: var(--font);
@@ -117,13 +117,13 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   letter-spacing: 0.08em;
 }
 .login-input-wrap input::placeholder { color: var(--text-faint); letter-spacing: 0.04em; }
-.login-input-wrap input:focus { border-bottom-color: var(--gold); }
+.login-input-wrap input:focus { border-bottom-color: var(--accent); }
 .login-input-wrap::after {
   content: '';
   position: absolute;
   bottom: 0; left: 50%;
   width: 0; height: 1px;
-  background: var(--gold);
+  background: var(--accent);
   transition: width 0.3s ease, left 0.3s ease;
 }
 .login-input-wrap:focus-within::after { width: 100%; left: 0; }
@@ -140,8 +140,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .login-btn {
   width: 100%;
-  background: var(--gold);
-  color: #080808;
+  background: var(--accent);
+  color: #FBFAF6;
   font-family: var(--font);
   font-size: 13px;
   font-weight: 600;
@@ -177,7 +177,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   height: var(--header-h);
   display: flex; align-items: center;
   padding: 0 28px;
-  background: rgba(8,8,8,0.85);
+  background: rgba(251,250,246,0.94);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--divider);
 }
@@ -188,7 +188,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .header-wordmark {
   font-size: 15px;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -198,8 +198,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-faint);
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(46,68,53,0.06);
+  border: 1px solid rgba(46,68,53,0.10);
   padding: 2px 7px;
   border-radius: 20px;
 }
@@ -226,7 +226,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .refresh-btn {
   width: 28px; height: 28px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.04);
+  background: rgba(46,68,53,0.04);
   border: 1px solid var(--card-border);
   border-radius: 6px;
   color: var(--text-muted);
@@ -234,7 +234,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.refresh-btn:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
+.refresh-btn:hover { border-color: rgba(46,68,53,0.20); color: var(--text); }
 .refresh-btn.spinning { animation: spin 0.8s linear; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -286,9 +286,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  background: var(--gold-dim);
-  color: var(--gold);
-  border: 1px solid rgba(200,169,110,0.2);
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid rgba(46,68,53,0.14);
   padding: 2px 8px;
   border-radius: 20px;
 }
@@ -311,8 +311,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   box-shadow: var(--shadow);
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
-.metric-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-1px); }
-.metric-card.gold-accent { border-color: rgba(200,169,110,0.2); background: rgba(200,169,110,0.04); }
+.metric-card:hover { border-color: rgba(46,68,53,0.18); transform: translateY(-1px); }
+.metric-card.gold-accent { border-color: rgba(46,68,53,0.14); background: rgba(46,68,53,0.04); }
 .metric-number {
   font-size: 36px;
   font-weight: 300;
@@ -320,7 +320,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   line-height: 1;
   margin-bottom: 8px;
 }
-.metric-card.gold-accent .metric-number { color: var(--gold); }
+.metric-card.gold-accent .metric-number { color: var(--accent); }
 .metric-label {
   font-size: 10px;
   font-weight: 500;
@@ -391,12 +391,12 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .funnel-bar {
   width: 80%;
   height: 40px;
-  background: linear-gradient(90deg, #C8A96E, #A8853E);
+  background: linear-gradient(90deg, #2E4435, #3B5742);
   border-radius: 4px;
   position: relative;
   transition: width 1s ease;
 }
-.funnel-bar.dim { background: rgba(200,169,110,0.15); border: 1px solid rgba(200,169,110,0.1); }
+.funnel-bar.dim { background: rgba(46,68,53,0.10); border: 1px solid rgba(46,68,53,0.06); }
 .funnel-count {
   font-size: 18px;
   font-weight: 300;
@@ -412,7 +412,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   display: flex;
   align-items: center;
   padding-bottom: 20px;
-  color: rgba(200,169,110,0.3);
+  color: rgba(46,68,53,0.18);
   font-size: 18px;
   flex-shrink: 0;
 }
@@ -426,9 +426,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   gap: 16px;
 }
 .agent-card {
-  background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: #FFFFFF;
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   padding: 28px 20px 24px;
   text-align: center;
@@ -437,9 +436,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .agent-card:hover {
-  border-color: rgba(255,255,255,0.18);
+  border-color: rgba(46,68,53,0.20);
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 32px rgba(40,52,42,0.14);
 }
 .agent-emoji {
   font-size: 36px;
@@ -450,7 +449,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .agent-name {
   font-size: 14px;
   font-weight: 600;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: 0.04em;
   margin-bottom: 4px;
 }
@@ -519,21 +518,21 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   position: absolute; top: 16px; right: 16px;
   width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(46,68,53,0.05);
+  border: 1px solid rgba(46,68,53,0.10);
   border-radius: 6px;
   color: var(--text-muted);
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.modal-close:hover { background: rgba(46,68,53,0.10); color: var(--text); }
 .modal-agent-top {
   display: flex; align-items: center; gap: 16px;
   margin-bottom: 28px;
 }
 .modal-agent-emoji { font-size: 48px; line-height: 1; }
-.modal-agent-name { font-size: 20px; font-weight: 700; color: var(--gold); }
+.modal-agent-name { font-size: 20px; font-weight: 700; color: var(--accent); }
 .modal-agent-tagline { font-size: 12px; color: var(--text-faint); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
 .modal-section { margin-bottom: 24px; }
 .modal-section-label {
@@ -563,13 +562,13 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .modal-list li::before {
   content: '›';
   position: absolute; left: 0;
-  color: var(--gold);
+  color: var(--accent);
 }
 .modal-handoff {
   font-size: 13px;
   color: var(--text-muted);
-  background: var(--gold-glow);
-  border: 1px solid rgba(200,169,110,0.12);
+  background: var(--accent-glow);
+  border: 1px solid rgba(46,68,53,0.08);
   border-radius: 8px;
   padding: 12px 14px;
   line-height: 1.5;
@@ -579,7 +578,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   font-size: 12px;
   color: var(--text-muted);
   padding-left: 12px;
-  border-left: 2px solid rgba(200,169,110,0.3);
+  border-left: 2px solid rgba(46,68,53,0.18);
   line-height: 1.5;
 }
 
@@ -602,31 +601,31 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   padding: 6px 12px;
   border-radius: 20px;
   border: 1px solid var(--card-border);
-  background: rgba(255,255,255,0.02);
+  background: rgba(255,255,255,0.6);
   color: var(--text-muted);
   cursor: pointer;
   transition: all 0.15s ease;
   display: flex; align-items: center; gap: 6px;
 }
-.filter-btn:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
+.filter-btn:hover { border-color: rgba(46,68,53,0.18); color: var(--text); }
 .filter-btn.active {
-  background: var(--gold-dim);
-  border-color: rgba(200,169,110,0.3);
-  color: var(--gold);
+  background: var(--accent-dim);
+  border-color: rgba(46,68,53,0.18);
+  color: var(--accent);
 }
 .filter-btn .count-pill {
   font-size: 9px;
   font-weight: 600;
-  background: rgba(255,255,255,0.08);
+  background: rgba(46,68,53,0.08);
   padding: 1px 5px;
   border-radius: 10px;
 }
-.filter-btn.active .count-pill { background: rgba(200,169,110,0.2); }
+.filter-btn.active .count-pill { background: rgba(46,68,53,0.14); }
 .search-wrap {
   position: relative;
 }
 .search-wrap input {
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.8);
   border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 7px 12px 7px 32px;
@@ -638,7 +637,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   transition: border-color 0.2s ease;
 }
 .search-wrap input::placeholder { color: var(--text-faint); }
-.search-wrap input:focus { border-color: rgba(200,169,110,0.3); }
+.search-wrap input:focus { border-color: rgba(46,68,53,0.18); }
 .search-icon {
   position: absolute; left: 10px; top: 50%;
   transform: translateY(-50%);
@@ -665,7 +664,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   text-align: left;
   padding: 14px 16px;
   border-bottom: 1px solid var(--divider);
-  background: rgba(255,255,255,0.01);
+  background: rgba(46,68,53,0.04);
   white-space: nowrap;
 }
 .data-table td {
@@ -676,12 +675,12 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   transition: background 0.15s ease;
 }
 .data-table tr:last-child td { border-bottom: none; }
-.data-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.01); }
+.data-table tbody tr:nth-child(even) td { background: rgba(46,68,53,0.02); }
 .data-table tbody tr {
   cursor: pointer;
   transition: background 0.15s ease;
 }
-.data-table tbody tr:hover td { background: rgba(255,255,255,0.04); }
+.data-table tbody tr:hover td { background: rgba(46,68,53,0.04); }
 .data-table .row-hidden { display: none; }
 .biz-name { font-weight: 500; color: var(--text); }
 
@@ -702,7 +701,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .cat-esthetician  { background: rgba(251,113,133,0.1); color: #FB7185; border: 1px solid rgba(251,113,133,0.15); }
 .cat-photographer { background: rgba(129,140,248,0.1); color: #818CF8; border: 1px solid rgba(129,140,248,0.15); }
 .cat-spa          { background: rgba(192,132,252,0.1); color: #C084FC; border: 1px solid rgba(192,132,252,0.15); }
-.cat-default      { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); }
+.cat-default      { background: rgba(46,68,53,0.06); color: var(--text-muted); border: 1px solid rgba(46,68,53,0.10); }
 
 /* Status badges */
 .status-badge {
@@ -713,14 +712,14 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   white-space: nowrap;
   letter-spacing: 0.04em;
 }
-.status-not-contacted { background: rgba(255,255,255,0.05); color: var(--text-faint); border: 1px solid rgba(255,255,255,0.06); }
-.status-draft         { background: rgba(200,169,110,0.12); color: var(--gold); border: 1px solid rgba(200,169,110,0.2); }
+.status-not-contacted { background: rgba(46,68,53,0.06); color: var(--text-faint); border: 1px solid rgba(46,68,53,0.08); }
+.status-draft         { background: rgba(46,68,53,0.08); color: var(--accent); border: 1px solid rgba(46,68,53,0.14); }
 .status-sent          { background: rgba(96,165,250,0.12);  color: var(--blue); border: 1px solid rgba(96,165,250,0.2); }
 .status-interested    { background: rgba(76,175,110,0.12);  color: var(--green); border: 1px solid rgba(76,175,110,0.2); }
 .status-maybe         { background: rgba(232,168,56,0.12);  color: var(--amber); border: 1px solid rgba(232,168,56,0.2); }
 .status-bounced       { background: rgba(232,80,80,0.12);   color: var(--red); border: 1px solid rgba(232,80,80,0.2); }
 .status-followup      { background: rgba(232,168,56,0.12);  color: var(--amber); border: 1px solid rgba(232,168,56,0.2); }
-.status-default       { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.06); }
+.status-default       { background: rgba(46,68,53,0.06); color: var(--text-muted); border: 1px solid rgba(46,68,53,0.08); }
 
 .followup-date { font-size: 12px; }
 .followup-date.overdue { color: var(--red); font-weight: 500; }
@@ -756,15 +755,15 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   position: absolute; top: 20px; right: 20px;
   width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(46,68,53,0.05);
+  border: 1px solid rgba(46,68,53,0.10);
   border-radius: 6px;
   color: var(--text-muted);
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.drawer-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.drawer-close:hover { background: rgba(46,68,53,0.10); color: var(--text); }
 .drawer-biz-name { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; padding-right: 48px; }
 .drawer-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .drawer-body { padding: 20px 24px; }
@@ -779,7 +778,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 .drawer-contact a {
   font-size: 13px;
-  color: var(--gold);
+  color: var(--accent);
   display: block;
   margin-bottom: 4px;
 }
@@ -788,13 +787,13 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 .drawer-score-card {
   flex: 1;
-  background: rgba(255,255,255,0.03);
+  background: rgba(46,68,53,0.04);
   border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 12px;
   text-align: center;
 }
-.drawer-score-val { font-size: 22px; font-weight: 300; color: var(--gold); }
+.drawer-score-val { font-size: 22px; font-weight: 300; color: var(--accent); }
 .drawer-score-lbl { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
 .finding-row {
   display: flex; gap: 10px; align-items: flex-start;
@@ -802,7 +801,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 .finding-icon {
   width: 24px; height: 24px;
-  background: var(--gold-dim);
+  background: var(--accent-dim);
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
   font-size: 12px;
@@ -812,12 +811,12 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .finding-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 .offer-chip {
   display: inline-flex;
-  background: var(--gold-dim);
-  border: 1px solid rgba(200,169,110,0.2);
+  background: var(--accent-dim);
+  border: 1px solid rgba(46,68,53,0.14);
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 13px;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 500;
 }
 .timeline {
@@ -839,21 +838,21 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   position: absolute; left: -20px;
   width: 12px; height: 12px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(46,68,53,0.08);
+  border: 1px solid rgba(46,68,53,0.12);
 }
 .timeline-dot.done { background: var(--green); border-color: var(--green); }
-.timeline-dot.current { background: var(--gold); border-color: var(--gold); animation: pulseDot 1.5s ease infinite; }
+.timeline-dot.current { background: var(--accent); border-color: var(--accent); animation: pulseDot 1.5s ease infinite; }
 .timeline-label { font-size: 12px; color: var(--text-muted); }
-.timeline-label.current { color: var(--gold); font-weight: 500; }
+.timeline-label.current { color: var(--accent); font-weight: 500; }
 .email-preview {
-  background: rgba(255,255,255,0.02);
+  background: #FFFFFF;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   overflow: hidden;
 }
 .email-preview-header {
-  background: rgba(255,255,255,0.03);
+  background: rgba(46,68,53,0.04);
   border-bottom: 1px solid var(--divider);
   padding: 12px 14px;
 }
@@ -885,13 +884,13 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   text-transform: uppercase;
   padding: 7px 14px;
   border-radius: 6px;
-  border: 1px solid rgba(200,169,110,0.3);
-  color: var(--gold);
-  background: var(--gold-dim);
+  border: 1px solid rgba(46,68,53,0.18);
+  color: var(--accent);
+  background: var(--accent-dim);
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.mark-done-btn:hover { background: rgba(200,169,110,0.2); }
+.mark-done-btn:hover { background: rgba(46,68,53,0.14); }
 .mark-done-btn.done-btn { border-color: rgba(76,175,110,0.3); color: var(--green); background: rgba(76,175,110,0.1); cursor: default; }
 
 /* ============================================================
@@ -911,7 +910,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   transition: background 0.15s ease, opacity 0.3s ease, height 0.3s ease;
 }
 .followup-item:last-child { border-bottom: none; }
-.followup-item:hover { background: rgba(255,255,255,0.03); }
+.followup-item:hover { background: rgba(46,68,53,0.04); }
 .followup-biz { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
 .urgency-pill {
   font-size: 10px;
@@ -922,7 +921,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 .urgency-today    { background: rgba(232,80,80,0.15);  color: var(--red);   border: 1px solid rgba(232,80,80,0.2); }
 .urgency-tomorrow { background: rgba(232,168,56,0.15); color: var(--amber); border: 1px solid rgba(232,168,56,0.2); }
-.urgency-soon     { background: rgba(255,255,255,0.06); color: var(--text-faint); border: 1px solid rgba(255,255,255,0.08); }
+.urgency-soon     { background: rgba(46,68,53,0.06); color: var(--text-faint); border: 1px solid rgba(46,68,53,0.10); }
 .queue-done-btn {
   font-size: 11px;
   font-weight: 500;
@@ -932,7 +931,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   color: var(--text-faint);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: rgba(255,255,255,0.02);
+  background: rgba(46,68,53,0.03);
 }
 .queue-done-btn:hover { border-color: var(--green); color: var(--green); background: rgba(76,175,110,0.08); }
 .empty-state {
@@ -958,8 +957,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
    ============================================================ */
 .clients-list { display: flex; flex-direction: column; gap: 12px; }
 .client-card {
-  background: rgba(200,169,110,0.04);
-  border: 1px solid rgba(200,169,110,0.2);
+  background: rgba(46,68,53,0.04);
+  border: 1px solid rgba(46,68,53,0.14);
   border-radius: var(--radius);
   padding: 16px 18px;
 }
@@ -993,8 +992,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .qc-note { font-size: 11px; color: var(--text-faint); line-height: 1.5; }
 .inn-list { display: flex; flex-direction: column; gap: 10px; }
 .inn-card {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(46,68,53,0.04);
+  border: 1px solid rgba(46,68,53,0.08);
   border-radius: 10px;
   padding: 12px 14px;
   display: flex; align-items: center; gap: 12px;
@@ -1002,7 +1001,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .inn-id {
   font-family: 'Courier New', monospace;
   font-size: 10px;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 600;
   white-space: nowrap;
   flex-shrink: 0;
@@ -1016,9 +1015,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   white-space: nowrap;
   flex-shrink: 0;
 }
-.inn-score.high { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(200,169,110,0.2); }
-.inn-score.med  { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); }
-.inn-link { font-size: 11px; color: var(--gold); margin-top: 14px; display: block; }
+.inn-score.high { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(46,68,53,0.14); }
+.inn-score.med  { background: rgba(46,68,53,0.06); color: var(--text-muted); border: 1px solid rgba(46,68,53,0.10); }
+.inn-link { font-size: 11px; color: var(--accent); margin-top: 14px; display: block; }
 
 /* ============================================================
    RESPONSIVE
@@ -1039,8 +1038,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+::-webkit-scrollbar-thumb { background: rgba(46,68,53,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(46,68,53,0.20); }
 </style>
 </head>
 <body>
@@ -1997,7 +1996,7 @@ function renderClients() {
   if (!clients.length) {
     container.innerHTML = `
       <div class="followup-queue">
-        <div class="empty-state" style="background:rgba(200,169,110,0.03);border:1px solid rgba(200,169,110,0.1);border-radius:16px">
+        <div class="empty-state" style="background:rgba(46,68,53,0.04);border:1px solid rgba(46,68,53,0.08);border-radius:16px">
           <span class="empty-icon">🚀</span>First client incoming.
         </div>
       </div>`;

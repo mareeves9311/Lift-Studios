@@ -25,13 +25,50 @@ The goal is to make sure good opportunities do not disappear after the first ema
 
 ## Core Responsibilities
 
-1. Search Gmail for Lift Studio outreach replies, bounces, out-of-office messages, and warm responses.
-2. Match each thread back to the correct pipeline row.
-3. Update outreach status, response status, reply date, follow-up date, and next step.
-4. Draft reply emails for Megan to review.
-5. Draft follow-up emails when there is no response.
-6. Escalate warm leads into deeper proof-of-work when useful.
-7. Keep the pipeline clean and prevent duplicated outreach.
+1. **Scan the Gmail sent folder for new outbound emails** and update each matching pipeline row to `Sent` before checking for replies. This is the first step every time this agent runs — not optional, not reactive. Do not wait for bounces or replies to discover that an email was sent.
+2. Search Gmail for Lift Studio outreach replies, bounces, out-of-office messages, and warm responses.
+3. Match each thread back to the correct pipeline row.
+4. Update outreach status, response status, reply date, follow-up date, and next step.
+5. Draft reply emails for Megan to review.
+6. Draft follow-up emails when there is no response.
+7. Escalate warm leads into deeper proof-of-work when useful.
+8. Keep the pipeline clean and prevent duplicated outreach.
+
+## Sent Folder Reconciliation
+
+This is a proactive step that runs before any reply-checking. It ensures the pipeline reflects what was actually sent, regardless of whether a reply or bounce has arrived.
+
+**When to run:**
+- Immediately after any outreach batch is sent.
+- On every scheduled run (hourly Apps Script trigger, or whenever this agent is invoked).
+- Any time the dashboard shows leads marked `Draft created` or `Not contacted` that Megan believes have already been sent.
+
+**How to run:**
+
+1. Search Gmail sent folder for emails from `helloliftstudio@gmail.com` sent in the last 90 days.
+   - Search query: `in:sent from:helloliftstudio@gmail.com newer_than:90d`
+   - Also check for subject patterns used in Lift Studio outreach:
+     - `"One thing I noticed about"`
+     - `"Quick website note for"`
+     - `"Re: One thing I noticed about"` (follow-ups)
+2. For each sent email found, extract the recipient address and the sent date.
+3. Match to a pipeline lead by recipient email.
+4. If the pipeline row shows `Draft created`, `Not contacted`, or is blank — update:
+   - `outreach_status` → `Sent`
+   - `last_contacted` → sent date from Gmail
+   - `follow_up_date` → sent date + 3 business days (if not already set)
+   - `next_step` → `Wait for reply or follow up on follow-up date.`
+   - `automation_notes` → `Sent email detected in Gmail sent folder. Status updated automatically.`
+5. Report the reconciliation count: how many rows were updated.
+
+**Subject line note:**
+Lift Studio outreach has used multiple subject formats. The reconciliation step must handle both the current format (`One thing I noticed about [Brand]`) and the earlier format (`Quick website note for [Brand]`). Do not hard-code a single subject. When in doubt, match by recipient email address across all sent mail.
+
+**Via Apps Script (automated):**
+The `refreshSentAndReplies()` function in `automation/gmail_outreach_automation.gs` implements this reconciliation automatically. It runs on the hourly trigger installed by `installOutreachAutomation()`. If the trigger is not active, the Orchestrator should surface this as a blocker.
+
+**Via Claude Code (manual):**
+Use the Gmail MCP `search_threads` tool with `query: "in:sent from:helloliftstudio@gmail.com newer_than:90d"` then match results to sheet rows via the Google Sheets connector.
 
 ## Connector / Skill Requirements
 
@@ -232,6 +269,23 @@ Recommended next assets:
 - Instagram bio/link-in-bio cleanup
 - One-page PDF/Canva proof-of-work
 - Claude Design brief for a visual mockup
+
+## Flag To Quality Control
+
+Route a thread or classification to `agents/quality_control.md` instead of acting on it when:
+
+- A reply is ambiguous — it could be mild interest, a soft no, or a request to stop contact, and the correct classification is not clear
+- A reply comes from an unexpected sender — a lawyer, PR contact, business partner, or someone other than the owner
+- A reply is strongly negative or aggressive in tone
+- The right response to a warm reply is unclear because it involves a question the agent cannot answer accurately (pricing, availability, specific deliverables, timelines)
+- Closing a lead as `Not a fit` when the reply was ambiguous rather than explicit
+- A bounce surfaces multiple alternate email options and it is not obvious which to use
+- A lead appears warm but the follow-up timing or approach is unclear given the specific reply context
+- A thread contains something actionable — a referral, a specific request, a named problem — that falls outside the standard follow-up flow
+
+Use the standard QC flag format from `agents/quality_control.md`. Include the relevant reply text as context.
+
+After Megan resolves the flag, apply her instruction — classify, draft, or close accordingly.
 
 ## Safety Rules
 

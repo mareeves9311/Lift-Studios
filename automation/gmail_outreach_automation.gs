@@ -206,8 +206,9 @@ function refreshSentAndReplies() {
     const rowNumber = rowIndex + 2;
     if (!business || !email) return;
 
-    const subject = `Quick website note for ${business}`;
-    const sentThreads = GmailApp.search(`in:sent to:${email} subject:"${escapeQuery_(subject)}" newer_than:45d`, 0, 5);
+    // Search by recipient only — catches all subject formats used in Lift Studio outreach
+    // (e.g. "One thing I noticed about [Brand]", "Quick website note for [Brand]", follow-up subjects)
+    const sentThreads = GmailApp.search(`in:sent to:${email} newer_than:90d`, 0, 5);
     if (!sentThreads.length) {
       writeLeadUpdates_(sheet, headers, rowNumber, {
         gmail_last_checked: today,
