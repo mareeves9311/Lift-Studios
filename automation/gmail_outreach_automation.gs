@@ -25,7 +25,7 @@ const CONFIG = {
   // Google Drive file ID for the PDF attached to every outreach draft.
   // Get a file ID from the Drive URL: drive.google.com/file/d/FILE_ID/view
   // The Lift Studio website is linked in the email body; do not attach the old brand book.
-  serviceMenuPdfFileId: '',
+  serviceMenuPdfFileId: '1XIz82HCquuLY7GzL4u5QUKr3vaHWhvh-',
   defaultFollowUpDays: 3,
   maxDraftsPerRun: 10,
 };
