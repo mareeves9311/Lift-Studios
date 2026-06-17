@@ -65,6 +65,11 @@ const HEADER_ALIASES = {
 };
 
 function onOpen() {
+  addOutreachAutomationMenu_();
+  if (typeof addLiftPipelineMenu_ === 'function') addLiftPipelineMenu_();
+}
+
+function addOutreachAutomationMenu_() {
   SpreadsheetApp.getUi()
     .createMenu('Outreach Automation')
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
@@ -253,7 +258,7 @@ function refreshSentAndReplies() {
   const data = getSheetData_(sheet);
   const headers = data.headers;
   const rows = data.rows;
-  const senderEmail = (Session.getActiveUser().getEmail() || '').toLowerCase();
+  const senderEmail = String(CONFIG.senderEmail || '').toLowerCase();
   const today = new Date();
 
   rows.forEach((row, rowIndex) => {
