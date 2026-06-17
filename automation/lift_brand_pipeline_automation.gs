@@ -19,9 +19,9 @@
  */
 
 const LIFT_PIPELINE_CONFIG = {
-  spreadsheetId: '1ZUgq7srd2P835fA_Kge80ZpiFJjvUwBR_PXCjZsU688',
-  pipelineSheetName: 'Brand Pipeline',
-  miniAuditsSheetName: 'Mini Audits',
+  spreadsheetId: '1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8',
+  pipelineSheetName: 'Pipeline',
+  miniAuditsSheetName: 'Mini Audits Archive',
   maxAuditsPerRun: 2,
   webTextCharLimit: 9000,
   claudeMaxTokens: 2600,
@@ -31,46 +31,89 @@ const LIFT_PIPELINE_CONFIG = {
     'business_name',
     'website',
     'instagram',
-    'tiktok',
     'category',
-    'location',
-    'source',
+    'city',
+    'state',
     'notes'
   ],
   requiredHeaders: [
-    'date_added',
     'business_name',
     'website',
     'instagram',
-    'tiktok',
     'category',
-    'location',
-    'source',
+    'city',
+    'state',
     'contact_name',
     'email',
     'pipeline_status',
     'fit_score',
     'priority',
-    'offer_angle',
-    'website_first_impression',
-    'social_first_impression',
-    'brand_clarity',
-    'content_opportunities',
-    'quick_win',
-    'why_it_matters',
     'recommended_offer',
-    'audit_type',
-    'next_step',
-    'audit_doc_link',
-    'lookbook_sent',
-    'last_contacted',
-    'follow_up_date',
+    'primary_opportunity',
+    'secondary_opportunity',
+    'pitch_angle',
+    'specific_observation',
+    'business_impact',
+    'quick_win',
+    'subject',
+    'draft_email',
     'notes',
-    'audit_summary',
-    'mini_audit',
-    'audit_ran_at',
-    'audit_error'
+    'next_step',
+    'automation_notes'
   ]
+};
+
+const LIFT_HEADER_ALIASES = {
+  business_name: ['Brand', 'Business Name', 'business_name'],
+  website: ['Website', 'website'],
+  instagram: ['Instagram', 'instagram'],
+  category: ['Category', 'category'],
+  city: ['City', 'city'],
+  state: ['State', 'state'],
+  location: ['Location', 'location'],
+  contact_name: ['Contact Name', 'contact_name'],
+  email: ['Email', 'email'],
+  pipeline_status: ['Pipeline Stage', 'Outreach Status', 'pipeline_status', 'outreach_status'],
+  fit_score: ['Score', 'Fit Score', 'fit_score'],
+  priority: ['Priority', 'priority'],
+  recommended_offer: ['Recommended Offer', 'recommended_offer'],
+  primary_opportunity: ['Primary Opportunity', 'primary_opportunity', 'top_issue'],
+  secondary_opportunity: ['Secondary Opportunity', 'secondary_opportunity', 'secondary_issue'],
+  pitch_angle: ['Pitch Angle', 'pitch_angle', 'offer_angle'],
+  specific_observation: ['Specific Observation', 'specific_observation', 'website_first_impression'],
+  business_impact: ['Business Impact', 'business_impact', 'why_it_matters'],
+  quick_win: ['Quick Win', 'quick_win'],
+  subject: ['Subject', 'subject'],
+  draft_email: ['Outreach Draft', 'Draft Email', 'draft_email'],
+  notes: ['Notes', 'notes'],
+  next_step: ['Next Action', 'Next Step', 'next_step'],
+  automation_notes: ['Automation Notes', 'automation_notes', 'audit_error'],
+};
+
+const LIFT_DISPLAY_HEADERS = {
+  business_name: 'Brand',
+  website: 'Website',
+  instagram: 'Instagram',
+  category: 'Category',
+  city: 'City',
+  state: 'State',
+  contact_name: 'Contact Name',
+  email: 'Email',
+  pipeline_status: 'Pipeline Stage',
+  fit_score: 'Score',
+  priority: 'Priority',
+  recommended_offer: 'Recommended Offer',
+  primary_opportunity: 'Primary Opportunity',
+  secondary_opportunity: 'Secondary Opportunity',
+  pitch_angle: 'Pitch Angle',
+  specific_observation: 'Specific Observation',
+  business_impact: 'Business Impact',
+  quick_win: 'Quick Win',
+  subject: 'Subject',
+  draft_email: 'Outreach Draft',
+  notes: 'Notes',
+  next_step: 'Next Action',
+  automation_notes: 'Automation Notes',
 };
 
 function onOpen() {
@@ -153,8 +196,8 @@ function runQueuedLiftBrandAudits() {
 
     rows.forEach(row => {
       if (processed >= LIFT_PIPELINE_CONFIG.maxAuditsPerRun) return;
-      if ((row.values.pipeline_status || '') !== 'Audit queued') return;
-      if (!row.values.business_name && !row.values.website && !row.values.instagram && !row.values.tiktok) return;
+      if ((row.values.pipeline_status || '') !== 'Auditing') return;
+      if (!row.values.business_name && !row.values.website && !row.values.instagram) return;
 
       processed++;
       runLiftAuditForRow_(sheet, row.rowNumber, headers);
@@ -171,7 +214,7 @@ function auditSelectedLiftBrandRow() {
   const sheet = getLiftPipelineSheet_(ss);
   const range = sheet.getActiveRange();
   if (!range || range.getRow() < 2) {
-    throw new Error('Select a data row in Brand Pipeline before running this.');
+    throw new Error('Select a data row in Pipeline before running this.');
   }
 
   ensureLiftPipelineHeaders_(sheet);
@@ -182,10 +225,10 @@ function auditSelectedLiftBrandRow() {
 
 function runLiftAuditForRow_(sheet, rowNumber, headers) {
   const row = readLiftRowValues_(sheet, rowNumber, headers);
-  if (!row.business_name && !row.website && !row.instagram && !row.tiktok) return;
+  if (!row.business_name && !row.website && !row.instagram) return;
 
-  setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Audit running');
-  setLiftCell_(sheet, rowNumber, headers.audit_error, '');
+  setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Auditing');
+  setLiftCell_(sheet, rowNumber, headers.automation_notes, '');
   SpreadsheetApp.flush();
 
   try {
@@ -194,25 +237,21 @@ function runLiftAuditForRow_(sheet, rowNumber, headers) {
     writeLiftAuditResult_(sheet, rowNumber, headers, row, audit);
     appendLiftMiniAudit_(row, audit);
   } catch (error) {
-    setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Audit error');
-    setLiftCell_(sheet, rowNumber, headers.audit_error, error.message.slice(0, 45000));
+    setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'New Lead');
+    setLiftCell_(sheet, rowNumber, headers.automation_notes, `Audit error: ${error.message.slice(0, 45000)}`);
   }
 }
 
 function queueLiftAuditForRow_(sheet, rowNumber, headers) {
   const row = readLiftRowValues_(sheet, rowNumber, headers);
-  if (!row.business_name && !row.website && !row.instagram && !row.tiktok) return;
-
-  if (!row.date_added && headers.date_added) {
-    setLiftCell_(sheet, rowNumber, headers.date_added, new Date());
-  }
+  if (!row.business_name && !row.website && !row.instagram) return;
 
   const status = row.pipeline_status || '';
-  if (['Audit running', 'Audit complete', 'Sent', 'Follow up', 'Paused', 'Not a fit'].includes(status)) {
+  if (['Auditing', 'Ready to Draft', 'Drafted', 'Sent', 'Replied', 'Warm', 'Won', 'Paused', 'Not a Fit'].includes(status)) {
     return;
   }
 
-  setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Audit queued');
+  setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Auditing');
   if (headers.next_step && !row.next_step) {
     setLiftCell_(sheet, rowNumber, headers.next_step, 'Auto audit queued. Review output before sending.');
   }
@@ -289,9 +328,9 @@ function buildLiftAuditPrompt_(row, websiteText) {
       business_name: 'string',
       category: 'string|null',
       location: 'string|null',
-      pipeline_status: 'Audit complete',
+      pipeline_status: 'Ready to Draft',
       fit_score: 'number 1-20',
-      priority: 'A - high fit|B - possible fit|C - low fit|Hold',
+      priority: 'A - High|B - Possible|C - Low|Hold',
       offer_angle: 'string',
       website_first_impression: 'string',
       social_first_impression: 'string',
@@ -312,10 +351,8 @@ function buildLiftAuditPrompt_(row, websiteText) {
     `Business name: ${row.business_name || ''}`,
     `Website: ${row.website || ''}`,
     `Instagram: ${row.instagram || ''}`,
-    `TikTok: ${row.tiktok || ''}`,
     `Category: ${row.category || ''}`,
-    `Location: ${row.location || ''}`,
-    `Source: ${row.source || ''}`,
+    `Location: ${row.location || [row.city, row.state].filter(Boolean).join(', ')}`,
     `User notes: ${row.notes || ''}`,
     '',
     'Audit requirements:',
@@ -337,25 +374,21 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
   const valuesByHeader = {
     business_name: audit.business_name || previousRow.business_name,
     category: audit.category || previousRow.category,
-    location: audit.location || previousRow.location,
-    pipeline_status: 'Audit complete',
+    city: parseLiftCity_(audit.location || previousRow.location || [previousRow.city, previousRow.state].filter(Boolean).join(', ')) || previousRow.city,
+    state: parseLiftState_(audit.location || previousRow.location || [previousRow.city, previousRow.state].filter(Boolean).join(', ')) || previousRow.state,
+    pipeline_status: 'Ready to Draft',
     fit_score: audit.fit_score == null ? '' : String(audit.fit_score),
     priority: audit.priority || '',
-    offer_angle: audit.offer_angle || '',
-    website_first_impression: audit.website_first_impression || '',
-    social_first_impression: audit.social_first_impression || '',
-    brand_clarity: audit.brand_clarity || '',
-    content_opportunities: audit.content_opportunities || '',
-    quick_win: audit.quick_win || '',
-    why_it_matters: audit.why_it_matters || '',
     recommended_offer: audit.recommended_offer || '',
-    audit_type: audit.audit_type || '',
-    next_step: audit.next_step || '',
+    primary_opportunity: audit.website_first_impression || audit.brand_clarity || '',
+    secondary_opportunity: audit.social_first_impression || audit.content_opportunities || '',
+    pitch_angle: audit.offer_angle || '',
+    specific_observation: audit.website_first_impression || audit.social_first_impression || '',
+    business_impact: audit.why_it_matters || '',
+    quick_win: audit.quick_win || '',
+    next_step: 'Email Marketer: draft first-touch outreach',
     notes: appendLiftNote_(previousRow.notes, audit.notes),
-    audit_summary: audit.audit_summary || '',
-    mini_audit: audit.mini_audit || '',
-    audit_ran_at: new Date(),
-    audit_error: ''
+    automation_notes: `Audit completed automatically ${new Date().toISOString()}. ${audit.audit_summary || ''}`.trim()
   };
 
   Object.keys(valuesByHeader).forEach(header => {
@@ -374,8 +407,8 @@ function appendLiftMiniAudit_(row, audit) {
     business_name: audit.business_name || row.business_name || '',
     website: row.website || '',
     category: audit.category || row.category || '',
-    city: parseLiftCity_(audit.location || row.location || ''),
-    state: parseLiftState_(audit.location || row.location || ''),
+    city: parseLiftCity_(audit.location || row.location || [row.city, row.state].filter(Boolean).join(', ')),
+    state: parseLiftState_(audit.location || row.location || [row.city, row.state].filter(Boolean).join(', ')),
     score: audit.fit_score == null ? '' : String(audit.fit_score),
     outreach_priority: audit.priority || '',
     recommended_offer: audit.recommended_offer || '',
@@ -459,7 +492,7 @@ function ensureLiftPipelineHeaders_(sheet) {
   LIFT_PIPELINE_CONFIG.requiredHeaders.forEach(header => {
     if (normalized[header]) return;
     const nextCol = sheet.getLastColumn() + 1;
-    sheet.getRange(1, nextCol).setValue(header);
+    sheet.getRange(1, nextCol).setValue(LIFT_DISPLAY_HEADERS[header] || header);
     normalized[header] = nextCol;
   });
 }
@@ -468,8 +501,8 @@ function formatLiftPipelineSheet_(sheet) {
   sheet.setFrozenRows(1);
   sheet.getRange(1, 1, 1, sheet.getLastColumn())
     .setFontWeight('bold')
-    .setBackground('#1f1f1f')
-    .setFontColor('#ffffff')
+    .setBackground('#2E4435')
+    .setFontColor('#FBFAF6')
     .setWrap(true);
   sheet.autoResizeColumns(1, Math.min(sheet.getLastColumn(), 32));
 }
@@ -508,7 +541,16 @@ function getLiftHeaderMap_(sheet) {
 }
 
 function normalizeLiftHeader_(header) {
-  return String(header || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  const normalized = String(header || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  const aliases = Object.keys(LIFT_HEADER_ALIASES);
+  for (let i = 0; i < aliases.length; i += 1) {
+    const canonical = aliases[i];
+    const names = LIFT_HEADER_ALIASES[canonical];
+    if (names.some(name => String(name || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '') === normalized)) {
+      return canonical;
+    }
+  }
+  return normalized;
 }
 
 function getLiftColumnsInRange_(range) {

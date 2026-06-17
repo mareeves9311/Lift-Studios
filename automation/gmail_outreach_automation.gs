@@ -16,8 +16,8 @@
  */
 
 const CONFIG = {
-  spreadsheetId: '1ZUgq7srd2P835fA_Kge80ZpiFJjvUwBR_PXCjZsU688',
-  leadsSheetName: 'Leads',
+  spreadsheetId: '1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8',
+  leadsSheetName: 'Pipeline',
   onePagerUrl: 'https://docs.google.com/document/d/1VHSPjanmsC3cyPxmb0cTvrTBXMEHum3jywj9NvNorZc',
   senderName: 'Megan Reeves',
   senderEmail: 'helloliftstudio@gmail.com',
@@ -27,22 +27,42 @@ const CONFIG = {
 };
 
 const REQUIRED_HEADERS = [
-  'business_name',
-  'email',
-  'contact_form',
-  'instagram',
-  'phone',
-  'draft_email',
-  'outreach_status',
-  'last_contacted',
-  'follow_up_date',
-  'response_status',
-  'gmail_draft_id',
-  'gmail_thread_id',
-  'gmail_last_checked',
-  'next_step',
-  'automation_notes',
+  'Brand',
+  'Email',
+  'Contact Form',
+  'Instagram',
+  'Phone',
+  'Subject',
+  'Outreach Draft',
+  'Pipeline Stage',
+  'Last Contacted',
+  'Follow-Up Date',
+  'Response Status',
+  'Gmail Draft ID',
+  'Gmail Thread ID',
+  'Gmail Last Checked',
+  'Next Action',
+  'Automation Notes',
 ];
+
+const HEADER_ALIASES = {
+  business_name: ['Brand', 'Business Name', 'business_name'],
+  email: ['Email', 'email'],
+  contact_form: ['Contact Form', 'contact_form'],
+  instagram: ['Instagram', 'instagram'],
+  phone: ['Phone', 'phone'],
+  subject: ['Subject', 'subject'],
+  draft_email: ['Outreach Draft', 'Draft Email', 'draft_email'],
+  pipeline_stage: ['Pipeline Stage', 'Outreach Status', 'pipeline_stage', 'outreach_status'],
+  last_contacted: ['Last Contacted', 'last_contacted'],
+  follow_up_date: ['Follow-Up Date', 'Follow-Up 1', 'follow_up_date'],
+  response_status: ['Response Status', 'response_status'],
+  gmail_draft_id: ['Gmail Draft ID', 'gmail_draft_id'],
+  gmail_thread_id: ['Gmail Thread ID', 'gmail_thread_id'],
+  gmail_last_checked: ['Gmail Last Checked', 'gmail_last_checked'],
+  next_step: ['Next Action', 'Next Step', 'next_step'],
+  automation_notes: ['Automation Notes', 'automation_notes'],
+};
 
 function onOpen() {
   SpreadsheetApp.getUi()
@@ -116,12 +136,12 @@ function createOutreachDrafts() {
     const business = value_(row, headers, 'business_name');
     const email = value_(row, headers, 'email');
     const draftEmail = value_(row, headers, 'draft_email');
-    const status = value_(row, headers, 'outreach_status').toLowerCase();
+    const status = value_(row, headers, 'pipeline_stage').toLowerCase();
     const existingDraftId = value_(row, headers, 'gmail_draft_id');
     const rowNumber = rowIndex + 2;
 
     if (!business) return;
-    if (status === 'sent' || status === 'replied' || status === 'not a fit') return;
+    if (status === 'sent' || status === 'replied' || status === 'warm' || status === 'won' || status === 'not a fit') return;
     if (existingDraftId) return;
 
     if (!email) {
@@ -133,14 +153,14 @@ function createOutreachDrafts() {
       return;
     }
 
-    const subject = `Quick website note for ${business}`;
+    const subject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
     const body = buildDraftBody_(business, draftEmail);
     const draft = GmailApp.createDraft(email, subject, body, {
       name: CONFIG.senderName,
     });
 
     writeLeadUpdates_(sheet, headers, rowNumber, {
-      outreach_status: 'Drafted',
+      pipeline_stage: 'Drafted',
       gmail_draft_id: draft.getId(),
       gmail_last_checked: today,
       next_step: 'Review Gmail draft and send manually.',
@@ -172,7 +192,7 @@ function refreshExistingOutreachDrafts() {
 
     if (!business || !email || !draftId) return;
 
-    const subject = `Quick website note for ${business}`;
+    const subject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
     const body = buildDraftBody_(business, draftEmail);
 
     try {
@@ -263,7 +283,7 @@ function refreshSentAndReplies() {
     });
 
     const updates = {
-      outreach_status: 'Sent',
+      pipeline_stage: 'Sent',
       gmail_thread_id: thread.getId(),
       gmail_last_checked: today,
       automation_notes: 'Sent email detected in Gmail.',
@@ -290,7 +310,7 @@ function ensureAutomationColumns_() {
   const sheet = getLeadsSheet_();
   const data = getSheetData_(sheet);
   const existing = data.headers;
-  const missing = REQUIRED_HEADERS.filter((header) => !existing[header]);
+  const missing = REQUIRED_HEADERS.filter((header) => !existing[canonicalHeader_(header)]);
   if (!missing.length) return;
 
   const startCol = sheet.getLastColumn() + 1;
@@ -314,8 +334,10 @@ function getSheetData_(sheet) {
   const headerRow = values[0] || [];
   const headers = {};
   headerRow.forEach((header, index) => {
-    const key = String(header || '').trim();
-    if (key) headers[key] = index + 1;
+    const display = String(header || '').trim();
+    if (!display) return;
+    headers[display] = index + 1;
+    headers[canonicalHeader_(display)] = index + 1;
   });
   return {
     headers,
@@ -324,17 +346,32 @@ function getSheetData_(sheet) {
 }
 
 function value_(row, headers, header) {
-  const col = headers[header];
+  const col = headers[canonicalHeader_(header)] || headers[header];
   if (!col) return '';
   return String(row[col - 1] || '').trim();
 }
 
 function writeLeadUpdates_(sheet, headers, rowNumber, updates) {
   Object.keys(updates).forEach((header) => {
-    const col = headers[header];
+    const col = headers[canonicalHeader_(header)] || headers[header];
     if (!col) return;
     sheet.getRange(rowNumber, col).setValue(updates[header]);
   });
+}
+
+function canonicalHeader_(header) {
+  const normalized = normalizeHeader_(header);
+  const aliases = Object.keys(HEADER_ALIASES);
+  for (let i = 0; i < aliases.length; i += 1) {
+    const canonical = aliases[i];
+    const names = HEADER_ALIASES[canonical];
+    if (names.some((name) => normalizeHeader_(name) === normalized)) return canonical;
+  }
+  return normalized;
+}
+
+function normalizeHeader_(header) {
+  return String(header || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
 }
 
 function buildDraftBody_(business, draftEmail) {
