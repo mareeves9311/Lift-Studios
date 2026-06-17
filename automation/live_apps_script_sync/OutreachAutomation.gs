@@ -77,6 +77,7 @@ function addOutreachAutomationMenu_() {
     .createMenu('Outreach Automation')
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
+    .addItem('Test Service Menu Attachment', 'testServiceMenuAttachment')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
     .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
     .addToUi();
@@ -136,7 +137,11 @@ function createOutreachDrafts() {
   const rows = data.rows;
   const today = new Date();
   let created = 0;
-  let skipped = 0;
+  let missingEmail = 0;
+  let missingCopy = 0;
+  let alreadySentOrClosed = 0;
+  let alreadyHasDraft = 0;
+  let notReady = 0;
 
   rows.forEach((row, rowIndex) => {
     if (created >= CONFIG.maxDraftsPerRun) return;
@@ -149,21 +154,41 @@ function createOutreachDrafts() {
     const rowNumber = rowIndex + 2;
 
     if (!business) return;
-    if (status === 'sent' || status === 'replied' || status === 'warm' || status === 'won' || status === 'not a fit') return;
-    if (existingDraftId) return;
+    if (isTerminalPipelineStatus_(status)) {
+      alreadySentOrClosed += 1;
+      return;
+    }
+    if (existingDraftId) {
+      alreadyHasDraft += 1;
+      return;
+    }
+    if (!isDraftReadyStatus_(status)) {
+      notReady += 1;
+      return;
+    }
 
     if (!email) {
       writeLeadUpdates_(sheet, headers, rowNumber, {
         next_step: nextManualStep_(row, headers),
         automation_notes: 'No email available. Use form, Instagram, or phone.',
       });
-      skipped += 1;
+      missingEmail += 1;
+      return;
+    }
+
+    if (!draftEmail) {
+      writeLeadUpdates_(sheet, headers, rowNumber, {
+        next_step: 'Write outreach copy before creating a Gmail draft.',
+        automation_notes: 'No outreach draft copy found.',
+      });
+      missingCopy += 1;
       return;
     }
 
     const subject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
-    const body = buildDraftBody_(business, draftEmail);
-    const htmlBody = buildHtmlBody_(business, draftEmail);
+    const normalizedDraftEmail = normalizeOutreachCopy_(draftEmail);
+    const body = buildDraftBody_(business, normalizedDraftEmail);
+    const htmlBody = buildHtmlBody_(business, normalizedDraftEmail);
     const attachments = getLiftStudioAttachments_();
     const draft = GmailApp.createDraft(email, subject, body, {
       name: CONFIG.senderName,
@@ -182,7 +207,21 @@ function createOutreachDrafts() {
     created += 1;
   });
 
-  SpreadsheetApp.getActive().toast(`Created ${created} draft(s). Skipped ${skipped} lead(s) without email.`);
+  SpreadsheetApp.getActive().toast(
+    `Created ${created} draft(s). Missing email: ${missingEmail}. Missing copy: ${missingCopy}. Existing draft: ${alreadyHasDraft}. Sent/closed: ${alreadySentOrClosed}. Not ready: ${notReady}.`
+  );
+}
+
+function testServiceMenuAttachment() {
+  const attachments = getLiftStudioAttachments_();
+  if (!attachments.length) {
+    throw new Error('No service menu PDF file ID is configured.');
+  }
+
+  const attachment = attachments[0];
+  SpreadsheetApp.getActive().toast(
+    `Service menu attachment is accessible: ${attachment.getName()} (${Math.round(attachment.getBytes().length / 1024)} KB).`
+  );
 }
 
 function refreshExistingOutreachDrafts() {
@@ -205,8 +244,9 @@ function refreshExistingOutreachDrafts() {
     if (!business || !email || !draftId) return;
 
     const subject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
-    const body = buildDraftBody_(business, draftEmail);
-    const htmlBody = buildHtmlBody_(business, draftEmail);
+    const normalizedDraftEmail = normalizeOutreachCopy_(draftEmail);
+    const body = buildDraftBody_(business, normalizedDraftEmail);
+    const htmlBody = buildHtmlBody_(business, normalizedDraftEmail);
     const attachments = getLiftStudioAttachments_();
 
     try {
@@ -388,6 +428,30 @@ function canonicalHeader_(header) {
 
 function normalizeHeader_(header) {
   return String(header || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+}
+
+function isTerminalPipelineStatus_(status) {
+  return ['sent', 'replied', 'warm', 'won', 'not a fit', 'closed', 'archived'].includes(String(status || '').toLowerCase());
+}
+
+function isDraftReadyStatus_(status) {
+  return ['ready to draft', 'ready', 'draft ready'].includes(String(status || '').toLowerCase());
+}
+
+function normalizeOutreachCopy_(draftEmail) {
+  return String(draftEmail || '')
+    .replace(
+      /I am also attaching the Lift Studio brand book and service menu so you can get a feel for the approach\./gi,
+      'I am linking the Lift Studio site so you can get a feel for the approach, and attaching the service menu for a quick overview.'
+    )
+    .replace(
+      /I am attaching the Lift Studio brand book and service menu so you can get a feel for the approach\./gi,
+      'I am linking the Lift Studio site so you can get a feel for the approach, and attaching the service menu for a quick overview.'
+    )
+    .replace(
+      /brand book and service menu/gi,
+      'website and service menu'
+    );
 }
 
 function buildDraftBody_(business, draftEmail) {
