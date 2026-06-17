@@ -26,7 +26,7 @@ Last updated: 2026-06-16 (updated with live URL)
 In order:
 
 1. **Live website URL confirmed** — `https://helloliftstudio.netlify.app/`
-2. **First Gmail outreach batch drafted** — 29 clean drafts created in `helloliftstudio@gmail.com` from the pipeline/outreach list, each with `About Lift Studio.pdf` plus `Lift Studio Service Menu.pdf`; drafts include the live site hyperlink and a plain-English SEO opportunity note
+2. **First Gmail outreach batch drafted** — 29 revised drafts created in `helloliftstudio@gmail.com` from the pipeline/outreach list using the subject format `One thing I noticed about [Brand]`; each draft includes a specific hook, two audit-style observations, the live Lift Studio hyperlink, and the Lift Studio service menu PDF
 3. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
@@ -64,4 +64,4 @@ The live URL is confirmed and should be used anywhere the old placeholder appear
 
 `https://helloliftstudio.netlify.app/`
 
-Drafts include the Lift Studio brand book and service menu PDFs from `site/_lift-brand/`. Rows without public email addresses still need contact-form or manual outreach. There are also 5 older accidental `UPDATED:` drafts in Gmail that need manual deletion if they still appear, because attached drafts cannot be renamed or deleted through the current connector.
+Drafts include the Lift Studio service menu PDF from `site/_lift-brand/`. Rows without public email addresses still need contact-form or manual outreach.
