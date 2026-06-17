@@ -27,7 +27,8 @@ In order:
 
 1. **Live website URL confirmed** — `https://helloliftstudio.netlify.app/`
 2. **First Gmail outreach batch drafted** — 29 revised drafts created in `helloliftstudio@gmail.com` from the pipeline/outreach list using the subject format `One thing I noticed about [Brand]`; each draft includes a specific hook, two audit-style observations, the live Lift Studio hyperlink, and the Lift Studio service menu PDF
-3. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
+3. **Gmail signature asset added** — use `assets/lift-studio-gmail-signature.html` for future Lift outreach drafts; append only the signature table block, not the full HTML document wrapper
+4. **Resolve held MR Studio items** — four items from the brand cleanup pass were intentionally deferred (see Section 3)
 
 ## 3. Known Open Decisions
 
