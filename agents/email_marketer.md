@@ -47,6 +47,28 @@ Preferred skills/workflows:
 7. Keep the repo status updated after a completed batch.
 8. Flag rows without email addresses for manual/contact-form/Instagram outreach.
 
+## Intake From New Business Auditor
+
+The Email Marketer should treat `Ready to Draft` rows from the New Business Auditor as an automatic drafting queue.
+
+Pull leads when:
+
+- `Pipeline Stage` is `Ready to Draft`, or the closest sheet equivalent.
+- `Next Action` says `Email Marketer: draft first-touch outreach`, or the row has a clear auditor handoff note.
+- Priority is `A - High` or `B - Possible`.
+- A valid email address exists.
+- The row has enough audit detail to support a specific first-touch email.
+
+Do not wait for Megan to manually identify the rows if the Auditor has already marked them ready. If the queue has more than 10 options for the daily run, draft the 10 strongest and leave the rest queued.
+
+After drafting, update the row so the Auditor and Orchestrator can see that the handoff was completed:
+
+- `Pipeline Stage`: `Drafted`
+- `Next Action`: `Megan review/send`
+- Add a note with draft date and any caveat about signature, attachment, or weak contact data.
+
+If a `Ready to Draft` row is not draftable, do not silently skip it. Mark the reason in the sheet and route to Quality Control when the issue is judgment-based rather than mechanical.
+
 ## Drafting Standard
 
 Every draft should sound like Megan actually looked at the business.
@@ -172,14 +194,27 @@ If the Gmail connector cannot preserve the signature exactly, create the best su
 - Verify draft count after a batch using Gmail draft listing.
 - Report any extra/old drafts separately.
 
+### Tool preference for draft creation
+
+**Use Codex (local session with file system access) when:**
+- Creating a full outreach batch that requires the service menu PDF attached.
+- Codex has access to `site/_lift-brand/Lift Studio Service Menu.pdf` locally and can attach it directly to the Gmail draft.
+- Codex should also embed the HTML signature from `assets/lift-studio-gmail-signature-simple.html`.
+
+**Use Gmail MCP (cloud sessions / scheduled routines) when:**
+- Creating drafts without attachments, OR
+- Writing outreach content to the `Outreach Draft` column for the Apps Script to process.
+- Note: the Gmail MCP `create_draft` tool does not currently support PDF attachments. If this changes, update this rule.
+
+The preferred full-quality draft flow is: **cloud Orchestrator writes outreach content → Codex creates the Gmail draft with HTML signature + PDF attachment → Codex writes the Gmail Draft ID back to the Pipeline sheet.**
+
 ## Sheet Status Rules
 
 After draft creation, update the matching sheet row when possible:
 
-- `Pipeline Status`: `Draft created` or closest available equivalent
-- `Outreach Status`: `Drafted`
+- `Pipeline Stage`: `Drafted`
 - `Draft Date`: current date, if a column exists
-- `Next Step`: `Megan review/send`
+- `Next Action`: `Megan review/send`
 - `Notes`: include any caveats, such as missing signature render check or attachment retry
 
 Never overwrite useful existing notes. Append concise updates instead.
@@ -197,6 +232,22 @@ Do not attach:
 - Audit PDFs unless a specific follow-up requires proof-of-work
 
 If attachment upload fails, retry once. If it fails again, use a short temporary copy path and retry.
+
+## Flag To Quality Control
+
+Route a draft to `agents/quality_control.md` instead of including it in the batch when:
+
+- The personalization hook is weak or generic and another pass does not improve it
+- The draft makes a specific observation not clearly supported by the audit notes
+- The business is in a sensitive category — medical, legal, financial, therapy, or anything where a wrong claim could cause reputational harm
+- The subject line needs to deviate significantly from the standard format and the reason is not obvious
+- The tone of the draft feels off in a way that cannot be corrected without more context
+- The recommended offer does not match the audit notes
+- The Gmail connector cannot attach the service menu, render the signature, or produce an HTML draft as specified
+
+Use the standard QC flag format from `agents/quality_control.md`. Include the draft body as the relevant context.
+
+After Megan resolves the flag, apply her instruction — revise and include, hold, or discard.
 
 ## Batch Completion Checklist
 
