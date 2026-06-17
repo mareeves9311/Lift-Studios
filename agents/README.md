@@ -2,6 +2,8 @@
 
 Reusable agent specs for Lift Studio workflows.
 
+Before using any agent, read `../ACTIVE_INSTRUCTIONS.md`. Archived instruction packs are reference-only and should not override files in this folder.
+
 ## Available Agents
 
 - `orchestrator.md` - manages the full Lift outbound system, routes tasks to specialist agents, verifies handoffs, and recommends next actions.

@@ -11,20 +11,17 @@
  * - Open the Google Sheet.
  * - Extensions > Apps Script.
  * - Paste this file into Code.gs.
- * - Set CONFIG.serviceMenuPdfFileId to your Drive file ID.
+ * - Update CONFIG.onePagerUrl and CONFIG.senderName if needed.
  * - Run installOutreachAutomation() once and approve permissions.
  */
 
 const CONFIG = {
   spreadsheetId: '1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8',
   leadsSheetName: 'Pipeline',
+  onePagerUrl: 'https://docs.google.com/document/d/1VHSPjanmsC3cyPxmb0cTvrTBXMEHum3jywj9NvNorZc',
   senderName: 'Megan Reeves',
   senderEmail: 'helloliftstudio@gmail.com',
   businessName: 'Lift Studio',
-  // Google Drive file ID for the PDF attached to every outreach draft.
-  // Get a file ID from the Drive URL: drive.google.com/file/d/FILE_ID/view
-  // The Lift Studio website is linked in the email body; do not attach the old brand book.
-  serviceMenuPdfFileId: '',
   defaultFollowUpDays: 3,
   maxDraftsPerRun: 10,
 };
@@ -163,20 +160,16 @@ function createOutreachDrafts() {
 
     const subject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
     const body = buildDraftBody_(business, draftEmail);
-    const htmlBody = buildHtmlBody_(business, draftEmail);
-    const attachments = getLiftStudioAttachments_();
     const draft = GmailApp.createDraft(email, subject, body, {
       name: CONFIG.senderName,
-      htmlBody: htmlBody,
-      attachments: attachments,
     });
 
     writeLeadUpdates_(sheet, headers, rowNumber, {
       pipeline_stage: 'Drafted',
       gmail_draft_id: draft.getId(),
       gmail_last_checked: today,
-      next_step: 'Review Gmail draft with service menu attachment and send manually.',
-      automation_notes: 'Draft created automatically with Lift Studio service menu attached. Not sent.',
+      next_step: 'Review Gmail draft and send manually.',
+      automation_notes: 'Draft created automatically. Not sent.',
     });
 
     created += 1;
@@ -206,22 +199,18 @@ function refreshExistingOutreachDrafts() {
 
     const subject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
     const body = buildDraftBody_(business, draftEmail);
-    const htmlBody = buildHtmlBody_(business, draftEmail);
-    const attachments = getLiftStudioAttachments_();
 
     try {
       const draft = findDraft_(draftId, email, subject);
       if (!draft) throw new Error('No matching Gmail draft found by ID, recipient, or subject.');
       draft.update(email, subject, body, {
         name: CONFIG.senderName,
-        htmlBody: htmlBody,
-        attachments: attachments,
       });
       writeLeadUpdates_(sheet, headers, rowNumber, {
         gmail_draft_id: draft.getId(),
         gmail_last_checked: today,
-        next_step: 'Review refreshed Gmail draft with service menu attachment and send manually.',
-        automation_notes: 'Gmail draft refreshed with latest copy and Lift Studio service menu attached.',
+        next_step: 'Review refreshed Gmail draft and send manually.',
+        automation_notes: 'Existing Gmail draft refreshed with latest tracker copy.',
       });
       refreshed += 1;
     } catch (error) {
@@ -406,6 +395,9 @@ function buildDraftBody_(business, draftEmail) {
   return [
     base,
     ``,
+    `P.S. I put together a short overview of Lift Studio here:`,
+    CONFIG.onePagerUrl,
+    ``,
     signature_(),
   ].join('\n');
 }
@@ -422,77 +414,12 @@ function signature_() {
     `Megan Reeves`,
     `${CONFIG.businessName}`,
     `Boutique brand and content studio for local businesses`,
+    `Brand clarity, content direction, website first impressions & social quick wins`,
     ``,
     `Based in PA | Remote-friendly`,
     `${CONFIG.senderEmail}`,
+    `Lift Studio Overview: ${CONFIG.onePagerUrl}`,
   ].join('\n');
-}
-
-const LIFT_STUDIO_HTML_SIGNATURE_ = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family:Arial, Helvetica, sans-serif; color:#242424; max-width:560px;">
-  <tr>
-    <td valign="middle" style="padding:0 18px 0 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-        <tr>
-          <td align="center" valign="middle" width="84" height="84" style="width:84px; height:84px; background:#0f3f35; border-radius:42px; color:#fff8ea; font-family:Arial, Helvetica, sans-serif; font-size:25px; font-weight:700; letter-spacing:0.8px; line-height:84px;">LS</td>
-        </tr>
-      </table>
-    </td>
-    <td valign="middle" style="padding:0 20px 0 0; border-left:4px solid #d86f3f;"></td>
-    <td valign="middle" style="padding:0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:28px; line-height:31px; font-weight:700; letter-spacing:6px; color:#0f3f35; padding:0 0 10px 0; white-space:nowrap;">LIFT STUDIO</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:20px; font-weight:700; color:#252525; padding:0 0 3px 0;">Megan Reeves</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; font-weight:400; color:#686861; padding:0 0 9px 0;">Social Strategy &nbsp;·&nbsp; Content Direction &nbsp;·&nbsp; Brand Audits</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; font-weight:400; color:#686861; padding:0 0 5px 0;">Content that works harder.</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; font-weight:400; color:#0f3f35; padding:0;"><a href="mailto:helloliftstudio@gmail.com" style="color:#0f3f35; text-decoration:none; font-weight:600;">helloliftstudio@gmail.com</a></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>`;
-
-function buildHtmlBody_(business, draftEmail) {
-  const cleanedDraft = stripSubjectLine_(draftEmail);
-  const textBody = cleanedDraft || [
-    `Hi there,`,
-    ``,
-    `I came across ${business} and noticed a few opportunities to make the website, social presence, and content direction feel clearer and easier to act on.`,
-    ``,
-    `Would it be helpful if I sent over a few specific ideas?`,
-    ``,
-    `Best,`,
-    `Megan`,
-  ].join('\n');
-
-  const paragraphs = textBody.split(/\n\n+/).map((para) => {
-    const lines = para.split('\n').join('<br>');
-    return `<p style="margin:0 0 14px 0; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:21px; color:#242424;">${lines}</p>`;
-  });
-
-  const bodyHtml = paragraphs.join('\n').replace(
-    /\bLift Studio\b/g,
-    `<a href="https://helloliftstudio.netlify.app/" style="color:#0f3f35; text-decoration:none; font-weight:600;">Lift Studio</a>`
-  );
-
-  return `${bodyHtml}\n<br>\n${LIFT_STUDIO_HTML_SIGNATURE_}`;
-}
-
-function getLiftStudioAttachments_() {
-  if (!CONFIG.serviceMenuPdfFileId) return [];
-  return [
-    DriveApp.getFileById(CONFIG.serviceMenuPdfFileId)
-      .getBlob()
-      .setName('Lift Studio Service Menu.pdf')
-  ];
 }
 
 function nextManualStep_(row, headers) {

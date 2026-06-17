@@ -49,9 +49,9 @@ Flag when:
 - The business might be a franchise or corporate-owned location where no local decision-maker is obvious
 - Duplicate detection is uncertain — similar name, similar category, different city or slight URL variation
 - Audit notes are too thin to support a specific email but the auditor thinks the lead is still worth pursuing
-- A lead scores borderline between `Ready to send` and `Hold`
+- A lead scores borderline between `Ready to Draft` and `Hold`
 
-Do not flag: clear A-priority leads, obvious `Not a fit` decisions, categories explicitly covered in the auditor's rules.
+Do not flag: clear A-priority leads, obvious `Not a Fit` decisions, categories explicitly covered in the auditor's rules.
 
 ### From Email Marketer
 
@@ -76,12 +76,12 @@ Flag when:
 - A reply comes from an unexpected sender — a lawyer, PR contact, business partner, or someone other than the owner
 - A reply is strongly negative or aggressive in tone
 - The right response to a warm reply is genuinely unclear (e.g., they asked a question the agent cannot answer accurately)
-- Closing a lead as `Not a fit` when the reply was ambiguous rather than explicit
+- Closing a lead as `Not a Fit` when the reply was ambiguous rather than explicit
 - A bounce surfaces multiple alternate email options and it is not obvious which to use
 - A lead appears warm but the follow-up timing or approach is unclear given the context of the reply
 - A thread contains a referral, a request, or something actionable that falls outside the standard follow-up flow
 
-Do not flag: clear bounces, clear out-of-office replies with return dates, obvious `Not a fit` declines, or standard no-response follow-up scheduling.
+Do not flag: clear bounces, clear out-of-office replies with return dates, obvious `Not a Fit` declines, or standard no-response follow-up scheduling.
 
 ### From Orchestrator
 

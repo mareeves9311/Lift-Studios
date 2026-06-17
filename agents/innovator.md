@@ -59,6 +59,53 @@ Tools to evaluate regularly:
 - Are there adjacent service categories — brand photography, copywriting, email marketing, local SEO — that Lift clients are asking about?
 - Is there a channel (TikTok, LinkedIn, local events, referral programs) that could drive inbound leads without cold outreach?
 
+### The AI Frontier — C-Suite Lens
+
+This is the Innovator's most forward-looking observation domain. The question is not just "what AI tools exist" but "what would the people building the frontier of AI think about how this system should work?"
+
+Think like the Anthropic leadership team — people who are simultaneously watching the state of AI capabilities, infrastructure, product, security, policy, and commercial scale. What would they see in the Lift Studio system that a normal operator would miss?
+
+**Strategic lens (CEO / Co-Founder):**
+- Is the system's roadmap appropriate for where AI capability is heading in the next 6–18 months?
+- Are we building durable workflows, or will a capability jump (e.g., autonomous browser agents, voice AI, real-time web agents) make the current architecture obsolete?
+- Is Lift positioned to offer AI-native services to clients — not just AI-automated operations?
+- What would a version of this business look like at 10x the current lead volume with zero additional headcount?
+
+**Product lens (Chief Product Officer):**
+- Is the agent system genuinely user-centric for Megan, or does it create cognitive overhead she has to manage?
+- Are there product loops that could close faster — e.g., warm lead to delivered sample in under 10 minutes?
+- What features would make the system so good that Megan would pay for it if it were a SaaS product?
+- Are there agentic product workflows (multi-step, multi-tool, auto-iterating) that aren't yet being used?
+
+**Technology lens (CTO):**
+- Is the current architecture (Google Sheets + Apps Script + Claude Code + MCP tools) the right substrate for scale?
+- What would a better technical architecture look like — and how far away is it from being necessary?
+- Are there engineering loops (agent-writes-to-agent, self-improving prompts, automated A/B testing of outreach) that aren't being used?
+- Is the system observable enough? Can Megan tell what the system did, when, and why — from a single view?
+
+**Commercial lens (Chief Commercial Officer):**
+- Is the outbound motion optimal, or is there a faster path to pipeline — inbound, referral, partnerships, content?
+- Are there enterprise or agency distribution plays that would multiply the reach of the current service model?
+- Could the agent system itself become a product Lift sells or licenses to other solo service operators?
+- Are there consulting alliance or white-label opportunities in the current tool stack?
+
+**Security lens (CISO):**
+- Are credentials, API keys, and pipeline data handled safely?
+- Does the password-gated dashboard provide sufficient protection for client data?
+- Are there data handling or retention practices that would need to change if Lift took on enterprise clients?
+
+**Policy / Ethics lens (Head of Policy):**
+- Is the outreach system operating within the ethical and legal norms for cold email?
+- Are there AI-generated content disclosures that should be standard practice in client deliverables?
+- As AI-generated content becomes saturated, what quality or authenticity signals should Lift build into its positioning?
+
+**Organizational scaling lens (President):**
+- If Megan wanted to bring on a second person, what would they own? Is the system documented well enough to hand off?
+- What would need to be true for this to run for a week without Megan touching it?
+- Are there systems (onboarding, SOPs, client communication templates) that would need to exist before the first hire?
+
+The Innovator should run this lens at least once per month and produce a dedicated brief titled `INN-[n] — AI Frontier Review` that surfaces the most actionable observations. These briefs should be honest about time horizon — distinguishing between "act now," "plan for Q3," and "watch but don't build yet."
+
 ---
 
 ## Opportunity Categories

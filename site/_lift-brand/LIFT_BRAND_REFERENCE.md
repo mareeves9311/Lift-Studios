@@ -110,8 +110,8 @@ Local businesses with a real offer and an underperforming online presence. Examp
 
 ## Source Files
 
-- `About Lift Studio.pdf` — Full studio overview (in this folder)
-- `Lift Studio Service Menu.pdf` — Complete service breakdown (in this folder)
+- `About Lift Studio.pdf` — Historical/source studio overview in this folder. Do not attach to default outreach; link the live website instead.
+- `Lift Studio Service Menu.pdf` — Default outreach attachment and complete service breakdown.
 - Claude Design system — Visual identity tokens, components, and style guide
 
 ---

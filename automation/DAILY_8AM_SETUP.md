@@ -11,7 +11,7 @@ Two batches per day, every day, without Megan's Mac needing to be on:
 | **1:00 PM** | `createOutreachDrafts()` | Second batch of Gmail drafts for leads audited since 8 AM |
 | **Hourly** | `refreshSentAndReplies()` | Sheet updated when emails are confirmed sent; replies and bounces tracked |
 
-**Daily target:** Up to 20 new Gmail drafts (10 at 8 AM, 10 at 1 PM), with matching audits continuously queued by the Brand Pipeline script.
+**Daily target:** Up to 20 new Gmail drafts (10 at 8 AM, 10 at 1 PM), with matching audits continuously queued by the Pipeline audit script.
 
 Megan reviews and sends. The automation never sends email automatically.
 

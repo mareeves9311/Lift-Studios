@@ -20,7 +20,7 @@ Lift Studio is a boutique brand and content studio for local businesses that alr
 
 From a quick look, I noticed [specific issue]. I also think [secondary issue] could be tightened up so the digital experience feels easier to trust and easier to act on.
 
-I am including the Lift Studio brand book and service menu for context. If it feels relevant, I would be happy to send over a few specific ideas.
+I am linking the Lift Studio site so you can get a feel for the studio, and attaching the service menu for a quick overview. If it feels relevant, I would be happy to send over a few specific ideas.
 
 Best,
 Megan

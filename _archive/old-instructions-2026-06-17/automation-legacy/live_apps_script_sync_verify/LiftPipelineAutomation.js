@@ -1,8 +1,8 @@
 /**
- * Lift Studio Pipeline automation.
+ * Lift Brand Pipeline automation.
  *
  * Install:
- * 1. Open the Google Sheet: Lift Studio Master Pipeline.
+ * 1. Open the Google Sheet: Lift Brand Pipeline - Lead Tracker.
  * 2. Go to Extensions > Apps Script.
  * 3. Paste this file into Code.gs, or add it as a new script file.
  * 4. In Project Settings > Script Properties, add:
@@ -11,7 +11,7 @@
  * 5. Run setupLiftBrandPipelineAutomation once and approve permissions.
  *
  * What it does:
- * - Watches the Pipeline tab.
+ * - Watches the Brand Pipeline tab.
  * - When you add/edit a business name, website, Instagram, TikTok, category,
  *   location, or notes field, it queues that row for audit.
  * - A time trigger processes queued rows and fills the audit fields.
@@ -149,7 +149,7 @@ function setupLiftBrandPipelineAutomation() {
     .everyMinutes(5)
     .create();
 
-  ss.toast('Lift Studio Pipeline automation installed. New/edited brand links will queue for audit.');
+  ss.toast('Lift Brand Pipeline automation installed. New/edited brand links will queue for audit.');
 }
 
 function handleLiftBrandPipelineEdit(e) {

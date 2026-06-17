@@ -14,17 +14,17 @@ See `agents/innovator.md` for the brief format, scoring rubric, and observation 
 **Date:** 2026-06-17
 **Category:** Tool unlock
 **Priority score:** 11/12
-**Status:** Open
+**Status:** Accepted
 
-**Opportunity:** The system currently depends on the Mac being on for scheduled batch runs via LaunchAgent. Both `.gs` files already call the Anthropic API and run in Google's cloud. Adding time-based triggers in Google Apps Script would eliminate the laptop dependency entirely.
+**Opportunity:** The system previously depended on the Mac being on for scheduled batch runs via LaunchAgent. Google Apps Script time-based triggers now run the core scheduled work in Google's cloud.
 
-**Evidence:** Pattern — confirmed by reviewing `automation/lift_brand_pipeline_automation.gs` and `automation/gmail_outreach_automation.gs`. Both scripts are already live in Google's environment. The LaunchAgent in the local cron is the only Mac-dependent layer. (Validated)
+**Evidence:** Confirmed current active scripts are `automation/live_apps_script_sync/` and `automation/gmail_outreach_automation.gs`; the old LaunchAgent path is no longer the source of truth. (Validated)
 
 **What changes:** Batches run on schedule regardless of whether the Mac is on. Megan does not need to be home or have her laptop awake for the system to process leads and create drafts.
 
-**What it takes:** Low. Open the Apps Script editor for both `.gs` files, open Triggers (clock icon), set a time-based trigger for each. ~15 minutes of configuration. One prerequisite: update stale spreadsheet ID in `gmail_outreach_automation.gs` (`1ZUgq7srd2P835fA_Kge80ZpiFJjvUwBR_PXCjZsU688` → `1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8`) before activating.
+**What it takes:** Done for the core schedule. Remaining maintenance should use the current sheet ID: `1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8`.
 
-**Recommended next step:** Megan opens Google Apps Script for the project, updates the stale sheet ID in `gmail_outreach_automation.gs`, then adds time-based triggers for both scripts. Orchestrator can assist with step-by-step instructions.
+**Recommended next step:** Keep triggers monitored from Apps Script. Do not restore the archived LaunchAgent workflow unless explicitly needed.
 
 ---
 

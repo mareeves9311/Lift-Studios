@@ -11,7 +11,7 @@
  * - Open the Google Sheet.
  * - Extensions > Apps Script.
  * - Paste this file into Code.gs.
- * - Set CONFIG.aboutPdfFileId and CONFIG.serviceMenuPdfFileId to your Drive file IDs.
+ * - Set CONFIG.serviceMenuPdfFileId to your Drive file ID.
  * - Run installOutreachAutomation() once and approve permissions.
  */
 
@@ -22,10 +22,9 @@ const CONFIG = {
   senderEmail: 'helloliftstudio@gmail.com',
   businessName: 'Lift Studio',
   notifyEmail: 'helloliftstudio@gmail.com',
-  // Google Drive file IDs for PDFs attached to every outreach draft.
+  // Google Drive file ID for the PDF attached to every outreach draft.
   // Get a file ID from the Drive URL: drive.google.com/file/d/FILE_ID/view
-  // Leave as empty string ('') to skip that attachment.
-  aboutPdfFileId: '',
+  // The Lift Studio website is linked in the email body; do not attach the old brand book.
   serviceMenuPdfFileId: '',
   defaultFollowUpDays: 3,
   maxDraftsPerRun: 10,
@@ -234,8 +233,8 @@ function createOutreachDrafts() {
       pipeline_stage: 'Drafted',
       gmail_draft_id: draft.getId(),
       gmail_last_checked: today,
-      next_step: 'Review Gmail draft with attachments and send manually.',
-      automation_notes: 'Draft created automatically with Lift Studio PDF attachments. Not sent.',
+      next_step: 'Review Gmail draft with service menu attachment and send manually.',
+      automation_notes: 'Draft created automatically with Lift Studio service menu attached. Not sent.',
     });
 
     draftedBusinesses.push(business);
@@ -289,8 +288,8 @@ function refreshExistingOutreachDrafts() {
       writeLeadUpdates_(sheet, headers, rowNumber, {
         gmail_draft_id: draft.getId(),
         gmail_last_checked: today,
-        next_step: 'Review refreshed Gmail draft with attachments and send manually.',
-        automation_notes: 'Gmail draft refreshed with latest copy and Lift Studio PDF attachments.',
+        next_step: 'Review refreshed Gmail draft with service menu attachment and send manually.',
+        automation_notes: 'Gmail draft refreshed with latest copy and Lift Studio service menu attached.',
       });
       refreshed += 1;
     } catch (error) {
@@ -560,18 +559,12 @@ function buildHtmlBody_(business, draftEmail) {
 }
 
 function getLiftStudioAttachments_() {
-  const attachments = [];
-  if (CONFIG.aboutPdfFileId) {
-    attachments.push(
-      DriveApp.getFileById(CONFIG.aboutPdfFileId).getBlob().setName('About Lift Studio.pdf')
-    );
-  }
-  if (CONFIG.serviceMenuPdfFileId) {
-    attachments.push(
-      DriveApp.getFileById(CONFIG.serviceMenuPdfFileId).getBlob().setName('Lift Studio Service Menu.pdf')
-    );
-  }
-  return attachments;
+  if (!CONFIG.serviceMenuPdfFileId) return [];
+  return [
+    DriveApp.getFileById(CONFIG.serviceMenuPdfFileId)
+      .getBlob()
+      .setName('Lift Studio Service Menu.pdf')
+  ];
 }
 
 // ============================================================

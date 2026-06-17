@@ -27,15 +27,15 @@ The system should run like a relay. Each agent owns one stage and passes clean i
 2. **Audit**
    - New Business Auditor reviews website/social/local discovery.
    - It scores fit and writes specific notes.
-   - It marks strong leads as `Ready to send`.
-   - It sets `Next Step` to `Email Marketer: draft first-touch outreach` so the draft queue is automatic.
+   - It marks strong leads as `Ready to Draft`.
+   - It sets `Next Action` to `Email Marketer: draft first-touch outreach` so the draft queue is automatic.
    - **Uncertain leads → QC packages the flag → Orchestrator assesses → resolves autonomously or escalates to Megan.**
 
 3. **Draft**
-   - Email Marketer pulls `Ready to send` leads from the Auditor's handoff queue.
+   - Email Marketer pulls `Ready to Draft` leads from the Auditor's handoff queue.
    - It creates Gmail drafts with the approved first-touch template.
    - It attaches the service menu and appends the HTML signature.
-   - It updates drafted rows to `Draft created` / `Drafted` with `Next Step: Megan review/send`.
+   - It updates drafted rows to `Drafted` with `Next Action: Megan review/send`.
    - **Uncertain drafts → QC packages the flag → Orchestrator assesses → resolves autonomously or escalates to Megan.**
 
 4. **Review & Send**

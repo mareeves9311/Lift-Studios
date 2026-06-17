@@ -91,8 +91,8 @@ Use this loop whenever Megan asks what to do next, asks to scale outreach, or as
 
 2. **Route**
    - If there are not enough qualified leads, route to New Business Auditor.
-   - If leads are `Ready to send` but not drafted, route to Email Marketer.
-   - If the New Business Auditor finishes a batch, verify it set `Next Step` to `Email Marketer: draft first-touch outreach` for draftable rows.
+   - If leads are `Ready to Draft` but not drafted, route to Email Marketer.
+   - If the New Business Auditor finishes a batch, verify it set `Next Action` to `Email Marketer: draft first-touch outreach` for draftable rows.
    - If drafts exist but were not sent, tell Megan review/send is the bottleneck.
    - If emails were sent, route to Follow-Up & Pipeline Manager.
    - If a warm lead needs proof, route to Proof-of-Work Builder or create the brief manually until that agent exists.
@@ -128,7 +128,7 @@ Use this loop whenever Megan asks what to do next, asks to scale outreach, or as
 **Use Email Marketer when:**
 
 - Leads are qualified and ready for outreach.
-- The New Business Auditor has marked rows `Ready to send` with a handoff note.
+- The New Business Auditor has marked rows `Ready to Draft` with a handoff note.
 - Drafts need to be created or recreated.
 - The outreach template changes.
 - Attachments/signatures need to be included.
@@ -189,10 +189,10 @@ Use these stages consistently across agents and sheet updates.
 - `Needs website review`
 - `Needs Instagram review`
 - `Audit drafted`
-- `Ready to send`
+- `Ready to Draft`
 - `Draft created`
 - `Sent`
-- `Follow up`
+- `Warm`
 - `Replied - interested`
 - `Replied - maybe later`
 - `Needs proof-of-work`
@@ -208,7 +208,7 @@ If the sheet uses slightly different labels, map to the closest existing values 
 Run these checks regularly:
 
 - Are there duplicate leads by business name, website, email, or Instagram?
-- Are there `Ready to send` leads without drafts?
+- Are there `Ready to Draft` leads without drafts?
 - Are there drafts without matching sheet rows?
 - Are there sent emails still marked `Draft created`?
 - Are there replies not reflected in the sheet?
@@ -241,7 +241,7 @@ For the daily outreach cadence, the Orchestrator is the notifying agent.
 
 The agent-to-agent handoff is:
 
-`New Business Auditor` -> marks rows `Ready to send` and sets `Next Step` to `Email Marketer: draft first-touch outreach` -> `Email Marketer` creates Gmail drafts -> `Orchestrator` verifies the batch and notifies Megan.
+`New Business Auditor` -> marks rows `Ready to Draft` and sets `Next Action` to `Email Marketer: draft first-touch outreach` -> `Email Marketer` creates Gmail drafts -> `Orchestrator` verifies the batch and notifies Megan.
 
 By the end of the scheduled run, it should produce a daily report that clearly states:
 

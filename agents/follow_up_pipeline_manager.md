@@ -54,10 +54,10 @@ This is a proactive step that runs before any reply-checking. It ensures the pip
 2. For each sent email found, extract the recipient address and the sent date.
 3. Match to a pipeline lead by recipient email.
 4. If the pipeline row shows `Draft created`, `Not contacted`, or is blank — update:
-   - `outreach_status` → `Sent`
+   - `Pipeline Stage` -> `Sent`
    - `last_contacted` → sent date from Gmail
    - `follow_up_date` → sent date + 3 business days (if not already set)
-   - `next_step` → `Wait for reply or follow up on follow-up date.`
+   - `Next Action` -> `Wait for reply or follow up on follow-up date.`
    - `automation_notes` → `Sent email detected in Gmail sent folder. Status updated automatically.`
 5. Report the reconciliation count: how many rows were updated.
 
@@ -155,7 +155,7 @@ No reply after the follow-up window.
 
 Action:
 
-- Keep status as `Sent` or `Follow up`.
+- Keep `Pipeline Stage` as `Sent` or move to `Warm` when appropriate.
 - Draft the next follow-up if due.
 
 ## Follow-Up Timing
@@ -236,8 +236,7 @@ Recommended columns to maintain:
 - Business Name
 - Email
 - Contact Name
-- Pipeline Status
-- Outreach Status
+- Pipeline Stage
 - Response Status
 - First Contacted
 - Last Contacted
@@ -305,7 +304,7 @@ Route a thread or classification to `agents/quality_control.md` instead of actin
 - A reply comes from an unexpected sender — a lawyer, PR contact, business partner, or someone other than the owner
 - A reply is strongly negative or aggressive in tone
 - The right response to a warm reply is unclear because it involves a question the agent cannot answer accurately (pricing, availability, specific deliverables, timelines)
-- Closing a lead as `Not a fit` when the reply was ambiguous rather than explicit
+- Closing a lead as `Not a Fit` when the reply was ambiguous rather than explicit
 - A bounce surfaces multiple alternate email options and it is not obvious which to use
 - A lead appears warm but the follow-up timing or approach is unclear given the specific reply context
 - A thread contains something actionable — a referral, a specific request, a named problem — that falls outside the standard follow-up flow
@@ -336,4 +335,3 @@ Before reporting completion:
 6. Confirm reply/follow-up drafts created.
 7. Flag anything requiring Megan's review.
 8. Update `STATUS.md` if the batch changes the operating state.
-

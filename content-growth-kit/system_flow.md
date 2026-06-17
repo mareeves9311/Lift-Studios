@@ -16,7 +16,7 @@ Gold standard output: https://mr-morning-fuel-audit.netlify.app/
 
 Every prospect follows the same five-step flow:
 
-1. **Add to Pipeline** — add the brand to the `Brand Pipeline` tab in the live tracker
+1. **Add to Pipeline** — add the brand to the `Pipeline` tab in the live tracker
 2. **Research** — review website, social, reviews, competitors, and public profiles
 3. **Audit + Offer Fit** — write the mini-audit and choose the smallest logical Lift offer
 4. **Exhibit Selection** — decide whether the prospect needs a written audit only, a lookbook, or custom mockups
@@ -27,21 +27,21 @@ Every prospect follows the same five-step flow:
 ## Step 0: Add to Pipeline
 
 Live tracker:
-https://docs.google.com/spreadsheets/d/1ZUgq7srd2P835fA_Kge80ZpiFJjvUwBR_PXCjZsU688/edit
+https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit
 
-Add new prospects to the `Brand Pipeline` tab.
+Add new prospects to the `Pipeline` tab. Use `Working Pipeline` only as the cleaner review view.
 
 Required fields:
-- business_name
-- website
-- instagram
-- category
-- location
-- source
-- pipeline_status
+- Brand
+- Website
+- Instagram
+- Category
+- City
+- State
+- Pipeline Stage
 - priority
-- offer_angle
-- next_step
+- Recommended Offer
+- Next Action
 
 Use `Needs Instagram review` if the pitch depends on social/content/branding and Instagram has not been manually checked yet.
 
@@ -141,7 +141,7 @@ Final send package:
 Once Morning Fuel is complete and the flow is validated:
 
 1. Morning Fuel audit + mockups become the reference example for cafe/brunch pitches
-2. Each new prospect starts in `Brand Pipeline`
+2. Each new prospect starts in the `Pipeline` tab
 3. Build niche-specific variants as needed:
    - Cafe / brunch (Morning Fuel template)
    - Skin studio / med spa (Juniper template)

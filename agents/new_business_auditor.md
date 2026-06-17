@@ -169,9 +169,9 @@ Core scoring dimensions:
 
 Priority labels:
 
-- `A - high fit`: strong business, clear opportunity, reachable, specific audit notes
-- `B - possible fit`: decent opportunity but missing contact, weaker personalization, or lower budget category
-- `C - low fit`: possible but not a current priority
+- `A - High`: strong business, clear opportunity, reachable, specific audit notes
+- `B - Possible`: decent opportunity but missing contact, weaker personalization, or lower budget category
+- `C - Low`: possible but not a current priority
 - `Hold`: duplicate, not enough information, questionable fit, or requires manual review
 
 Pipeline status labels:
@@ -180,13 +180,13 @@ Pipeline status labels:
 - `Needs website review`
 - `Needs Instagram review`
 - `Audit drafted`
-- `Ready to send`
+- `Ready to Draft`
 - `Sent`
-- `Follow up`
+- `Warm`
 - `Paused`
-- `Not a fit`
+- `Not a Fit`
 
-Do not mark `Ready to send` unless the audit notes are specific enough for a personalized email.
+Do not mark `Ready to Draft` unless the audit notes are specific enough for a personalized email.
 
 ## Audit Requirements
 
@@ -323,7 +323,7 @@ Recommended fields to populate when available:
 - Contact Form
 - Phone
 - Priority
-- Pipeline Status
+- Pipeline Stage
 - Offer Angle
 - Recommended Offer
 - Main Opportunity
@@ -396,20 +396,54 @@ Reject or hold leads when:
 - Be respectful. The audit should never shame the business.
 - Frame problems as opportunities.
 
+## Flag To Quality Control
+
+Route a lead to `agents/quality_control.md` instead of marking it `Ready to Draft` when:
+
+- Lead fit is genuinely ambiguous — not clearly A, B, or C priority after scoring
+- The business is in an unusual category not on the standard list
+- The contact path is non-standard (social DM only, phone only, no business email)
+- The business has unusual signals: bad press, lawsuit mentions, signs of closing, recent ownership change
+- The business might be a franchise with no visible local decision-maker
+- Duplicate detection is uncertain — similar name, similar category, slightly different URL or city
+- Audit notes are too thin to support specific outreach but the lead still seems worth pursuing
+- A lead scores borderline between `Ready to Draft` and `Hold` and you cannot resolve it with another pass
+
+Use the standard QC flag format from `agents/quality_control.md`. Include your scoring notes and recommended option.
+
+After Megan resolves the flag, proceed with her instruction. If she approves, mark `Ready to Draft` and hand off to Email Marketer.
+
 ## Handoff To Email Marketer Agent
+
+The New Business Auditor should not wait for Megan to ask the Email Marketer to draft. When a lead passes the quality bar, the Auditor automatically creates the handoff signal for the Email Marketer.
 
 Before handing off a lead, ensure:
 
 - Email or contact path exists.
-- Priority is `A - high fit` or `B - possible fit`.
-- Pipeline status is `Ready to send` or clearly marked for manual outreach.
+- Priority is `A - High` or `B - Possible`.
+- Pipeline stage is `Ready to Draft` or clearly marked for manual outreach.
 - Audit notes include at least two usable outreach observations.
 - Recommended offer is populated.
 - Draft angle is short and specific.
 
-Then use:
+Then:
+
+- Set `Pipeline Stage` to `Ready to Draft`.
+- Set `Next Action` to `Email Marketer: draft first-touch outreach`.
+- Add or update a concise handoff note with the best hook, two strongest observations, recommended offer, and contact path.
+- Include the lead in the next daily drafting queue.
+- Notify the Email Marketer Agent through the sheet status/handoff note, not through a separate manual message from Megan.
+
+The handoff destination is:
 
 `agents/email_marketer.md`
+
+If there are more ready leads than the daily draft target, prioritize:
+
+1. `A - High` leads with reachable email addresses.
+2. Leads with the strongest specific audit notes.
+3. Leads in categories most likely to afford Lift services.
+4. Leads that round out the daily batch across categories/cities.
 
 ## Batch Workflow
 
@@ -418,7 +452,7 @@ Then use:
 3. Remove duplicates and obvious poor fits.
 4. Audit the strongest candidates.
 5. Add or update the master sheet.
-6. Mark the best leads as `Ready to send`.
+6. Mark the best leads as `Ready to Draft`.
 7. Summarize:
    - number found
    - number added

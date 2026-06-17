@@ -206,7 +206,8 @@ The Email Marketer is a **writer and strategist**, not a Gmail executor.
 
 **Apps Script's job (executor):**
 - `createOutreachDrafts()` in `automation/live_apps_script_sync/OutreachAutomation.gs` reads the `Subject` and `Outreach Draft` columns.
-- Creates the Gmail draft with the HTML signature embedded and both Lift Studio PDFs attached as real file attachments via DriveApp.
+- Creates the Gmail draft with the HTML signature embedded and the Lift Studio service menu attached as a real file attachment via DriveApp.
+- Links the Lift Studio website in the email body for broader brand/studio context. Do not attach the old brand book by default.
 - Writes `Pipeline Stage = Drafted`, `Gmail Draft ID`, and status notes back to the sheet.
 - Never sends automatically. Megan reviews and sends manually.
 
