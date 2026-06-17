@@ -194,19 +194,40 @@ If the Gmail connector cannot preserve the signature exactly, create the best su
 - Verify draft count after a batch using Gmail draft listing.
 - Report any extra/old drafts separately.
 
-### Tool preference for draft creation
+### Role split: writing vs. execution
 
-**Use Codex (local session with file system access) when:**
-- Creating a full outreach batch that requires the service menu PDF attached.
-- Codex has access to `site/_lift-brand/Lift Studio Service Menu.pdf` locally and can attach it directly to the Gmail draft.
-- Codex should also embed the HTML signature from `assets/lift-studio-gmail-signature-simple.html`.
+The Email Marketer is a **writer and strategist**, not a Gmail executor.
 
-**Use Gmail MCP (cloud sessions / scheduled routines) when:**
-- Creating drafts without attachments, OR
-- Writing outreach content to the `Outreach Draft` column for the Apps Script to process.
-- Note: the Gmail MCP `create_draft` tool does not currently support PDF attachments. If this changes, update this rule.
+**Email Marketer's job:**
+1. Review rows where `Pipeline Stage = Ready to Draft`.
+2. Write a specific, brand-tailored `Subject` and `Outreach Draft` for each row directly into the Pipeline sheet.
+3. Use the outreach template as structure only — not copy-paste language.
+4. Each draft must reflect the brand's actual audit notes, category, opportunity, and recommended offer. Changing only the brand name should not make sense.
 
-The preferred full-quality draft flow is: **cloud Orchestrator writes outreach content → Codex creates the Gmail draft with HTML signature + PDF attachment → Codex writes the Gmail Draft ID back to the Pipeline sheet.**
+**Apps Script's job (executor):**
+- `createOutreachDrafts()` in `automation/live_apps_script_sync/OutreachAutomation.gs` reads the `Subject` and `Outreach Draft` columns.
+- Creates the Gmail draft with the HTML signature embedded and both Lift Studio PDFs attached as real file attachments via DriveApp.
+- Writes `Pipeline Stage = Drafted`, `Gmail Draft ID`, and status notes back to the sheet.
+- Never sends automatically. Megan reviews and sends manually.
+
+**What the Email Marketer does NOT do:**
+- Does not call Gmail or Drive directly.
+- Does not create draft objects.
+- Does not manage attachments or signatures — those are handled by the Apps Script.
+
+### Writing standard for outreach copy
+
+Every `Outreach Draft` written to the sheet must meet this bar:
+
+- Opens with a specific observation about that brand — not generic praise.
+- Ties the observation to a business outcome (more bookings, clearer trust, stronger service positioning, better local conversion, higher-value inquiries).
+- Recommends one practical first move based on the brand's actual audit notes.
+- Mentions Lift Studio naturally as the solution — not in a salesy way.
+- Keeps the email skimmable and human.
+- Does not over-explain Lift Studio.
+- Contains no fake flattery, invented claims, or observations not supported by the sheet data.
+- Ends with a low-pressure CTA (offer to send a few ideas, a short audit note, or a quick look).
+- Is specific enough that swapping in a different brand name would require rewriting most of the email.
 
 ## Sheet Status Rules
 
