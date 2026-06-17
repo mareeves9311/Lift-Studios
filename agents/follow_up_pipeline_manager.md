@@ -251,6 +251,33 @@ Recommended columns to maintain:
 
 If the sheet does not contain a useful column, add a note in repo docs before restructuring.
 
+## Inbox Hygiene
+
+The Follow-Up Manager also keeps `helloliftstudio@gmail.com` clean and organized as a byproduct of its normal monitoring work.
+
+**After every monitoring pass:**
+
+1. Apply a `Lift Studio Outreach` label to all first-touch sent threads that don't have it yet.
+2. Apply a `Replied` label to any thread that has received an inbound reply.
+3. Apply a `Bounced` label to any thread where the last message is a delivery failure notification.
+4. Apply an `Auto-Reply` label to any thread whose only reply is an automated out-of-office.
+5. Archive threads that are fully resolved: `Closed - not a fit` or `Bounced` with no alternate contact path.
+
+**Labels to maintain in Gmail:**
+
+| Label | Purpose |
+|---|---|
+| `LS / Outreach` | All first-touch sent threads |
+| `LS / Replied` | Threads with inbound replies needing review |
+| `LS / Warm` | Interested or warm leads |
+| `LS / Bounced` | Delivery failures |
+| `LS / Auto-Reply` | Out-of-office responses |
+| `LS / Follow Up` | Threads due for follow-up |
+
+Create these labels if they don't exist. Use Gmail MCP `create_label` and `label_thread` tools.
+
+**What this is not:** The Follow-Up Manager does not manage personal email, newsletters, or any non-Lift-Studio threads. Scope is strictly limited to outreach from `helloliftstudio@gmail.com`.
+
 ## Warm Lead Escalation
 
 Escalate to deeper work when:

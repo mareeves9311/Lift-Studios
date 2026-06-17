@@ -50,18 +50,54 @@ function onOpen() {
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
-    .addItem('Install Hourly Monitor', 'installOutreachAutomation')
+    .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
     .addToUi();
 }
 
+/**
+ * Master install function. Run this once from the Apps Script UI.
+ * Sets up:
+ *   - Hourly sent-mail reconciliation + reply monitoring
+ *   - Daily draft creation at 8 AM (batch 1)
+ *   - Daily draft creation at 1 PM (batch 2)
+ *
+ * Timezone: uses the project's timezone setting. Set it in
+ * Apps Script > Project Settings > Time zone to match your local timezone
+ * (e.g. America/New_York) before running this.
+ */
 function installOutreachAutomation() {
   ensureAutomationColumns_();
+
+  // Remove any existing triggers so this is idempotent
   deleteExistingTriggers_('refreshSentAndReplies');
+  deleteExistingTriggers_('createOutreachDrafts');
+
+  // Hourly: scan sent folder and check for replies
   ScriptApp.newTrigger('refreshSentAndReplies')
     .timeBased()
     .everyHours(1)
     .create();
-  SpreadsheetApp.getActive().toast('Outreach monitor installed. It will check sent mail and replies hourly.');
+
+  // 8 AM daily: create drafts from audited leads (batch 1)
+  ScriptApp.newTrigger('createOutreachDrafts')
+    .timeBased()
+    .atHour(8)
+    .everyDays(1)
+    .create();
+
+  // 1 PM daily: create drafts from any new audited leads (batch 2)
+  ScriptApp.newTrigger('createOutreachDrafts')
+    .timeBased()
+    .atHour(13)
+    .everyDays(1)
+    .create();
+
+  SpreadsheetApp.getActive().toast(
+    'Full outreach schedule installed:\n' +
+    '• Drafts created daily at ~8 AM and ~1 PM\n' +
+    '• Sent mail + replies checked hourly\n\n' +
+    'IMPORTANT: Go to Apps Script > Project Settings and verify your timezone is correct.'
+  );
 }
 
 function createOutreachDrafts() {
