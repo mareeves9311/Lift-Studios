@@ -26,7 +26,7 @@ Last updated: 2026-06-16 (updated with live URL)
 In order:
 
 1. **Live website URL confirmed** — `https://helloliftstudio.netlify.app/`
-2. **First Gmail outreach batch drafted** — 29 revised drafts created in `helloliftstudio@gmail.com` from the pipeline/outreach list using the subject format `One thing I noticed about [Brand]`; each draft includes a specific hook, two audit-style observations, the live Lift Studio hyperlink, and the Lift Studio service menu PDF
+2. **First Gmail outreach batch drafted** — 29 first-round drafts recreated in `helloliftstudio@gmail.com` from the pipeline/outreach list using the subject format `One thing I noticed about [Brand]`; each draft includes a specific hook, two audit-style observations, the live Lift Studio hyperlink, the embedded Lift Studio HTML signature, and the Lift Studio service menu PDF
 3. **Gmail signature asset added** — use `assets/lift-studio-gmail-signature.html` for future Lift outreach drafts; append only the signature table block, not the full HTML document wrapper
 4. **Email marketer agent added** — use `agents/email_marketer.md` for Lift outbound draft workflow, including template, signature, attachment, verification, and caveat rules
 5. **New business auditor agent added** — use `agents/new_business_auditor.md` for local prospect research, audit scoring, lead qualification, and master sheet population before outreach
