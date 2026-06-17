@@ -7,7 +7,7 @@
  * 3. Paste this file into Code.gs, or add it as a new script file.
  * 4. In Project Settings > Script Properties, add:
  *    - ANTHROPIC_API_KEY = your Claude API key
- *    - Optional: ANTHROPIC_MODEL = claude-sonnet-4-5-20250929
+ *    - Optional: ANTHROPIC_MODEL = claude-sonnet-4-6
  * 5. Run setupLiftBrandPipelineAutomation once and approve permissions.
  *
  * What it does:
@@ -26,7 +26,7 @@ const LIFT_PIPELINE_CONFIG = {
   webTextCharLimit: 9000,
   claudeMaxTokens: 2600,
   claudeTemperature: 0.2,
-  defaultModel: 'claude-sonnet-4-5-20250929',
+  defaultModel: 'claude-sonnet-4-6',
   watchedHeaders: [
     'business_name',
     'website',
