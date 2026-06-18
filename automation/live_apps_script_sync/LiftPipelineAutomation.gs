@@ -573,7 +573,7 @@ function buildLiftAuditPrompt_(row, websiteText) {
     '- Include one practical quick win.',
     '- Include 3-5 content opportunities tied to real visible offers, differentiators, products, services, or user notes.',
     '- Recommend the smallest logical Lift offer.',
-    '- Write subject as a low-pressure subject line such as "Quick thought for [Business]".',
+    '- Write subject as "One thing I noticed about [Business Name]".',
     '- Write a concise first-touch outreach email in draft_email. It should sound like Megan: warm, sharp, useful, and specific.',
     '- The draft email must be meaningfully personalized to this business. Do not use a generic template with only the business name swapped.',
     '- The draft email should include one specific observation, one practical quick win, a link to https://helloliftstudio.netlify.app/, and a short soft offer to send a few more ideas.',
@@ -603,7 +603,7 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
     specific_observation: audit.website_first_impression || audit.social_first_impression || '',
     business_impact: audit.why_it_matters || '',
     quick_win: audit.quick_win || '',
-    subject: audit.subject || (previousRow.business_name ? `Quick thought for ${previousRow.business_name}` : ''),
+    subject: audit.subject || (previousRow.business_name ? `One thing I noticed about ${previousRow.business_name}` : ''),
     draft_email: audit.draft_email || previousRow.draft_email || '',
     next_step: audit.draft_email ? 'Create Gmail draft from existing outreach copy.' : 'Email Marketer: draft first-touch outreach',
     notes: appendLiftNote_(previousRow.notes, audit.notes),
@@ -814,4 +814,181 @@ function extractLiftJson_(text) {
   if (start !== -1 && end !== -1 && end > start) return trimmed.slice(start, end + 1);
 
   throw new Error(`Claude did not return JSON: ${trimmed.slice(0, 500)}`);
+}
+
+// ============================================================
+// WEB APP ENDPOINT
+// Lets the Lift Studio cloud agent write leads and row updates
+// to the Pipeline sheet without needing Google Drive MCP write access.
+//
+// Setup (one-time):
+// 1. In Apps Script, click Deploy > New deployment > Web app.
+//    Execute as: Me | Who has access: Anyone
+// 2. Copy the deployment URL.
+// 3. Add Script Property: LIFT_WEB_APP_SECRET = any long random string.
+// 4. Add both values to the Orchestrator routine prompt at claude.ai/code/routines.
+//
+// Supported actions posted as JSON:
+//   addLeads   — batch-add new leads to the Pipeline tab
+//   updateRows — update rows by business name or email (bounces, status)
+//   getStatus  — return pipeline stage counts (health check)
+// ============================================================
+
+function doPost(e) {
+  try {
+    const payload = JSON.parse(e.postData.contents);
+    const secret = PropertiesService.getScriptProperties().getProperty('LIFT_WEB_APP_SECRET');
+    if (secret && payload.secret !== secret) {
+      return liftJsonResponse_({ ok: false, error: 'Unauthorized' });
+    }
+    const action = String(payload.action || '');
+    if (action === 'addLeads') return liftJsonResponse_(liftHandleAddLeads_(payload));
+    if (action === 'updateRows') return liftJsonResponse_(liftHandleUpdateRows_(payload));
+    if (action === 'getStatus') return liftJsonResponse_(liftHandleGetStatus_());
+    return liftJsonResponse_({ ok: false, error: `Unknown action: ${action}` });
+  } catch (err) {
+    return liftJsonResponse_({ ok: false, error: String(err.message || err) });
+  }
+}
+
+function liftHandleAddLeads_(payload) {
+  const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+  const sheet = getLiftPipelineSheet_(ss);
+  ensureLiftPipelineHeaders_(sheet);
+  const headers = getLiftHeaderMap_(sheet);
+
+  const leads = Array.isArray(payload.leads) ? payload.leads : [];
+  if (!leads.length) return { ok: true, added: 0, skipped: 0 };
+
+  const lastRow = sheet.getLastRow();
+  const existingNames = new Set();
+  const existingEmails = new Set();
+  if (lastRow >= 2 && headers.business_name) {
+    const cols = sheet.getLastColumn();
+    const values = sheet.getRange(2, 1, lastRow - 1, cols).getValues();
+    values.forEach(row => {
+      if (headers.business_name) existingNames.add(String(row[headers.business_name - 1] || '').toLowerCase().trim());
+      if (headers.email) existingEmails.add(String(row[headers.email - 1] || '').toLowerCase().trim());
+    });
+  }
+
+  let added = 0;
+  let skipped = 0;
+
+  leads.forEach(lead => {
+    const name = String(lead.business_name || '').trim();
+    const email = String(lead.email || '').toLowerCase().trim();
+    if (!name) { skipped++; return; }
+    if (existingNames.has(name.toLowerCase())) { skipped++; return; }
+    if (email && existingEmails.has(email)) { skipped++; return; }
+
+    const nextRow = sheet.getLastRow() + 1;
+    const fields = {
+      business_name: lead.business_name,
+      website: lead.website,
+      instagram: lead.instagram,
+      category: lead.category,
+      city: lead.city,
+      state: lead.state,
+      contact_name: lead.contact_name,
+      email: lead.email,
+      phone: lead.phone,
+      pipeline_status: lead.pipeline_status || 'Ready to Draft',
+      fit_score: lead.fit_score != null ? String(lead.fit_score) : '',
+      priority: lead.priority,
+      recommended_offer: lead.recommended_offer,
+      primary_opportunity: lead.primary_opportunity,
+      secondary_opportunity: lead.secondary_opportunity,
+      pitch_angle: lead.pitch_angle,
+      specific_observation: lead.specific_observation,
+      business_impact: lead.business_impact,
+      quick_win: lead.quick_win,
+      subject: lead.subject,
+      draft_email: lead.draft_email,
+      notes: lead.notes,
+      next_step: lead.next_step || 'Email Marketer: draft first-touch outreach',
+      automation_notes: lead.automation_notes || `Added via web app ${new Date().toISOString()}`
+    };
+
+    Object.keys(fields).forEach(key => {
+      const col = headers[key];
+      const val = fields[key];
+      if (col && val != null && val !== '') setLiftCell_(sheet, nextRow, col, val);
+    });
+
+    existingNames.add(name.toLowerCase());
+    if (email) existingEmails.add(email);
+    added++;
+  });
+
+  SpreadsheetApp.flush();
+  return { ok: true, added, skipped, message: `Added ${added}, skipped ${skipped} duplicate(s).` };
+}
+
+function liftHandleUpdateRows_(payload) {
+  const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+  const sheet = getLiftPipelineSheet_(ss);
+  ensureLiftPipelineHeaders_(sheet);
+  const headers = getLiftHeaderMap_(sheet);
+
+  const updates = Array.isArray(payload.updates) ? payload.updates : [];
+  if (!updates.length) return { ok: true, updated: 0 };
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return { ok: true, updated: 0 };
+
+  const cols = sheet.getLastColumn();
+  const allValues = sheet.getRange(2, 1, lastRow - 1, cols).getValues();
+
+  let updated = 0;
+  updates.forEach(update => {
+    const matchName = String(update.business_name || '').toLowerCase().trim();
+    const matchEmail = String(update.email || '').toLowerCase().trim();
+
+    const rowIndex = allValues.findIndex(row => {
+      const rowName = String(headers.business_name ? row[headers.business_name - 1] : '').toLowerCase().trim();
+      const rowEmail = String(headers.email ? row[headers.email - 1] : '').toLowerCase().trim();
+      return (matchName && rowName === matchName) || (matchEmail && rowEmail === matchEmail);
+    });
+    if (rowIndex < 0) return;
+
+    const targetRow = rowIndex + 2;
+    const writableFields = [
+      'pipeline_status', 'next_step', 'automation_notes',
+      'last_contacted', 'follow_up_date', 'response_status', 'notes'
+    ];
+    writableFields.forEach(field => {
+      if (update[field] != null && headers[field]) {
+        setLiftCell_(sheet, targetRow, headers[field], update[field]);
+      }
+    });
+    updated++;
+  });
+
+  SpreadsheetApp.flush();
+  return { ok: true, updated, message: `Updated ${updated} row(s).` };
+}
+
+function liftHandleGetStatus_() {
+  const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+  const sheet = getLiftPipelineSheet_(ss);
+  ensureLiftPipelineHeaders_(sheet);
+  const headers = getLiftHeaderMap_(sheet);
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2 || !headers.pipeline_status) return { ok: true, counts: {}, total: 0 };
+
+  const statusValues = sheet.getRange(2, headers.pipeline_status, lastRow - 1, 1).getValues();
+  const counts = {};
+  statusValues.forEach(row => {
+    const status = String(row[0] || '').trim() || 'Unknown';
+    counts[status] = (counts[status] || 0) + 1;
+  });
+
+  return { ok: true, counts, total: lastRow - 1 };
+}
+
+function liftJsonResponse_(data) {
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
 }

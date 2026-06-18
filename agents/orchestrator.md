@@ -33,34 +33,37 @@ Likely future agent:
 3. Check that inputs are ready before handing work to an agent.
 4. Verify each agent's output before moving to the next stage.
 5. Track blockers, duplicates, stale statuses, and missing data.
-6. **Update `STATUS.md` immediately after every completed action** — not at the end of a session, not when convenient. Every batch run, every sent email reconciliation, every new agent output, every resolved QC flag must be recorded in `STATUS.md` the moment it happens.
+6. **Include a status log in every run email** — every batch run, every sent email reconciliation, every new agent output, every resolved QC flag must appear in the status email sent to `helloliftstudio@gmail.com`. The email is the audit trail. Do not attempt to commit to the repo — the cloud agent has no git write access.
 7. Own final daily readiness notifications for Megan.
 8. Recommend the next highest-leverage action.
 
 ## Real-Time Tracking Requirement
 
-The Orchestrator is the single source of truth for what has happened and when. Every agent action must be reflected in `STATUS.md` within the same session it occurred.
+The Orchestrator is the single source of truth for what has happened and when.
 
-**After every completed task, the Orchestrator must immediately:**
+**Important constraint:** The cloud agent cannot commit to the GitHub repo. Do not attempt git operations. `STATUS.md` in the repo will be manually updated when significant system changes are made.
 
-1. Add or update the relevant line in `STATUS.md` — what ran, what changed, the count (leads found, drafts created, emails reconciled, replies classified, flags resolved), and the timestamp.
-2. Update the "Current Operating Priorities" section to remove completed items and add newly opened items.
-3. Commit the `STATUS.md` update to the repo with a message describing exactly what changed. Do not batch STATUS.md updates — commit each one when it happens.
-4. If any agent produced output that changes the operating state (new leads added, emails confirmed sent, warm lead found, QC flag opened), update the relevant count in the dashboard data source or note the gap if a connector is not available.
+**After every completed task, include in the status email:**
 
-**The standard `STATUS.md` entry format for completed actions:**
+1. What ran, what changed, the count (leads found, drafts created, emails reconciled, replies classified, flags resolved), and the timestamp.
+2. Current blockers and what is open.
+3. Megan's required next actions.
+4. Any QC flags raised this run.
+
+**The standard email status entry format:**
 
 ```
-| [DATE TIME] | [Agent] | [Action] | [Count] | [Notes] |
+| [DATE TIME ET] | [Agent] | [Action] | [Count] | [Notes] |
 ```
 
 Example:
 ```
-| 2026-06-17 08:15 | Follow-Up Manager | Sent folder reconciliation | 29 leads marked Sent | All from 2026-06-16 batch |
-| 2026-06-17 08:16 | Orchestrator | STATUS.md updated and committed | — | sha: [commit sha] |
+| 2026-06-18 07:12 | New Business Auditor | Lead discovery | 7 new leads found | Central PA - restaurants, boutiques |
+| 2026-06-18 07:14 | New Business Auditor | Sheet write | 7 leads → web app endpoint | Pipeline Stage = Ready to Draft |
+| 2026-06-18 07:15 | Orchestrator | Status email sent | — | 3 QC flags included |
 ```
 
-**The Orchestrator never lets a session end without committing tracking updates.** If a connector failure prevented an update, note the gap explicitly in `STATUS.md` so Megan can see what is not being tracked automatically.
+**The Orchestrator never lets a run end without sending a status email to `helloliftstudio@gmail.com`.** If a connector failure prevented a sheet update, state exactly what was found and what was NOT written so Megan knows what to add manually.
 
 ## Connector / Skill Requirements
 
@@ -111,9 +114,9 @@ Use this loop whenever Megan asks what to do next, asks to scale outreach, or as
    - State the next recommended action.
 
 5. **Document**
-   - Update `STATUS.md` when the operating state changes.
-   - Commit repo doc changes.
-   - Do not commit unrelated user files.
+   - Include a complete status log in the run email — what changed, counts, blockers, next actions.
+   - Do not attempt to commit to the repo. The cloud agent has no git write access.
+   - If you need to flag a repo doc change, include it in the email so Megan or a local session can apply it.
 
 ## Routing Rules
 
@@ -328,4 +331,4 @@ Same QC flag type appearing 3+ times / system running 30+ days / new tool in env
 - Keep assets in `assets/`, `site/`, or another clearly named Lift folder.
 - Do not add AdviseHer or AMP3 files to this repo.
 - Do not modify unrelated untracked files.
-- Commit agent or status changes with clear messages.
+- The cloud agent cannot commit to the repo. Flag needed doc changes in the status email for a local session to apply.

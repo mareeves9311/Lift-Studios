@@ -377,7 +377,112 @@ Turn audits into concrete website and brand recommendations.
 - Proof-of-Work Builder for before/after samples.
 - QA Agent before delivery.
 
-### 9. Client QA & Delivery Agent
+### 9. Website Builder Agent
+
+**Priority:** Build when a client asks for a website build or site changes as a deliverable.
+
+**Purpose:**
+
+Build, deploy, and iterate on client websites using the AI-native toolchain. This agent owns the technical execution of website builds — from first scaffold to live deployed URL — so Megan can deliver websites as a paid service without a developer on staff.
+
+**What Makes This Agent Viable (Context)**
+
+The 2026 vibe coding landscape has matured enough that a solo operator with the right tools can build sites that previously required a team. The critical insight: use custom code (not Webflow or other visual builders) because AI tools like Claude Code and Cursor can read, modify, and refactor every line. Webflow's proprietary rendering engine locks AI tools out entirely — every future edit requires manual work in the visual editor, which defeats the automation advantage.
+
+**Tool Stack**
+
+| Tool | Role |
+|---|---|
+| Claude Code | Primary builder. Multi-file scaffolding, refactoring, debugging, feature adds. The #1 rated vibe coding tool for anyone who can guide it. |
+| Cursor | Daily IDE for styling iterations, rapid CSS/JSX edits, browser preview. Pairs with Claude Code — Cursor for speed, Claude Code for depth. ~$20/month. |
+| v0 by Vercel | Component-level prototyping. Describe a section in plain English (pricing table, hero, booking card), get React output, push to GitHub, build around it. |
+| Lovable | Rapid full-site prototyping. Prompt a structure, get a working app, push to GitHub bidirectionally. Use to get shape/structure right fast before graduating to Claude Code. |
+| GitHub | Central bridge. All tools connect to GitHub. Lovable syncs bidirectionally. v0 pushes components. Claude Code pulls and extends. Vercel deploys from main on every push. |
+| Vercel | Primary deployment. Auto-deploys on GitHub push — client sees changes live within ~60 seconds. Optimized for Next.js/React. Better than Netlify for client sites. |
+| Cloudflare Pages | Backup/alternative deployment option. 300+ edge locations, free unlimited bandwidth. Use for performance-sensitive or cost-sensitive client sites. |
+| Canva MCP | Brand assets, logos, visual elements. Pull directly into the workflow without exporting/uploading manually. |
+
+**The Core Build Loop**
+
+```
+Client brief
+    → Lovable (prototype structure fast, get layout right)
+    → GitHub push (auto-sync)
+    → Claude Code (customize, extend, brand, integrate)
+    → Vercel (auto-deploys from GitHub push)
+    → Client reviews live URL
+    → Claude Code (revisions)
+    → Client sees updates live within ~60 seconds
+```
+
+**What's Realistic to Build**
+
+- Landing pages and single-page sites
+- Small business sites (5–15 pages): services, about, contact, portfolio
+- Site redesigns and targeted page improvements
+- Booking integrations (embedded Calendly, Acuity, etc.)
+- Contact forms, email capture, basic CMS hookups
+- Simple e-commerce (Stripe embeds, Shopify buy buttons)
+
+**What Stays Out of Scope**
+
+- Complex custom web apps with heavy backend logic
+- Multi-system API integrations with custom auth
+- Full custom e-commerce platforms
+- Sites requiring ongoing compliance (healthcare, fintech)
+- Sites where the client wants to self-manage content in a custom-built CMS (redirect these to Squarespace or a simple headless CMS)
+
+**Inputs:**
+
+- Client brief or discovery notes from Discovery Call Prep Agent
+- Website audit from Brand & Website Optimizer Agent
+- Brand assets (logo, colors, fonts) from client intake
+- Copy direction from Content Strategist Agent or client-provided copy
+- Reference sites the client likes
+- GitHub repo (new or existing)
+
+**Outputs:**
+
+- Live deployed site URL (Vercel or Cloudflare Pages)
+- GitHub repo with clean, maintainable code
+- Revision-ready codebase (every future change is one Claude Code session)
+- Delivery notes with how to request future updates
+- Handoff summary for Client QA & Delivery Agent
+
+**Works with:**
+
+- Brand & Website Optimizer Agent provides copy direction and messaging recommendations before build starts.
+- Content Strategist Agent provides copy and section structure.
+- Client Project Manager Agent tracks milestones and delivery dates.
+- Client QA & Delivery Agent reviews before Megan hands off the live URL.
+- Discovery Call Prep Agent and Proposal & Scope Agent define the deliverable upfront.
+
+**What It Must Never Do:**
+
+- Use Webflow, Wix, Squarespace, or other visual builders that lock AI tools out of future editing
+- Make pricing commitments or add scope without Megan's approval
+- Push directly to a client's production domain without Megan reviewing the live URL first
+- Store client credentials or access keys in the repo
+
+**Human Approval Rules:**
+
+- Megan reviews the live URL before sharing it with the client
+- Megan approves any scope additions mid-project
+- Megan confirms before switching deployment targets or touching a client's existing domain DNS
+
+**Build when:**
+
+- A warm lead or discovery call surfaces a website build or redesign as a specific ask
+- Megan wants to add website services to the Lift Studio offer menu
+- Two or more audited leads have "website" as the identified quick win
+
+**Recommended Pricing Angle:**
+
+Lift's audit framework already identifies weak websites as the primary gap for many prospects. This agent turns that audit finding into a productized deliverable: "Here's what's weak, here's what we'd build, here's the price." The audit-to-build pipeline already exists — this agent closes it.
+
+---
+
+### 10. Client QA & Delivery Agent
 
 **Priority:** Build once deliverables become repeatable.
 
@@ -483,6 +588,7 @@ Keep clients happy, surface wins, and support renewals/upsells.
 8. **Deliver**
    - Client Project Manager coordinates work.
    - Content Strategist and Brand/Website Optimizer create deliverables.
+   - Website Builder Agent builds and deploys site when website work is in scope.
    - QA Agent reviews before delivery.
 
 9. **Retain**
@@ -519,11 +625,16 @@ Build agents only when the business stage needs them.
 8. **Brand & Website Optimizer Agent**
    - Needed when audits and website/brand direction become a core paid deliverable.
 
-9. **Client QA & Delivery Agent**
-   - Needed when deliverables are frequent enough that review needs a formal checklist.
+9. **Website Builder Agent**
+   - Needed when a client asks for a site build or redesign as a deliverable.
+   - Tool stack, GitHub connection, and deploy loop already in place (Lovable, v0, Claude Code, Vercel, Canva MCP).
+   - Agent file has full outline ready — build the `.md` when the first site project is scoped.
 
-10. **Client Success & Renewal Agent**
-   - Needed once recurring clients and renewals exist.
+10. **Client QA & Delivery Agent**
+    - Needed when deliverables are frequent enough that review needs a formal checklist.
+
+11. **Client Success & Renewal Agent**
+    - Needed once recurring clients and renewals exist.
 
 ## Near-Term Recommendation
 

@@ -70,10 +70,41 @@ STATUS.md
 
 ## MCP Connectors Attached
 
-| Connector | Purpose |
-|---|---|
-| Google Drive (`9351e6d4-6804-4999-af1a-545e030ff1d0`) | Read and write the Pipeline sheet |
-| Gmail (`e4bce37c-2aea-4407-848b-e6eadd899562`) | Read threads, check replies, create drafts |
+| Connector | Purpose | Limitation |
+|---|---|---|
+| Google Drive (`9351e6d4-6804-4999-af1a-545e030ff1d0`) | Read Pipeline sheet, read files | **READ ONLY** — cannot write to sheet cells. This is structural, not an auth issue. |
+| Gmail (`e4bce37c-2aea-4407-848b-e6eadd899562`) | Read threads, check replies, draft verification | Connected to `helloliftstudio@gmail.com`. Do not create Gmail drafts directly — Apps Script handles that with proper attachment + signature. |
+
+**Critical:** The Drive MCP can never write to Google Sheets. All sheet writes from the cloud agent must go through the Apps Script web app endpoint (see below).
+
+## Apps Script Web App Endpoint (Sheet Write Path)
+
+The only way for the cloud agent to write data to the Pipeline sheet is via the `doPost` web app endpoint deployed from `LiftPipelineAutomation.gs`.
+
+**Endpoint status:** PENDING DEPLOYMENT — Megan must deploy this from Apps Script before cloud agent writes will work.
+
+**Deployment steps (one-time, ~15 min):**
+1. Open the Google Sheet → Extensions → Apps Script
+2. Replace `LiftPipelineAutomation.gs` with the current local file (contains `doPost` function)
+3. Deploy → New deployment → Type: Web app → Execute as: Me → Access: Anyone
+4. Copy the deployment URL
+5. In Project Settings → Script Properties → add `LIFT_WEB_APP_SECRET` = a strong password
+6. Share the URL and secret with Claude Code in a local session — it will update both routine prompts via RemoteTrigger
+
+**Once deployed, cloud agent uses:**
+
+```
+POST [WEB_APP_URL]
+Content-Type: application/json
+
+{
+  "secret": "[LIFT_WEB_APP_SECRET]",
+  "action": "addLeads",
+  "leads": [{ "business_name": "...", "email": "...", ... }]
+}
+```
+
+Actions available: `addLeads`, `updateRows`, `getStatus`
 
 ---
 
@@ -118,5 +149,6 @@ Check `helloliftstudio@gmail.com` — the Orchestrator sends a status email ever
 
 Common issues:
 - **Repo not public** — the routine cannot fetch agent files. Keep the repo public.
-- **Google Drive MCP access** — the sheet must be accessible to the authenticated Google account.
-- **Gmail MCP access** — helloliftstudio@gmail.com must be the authenticated Gmail account.
+- **"Drive MCP write access unavailable"** — this is NOT an auth error. The Drive MCP is structurally read-only and cannot write to Sheets. The fix is the web app endpoint (see above). Do not reconnect the Drive MCP to solve this.
+- **Gmail MCP connected to wrong account** — must be `helloliftstudio@gmail.com`. If emails appear in a wrong account's drafts, disconnect and reconnect the Gmail MCP at claude.ai/code/routines.
+- **Web app endpoint 401 / Unauthorized** — the `LIFT_WEB_APP_SECRET` in the POST body doesn't match the Script Property. Verify both match.

@@ -26,26 +26,23 @@ This agent turns qualified local-business leads into thoughtful first-touch outr
 
 Preferred connectors:
 
-- Gmail connector for creating and verifying drafts.
-- Google Sheets / Drive connector for reading the Lift Studio Master Pipeline and updating outreach status.
+- Google Sheets / Drive connector (or web app endpoint) for reading the Lift Studio Master Pipeline and writing `Subject` and `Outreach Draft` to the sheet.
 - Web search only when the lead's audit notes are missing or stale and current context is needed.
+- Gmail connector for reading sent/draft state to verify the batch — do NOT create Gmail drafts directly. Apps Script handles Gmail draft creation with proper attachment and signature.
 
 Preferred skills/workflows:
 
 - Google Sheets range-safe reads and updates using column names, not fixed column positions.
-- Gmail draft creation with HTML body support.
-- HTML-safe signature insertion from `assets/lift-studio-gmail-signature.html`.
+- Writing to the sheet via the Apps Script web app endpoint (POST action=updateRows) when the Drive connector cannot write.
 
 ## Core Responsibilities
 
 1. Review the pipeline/outreach list for reachable brands with valid email addresses.
 2. Use available audit notes, website notes, category context, and lead data to write specific outreach.
-3. Create Gmail drafts only. Never send without explicit approval.
-4. Attach the Lift Studio service menu PDF unless Megan asks otherwise.
-5. Append the Lift Studio HTML signature table to every draft.
-6. Update the sheet status to show a draft exists, when the connector allows it.
-7. Keep the repo status updated after a completed batch.
-8. Flag rows without email addresses for manual/contact-form/Instagram outreach.
+3. Write `Subject` and `Outreach Draft` into the Pipeline sheet for each qualified lead. This is your ONLY output — do NOT create Gmail drafts directly.
+4. Apps Script `createOutreachDrafts()` handles Gmail draft creation with the service menu attachment and HTML signature. You write the copy; it builds the draft.
+5. Update `Pipeline Stage` to `Drafted` and `Next Action` to `Megan review/send` after writing copy.
+6. Flag rows without email addresses for manual/contact-form/Instagram outreach.
 
 ## Intake From New Business Auditor
 
@@ -185,14 +182,11 @@ If the Gmail connector cannot preserve the signature exactly, create the best su
 
 ## Gmail Draft Rules
 
-- Create drafts only.
-- Never send automatically.
-- Use `helloliftstudio@gmail.com`.
-- Use `html_body` when available so the Lift Studio link and signature render cleanly.
-- If drafts have attachments, assume they cannot be edited in place through the connector.
-- If a draft must change after attachment, ask Megan to discard it or recreate a clean replacement.
-- Verify draft count after a batch using Gmail draft listing.
-- Report any extra/old drafts separately.
+The Email Marketer does NOT create Gmail drafts. That is Apps Script's job.
+
+If the Gmail connector is available, use it only to verify that drafts were successfully created by Apps Script after writing copy to the sheet. Report any discrepancies (e.g., copy written but no draft created) as a QC flag.
+
+Never send automatically. Never use the Gmail connector to create a draft object directly.
 
 ### Role split: writing vs. execution
 
@@ -243,17 +237,13 @@ Never overwrite useful existing notes. Append concise updates instead.
 
 ## Attachment Rules
 
-Default attachment:
+The Email Marketer does NOT manage attachments. Apps Script attaches the service menu PDF automatically when creating the Gmail draft.
 
-`site/_lift-brand/Lift Studio Service Menu.pdf`
+Default attachment (handled by Apps Script):
 
-Do not attach:
+`site/_lift-brand/Lift Studio Service Menu.pdf` (via Google Drive file ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx`)
 
-- The full brand book unless Megan asks
-- Old MR Studio/Web Refresh files
-- Audit PDFs unless a specific follow-up requires proof-of-work
-
-If attachment upload fails, retry once. If it fails again, use a short temporary copy path and retry.
+Do not attach the full brand book or old MR Studio/Web Refresh files unless Megan asks.
 
 ## Flag To Quality Control
 

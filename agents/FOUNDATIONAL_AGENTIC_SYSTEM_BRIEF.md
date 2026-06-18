@@ -627,7 +627,19 @@ These are not failures; they are current boundaries.
    - If a scheduled routine fetches agent files from GitHub, the repo visibility requirement must be understood and periodically reviewed for privacy/security.
 
 7. Old scheduler files should not be used.
-   - Mac LaunchAgent files are legacy unless Megan explicitly reactivates them.
+   - Mac LaunchAgent files are legacy unless Megan explicitly reactivates them. The old `run_daily_8am_outreach.sh` script no longer exists and any launchd job pointing to it should be removed.
+
+8. The Google Drive MCP connector cannot write to Google Sheets. This is structural.
+   - The Drive MCP only has read tools. It cannot write cell data to spreadsheet tabs. Reconnecting it never fixes this — it is a permanent capability gap in the connector.
+   - The correct write path for the cloud agent is the Apps Script web app endpoint (`doPost`), deployed as a web app from `LiftPipelineAutomation.gs`.
+   - Once deployed, the cloud agent uses WebFetch to POST to the endpoint with `action=addLeads` or `action=updateRows`.
+   - Until the web app endpoint is deployed, all cloud agent sheet writes fail silently. The Apps Script layer continues running independently and keeps the mechanical loop alive.
+   - Web app endpoint deployment status: pending. See `automation/scheduled_routines.md` for the deployment checklist.
+
+9. The cloud agent cannot commit to the GitHub repo.
+   - The cloud agent fetches files from GitHub raw URLs (read-only). It has no git write access.
+   - STATUS.md cannot be updated by the cloud agent at runtime. The Orchestrator includes status tracking in the run email instead.
+   - Repo doc changes identified during a cloud run should be flagged in the status email and applied in a local Claude Code session.
 
 ## Human Approval Rules
 

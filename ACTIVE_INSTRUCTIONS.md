@@ -27,9 +27,10 @@ Use these files for current behavior:
 - `agents/quality_control.md`
 - `agents/innovator.md`
 - `agents/SIGNATURE_RENDERING_RULES.md`
+- `automation/niches_and_areas.md` ← canonical source for niches and geographies
 - `automation/live_apps_script_sync/OutreachAutomation.gs`
 - `automation/live_apps_script_sync/LiftPipelineAutomation.gs`
-- `automation/daily_8am_outreach_prompt.md`
+- `automation/daily_8am_outreach_prompt.md` ← load this only when running a daily/midday outreach batch
 - `automation/scheduled_routines.md`
 
 Production Apps Script source lives in `automation/live_apps_script_sync/`. Older mirror scripts outside that folder are reference-only unless Megan explicitly asks to restore a function from them.
@@ -79,6 +80,12 @@ In HTML outreach drafts, mentions of `Lift Studio` in the body should render as 
 Do not rename or remove the `Pipeline` tab. It powers the Netlify dashboard and the Apps Script automations.
 
 `Working Pipeline` is the human-friendly view. `Pipeline` is the backend/source-of-truth tab.
+
+## Google Sheet Tab Notes
+
+The `Research Queries` tab in the Pipeline sheet contains accidental pasted chat text in the first column. Do not use it as a data source. Use `automation/niches_and_areas.md` as the clean, authoritative source for niches and geographies.
+
+Current lead state and new companies live in the `Pipeline` tab. The `Working Pipeline` tab is the human-facing view; treat `Pipeline` as the source of truth.
 
 ## Before Editing
 
