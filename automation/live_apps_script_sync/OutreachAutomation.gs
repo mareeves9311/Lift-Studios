@@ -549,19 +549,10 @@ function createDueFollowUpDrafts() {
     const draftEmail = buildFollowUpCopy_(business, row, headers);
     const body = buildDraftBody_(business, draftEmail);
     const htmlBody = buildHtmlBody_(business, draftEmail);
-    let draft;
-
-    try {
-      const threadId = value_(row, headers, 'gmail_thread_id');
-      const thread = threadId ? GmailApp.getThreadById(threadId) : null;
-      const messages = thread ? thread.getMessages() : [];
-      const latestMessage = messages.length ? messages[messages.length - 1] : null;
-      draft = latestMessage
-        ? latestMessage.createDraftReply(body, { htmlBody: htmlBody, name: CONFIG.senderName })
-        : GmailApp.createDraft(email, subject, body, { htmlBody: htmlBody, name: CONFIG.senderName });
-    } catch (error) {
-      draft = GmailApp.createDraft(email, subject, body, { htmlBody: htmlBody, name: CONFIG.senderName });
-    }
+    const draft = GmailApp.createDraft(email, subject, body, {
+      htmlBody: htmlBody,
+      name: CONFIG.senderName,
+    });
 
     writeLeadUpdates_(sheet, headers, rowNumber, {
       gmail_draft_id: draft.getId(),
