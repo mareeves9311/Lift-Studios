@@ -1,6 +1,6 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-06-17
+Last updated: 2026-06-18
 
 ## Current Source Of Truth
 
@@ -37,7 +37,8 @@ For scheduled Gmail draft automation, Apps Script must use a Google Drive copy o
 - New business auditor: `agents/new_business_auditor.md`
 - Orchestrator: `agents/orchestrator.md`
 - Current Apps Script source: `automation/live_apps_script_sync/`
-- Current Apps Script mirror: `automation/gmail_outreach_automation.gs`
+  - `OutreachAutomation.gs` — Gmail drafts, sent/reply reconciliation, inbox hygiene
+  - `LiftPipelineAutomation.gs` — brand audits, pipeline management, doPost web app endpoint
 - Gmail signature rules: `agents/SIGNATURE_RENDERING_RULES.md`
 
 ## Archive Policy
@@ -48,9 +49,12 @@ Old Claude cowork packs, duplicate Apps Script variants, and historical handoff 
 
 Archived files are reference-only. Do not use them as active instructions, prompt sources, script sources, attachment rules, or outreach templates unless Megan explicitly asks.
 
-## Open Setup Item
+## Completed Setup
 
-Upload `site/_lift-brand/Lift Studio Service Menu.pdf` to Google Drive once and paste its Drive file ID into `CONFIG.serviceMenuPdfFileId` in the live Apps Script project.
+- ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
+- ✅ Apps Script web app endpoint deployed (2026-06-18). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
+- ✅ Both cloud agent routines (Morning + Midday Orchestrator) updated with web app URL and secret.
+- ✅ Drive MCP write limitation documented — it is structural and cannot be fixed by reconnecting. All cloud agent sheet writes use the doPost endpoint.
 
 ## Do Not Touch Without Approval
 

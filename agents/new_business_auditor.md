@@ -477,8 +477,7 @@ If there are more ready leads than the daily draft target, prioritize:
    - categories covered
    - cities covered
    - next outreach-ready brands
-8. Update `STATUS.md` if this changes the active pipeline state.
-9. Commit any repo updates.
+8. Include batch summary in the Orchestrator status email: cities, categories, lead counts, priority breakdown, outreach-ready brands. Do not attempt to update STATUS.md or commit to the repo from the cloud agent — flag any needed doc changes in the email for a local session to apply.
 
 ## Example First Batch Targets
 

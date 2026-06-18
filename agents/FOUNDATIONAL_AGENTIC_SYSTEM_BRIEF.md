@@ -633,8 +633,8 @@ These are not failures; they are current boundaries.
    - The Drive MCP only has read tools. It cannot write cell data to spreadsheet tabs. Reconnecting it never fixes this — it is a permanent capability gap in the connector.
    - The correct write path for the cloud agent is the Apps Script web app endpoint (`doPost`), deployed as a web app from `LiftPipelineAutomation.gs`.
    - Once deployed, the cloud agent uses WebFetch to POST to the endpoint with `action=addLeads` or `action=updateRows`.
-   - Until the web app endpoint is deployed, all cloud agent sheet writes fail silently. The Apps Script layer continues running independently and keeps the mechanical loop alive.
-   - Web app endpoint deployment status: pending. See `automation/scheduled_routines.md` for the deployment checklist.
+   - The Apps Script layer continues running independently and keeps the mechanical loop alive.
+   - Web app endpoint deployment status: **DEPLOYED** (2026-06-18). URL and secret are set in both cloud agent routine prompts. See `automation/scheduled_routines.md` for full endpoint reference.
 
 9. The cloud agent cannot commit to the GitHub repo.
    - The cloud agent fetches files from GitHub raw URLs (read-only). It has no git write access.

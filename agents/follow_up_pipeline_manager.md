@@ -65,7 +65,7 @@ This is a proactive step that runs before any reply-checking. It ensures the pip
 Lift Studio outreach has used multiple subject formats. The reconciliation step must handle both the current format (`One thing I noticed about [Brand]`) and the earlier format (`Quick website note for [Brand]`). Do not hard-code a single subject. When in doubt, match by recipient email address across all sent mail.
 
 **Via Apps Script (automated):**
-The `refreshSentAndReplies()` function in `automation/gmail_outreach_automation.gs` implements this reconciliation automatically. It runs on the hourly trigger installed by `installOutreachAutomation()`. If the trigger is not active, the Orchestrator should surface this as a blocker.
+The `refreshSentAndReplies()` function in `automation/live_apps_script_sync/OutreachAutomation.gs` implements this reconciliation automatically. It runs on the hourly trigger installed by `installOutreachAutomation()`. If the trigger is not active, the Orchestrator should surface this as a blocker.
 
 **Via Claude Code (manual):**
 Use the Gmail MCP `search_threads` tool with `query: "in:sent from:helloliftstudio@gmail.com newer_than:90d"` then match results to sheet rows via the Google Sheets connector.
@@ -337,4 +337,4 @@ Before reporting completion:
 5. Confirm sheet updates made.
 6. Confirm reply/follow-up drafts created.
 7. Flag anything requiring Megan's review.
-8. Update `STATUS.md` if the batch changes the operating state.
+8. Include batch summary in the Orchestrator status email: search scope, reply counts, bounce/auto-reply/no-reply counts, warm leads, sheet updates made, anything requiring Megan's review. Do not attempt to update STATUS.md or commit to the repo from the cloud agent.

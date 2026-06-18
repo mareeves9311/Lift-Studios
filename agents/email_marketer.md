@@ -272,8 +272,7 @@ Before saying the batch is complete:
 5. Confirm the HTML signature is appended.
 6. Identify leads without email addresses for manual outreach.
 7. Update matching sheet rows where possible.
-8. Update `STATUS.md` with the batch date, draft count, template used, and any caveats.
-9. Commit repo changes.
+8. Include batch summary in the Orchestrator status email: date, draft count, template used, any caveats, leads without email. The email is the audit trail — do not attempt to update STATUS.md or commit to the repo from the cloud agent.
 
 ## Current Known Caveats
 

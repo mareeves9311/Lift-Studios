@@ -81,15 +81,13 @@ STATUS.md
 
 The only way for the cloud agent to write data to the Pipeline sheet is via the `doPost` web app endpoint deployed from `LiftPipelineAutomation.gs`.
 
-**Endpoint status:** PENDING DEPLOYMENT — Megan must deploy this from Apps Script before cloud agent writes will work.
+**Endpoint status:** DEPLOYED (2026-06-18). URL and secret are live in both routine prompts.
 
-**Deployment steps (one-time, ~15 min):**
-1. Open the Google Sheet → Extensions → Apps Script
-2. Replace `LiftPipelineAutomation.gs` with the current local file (contains `doPost` function)
-3. Deploy → New deployment → Type: Web app → Execute as: Me → Access: Anyone
-4. Copy the deployment URL
-5. In Project Settings → Script Properties → add `LIFT_WEB_APP_SECRET` = a strong password
-6. Share the URL and secret with Claude Code in a local session — it will update both routine prompts via RemoteTrigger
+**Deployment reference (completed):**
+1. ✅ `doPost` function in `LiftPipelineAutomation.gs`
+2. ✅ Deployed as Web app — Execute as: Me | Access: Anyone
+3. ✅ Script Property `LIFT_WEB_APP_SECRET` = `LiftStudio2026!`
+4. ✅ Both Morning and Midday Orchestrator routine prompts updated with URL and secret via RemoteTrigger
 
 **Once deployed, cloud agent uses:**
 

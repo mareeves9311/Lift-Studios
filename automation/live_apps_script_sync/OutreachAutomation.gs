@@ -544,7 +544,7 @@ function createDueFollowUpDrafts() {
       return;
     }
 
-    const originalSubject = value_(row, headers, 'subject') || `Quick thought for ${business}`;
+    const originalSubject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
     const subject = /^re:/i.test(originalSubject) ? originalSubject : `Re: ${originalSubject}`;
     const draftEmail = buildFollowUpCopy_(business, row, headers);
     const body = buildDraftBody_(business, draftEmail);
