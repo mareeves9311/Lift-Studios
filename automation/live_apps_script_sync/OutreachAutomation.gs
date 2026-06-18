@@ -75,6 +75,9 @@ function onOpen() {
 function addOutreachAutomationMenu_() {
   SpreadsheetApp.getUi()
     .createMenu('Outreach Automation')
+    .addItem('Install/Repair Full Automation', 'installLiftStudioFullAutomation')
+    .addItem('Run Full Lift Studio System Now', 'runLiftStudioDailySystem')
+    .addItem('Verify Automation Health', 'verifyLiftStudioAutomationHealth')
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Test Service Menu Attachment', 'testServiceMenuAttachment')
@@ -82,6 +85,14 @@ function addOutreachAutomationMenu_() {
     .addItem('Clean Up Inbox Now', 'runInboxHygiene')
     .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
     .addToUi();
+}
+
+function installLiftStudioFullAutomation() {
+  if (typeof setupLiftBrandPipelineAutomation === 'function') {
+    setupLiftBrandPipelineAutomation();
+  }
+  installOutreachAutomation();
+  verifyLiftStudioAutomationHealth();
 }
 
 /**
@@ -99,8 +110,17 @@ function installOutreachAutomation() {
   ensureAutomationColumns_();
 
   // Remove any existing triggers so this is idempotent
+  deleteExistingTriggers_('runLiftStudioDailySystem');
   deleteExistingTriggers_('refreshSentAndReplies');
   deleteExistingTriggers_('createOutreachDrafts');
+
+  // Morning orchestrator: audits queued rows, reconciles sheet state,
+  // creates drafts, scans sent/replies, and applies inbox hygiene.
+  ScriptApp.newTrigger('runLiftStudioDailySystem')
+    .timeBased()
+    .atHour(7)
+    .everyDays(1)
+    .create();
 
   // Hourly: scan sent folder and check for replies
   ScriptApp.newTrigger('refreshSentAndReplies')
@@ -124,10 +144,63 @@ function installOutreachAutomation() {
 
   SpreadsheetApp.getActive().toast(
     'Full outreach schedule installed:\n' +
+    '• Full system orchestration runs daily at ~7 AM\n' +
     '• Drafts created daily at ~8 AM and ~1 PM\n' +
     '• Sent mail + replies checked hourly\n\n' +
     'IMPORTANT: Go to Apps Script > Project Settings and verify your timezone is correct.'
   );
+}
+
+function runLiftStudioDailySystem() {
+  const started = new Date();
+  const steps = [];
+
+  ensureAutomationColumns_();
+  steps.push('automation columns checked');
+
+  if (typeof reconcileLiftNextActions === 'function') {
+    reconcileLiftNextActions();
+    steps.push('next actions reconciled');
+  }
+
+  if (typeof runQueuedLiftBrandAudits === 'function') {
+    runQueuedLiftBrandAudits();
+    steps.push('queued audits processed');
+  }
+
+  createOutreachDrafts();
+  steps.push('draft queue processed');
+
+  refreshSentAndReplies();
+  steps.push('sent/replies/inbox hygiene processed');
+
+  if (typeof reconcileLiftNextActions === 'function') {
+    reconcileLiftNextActions();
+    steps.push('next actions reconciled again');
+  }
+
+  SpreadsheetApp.getActive().toast(
+    `Lift Studio system run complete (${Utilities.formatDate(started, Session.getScriptTimeZone(), 'MMM d h:mm a')}): ${steps.join(', ')}.`
+  );
+}
+
+function verifyLiftStudioAutomationHealth() {
+  const triggerHandlers = ScriptApp.getProjectTriggers().map(trigger => trigger.getHandlerFunction());
+  const required = [
+    'runLiftStudioDailySystem',
+    'refreshSentAndReplies',
+    'createOutreachDrafts',
+    'runQueuedLiftBrandAudits',
+    'handleLiftBrandPipelineEdit',
+  ];
+  const missing = required.filter(handler => !triggerHandlers.includes(handler));
+  const attachments = getLiftStudioAttachments_();
+  const hasAttachment = attachments.length > 0;
+  const message = missing.length
+    ? `Missing trigger(s): ${missing.join(', ')}. Service menu: ${hasAttachment ? 'OK' : 'missing'}.`
+    : `Automation health OK. Triggers active. Service menu: ${hasAttachment ? 'OK' : 'missing'}.`;
+  SpreadsheetApp.getActive().toast(message);
+  return { missingTriggers: missing, serviceMenuAvailable: hasAttachment };
 }
 
 function createOutreachDrafts() {
@@ -160,19 +233,13 @@ function createOutreachDrafts() {
       alreadySentOrClosed += 1;
       return;
     }
-    if (status === 'drafted' && !existingDraftId) {
-      writeLeadUpdates_(sheet, headers, rowNumber, {
-        next_step: 'Already marked Drafted but no Gmail Draft ID is saved. Clear status to Ready to Draft to recreate, or manually verify Gmail Drafts.',
-        automation_notes: 'Draft creation skipped: row is marked Drafted but Gmail Draft ID is blank.',
-      });
-      draftedMissingId += 1;
-      return;
-    }
     if (existingDraftId) {
       alreadyHasDraft += 1;
       return;
     }
-    if (!isDraftReadyStatus_(status)) {
+    if (status === 'drafted' && !existingDraftId) {
+      draftedMissingId += 1;
+    } else if (!isDraftReadyStatus_(status)) {
       notReady += 1;
       return;
     }
@@ -196,6 +263,20 @@ function createOutreachDrafts() {
     }
 
     const subject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
+    if (status === 'drafted' && !existingDraftId) {
+      const existingDraft = findDraft_('', email, subject);
+      if (existingDraft) {
+        writeLeadUpdates_(sheet, headers, rowNumber, {
+          gmail_draft_id: existingDraft.getId(),
+          gmail_last_checked: today,
+          next_step: 'Review Gmail draft with service menu attachment and send manually.',
+          automation_notes: 'Recovered missing Gmail Draft ID by matching recipient and subject.',
+        });
+        alreadyHasDraft += 1;
+        return;
+      }
+    }
+
     const normalizedDraftEmail = normalizeOutreachCopy_(draftEmail);
     const body = buildDraftBody_(business, normalizedDraftEmail);
     const htmlBody = buildHtmlBody_(business, normalizedDraftEmail);
@@ -587,34 +668,16 @@ function signature_() {
   ].join('\n');
 }
 
-const LIFT_STUDIO_HTML_SIGNATURE_ = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family:Arial, Helvetica, sans-serif; color:#242424; max-width:560px;">
+const LIFT_STUDIO_HTML_SIGNATURE_ = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family:Arial, Helvetica, sans-serif; color:#242424;">
   <tr>
-    <td valign="middle" style="padding:0 18px 0 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-        <tr>
-          <td align="center" valign="middle" width="84" height="84" style="width:84px; height:84px; background:#0f3f35; border-radius:42px; color:#fff8ea; font-family:Arial, Helvetica, sans-serif; font-size:25px; font-weight:700; letter-spacing:0.8px; line-height:84px;">LS</td>
-        </tr>
-      </table>
-    </td>
-    <td valign="middle" style="padding:0 20px 0 0; border-left:4px solid #d86f3f;"></td>
-    <td valign="middle" style="padding:0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:28px; line-height:31px; font-weight:700; letter-spacing:6px; color:#0f3f35; padding:0 0 10px 0; white-space:nowrap;">LIFT STUDIO</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:20px; font-weight:700; color:#252525; padding:0 0 3px 0;">Megan Reeves</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; font-weight:400; color:#686861; padding:0 0 9px 0;">Social Strategy &nbsp;·&nbsp; Content Direction &nbsp;·&nbsp; Brand Audits</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; font-weight:400; color:#686861; padding:0 0 5px 0;">Content that works harder.</td>
-        </tr>
-        <tr>
-          <td style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; font-weight:400; color:#0f3f35; padding:0;"><a href="mailto:helloliftstudio@gmail.com" style="color:#0f3f35; text-decoration:none; font-weight:600;">helloliftstudio@gmail.com</a></td>
-        </tr>
-      </table>
+    <td style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#242424; padding:0;">
+      <strong style="font-size:15px; color:#0f3f35;">Megan Reeves</strong><br>
+      <span style="font-weight:700; color:#0f3f35; letter-spacing:1px;">LIFT STUDIO</span><br>
+      <span style="color:#686861;">Social Strategy &middot; Content Direction &middot; Brand Audits</span><br>
+      <span style="color:#686861;">Content that works harder.</span><br>
+      <a href="mailto:helloliftstudio@gmail.com" style="color:#0f3f35; text-decoration:none;">helloliftstudio@gmail.com</a>
+      <span style="color:#d86f3f;"> | </span>
+      <a href="https://helloliftstudio.netlify.app/" style="color:#0f3f35; text-decoration:none;">helloliftstudio.netlify.app</a>
     </td>
   </tr>
 </table>`;
