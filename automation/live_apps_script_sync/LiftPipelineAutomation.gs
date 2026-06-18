@@ -955,7 +955,8 @@ function liftHandleUpdateRows_(payload) {
     const targetRow = rowIndex + 2;
     const writableFields = [
       'pipeline_status', 'next_step', 'automation_notes',
-      'last_contacted', 'follow_up_date', 'response_status', 'notes'
+      'last_contacted', 'follow_up_date', 'response_status', 'notes',
+      'subject', 'draft_email'
     ];
     writableFields.forEach(field => {
       if (update[field] != null && headers[field]) {

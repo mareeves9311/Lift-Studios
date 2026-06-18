@@ -33,7 +33,7 @@ Preferred connectors:
 Preferred skills/workflows:
 
 - Google Sheets range-safe reads and updates using column names, not fixed column positions.
-- Writing to the sheet via the Apps Script web app endpoint (POST action=updateRows) when the Drive connector cannot write.
+- Writing to the sheet via the Apps Script web app endpoint (POST action=updateRows) when the Drive connector cannot write. The updateRows endpoint supports: `subject`, `draft_email`, `pipeline_status`, `next_step`, `automation_notes`, `last_contacted`, `follow_up_date`, `response_status`, `notes`. Use it for all sheet writes — the Drive MCP is read-only and cannot write cell data.
 
 ## Core Responsibilities
 
