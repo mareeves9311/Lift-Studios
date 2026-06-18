@@ -129,6 +129,7 @@ function addLiftPipelineMenu_() {
     .addItem('Run queued audits now', 'runQueuedLiftBrandAudits')
     .addItem('Audit selected row now', 'auditSelectedLiftBrandRow')
     .addItem('Mark selected row as form submitted', 'markSelectedLiftFormSubmitted')
+    .addItem('Reconcile next actions', 'reconcileLiftNextActions')
     .addItem('Sort pipeline by action', 'sortLiftPipelineByAction')
     .addItem('Test Claude connection', 'testLiftClaudeConnection')
     .addToUi();
@@ -178,12 +179,32 @@ function handleLiftBrandPipelineEdit(e) {
       .filter(Boolean);
     const editedCols = getLiftColumnsInRange_(e.range);
     const touchedEmailField = headers.email && editedCols.includes(headers.email);
+    const actionCols = [
+      headers.email,
+      headers.contact_form,
+      headers.instagram,
+      headers.phone,
+      headers.pipeline_status,
+      headers.response_status,
+      headers.draft_email,
+      headers.gmail_draft_id,
+      headers.follow_up_date
+    ].filter(Boolean);
+    const touchedActionField = editedCols.some(col => actionCols.includes(col));
 
     if (touchedEmailField) {
       const startRow = e.range.getRow();
       const numRows = e.range.getNumRows();
       for (let row = startRow; row < startRow + numRows; row++) {
         queueManualEmailForDraft_(sheet, row, headers);
+      }
+    }
+
+    if (touchedActionField) {
+      const startRow = e.range.getRow();
+      const numRows = e.range.getNumRows();
+      for (let row = startRow; row < startRow + numRows; row++) {
+        reconcileLiftNextActionForRow_(sheet, row, headers);
       }
     }
 
@@ -206,8 +227,10 @@ function queueManualEmailForDraft_(sheet, rowNumber, headers) {
 
   const status = String(row.pipeline_status || '').trim();
   const terminalStatuses = ['Sent', 'Replied', 'Warm', 'Won', 'Not a Fit'];
-  if (terminalStatuses.includes(status)) return;
-  if (row.gmail_draft_id) return;
+  if (terminalStatuses.includes(status) || row.gmail_draft_id) {
+    reconcileLiftNextActionForRow_(sheet, rowNumber, headers);
+    return;
+  }
 
   if (row.draft_email) {
     setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Ready to Draft');
@@ -225,6 +248,65 @@ function queueManualEmailForDraft_(sheet, rowNumber, headers) {
       `Manual email added ${new Date().toISOString()}. Row re-queued for outreach drafting/Gmail draft generation.`
     );
   }
+}
+
+function reconcileLiftNextActionForRow_(sheet, rowNumber, headers) {
+  if (!headers.next_step) return;
+  const row = readLiftRowValues_(sheet, rowNumber, headers);
+  if (!row.business_name) return;
+
+  const status = String(row.pipeline_status || '').trim();
+  const responseStatus = String(row.response_status || '').trim();
+  const followUpDate = formatLiftDateForAction_(row.follow_up_date);
+  let nextAction = '';
+
+  if (status === 'Won') {
+    nextAction = 'Move to client onboarding.';
+  } else if (status === 'Not a Fit') {
+    nextAction = 'Closed - no follow-up.';
+  } else if (status === 'Warm') {
+    nextAction = followUpDate ? `Follow up on ${followUpDate}.` : 'Set a warm follow-up date.';
+  } else if (status === 'Replied' || responseStatus === 'Interested' || responseStatus === 'Needs review') {
+    nextAction = 'Open Gmail thread, review reply, and decide next action.';
+  } else if (status === 'Sent') {
+    if (headers.response_status && !responseStatus) {
+      setLiftCell_(sheet, rowNumber, headers.response_status, 'No Response');
+    }
+    nextAction = followUpDate ? `Wait for reply or follow up on ${followUpDate}.` : 'Wait for reply or set follow-up date.';
+  } else if (status === 'Drafted' || row.gmail_draft_id) {
+    nextAction = 'Megan review/send Gmail draft.';
+  } else if (status === 'Ready to Draft') {
+    if (!row.email) {
+      nextAction = liftManualContactStep_(row);
+    } else if (!row.draft_email) {
+      nextAction = 'Email Marketer: draft first-touch outreach.';
+    } else {
+      nextAction = 'Create Gmail draft from existing outreach copy.';
+    }
+  } else if (!row.email) {
+    nextAction = liftManualContactStep_(row);
+  } else if (status === 'Auditing') {
+    nextAction = 'Auto audit queued. Review output before outreach.';
+  } else if (status === 'New Lead') {
+    nextAction = 'Run/complete audit before outreach.';
+  }
+
+  if (nextAction) setLiftCell_(sheet, rowNumber, headers.next_step, nextAction);
+}
+
+function liftManualContactStep_(row) {
+  if (row.contact_form) return 'NO EMAIL FOUND - use contact form manually.';
+  if (row.instagram) return 'NO EMAIL FOUND - DM on Instagram for best email.';
+  if (row.phone) return 'NO EMAIL FOUND - call/text for best email.';
+  return 'NO EMAIL FOUND - find contact info before outreach.';
+}
+
+function formatLiftDateForAction_(dateValue) {
+  if (!dateValue) return '';
+  if (Object.prototype.toString.call(dateValue) === '[object Date]' && !Number.isNaN(dateValue.getTime())) {
+    return Utilities.formatDate(dateValue, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+  }
+  return String(dateValue).trim();
 }
 
 function runQueuedLiftBrandAudits() {
@@ -304,6 +386,22 @@ function markLiftFormSubmitted_(sheet, rowNumber, headers) {
   if (headers.automation_notes) {
     setLiftCell_(sheet, rowNumber, headers.automation_notes, 'Manual website form submission recorded. No Gmail draft needed.');
   }
+}
+
+function reconcileLiftNextActions() {
+  const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+  const sheet = getLiftPipelineSheet_(ss);
+  ensureLiftPipelineHeaders_(sheet);
+  const headers = getLiftHeaderMap_(sheet);
+  const lastRow = sheet.getLastRow();
+  let reconciled = 0;
+
+  for (let rowNumber = 2; rowNumber <= lastRow; rowNumber += 1) {
+    reconcileLiftNextActionForRow_(sheet, rowNumber, headers);
+    reconciled += 1;
+  }
+
+  ss.toast(`Reconciled next actions for ${reconciled} row(s).`);
 }
 
 function sortLiftPipelineByAction() {
