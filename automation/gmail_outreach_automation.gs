@@ -838,8 +838,8 @@ function callClaudeReplyClassifier_(apiKey, businessName, replyText) {
 }
 
 function nextManualStep_(row, headers) {
-  if (value_(row, headers, 'contact_form')) return 'Use contact form manually.';
-  if (value_(row, headers, 'instagram')) return 'DM on Instagram and ask for best email.';
+  if (value_(row, headers, 'instagram')) return 'NO EMAIL FOUND - check Facebook and IG mobile Contact button.';
+  if (value_(row, headers, 'contact_form')) return 'NO EMAIL FOUND - use contact form manually.';
   if (value_(row, headers, 'phone')) return 'Call or text to ask for best email.';
   return 'Find contact info before outreach.';
 }

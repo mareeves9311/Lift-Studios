@@ -1530,11 +1530,18 @@ function countStatus(leads, fn) {
   return leads.filter(fn).length;
 }
 
+function isReplyLead(lead) {
+  const stage = (lead.outreach_status || '').trim();
+  const response = (lead.response_status || '').trim();
+  if (/replied|warm/i.test(stage)) return true;
+  return /interested|needs review|needs more info|maybe later|call booked|proposal sent/i.test(response);
+}
+
 function renderMetrics() {
   const total    = allLeads.length;
   const drafted  = countStatus(allLeads, l => /draft/i.test(l.outreach_status));
   const sent     = countStatus(allLeads, l => /^sent$/i.test(l.outreach_status));
-  const replies  = countStatus(allLeads, l => /replied|warm|interested/i.test(l.outreach_status) || (l.response_status && l.response_status.trim()));
+  const replies  = countStatus(allLeads, isReplyLead);
   const warm     = countStatus(allLeads, l => /interested|warm/i.test(l.outreach_status));
   const closed   = countStatus(allLeads, l => /client|closed.*won|^won$/i.test(l.outreach_status));
 
@@ -1794,15 +1801,29 @@ function getStatusClass(status) {
 
 function formatDate(str) {
   if (!str) return '';
-  const d = new Date(str);
-  if (isNaN(d)) return str;
+  const d = parseSheetDate(str);
+  if (!d) return str;
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function parseSheetDate(value) {
+  const raw = (value || '').trim();
+  if (!raw) return null;
+
+  const iso = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (iso) return new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
+
+  const us = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (us) return new Date(Number(us[3]), Number(us[1]) - 1, Number(us[2]));
+
+  const fallback = new Date(raw);
+  return Number.isNaN(fallback.getTime()) ? null : fallback;
 }
 
 function followupClass(str) {
   if (!str) return '';
-  const d = new Date(str);
-  if (isNaN(d)) return '';
+  const d = parseSheetDate(str);
+  if (!d) return '';
   const diff = (d - new Date()) / 86400000;
   if (diff < 0) return 'overdue';
   if (diff <= 2) return 'soon';
@@ -2005,11 +2026,13 @@ function renderFollowUps() {
 
   const due = allLeads
     .filter(l => {
+      if (!/^sent$/i.test(l.outreach_status || '')) return false;
+      if (!/^no response$/i.test(l.response_status || '')) return false;
       if (!l.follow_up_date) return false;
-      const d = new Date(l.follow_up_date);
-      return !isNaN(d) && d <= week;
+      const d = parseSheetDate(l.follow_up_date);
+      return d && d <= week;
     })
-    .sort((a, b) => new Date(a.follow_up_date) - new Date(b.follow_up_date))
+    .sort((a, b) => parseSheetDate(a.follow_up_date) - parseSheetDate(b.follow_up_date))
     .slice(0, 10);
 
   const container = document.getElementById('followup-queue');
@@ -2020,7 +2043,7 @@ function renderFollowUps() {
 
   container.innerHTML = '';
   due.forEach(lead => {
-    const d = new Date(lead.follow_up_date); d.setHours(0,0,0,0);
+    const d = parseSheetDate(lead.follow_up_date); d.setHours(0,0,0,0);
     const diff = Math.round((d - now) / 86400000);
     let urgencyLabel, urgencyClass;
     if (diff < 0)      { urgencyLabel = 'Overdue';   urgencyClass = 'urgency-today'; }

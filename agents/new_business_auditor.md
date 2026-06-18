@@ -132,6 +132,8 @@ For each city/category batch:
    - email
    - contact form
    - Instagram
+   - Facebook page About/contact details
+   - Instagram mobile/app `Contact` button when a public email is not visible on desktop
    - phone
    - owner/decision-maker name if obvious
    - if no email is found, explicitly flag it using the no-email rules below
@@ -345,8 +347,10 @@ If a qualified lead has no public email address after a reasonable search, make 
 
 - Leave `Email` blank.
 - Populate the strongest alternate path in `Contact Form`, `Instagram`, or `Phone`.
-- Start `Notes` with `NO EMAIL FOUND -` and briefly say where you looked.
-- Set `Next Action` to the specific manual step, such as `NO EMAIL FOUND - use contact form manually`, `NO EMAIL FOUND - DM on Instagram for best email`, or `NO EMAIL FOUND - call/text for best email`.
+- Check the business Facebook page for public email/contact details before giving up.
+- If Instagram exists but no email is visible on desktop, flag the mobile/app contact check because some business profiles show the email only behind the mobile `Contact` button.
+- Start `Notes` with `NO EMAIL FOUND -` and briefly say where you looked, including Facebook and IG mobile/app status when relevant.
+- Set `Next Action` to the specific manual step, such as `NO EMAIL FOUND - check Facebook and IG mobile Contact button`, `NO EMAIL FOUND - use contact form manually`, `NO EMAIL FOUND - DM on Instagram for best email`, or `NO EMAIL FOUND - call/text for best email`.
 - Do not mark the row as ready for Gmail draft generation until an email address exists.
 
 If Megan later adds an email manually, the sheet automation will re-queue the row for Email Marketer drafting or Gmail draft generation depending on whether outreach copy already exists.

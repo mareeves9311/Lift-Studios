@@ -295,8 +295,8 @@ function reconcileLiftNextActionForRow_(sheet, rowNumber, headers) {
 }
 
 function liftManualContactStep_(row) {
+  if (row.instagram) return 'NO EMAIL FOUND - check Facebook and IG mobile Contact button.';
   if (row.contact_form) return 'NO EMAIL FOUND - use contact form manually.';
-  if (row.instagram) return 'NO EMAIL FOUND - DM on Instagram for best email.';
   if (row.phone) return 'NO EMAIL FOUND - call/text for best email.';
   return 'NO EMAIL FOUND - find contact info before outreach.';
 }
