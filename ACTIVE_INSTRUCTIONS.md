@@ -18,8 +18,8 @@ Primary grounding brief for the full agentic system:
 
 Use these files for current behavior:
 
-- `agents/OPERATING_SYSTEM.md`
 - `agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md`
+- `agents/OPERATING_SYSTEM.md`
 - `agents/orchestrator.md`
 - `agents/new_business_auditor.md`
 - `agents/email_marketer.md`
