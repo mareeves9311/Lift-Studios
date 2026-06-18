@@ -51,6 +51,7 @@ For scheduled Gmail draft automation, Apps Script cannot access local files dire
 - Gmail draft creation only runs for leads with `Pipeline Stage` set to `Ready to Draft`, `Ready`, or `Draft Ready`, with an email address, outreach copy, and no existing Gmail draft ID.
 - Use `Outreach Automation > Test Service Menu Attachment` in the Google Sheet to verify the Drive PDF is accessible without needing a draftable lead.
 - If Megan manually adds an email address to a qualified lead, the sheet edit trigger re-queues that row for outreach: existing outreach copy goes to Gmail draft generation, and missing outreach copy goes to `Email Marketer: draft first-touch outreach`.
+- Do not type `form` into the `Email` column. If outreach happens through a website form, keep `Email` blank, keep the URL in `Contact Form`, then use `Lift Pipeline > Mark selected row as form submitted` after submitting it.
 
 ## Sheet Contract
 

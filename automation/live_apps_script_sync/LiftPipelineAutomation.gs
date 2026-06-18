@@ -73,7 +73,12 @@ const LIFT_HEADER_ALIASES = {
   location: ['Location', 'location'],
   contact_name: ['Contact Name', 'contact_name'],
   email: ['Email', 'email'],
+  phone: ['Phone', 'phone'],
+  contact_form: ['Contact Form', 'contact_form'],
   pipeline_status: ['Pipeline Stage', 'Outreach Status', 'pipeline_status', 'outreach_status'],
+  last_contacted: ['Last Contacted', 'last_contacted'],
+  follow_up_date: ['Follow-Up Date', 'Follow-Up 1', 'follow_up_date'],
+  response_status: ['Response Status', 'response_status'],
   fit_score: ['Score', 'Fit Score', 'fit_score'],
   priority: ['Priority', 'priority'],
   recommended_offer: ['Recommended Offer', 'recommended_offer'],
@@ -123,6 +128,8 @@ function addLiftPipelineMenu_() {
     .addItem('Install automation', 'setupLiftBrandPipelineAutomation')
     .addItem('Run queued audits now', 'runQueuedLiftBrandAudits')
     .addItem('Audit selected row now', 'auditSelectedLiftBrandRow')
+    .addItem('Mark selected row as form submitted', 'markSelectedLiftFormSubmitted')
+    .addItem('Sort pipeline by action', 'sortLiftPipelineByAction')
     .addItem('Test Claude connection', 'testLiftClaudeConnection')
     .addToUi();
 }
@@ -259,6 +266,72 @@ function auditSelectedLiftBrandRow() {
   const headers = getLiftHeaderMap_(sheet);
   runLiftAuditForRow_(sheet, range.getRow(), headers);
   ss.toast(`Audit completed for row ${range.getRow()}.`);
+}
+
+function markSelectedLiftFormSubmitted() {
+  const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+  const sheet = getLiftPipelineSheet_(ss);
+  const range = sheet.getActiveRange();
+  if (!range || range.getRow() < 2) {
+    throw new Error('Select a data row in Pipeline before marking form outreach.');
+  }
+
+  ensureLiftPipelineHeaders_(sheet);
+  const headers = getLiftHeaderMap_(sheet);
+  markLiftFormSubmitted_(sheet, range.getRow(), headers);
+  ss.toast(`Marked row ${range.getRow()} as form-submitted outreach.`);
+}
+
+function markLiftFormSubmitted_(sheet, rowNumber, headers) {
+  const row = readLiftRowValues_(sheet, rowNumber, headers);
+  const today = new Date();
+  const followUp = new Date(today.getTime());
+  followUp.setDate(followUp.getDate() + 5);
+
+  setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Sent');
+  if (headers.last_contacted) setLiftCell_(sheet, rowNumber, headers.last_contacted, today);
+  if (headers.follow_up_date) setLiftCell_(sheet, rowNumber, headers.follow_up_date, followUp);
+  if (headers.response_status) setLiftCell_(sheet, rowNumber, headers.response_status, 'No Response');
+  if (headers.next_step) setLiftCell_(sheet, rowNumber, headers.next_step, 'Wait for reply or follow up after form submission.');
+  if (headers.notes) {
+    setLiftCell_(
+      sheet,
+      rowNumber,
+      headers.notes,
+      appendLiftNote_(row.notes, `Form outreach submitted ${today.toISOString().slice(0, 10)}${row.contact_form ? ` via ${row.contact_form}` : ''}.`)
+    );
+  }
+  if (headers.automation_notes) {
+    setLiftCell_(sheet, rowNumber, headers.automation_notes, 'Manual website form submission recorded. No Gmail draft needed.');
+  }
+}
+
+function sortLiftPipelineByAction() {
+  const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+  const sheet = getLiftPipelineSheet_(ss);
+  ensureLiftPipelineHeaders_(sheet);
+  const headers = getLiftHeaderMap_(sheet);
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 3) return;
+
+  const sortCol = sheet.getLastColumn() + 1;
+  sheet.getRange(1, sortCol).setValue('Sort Rank');
+  sheet.getRange(2, sortCol, lastRow - 1, 1).setFormulas(
+    Array.from({ length: lastRow - 1 }, (_, index) => {
+      const row = index + 2;
+      return [`=SWITCH($V${row},"Ready to Draft",1,"Drafted",2,"Sent",3,"Replied",4,"Warm",5,"New Lead",6,"Auditing",7,"Won",8,"Not a Fit",9,10)`];
+    })
+  );
+  SpreadsheetApp.flush();
+
+  sheet.getRange(2, 1, lastRow - 1, sortCol).sort([
+    { column: sortCol, ascending: true },
+    { column: headers.follow_up_date || 24, ascending: true },
+    { column: headers.priority || 12, ascending: true },
+    { column: headers.business_name || 1, ascending: true },
+  ]);
+  sheet.deleteColumn(sortCol);
+  ss.toast('Pipeline sorted by action, follow-up date, priority, and brand.');
 }
 
 function runLiftAuditForRow_(sheet, rowNumber, headers) {

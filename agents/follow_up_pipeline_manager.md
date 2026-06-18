@@ -70,6 +70,9 @@ The `refreshSentAndReplies()` function in `automation/gmail_outreach_automation.
 **Via Claude Code (manual):**
 Use the Gmail MCP `search_threads` tool with `query: "in:sent from:helloliftstudio@gmail.com newer_than:90d"` then match results to sheet rows via the Google Sheets connector.
 
+**Website form outreach:**
+Website form submissions do not appear in Gmail sent mail. Do not put `form` in the `Email` column. Keep `Email` blank, keep the form URL in `Contact Form`, and after Megan submits the form use `Lift Pipeline > Mark selected row as form submitted`. That records the row as `Sent`, sets the last-contacted and follow-up dates, and adds a note that no Gmail draft/thread is expected.
+
 ## Connector / Skill Requirements
 
 Preferred connectors:
