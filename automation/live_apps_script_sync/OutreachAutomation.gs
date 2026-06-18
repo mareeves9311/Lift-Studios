@@ -319,12 +319,24 @@ function testServiceMenuAttachment() {
 function createSignatureTestDraft() {
   const business = 'Lift Studio Signature Test';
   const subject = `Lift Studio signature test - ${Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm')}`;
+  let attachments = [];
+  let attachmentStatus = 'Service menu attachment: attached successfully.';
+
+  try {
+    attachments = getLiftStudioAttachments_();
+    if (!attachments.length) attachmentStatus = 'Service menu attachment: not attached because no Drive file ID is configured.';
+  } catch (error) {
+    attachmentStatus = `Service menu attachment: FAILED - ${error.message}`;
+  }
+
   const draftEmail = [
     'Hi Megan,',
     '',
     'This is a production-path signature test draft.',
     '',
     'It uses the same Apps Script builder that creates Lift Studio outreach drafts, including the linked Lift Studio website, the simple tested HTML signature, and the service menu PDF attachment.',
+    '',
+    attachmentStatus,
     '',
     'Please inspect this draft in Gmail desktop and mobile before sending a full batch.',
     '',
@@ -333,7 +345,6 @@ function createSignatureTestDraft() {
   ].join('\n');
   const body = buildDraftBody_(business, draftEmail);
   const htmlBody = buildHtmlBody_(business, draftEmail);
-  const attachments = getLiftStudioAttachments_();
   const draft = GmailApp.createDraft(CONFIG.senderEmail, subject, body, {
     name: CONFIG.senderName,
     htmlBody: htmlBody,
