@@ -192,22 +192,17 @@ function runLiftStudioDailySystem() {
     steps.push(`${discovered} new leads discovered`);
   }
 
-  if (typeof runQueuedLiftBrandAudits === 'function') {
-    runQueuedLiftBrandAudits();
-    steps.push('queued audits processed');
-  }
-
-  // Email drafting, inbox reconciliation, and follow-up draft creation
-  // are handled by separate scheduled triggers to keep the orchestrator
-  // within Apps Script execution limits.
-
   if (typeof reconcileLiftNextActions === 'function') {
     reconcileLiftNextActions();
-    steps.push('next actions reconciled again');
+    steps.push('next actions reconciled');
   }
 
+  // Auditing runs on its own 5-min trigger (runQueuedLiftBrandAudits).
+  // Draft creation runs at 8am + 1pm (createOutreachDrafts).
+  // Inbox refresh and follow-ups run hourly (refreshSentAndReplies).
+
   SpreadsheetApp.getActive().toast(
-    `Lift Studio system run complete (${Utilities.formatDate(started, Session.getScriptTimeZone(), 'MMM d h:mm a')}): ${steps.join(', ')}. Draft creation and inbox refresh happen on separate scheduled triggers.`
+    `Lift Studio daily system run complete (${Utilities.formatDate(started, Session.getScriptTimeZone(), 'MMM d h:mm a')}): ${steps.join(', ')}. Audits, drafts, and inbox refresh run on their own triggers.`
   );
 }
 
