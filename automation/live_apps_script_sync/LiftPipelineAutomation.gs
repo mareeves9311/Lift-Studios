@@ -12,6 +12,7 @@
  *
  * What it does:
  * - Watches the Pipeline tab.
+ * - Discovers and adds new local brand leads when the full system orchestrator runs.
  * - When you add/edit a business name, website, Instagram, TikTok, category,
  *   location, or notes field, it queues that row for audit.
  * - A time trigger processes queued rows and fills the audit fields.
@@ -22,11 +23,25 @@ const LIFT_PIPELINE_CONFIG = {
   spreadsheetId: '1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8',
   pipelineSheetName: 'Pipeline',
   miniAuditsSheetName: 'Mini Audits Archive',
-  maxAuditsPerRun: 2,
+  maxAuditsPerRun: 10,
+  discoveryBatchSize: 10,
   webTextCharLimit: 9000,
   claudeMaxTokens: 2600,
   claudeTemperature: 0.2,
   defaultModel: 'claude-sonnet-4-6',
+  discoveryQueries: [
+    'med spa Harrisburg PA',
+    'salon Hershey PA',
+    'wellness clinic Mechanicsburg PA',
+    'wedding photographer Lancaster PA',
+    'interior designer Camp Hill PA',
+    'florist Palmyra PA',
+    'restaurant Hummelstown PA',
+    'cosmetic dentist Carlisle PA',
+    'boutique shop Elizabethtown PA',
+    'real estate agent Lebanon PA'
+  ],
+  maxDiscoveryResultsPerQuery: 4,
   watchedHeaders: [
     'business_name',
     'website',
@@ -336,6 +351,305 @@ function runQueuedLiftBrandAudits() {
   }
 }
 
+function discoverLiftBrandLeadsIfNeeded(targetCount) {
+  const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+  const sheet = getLiftPipelineSheet_(ss);
+  ensureLiftPipelineHeaders_(sheet);
+  const headers = getLiftHeaderMap_(sheet);
+  const rows = readLiftPipelineRows_(sheet, headers);
+  const readyCount = rows.reduce((count, row) => {
+    return count + (isReadyToDraftStatus_(row.values.pipeline_status) ? 1 : 0);
+  }, 0);
+  if (readyCount >= targetCount) return 0;
+
+  const needed = Math.min(targetCount - readyCount, LIFT_PIPELINE_CONFIG.discoveryBatchSize);
+  const discovered = discoverLiftBrandLeads_(sheet, headers, needed);
+  return discovered;
+}
+
+function isReadyToDraftStatus_(status) {
+  if (!status) return false;
+  const normalized = String(status).trim().toLowerCase();
+  return ['ready to draft', 'ready', 'draft ready'].includes(normalized);
+}
+
+function discoverLiftBrandLeads_(sheet, headers, maxLeads) {
+  const existingRows = readLiftPipelineRows_(sheet, headers);
+  const seenNames = new Set();
+  const seenDomains = new Set();
+  const seenEmails = new Set();
+
+  existingRows.forEach(row => {
+    if (row.values.business_name) seenNames.add(String(row.values.business_name).trim().toLowerCase());
+    if (row.values.website) seenDomains.add(normalizeDomain_(String(row.values.website).trim()));
+    if (row.values.email) seenEmails.add(String(row.values.email).trim().toLowerCase());
+  });
+
+  let added = 0;
+  const queries = getLiftDiscoveryQueries_();
+
+  for (let i = 0; i < queries.length && added < maxLeads; i += 1) {
+    const query = queries[i];
+    const results = searchLiftDiscoveryQuery_(query, LIFT_PIPELINE_CONFIG.maxDiscoveryResultsPerQuery);
+    results.some(result => {
+      if (added >= maxLeads) return true;
+      const domain = normalizeDomain_(result.url);
+      if (!domain || seenDomains.has(domain)) return false;
+      if (isBlockedDiscoveryDomain_(domain)) return false;
+      const businessName = normalizeBusinessName_(result.title);
+      if (!businessName || seenNames.has(businessName)) return false;
+
+      const lead = buildLiftDiscoveryLead_(result, query);
+      if (!lead) return false;
+      if (lead.email && seenEmails.has(lead.email.trim().toLowerCase())) return false;
+
+      addLiftDiscoveryLeadRow_(sheet, headers, lead);
+      const rowNumber = sheet.getLastRow();
+      queueLiftAuditForRow_(sheet, rowNumber, headers);
+
+      seenNames.add(businessName);
+      seenDomains.add(domain);
+      if (lead.email) seenEmails.add(lead.email.trim().toLowerCase());
+      added += 1;
+      return added >= maxLeads;
+    });
+  }
+
+  if (added) {
+    const message = `Discovered ${added} new lead${added !== 1 ? 's' : ''}.`;
+    sheet.getParent().toast(message);
+  }
+
+  return added;
+}
+
+function getLiftDiscoveryQueries_() {
+  return Array.isArray(LIFT_PIPELINE_CONFIG.discoveryQueries)
+    ? LIFT_PIPELINE_CONFIG.discoveryQueries
+    : [];
+}
+
+function searchLiftDiscoveryQuery_(query, maxResults) {
+  try {
+    const url = `https://html.duckduckgo.com/html?q=${encodeURIComponent(query)}`;
+    const response = UrlFetchApp.fetch(url, {
+      muteHttpExceptions: true,
+      followRedirects: true,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+        Accept: 'text/html',
+      }
+    });
+
+    const status = response.getResponseCode();
+    const text = response.getContentText();
+    if (status !== 200) {
+      const message = `DuckDuckGo discovery fetch failed for query '${query}' with status ${status}`;
+      return [];
+    }
+
+    const results = parseDuckDuckGoSearchResults_(text, maxResults);
+    return results;
+  } catch (error) {
+    return [];
+  }
+}
+
+function parseDuckDuckGoSearchResults_(html, maxResults) {
+  const results = [];
+  const anchorRegex = /<a[^>]+(?:class="[^"]*result__a[^"]*"|data-testid="result-title-a")[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi;
+  let match;
+  while (results.length < maxResults && (match = anchorRegex.exec(html))) {
+    let href = match[1];
+    const title = cleanText_(match[2]);
+    if (!title || !href) continue;
+    href = resolveDuckDuckGoUrl_(href);
+    if (!href || !href.startsWith('http')) continue;
+    results.push({ url: href, title });
+  }
+
+  if (results.length === 0) {
+    const fallbackRegex = /<a[^>]+href="(https?:\/\/[^"#]+)[^"#]*"[^>]*>([^<]+)<\/a>/gi;
+    while (results.length < maxResults && (match = fallbackRegex.exec(html))) {
+      const href = match[1];
+      const title = cleanText_(match[2]);
+      if (!title || !href) continue;
+      results.push({ url: href, title });
+    }
+  }
+
+  if (results.length === 0) {
+    console.warn('DuckDuckGo discovery parser found no results.');
+  }
+
+  return results;
+}
+
+function resolveDuckDuckGoUrl_(href) {
+  try {
+    if (href.startsWith('//')) {
+      href = `https:${href}`;
+    }
+    if (href.startsWith('/l/?') || href.includes('duckduckgo.com/l/?')) {
+      const url = new URL(href.startsWith('/') ? `https://duckduckgo.com${href}` : href);
+      return url.searchParams.get('uddg') || href;
+    }
+    return href;
+  } catch (error) {
+    return href;
+  }
+}
+
+function cleanText_(text) {
+  return String(text || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .trim();
+}
+
+function buildLiftDiscoveryLead_(result, query) {
+  const websiteText = fetchWebsiteTextSafe_(result.url);
+  const homepageEmails = extractEmailsFromText_(websiteText);
+  const categoryCity = parseDiscoveryQuery_(query);
+  const businessName = normalizeBusinessName_(result.title);
+
+  if (!businessName || !result.url) return null;
+
+  let email = homepageEmails.length ? homepageEmails[0] : '';
+  let contactForm = '';
+
+  if (!email) {
+    const contactUrls = findContactPageUrls_(websiteText, result.url);
+    for (let i = 0; i < contactUrls.length && !email; i += 1) {
+      const contactText = fetchWebsiteTextSafe_(contactUrls[i]);
+      const contactEmails = extractEmailsFromText_(contactText);
+      if (contactEmails.length) {
+        email = contactEmails[0];
+      } else if (!contactForm) {
+        contactForm = contactUrls[i];
+      }
+    }
+  }
+
+  return {
+    business_name: businessName,
+    website: result.url,
+    category: categoryCity.category || '',
+    city: categoryCity.city || '',
+    state: categoryCity.state || 'PA',
+    email: email || '',
+    contact_form: email ? '' : contactForm,
+    pipeline_status: 'New Lead',
+    next_step: 'Auto audit queued. Review output before outreach.',
+    notes: `Auto-discovered via query: ${query}`,
+    automation_notes: `Auto-discovered by Lift Studio discovery automation ${Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm')}.`,
+  };
+}
+
+function normalizeBusinessName_(name) {
+  return String(name || '').trim().replace(/\s+/g, ' ').replace(/\|.*$/, '').trim();
+}
+
+function parseDiscoveryQuery_(query) {
+  const parts = String(query || '').split(' ').filter(Boolean);
+  if (parts.length >= 3) {
+    const state = parts.pop();
+    const city = parts.pop();
+    return {
+      category: parts.join(' '),
+      city,
+      state,
+    };
+  }
+  return {
+    category: query || '',
+    city: '',
+    state: '',
+  };
+}
+
+function searchLiftContactPageUrls_(html, baseUrl) {
+  const urls = [];
+  const hrefRegex = /href=["']([^"']+)["']/gi;
+  let match;
+  while ((match = hrefRegex.exec(html)) && urls.length < 3) {
+    const href = match[1];
+    const lower = href.toLowerCase();
+    if (lower.includes('contact') || lower.includes('book') || lower.includes('about')) {
+      const resolved = resolveRelativeUrl_(baseUrl, href);
+      if (resolved && !urls.includes(resolved)) urls.push(resolved);
+    }
+  }
+  return urls;
+}
+
+function findContactPageUrls_(html, baseUrl) {
+  const candidateUrls = searchLiftContactPageUrls_(html, baseUrl);
+  return candidateUrls;
+}
+
+function resolveRelativeUrl_(baseUrl, href) {
+  try {
+    const url = new URL(href, baseUrl);
+    return url.href;
+  } catch (error) {
+    return null;
+  }
+}
+
+function extractEmailsFromText_(text) {
+  const normalized = String(text || '');
+  const regex = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+  const matches = normalized.match(regex) || [];
+  return Array.from(new Set(matches.map(email => email.toLowerCase())));
+}
+
+function fetchWebsiteTextSafe_(url) {
+  try {
+    return fetchLiftWebsiteText_(url);
+  } catch (error) {
+    return '';
+  }
+}
+
+function isBlockedDiscoveryDomain_(domain) {
+  const blocked = [
+    'yelp.com', 'yellowpages.com', 'tripadvisor.com', 'google.com',
+    'maps.google.com', 'facebook.com', 'instagram.com', 'angi.com',
+    'angieslist.com', 'homeadvisor.com', 'thumbtack.com', 'bbb.org',
+    'linkedin.com', 'nextdoor.com', 'foursquare.com', 'mapquest.com',
+    'superpages.com', 'manta.com', 'merchantcircle.com', 'houzz.com',
+    'bark.com', 'birdeye.com', 'duckduckgo.com', 'bing.com', 'yahoo.com',
+    'indeed.com', 'glassdoor.com', 'sitejabber.com', 'trustpilot.com',
+    'chamberofcommerce.com', 'loc8nearme.com', 'opentable.com'
+  ];
+  return blocked.some(b => domain === b || domain.endsWith('.' + b));
+}
+
+function normalizeDomain_(url) {
+  try {
+    const hostname = new URL(String(url || '').trim()).hostname;
+    return hostname.replace(/^www\./, '').toLowerCase();
+  } catch (error) {
+    return String(url || '').trim().toLowerCase();
+  }
+}
+
+function addLiftDiscoveryLeadRow_(sheet, headers, lead) {
+  const nextRow = sheet.getLastRow() + 1;
+  Object.keys(lead).forEach(key => {
+    const col = headers[key];
+    if (!col) return;
+    const value = lead[key];
+    if (value != null && value !== '') {
+      setLiftCell_(sheet, nextRow, col, value);
+    }
+  });
+}
 function auditSelectedLiftBrandRow() {
   const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
   const sheet = getLiftPipelineSheet_(ss);
