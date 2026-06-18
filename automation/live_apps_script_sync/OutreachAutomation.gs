@@ -336,6 +336,8 @@ function createSignatureTestDraft() {
     '',
     'It uses the same Apps Script builder that creates Lift Studio outreach drafts, including the linked Lift Studio website, the simple tested HTML signature, and the service menu PDF attachment.',
     '',
+    `Drive file ID tested: ${CONFIG.serviceMenuPdfFileId || '[blank]'}`,
+    '',
     attachmentStatus,
     '',
     'Please inspect this draft in Gmail desktop and mobile before sending a full batch.',
