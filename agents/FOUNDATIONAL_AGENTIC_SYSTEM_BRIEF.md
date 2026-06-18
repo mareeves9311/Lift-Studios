@@ -56,6 +56,8 @@ Important tabs:
 - `Mini Audits Archive`: audit history.
 - `Research Queries`: lead-search planning/support.
 
+Verified current sheet tabs as of 2026-06-18: `Working Pipeline`, `Pipeline`, `Outreach Drafts`, `Research Queries`, `Dashboard`, `Start Here`, `Follow Up Schedule`, `Mini Audits Archive`, `System Links`, and `Cleanup Map`. Some support tabs are hidden, but they exist.
+
 Do not rename or remove `Pipeline`. It is the contract between agents, Apps Script, and the Netlify dashboard.
 
 ### Gmail
@@ -157,6 +159,7 @@ They own:
 
 - deeper research,
 - higher-quality lead finding,
+- structured lead/enrichment tools such as Vibiz when credits/access are active,
 - strategy,
 - writing standards,
 - ambiguous classification,
@@ -498,21 +501,24 @@ Until this agent exists, the Follow-Up Manager and Orchestrator must flag warm l
 1. New lead is added to the `Pipeline`.
 2. Sheet edit trigger queues the row for audit when enough info exists.
 3. `runQueuedLiftBrandAudits()` runs every 5 minutes.
-4. New Business Auditor logic audits the lead through Apps Script/Claude API.
-5. Qualified lead is marked `Ready to Draft`.
-6. Audit writes subject and outreach draft when possible.
-7. If email exists and copy exists, `createOutreachDrafts()` creates Gmail draft.
-8. Apps Script attaches the service menu.
-9. Apps Script appends the simple tested HTML signature.
-10. Apps Script writes `Gmail Draft ID`, stage, and next action back to the sheet.
-11. Megan reviews and manually sends.
-12. `refreshSentAndReplies()` detects sent mail and updates the row to `Sent` / `No Response`.
-13. Follow-up date is set.
-14. Hourly scans detect replies/bounces.
-15. Follow-Up Manager/Apps Script updates status and labels Gmail thread.
-16. If reply is warm or ambiguous, route to QC/Orchestrator.
-17. If proof is needed, route to Proof-of-Work Builder once built.
-18. Innovator watches for repeated bottlenecks and proposes improvements.
+4. New Business Auditor logic audits the lead through Apps Script/Claude API or through an agent session.
+5. The audit populates fit, priority, recommended offer, observations, quick win, notes, and contact path.
+6. Qualified leads are marked `Ready to Draft`.
+7. Email Marketer owns outreach authorship. It writes or quality-checks `Subject` and `Outreach Draft` from the audit notes.
+   - In the Apps Script path, the Claude audit may generate provisional `Subject` and `Outreach Draft` so the loop can run without waiting for a live agent session.
+   - That provisional copy must still meet the Email Marketer standard. If it is weak, generic, unsupported, or sensitive, route to QC or leave the row for Email Marketer review.
+8. If email exists and copy exists, `createOutreachDrafts()` creates the Gmail draft.
+9. Apps Script attaches the service menu.
+10. Apps Script appends the simple tested HTML signature.
+11. Apps Script writes `Gmail Draft ID`, stage, and next action back to the sheet.
+12. Megan reviews and manually sends.
+13. `refreshSentAndReplies()` detects sent mail and updates the row to `Sent` / `No Response`.
+14. Follow-up date is set.
+15. Hourly scans detect replies/bounces.
+16. Follow-Up Manager/Apps Script updates status and labels Gmail thread.
+17. If reply is warm or ambiguous, route to QC/Orchestrator.
+18. If proof is needed, route to Proof-of-Work Builder once built.
+19. Innovator watches for repeated bottlenecks and proposes improvements.
 
 ### Manual Email Discovery Loop
 
@@ -599,8 +605,10 @@ These are not failures; they are current boundaries.
 1. Proof-of-Work Builder does not exist yet.
    - Warm leads that ask for specific ideas still need manual or semi-manual proof.
 
-2. Lead discovery can be improved.
-   - Structured lead/enrichment tools may reduce manual web-search overhead, but they are not the current source of truth.
+2. Vibiz lead discovery/enrichment is connected but not active in the production loop.
+   - Vibiz is tracked as INN-006 in the Innovator backlog.
+   - It has a workspace and first search configured, but is waiting on credits/access before it can replace or supplement manual web-search lead discovery.
+   - Once active, Vibiz should support New Business Auditor with structured candidate discovery, enrichment, and account research. It should not bypass dedupe, fit scoring, contact-path rules, or Email Marketer quality standards.
 
 3. Claude/Codex sessions are not the same as Apps Script triggers.
    - Agent files describe behavior. Apps Script triggers execute background mechanics. Do not confuse documentation with running automation.
@@ -660,5 +668,4 @@ The system is ready for the next operating day when:
 - Sent mail reconciles hourly.
 - Replies/bounces update the sheet.
 - Dashboard metrics are based on real response statuses.
-- `ACTIVE_INSTRUCTIONS.md` points here as the foundational system brief.
-
+- `ACTIVE_INSTRUCTIONS.md` names this file as the primary grounding brief for the full agentic system.

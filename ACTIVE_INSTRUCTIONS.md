@@ -12,6 +12,10 @@ This file is the first stop for Claude, Codex, or any other agent working in thi
 
 ## Active Instruction Files
 
+Primary grounding brief for the full agentic system:
+
+- `agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md`
+
 Use these files for current behavior:
 
 - `agents/OPERATING_SYSTEM.md`
