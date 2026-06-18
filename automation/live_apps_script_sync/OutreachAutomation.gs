@@ -79,6 +79,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Test Service Menu Attachment', 'testServiceMenuAttachment')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
+    .addItem('Clean Up Inbox Now', 'runInboxHygiene')
     .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
     .addToUi();
 }
@@ -141,6 +142,7 @@ function createOutreachDrafts() {
   let missingCopy = 0;
   let alreadySentOrClosed = 0;
   let alreadyHasDraft = 0;
+  let draftedMissingId = 0;
   let notReady = 0;
 
   rows.forEach((row, rowIndex) => {
@@ -156,6 +158,14 @@ function createOutreachDrafts() {
     if (!business) return;
     if (isTerminalPipelineStatus_(status)) {
       alreadySentOrClosed += 1;
+      return;
+    }
+    if (status === 'drafted' && !existingDraftId) {
+      writeLeadUpdates_(sheet, headers, rowNumber, {
+        next_step: 'Already marked Drafted but no Gmail Draft ID is saved. Clear status to Ready to Draft to recreate, or manually verify Gmail Drafts.',
+        automation_notes: 'Draft creation skipped: row is marked Drafted but Gmail Draft ID is blank.',
+      });
+      draftedMissingId += 1;
       return;
     }
     if (existingDraftId) {
@@ -208,7 +218,7 @@ function createOutreachDrafts() {
   });
 
   SpreadsheetApp.getActive().toast(
-    `Created ${created} draft(s). Missing email: ${missingEmail}. Missing copy: ${missingCopy}. Existing draft: ${alreadyHasDraft}. Sent/closed: ${alreadySentOrClosed}. Not ready: ${notReady}.`
+    `Created ${created} draft(s). Missing email: ${missingEmail}. Missing copy: ${missingCopy}. Existing draft: ${alreadyHasDraft}. Drafted/no ID: ${draftedMissingId}. Sent/closed: ${alreadySentOrClosed}. Not ready: ${notReady}.`
   );
 }
 
@@ -361,6 +371,90 @@ function refreshSentAndReplies() {
 
     writeLeadUpdates_(sheet, headers, rowNumber, updates);
   });
+
+  runInboxHygiene_(false);
+}
+
+// ============================================================
+// INBOX HYGIENE
+// Runs automatically at the end of refreshSentAndReplies().
+// Also available manually: Outreach Automation > Clean Up Inbox Now.
+// ============================================================
+
+function runInboxHygiene() {
+  runInboxHygiene_(true);
+}
+
+function runInboxHygiene_(showToast) {
+  const result = applyInboxLabels_();
+  if (showToast) {
+    SpreadsheetApp.getActive().toast(
+      `Inbox hygiene complete. Labeled ${result.labeled} thread(s); archived ${result.archived} closed/bounced thread(s).`
+    );
+  }
+}
+
+function applyInboxLabels_() {
+  const sheet = getLeadsSheet_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+  const rows = data.rows;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+
+  const lsOutreach = getOrCreateLabel_('LS/Outreach');
+  const lsReplied  = getOrCreateLabel_('LS/Replied');
+  const lsWarm     = getOrCreateLabel_('LS/Warm');
+  const lsBounced  = getOrCreateLabel_('LS/Bounced');
+  const lsFollowUp = getOrCreateLabel_('LS/Follow Up');
+  let labeled = 0;
+  let archived = 0;
+
+  rows.forEach(row => {
+    const threadId = value_(row, headers, 'gmail_thread_id');
+    if (!threadId) return;
+
+    let thread;
+    try { thread = GmailApp.getThreadById(threadId); } catch (e) { return; }
+    if (!thread) return;
+
+    const stage = value_(row, headers, 'pipeline_stage').toLowerCase();
+    const responseStatus = value_(row, headers, 'response_status').toLowerCase();
+    const followUpRaw = value_(row, headers, 'follow_up_date');
+
+    thread.addLabel(lsOutreach);
+    labeled += 1;
+
+    if (/replied|warm|interested|needs.?review/i.test(stage) || /needs.?review|interested/i.test(responseStatus)) {
+      thread.addLabel(lsReplied);
+    }
+
+    if (/warm|interested/i.test(stage) || /interested/i.test(responseStatus)) {
+      thread.addLabel(lsWarm);
+    }
+
+    if (/bounce/i.test(stage) || /bounce/i.test(responseStatus)) {
+      thread.addLabel(lsBounced);
+    }
+
+    if (followUpRaw && /^sent$/i.test(stage) && /^no response$/i.test(responseStatus)) {
+      const fuDate = new Date(followUpRaw);
+      fuDate.setHours(0, 0, 0, 0);
+      if (!isNaN(fuDate) && fuDate <= today) thread.addLabel(lsFollowUp);
+    }
+
+    if (/not.?a.?fit/i.test(stage) || /bounce/i.test(stage) || /bounce/i.test(responseStatus)) {
+      if (thread.isInInbox()) {
+        thread.moveToArchive();
+        archived += 1;
+      }
+    }
+  });
+
+  return { labeled, archived };
+}
+
+function getOrCreateLabel_(name) {
+  return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name);
 }
 
 function ensureAutomationColumns_() {

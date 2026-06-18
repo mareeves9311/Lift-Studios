@@ -198,6 +198,7 @@ function createOutreachDrafts() {
   let missingCopy = 0;
   let alreadySentOrClosed = 0;
   let alreadyHasDraft = 0;
+  let draftedMissingId = 0;
   let notReady = 0;
   const draftedBusinesses = [];
 
@@ -214,6 +215,14 @@ function createOutreachDrafts() {
     if (!business) return;
     if (isTerminalPipelineStatus_(status)) {
       alreadySentOrClosed += 1;
+      return;
+    }
+    if (status === 'drafted' && !existingDraftId) {
+      writeLeadUpdates_(sheet, headers, rowNumber, {
+        next_step: 'Already marked Drafted but no Gmail Draft ID is saved. Clear status to Ready to Draft to recreate, or manually verify Gmail Drafts.',
+        automation_notes: 'Draft creation skipped: row is marked Drafted but Gmail Draft ID is blank.',
+      });
+      draftedMissingId += 1;
       return;
     }
     if (existingDraftId) {
@@ -276,7 +285,7 @@ function createOutreachDrafts() {
   }
 
   SpreadsheetApp.getActive().toast(
-    `Created ${created} draft(s). Missing email: ${missingEmail}. Missing copy: ${missingCopy}. Existing draft: ${alreadyHasDraft}. Sent/closed: ${alreadySentOrClosed}. Not ready: ${notReady}.`
+    `Created ${created} draft(s). Missing email: ${missingEmail}. Missing copy: ${missingCopy}. Existing draft: ${alreadyHasDraft}. Drafted/no ID: ${draftedMissingId}. Sent/closed: ${alreadySentOrClosed}. Not ready: ${notReady}.`
   );
 }
 

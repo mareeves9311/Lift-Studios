@@ -47,6 +47,7 @@ For scheduled Gmail draft automation, Apps Script cannot access local files dire
 
 - Agents write strategy, audit notes, email copy, status decisions, and sheet updates.
 - Apps Script creates Gmail drafts, attaches the service menu, embeds the HTML signature, and writes Gmail draft IDs back to the sheet.
+- Apps Script also runs Follow-Up Manager inbox hygiene through `refreshSentAndReplies()` and `runInboxHygiene()`: label tracked outreach threads, tag replies/warm/follow-up/bounced threads, and archive closed/bounced outreach.
 - Megan reviews and sends manually. Nothing auto-sends.
 - Gmail draft creation only runs for leads with `Pipeline Stage` set to `Ready to Draft`, `Ready`, or `Draft Ready`, with an email address, outreach copy, and no existing Gmail draft ID.
 - Use `Outreach Automation > Test Service Menu Attachment` in the Google Sheet to verify the Drive PDF is accessible without needing a draftable lead.
