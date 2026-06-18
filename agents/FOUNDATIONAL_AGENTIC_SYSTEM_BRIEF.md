@@ -119,6 +119,7 @@ Core functions:
 - `createOutreachDrafts()`: creates Gmail drafts from sheet copy, with service menu and signature.
 - `refreshExistingOutreachDrafts()`: repairs/refreshes existing drafts.
 - `refreshSentAndReplies()`: reconciles sent folder and detects replies.
+- `createDueFollowUpDrafts()`: creates review-ready follow-up drafts for overdue sent/no-response rows.
 - `runInboxHygiene()`: labels tracked Gmail threads and archives closed/bounced threads.
 - `handleLiftBrandPipelineEdit()`: sheet edit trigger for re-queueing rows and next-action updates.
 
@@ -139,6 +140,7 @@ Apps Script owns:
 - simple tested HTML signature,
 - Gmail draft IDs/thread IDs,
 - sent/reply mechanical reconciliation,
+- due follow-up draft creation,
 - inbox labels,
 - routine row-state updates.
 
@@ -516,9 +518,10 @@ Until this agent exists, the Follow-Up Manager and Orchestrator must flag warm l
 14. Follow-up date is set.
 15. Hourly scans detect replies/bounces.
 16. Follow-Up Manager/Apps Script updates status and labels Gmail thread.
-17. If reply is warm or ambiguous, route to QC/Orchestrator.
-18. If proof is needed, route to Proof-of-Work Builder once built.
-19. Innovator watches for repeated bottlenecks and proposes improvements.
+17. If no reply exists and the follow-up date is due, Apps Script creates a review-ready Gmail follow-up draft.
+18. If reply is warm or ambiguous, route to QC/Orchestrator.
+19. If proof is needed, route to Proof-of-Work Builder once built.
+20. Innovator watches for repeated bottlenecks and proposes improvements.
 
 ### Manual Email Discovery Loop
 
@@ -592,6 +595,7 @@ The Orchestrator should regularly check:
 - Sent emails are marked `Sent`.
 - Sent rows have `Response Status = No Response` unless a real reply exists.
 - Follow-up dates exist for sent/no-response rows.
+- Overdue sent/no-response rows have either a follow-up draft or a clear blocker note.
 - Replies are reflected in the sheet.
 - Bounces are marked and handed back for alternate contact research.
 - No-email rows are visually obvious.

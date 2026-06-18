@@ -61,6 +61,7 @@ In HTML outreach drafts, mentions of `Lift Studio` in the body should render as 
 - Apps Script creates Gmail drafts, attaches the service menu, embeds the HTML signature, and writes Gmail draft IDs back to the sheet.
 - Apps Script uses the simple tested Lift Studio HTML signature for automated drafts. Emergency Gmail connector drafts can miss the signature; repair those by running `Outreach Automation > Refresh Existing Drafts` from the sheet.
 - Apps Script also runs Follow-Up Manager inbox hygiene through `refreshSentAndReplies()` and `runInboxHygiene()`: label tracked outreach threads, tag replies/warm/follow-up/bounced threads, and archive closed/bounced outreach.
+- Apps Script creates due follow-up drafts for rows marked `Sent` + `No Response` when `Follow-Up Date` is today or earlier and no pending Gmail draft ID exists. Megan still reviews and sends manually.
 - Megan reviews and sends manually. Nothing auto-sends.
 - Gmail draft creation only runs for leads with `Pipeline Stage` set to `Ready to Draft`, `Ready`, or `Draft Ready`, with an email address, outreach copy, and no existing Gmail draft ID.
 - Use `Outreach Automation > Test Service Menu Attachment` in the Google Sheet to verify the Drive PDF is accessible without needing a draftable lead.

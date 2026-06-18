@@ -80,6 +80,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Verify Automation Health', 'verifyLiftStudioAutomationHealth')
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
+    .addItem('Create Due Follow-Up Drafts', 'createDueFollowUpDrafts')
     .addItem('Test Service Menu Attachment', 'testServiceMenuAttachment')
     .addItem('Create Signature Test Draft', 'createSignatureTestDraft')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
@@ -174,6 +175,9 @@ function runLiftStudioDailySystem() {
 
   refreshSentAndReplies();
   steps.push('sent/replies/inbox hygiene processed');
+
+  createDueFollowUpDrafts();
+  steps.push('due follow-up drafts processed');
 
   if (typeof reconcileLiftNextActions === 'function') {
     reconcileLiftNextActions();
@@ -498,6 +502,112 @@ function refreshSentAndReplies() {
   });
 
   runInboxHygiene_(false);
+  createDueFollowUpDrafts();
+}
+
+function createDueFollowUpDrafts() {
+  const sheet = getLeadsSheet_();
+  ensureAutomationColumns_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+  const rows = data.rows;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let created = 0;
+  let skipped = 0;
+
+  rows.forEach((row, rowIndex) => {
+    if (created >= CONFIG.maxDraftsPerRun) return;
+
+    const business = value_(row, headers, 'business_name');
+    const email = value_(row, headers, 'email');
+    const stage = value_(row, headers, 'pipeline_stage').toLowerCase();
+    const responseStatus = value_(row, headers, 'response_status').toLowerCase();
+    const followUpRaw = value_(row, headers, 'follow_up_date');
+    const existingDraftId = value_(row, headers, 'gmail_draft_id');
+    const rowNumber = rowIndex + 2;
+
+    if (!business || !email || existingDraftId) {
+      skipped += 1;
+      return;
+    }
+
+    if (stage !== 'sent' || responseStatus !== 'no response' || !followUpRaw) {
+      skipped += 1;
+      return;
+    }
+
+    const followUpDate = new Date(followUpRaw);
+    followUpDate.setHours(0, 0, 0, 0);
+    if (Number.isNaN(followUpDate.getTime()) || followUpDate > today) {
+      skipped += 1;
+      return;
+    }
+
+    const originalSubject = value_(row, headers, 'subject') || `Quick thought for ${business}`;
+    const subject = /^re:/i.test(originalSubject) ? originalSubject : `Re: ${originalSubject}`;
+    const draftEmail = buildFollowUpCopy_(business, row, headers);
+    const body = buildDraftBody_(business, draftEmail);
+    const htmlBody = buildHtmlBody_(business, draftEmail);
+    let draft;
+
+    try {
+      const threadId = value_(row, headers, 'gmail_thread_id');
+      const thread = threadId ? GmailApp.getThreadById(threadId) : null;
+      const messages = thread ? thread.getMessages() : [];
+      const latestMessage = messages.length ? messages[messages.length - 1] : null;
+      draft = latestMessage
+        ? latestMessage.createDraftReply(body, { htmlBody: htmlBody, name: CONFIG.senderName })
+        : GmailApp.createDraft(email, subject, body, { htmlBody: htmlBody, name: CONFIG.senderName });
+    } catch (error) {
+      draft = GmailApp.createDraft(email, subject, body, { htmlBody: htmlBody, name: CONFIG.senderName });
+    }
+
+    writeLeadUpdates_(sheet, headers, rowNumber, {
+      gmail_draft_id: draft.getId(),
+      gmail_last_checked: new Date(),
+      next_step: 'Review/send Gmail follow-up draft.',
+      automation_notes: `Follow-up draft created automatically ${new Date().toISOString()}.`,
+    });
+
+    created += 1;
+  });
+
+  SpreadsheetApp.getActive().toast(`Created ${created} due follow-up draft(s). Skipped ${skipped}.`);
+}
+
+function buildFollowUpCopy_(business, row, headers) {
+  const opportunity = value_(row, headers, 'primary_opportunity') || value_(row, headers, 'specific_observation');
+  const quickWin = value_(row, headers, 'quick_win');
+  const outcome = value_(row, headers, 'business_impact') || 'make the next step easier for the right customers';
+  const lines = [
+    'Hi there,',
+    '',
+    'Wanted to put this back near the top of your inbox.',
+    '',
+  ];
+
+  if (opportunity) {
+    lines.push(`The piece I keep coming back to for ${business} is ${opportunity}.`);
+  } else {
+    lines.push(`The piece I keep coming back to for ${business} is making the first impression clearer and easier to act on.`);
+  }
+
+  if (quickWin) {
+    lines.push(`Even a small move like ${quickWin} could help ${outcome}.`);
+  } else {
+    lines.push(`Even a small cleanup to the first screen, service language, or booking path could help ${outcome}.`);
+  }
+
+  lines.push(
+    '',
+    'Happy to send over 2-3 specific ideas if useful.',
+    '',
+    'Best,',
+    'Megan'
+  );
+
+  return lines.join('\n');
 }
 
 // ============================================================
