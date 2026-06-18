@@ -49,6 +49,12 @@ Do not attach `About Lift Studio.pdf` or any old brand book unless Megan explici
 
 For scheduled Gmail draft automation, Apps Script cannot access local files directly. The local PDF is the source copy; the production attachment must be a Google Drive copy referenced by `CONFIG.serviceMenuPdfFileId`.
 
+Current production service menu Drive file ID:
+
+`1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx`
+
+In HTML outreach drafts, mentions of `Lift Studio` in the body should render as the linked website in Lift green with bold font weight.
+
 ## Agent And Automation Split
 
 - Agents write strategy, audit notes, email copy, status decisions, and sheet updates.
