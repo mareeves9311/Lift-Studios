@@ -49,6 +49,21 @@ Before using any signature in a batch, verify:
 - It looks acceptable in Gmail desktop.
 - It looks acceptable in Gmail mobile, if Megan checks mobile.
 
+## Production Test Command
+
+Use the Google Sheet menu:
+
+`Outreach Automation > Create Signature Test Draft`
+
+This creates one draft to `helloliftstudio@gmail.com` using the same Apps Script path as real outreach drafts:
+
+- `buildHtmlBody_()`
+- `LIFT_STUDIO_HTML_SIGNATURE_`
+- service menu Drive attachment
+- GmailApp draft creation
+
+Inspect this test draft in Gmail before creating or refreshing a full batch. If the signature looks wrong, do not run the batch; fix `LIFT_STUDIO_HTML_SIGNATURE_` in `automation/live_apps_script_sync/OutreachAutomation.gs`, deploy with `clasp push -f`, then create a new signature test draft.
+
 ## Fallback Rule
 
 If the signature fails the test:
@@ -85,4 +100,3 @@ The Orchestrator Agent must:
 
 - Treat signature rendering as a system health check before outreach batches.
 - Confirm the selected signature asset before routing work to Email Marketer.
-

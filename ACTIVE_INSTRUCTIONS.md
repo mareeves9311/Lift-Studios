@@ -58,6 +58,7 @@ For scheduled Gmail draft automation, Apps Script cannot access local files dire
 - Megan reviews and sends manually. Nothing auto-sends.
 - Gmail draft creation only runs for leads with `Pipeline Stage` set to `Ready to Draft`, `Ready`, or `Draft Ready`, with an email address, outreach copy, and no existing Gmail draft ID.
 - Use `Outreach Automation > Test Service Menu Attachment` in the Google Sheet to verify the Drive PDF is accessible without needing a draftable lead.
+- Use `Outreach Automation > Create Signature Test Draft` before a full batch when signature rendering is in question. Inspect the Gmail draft in desktop/mobile, then run `Refresh Existing Drafts` or `Create Gmail Drafts`.
 - Use `Outreach Automation > Install/Repair Full Automation` to install all production triggers: daily full system run, hourly sent/reply/inbox hygiene scan, 8 AM and 1 PM draft creation, 5-minute queued audits, and sheet edit handling.
 - Use `Outreach Automation > Run Full Lift Studio System Now` when you want the Apps Script orchestrator to immediately reconcile next actions, run queued audits, process draft creation, scan sent/replies, and apply inbox hygiene.
 - Use `Outreach Automation > Verify Automation Health` to check required triggers and the service menu attachment.

@@ -81,6 +81,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Test Service Menu Attachment', 'testServiceMenuAttachment')
+    .addItem('Create Signature Test Draft', 'createSignatureTestDraft')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
     .addItem('Clean Up Inbox Now', 'runInboxHygiene')
     .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
@@ -313,6 +314,36 @@ function testServiceMenuAttachment() {
   SpreadsheetApp.getActive().toast(
     `Service menu attachment is accessible: ${attachment.getName()} (${Math.round(attachment.getBytes().length / 1024)} KB).`
   );
+}
+
+function createSignatureTestDraft() {
+  const business = 'Lift Studio Signature Test';
+  const subject = `Lift Studio signature test - ${Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm')}`;
+  const draftEmail = [
+    'Hi Megan,',
+    '',
+    'This is a production-path signature test draft.',
+    '',
+    'It uses the same Apps Script builder that creates Lift Studio outreach drafts, including the linked Lift Studio website, the simple tested HTML signature, and the service menu PDF attachment.',
+    '',
+    'Please inspect this draft in Gmail desktop and mobile before sending a full batch.',
+    '',
+    'Best,',
+    'Megan',
+  ].join('\n');
+  const body = buildDraftBody_(business, draftEmail);
+  const htmlBody = buildHtmlBody_(business, draftEmail);
+  const attachments = getLiftStudioAttachments_();
+  const draft = GmailApp.createDraft(CONFIG.senderEmail, subject, body, {
+    name: CONFIG.senderName,
+    htmlBody: htmlBody,
+    attachments: attachments,
+  });
+
+  SpreadsheetApp.getActive().toast(
+    `Signature test draft created in Gmail Drafts. Draft ID: ${draft.getId()}`
+  );
+  return draft.getId();
 }
 
 function refreshExistingOutreachDrafts() {
