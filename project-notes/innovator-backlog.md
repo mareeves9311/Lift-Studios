@@ -116,6 +116,8 @@ See `agents/innovator.md` for the brief format, scoring rubric, and observation 
 
 **Recommended next step:** Top up credits in the Vibiz account (approximately 1 credit per 10 leads). The Lift Studio workspace has been created (`lift-studio-1781702506739235514`) and the first search is configured: Med Spas in Pennsylvania, validated emails, owner/founder/director titles, 1–50 employees, 50 leads. Run it as soon as credits are available and compare output quality against the auditor's current manual process.
 
+**Reminder trigger:** Revisit this during the next Innovator weekly observation pass, or sooner if Megan says Vibiz credits/access are active. First action is a small test batch, not a full workflow replacement.
+
 ---
 
 ## Resolved Opportunities

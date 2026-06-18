@@ -27,6 +27,8 @@ Both routines run the same relay in sequence:
 4. **Quality Control** — fires at any uncertainty from any agent. Packages flags for Orchestrator assessment or Megan escalation.
 5. **Innovator** — fires after every batch. Runs post-batch observation pass. Full weekly pass on Mondays. High-score briefs included in status email.
 
+Weekly Innovator passes must explicitly revisit `INN-006 — Vibiz MCP` until it is activated, declined, or moved to `Revisit later`.
+
 The Orchestrator sends a plain-text status report to `helloliftstudio@gmail.com` after every run.
 
 ---
@@ -50,6 +52,7 @@ https://raw.githubusercontent.com/mareeves9311/Lift-Studios/main/agents/[filenam
 
 ```
 agents/OPERATING_SYSTEM.md
+agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md
 agents/orchestrator.md
 agents/new_business_auditor.md
 agents/email_marketer.md
