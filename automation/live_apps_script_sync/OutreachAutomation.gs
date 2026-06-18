@@ -355,6 +355,7 @@ function refreshSentAndReplies() {
       updates.next_step = 'Open Gmail thread, read reply, and decide next action.';
       updates.automation_notes = `Reply detected from ${reply.getFrom()}`;
     } else {
+      updates.response_status = 'No Response';
       updates.next_step = 'Wait for reply or follow up on follow-up date.';
     }
 
