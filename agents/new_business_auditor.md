@@ -134,6 +134,7 @@ For each city/category batch:
    - Instagram
    - phone
    - owner/decision-maker name if obvious
+   - if no email is found, explicitly flag it using the no-email rules below
 6. Avoid duplicates already in the master sheet.
 7. Add qualified leads to the sheet with source and date found.
 
@@ -337,6 +338,18 @@ Recommended fields to populate when available:
 - Notes
 
 If exact sheet column names differ, map to the closest available column and document the mapping in repo notes.
+
+## No Email Found Rule
+
+If a qualified lead has no public email address after a reasonable search, make that impossible to miss:
+
+- Leave `Email` blank.
+- Populate the strongest alternate path in `Contact Form`, `Instagram`, or `Phone`.
+- Start `Notes` with `NO EMAIL FOUND -` and briefly say where you looked.
+- Set `Next Action` to the specific manual step, such as `NO EMAIL FOUND - use contact form manually`, `NO EMAIL FOUND - DM on Instagram for best email`, or `NO EMAIL FOUND - call/text for best email`.
+- Do not mark the row as ready for Gmail draft generation until an email address exists.
+
+If Megan later adds an email manually, the sheet automation will re-queue the row for Email Marketer drafting or Gmail draft generation depending on whether outreach copy already exists.
 
 ## Dedupe Rules
 

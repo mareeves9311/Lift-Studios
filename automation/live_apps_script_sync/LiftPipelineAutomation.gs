@@ -88,6 +88,7 @@ const LIFT_HEADER_ALIASES = {
   notes: ['Notes', 'notes'],
   next_step: ['Next Action', 'Next Step', 'next_step'],
   automation_notes: ['Automation Notes', 'automation_notes', 'audit_error'],
+  gmail_draft_id: ['Gmail Draft ID', 'gmail_draft_id'],
 };
 
 const LIFT_DISPLAY_HEADERS = {
@@ -169,6 +170,16 @@ function handleLiftBrandPipelineEdit(e) {
       .map(header => headers[header])
       .filter(Boolean);
     const editedCols = getLiftColumnsInRange_(e.range);
+    const touchedEmailField = headers.email && editedCols.includes(headers.email);
+
+    if (touchedEmailField) {
+      const startRow = e.range.getRow();
+      const numRows = e.range.getNumRows();
+      for (let row = startRow; row < startRow + numRows; row++) {
+        queueManualEmailForDraft_(sheet, row, headers);
+      }
+    }
+
     const touchedWatchedField = editedCols.some(col => watchedCols.includes(col));
     if (!touchedWatchedField) return;
 
@@ -179,6 +190,33 @@ function handleLiftBrandPipelineEdit(e) {
     }
   } finally {
     lock.releaseLock();
+  }
+}
+
+function queueManualEmailForDraft_(sheet, rowNumber, headers) {
+  const row = readLiftRowValues_(sheet, rowNumber, headers);
+  if (!row.business_name || !row.email) return;
+
+  const status = String(row.pipeline_status || '').trim();
+  const terminalStatuses = ['Sent', 'Replied', 'Warm', 'Won', 'Not a Fit'];
+  if (terminalStatuses.includes(status)) return;
+  if (row.gmail_draft_id) return;
+
+  if (row.draft_email) {
+    setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Ready to Draft');
+    setLiftCell_(sheet, rowNumber, headers.next_step, 'Create Gmail draft from existing outreach copy.');
+  } else {
+    setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Ready to Draft');
+    setLiftCell_(sheet, rowNumber, headers.next_step, 'Email Marketer: draft first-touch outreach');
+  }
+
+  if (headers.automation_notes) {
+    setLiftCell_(
+      sheet,
+      rowNumber,
+      headers.automation_notes,
+      `Manual email added ${new Date().toISOString()}. Row re-queued for outreach drafting/Gmail draft generation.`
+    );
   }
 }
 
