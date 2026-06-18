@@ -15,6 +15,7 @@ This file is the first stop for Claude, Codex, or any other agent working in thi
 Use these files for current behavior:
 
 - `agents/OPERATING_SYSTEM.md`
+- `agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md`
 - `agents/orchestrator.md`
 - `agents/new_business_auditor.md`
 - `agents/email_marketer.md`
