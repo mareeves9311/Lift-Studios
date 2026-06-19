@@ -132,15 +132,15 @@ function installOutreachAutomation() {
   deleteExistingTriggers_('findNewLeads');
   deleteExistingTriggers_('createDueFollowUpDrafts');
 
-  // Morning orchestrator: audits queued rows, reconciles sheet state,
-  // creates drafts, scans sent/replies, and applies inbox hygiene.
+  // Morning orchestrator: reconciles sheet state and discovers fresh leads.
+  // Audits, drafts, sent/reply scans, and inbox hygiene run on separate triggers.
   ScriptApp.newTrigger('runLiftStudioDailySystem')
     .timeBased()
     .atHour(7)
     .everyDays(1)
     .create();
 
-  // Midday orchestrator: discover fresh leads, audit, reconcile, and prep the next batch.
+  // Midday orchestrator: reconciles sheet state and discovers fresh leads for the second batch.
   ScriptApp.newTrigger('runLiftStudioDailySystem')
     .timeBased()
     .atHour(12)
@@ -862,7 +862,7 @@ function normalizeHeader_(header) {
 }
 
 function isTerminalPipelineStatus_(status) {
-  return ['sent', 'replied', 'warm', 'won', 'not a fit', 'closed', 'archived'].includes(String(status || '').toLowerCase());
+  return ['sent', 'replied', 'warm', 'won', 'not a fit', 'closed', 'archived', 'bounced', 'paused', 'hold'].includes(String(status || '').toLowerCase());
 }
 
 function isDraftReadyStatus_(status) {

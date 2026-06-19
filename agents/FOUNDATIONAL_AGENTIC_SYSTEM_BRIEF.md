@@ -621,7 +621,7 @@ These are not failures; they are current boundaries.
    - If they are enabled, they should use this repo and the sheet as source of truth. If they are not enabled, Apps Script remains the dependable automation layer.
 
 5. Signature rendering must be tested.
-   - Apps Script uses the safer simple HTML signature. Emergency connector-created drafts may need `Refresh Existing Drafts` to repair signature/attachment.
+   - Apps Script uses the tested embedded HTML signature in `OutreachAutomation.gs`. Emergency connector-created drafts may need `Refresh Existing Drafts` to repair signature/attachment.
 
 6. Public-repo constraint must be intentional.
    - If a scheduled routine fetches agent files from GitHub, the repo visibility requirement must be understood and periodically reviewed for privacy/security.
@@ -676,11 +676,11 @@ The system is ready for the next operating day when:
 - `Outreach Automation > Install/Repair Full Automation` has been run successfully.
 - `Outreach Automation > Verify Automation Health` reports required triggers and service menu OK.
 - `Outreach Automation > Refresh Existing Drafts` has repaired any emergency-created drafts.
-- Apps Script timezone is `America/New_York`.
+- Apps Script and the Google Sheet timezone are `America/New_York`.
 - New queued leads can audit.
 - Audited leads can produce subject/copy.
 - Draftable rows create Gmail drafts.
-- Drafts include the service menu and simple HTML signature.
+- Drafts include the service menu and tested Apps Script HTML signature.
 - Sent mail reconciles hourly.
 - Replies/bounces update the sheet.
 - Dashboard metrics are based on real response statuses.
