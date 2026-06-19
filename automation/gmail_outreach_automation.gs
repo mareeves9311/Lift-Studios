@@ -120,7 +120,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Classify Replies + Draft Responses', 'classifyAndDraftReplies')
     .addItem('Sync Snov.io Open/Click Tracking', 'syncSnovTrackingData')
     .addItem('Clean Up Inbox Now', 'runInboxHygiene')
-    .addItem('Install Full Schedule (run once)', 'installOutreachAutomation')
+    .addItem('Install Full Schedule (run once)', 'installLiftStudioFullAutomation')
     .addToUi();
 }
 
@@ -135,7 +135,11 @@ function addOutreachAutomationMenu_() {
  * Apps Script > Project Settings > Time zone to match your local timezone
  * (e.g. America/New_York) before running this.
  */
-function installOutreachAutomation() {
+function deprecated_installOutreachAutomation() {
+  // Deprecated: consolidated install is in live_apps_script_sync/OutreachAutomation.gs
+  console.log('deprecated_installOutreachAutomation called — use installLiftStudioFullAutomation instead');
+  return;
+}
   ensureAutomationColumns_();
 
   // Remove any existing triggers so this is idempotent
@@ -186,7 +190,7 @@ function installOutreachAutomation() {
   );
 }
 
-function createOutreachDrafts() {
+function deprecated_createOutreachDrafts() { console.log('deprecated_createOutreachDrafts called — use live_apps_script_sync/OutreachAutomation.gs'); return; /* deprecated */
   const sheet = getLeadsSheet_();
   ensureAutomationColumns_();
   const data = getSheetData_(sheet);
@@ -301,7 +305,7 @@ function testServiceMenuAttachment() {
   );
 }
 
-function refreshExistingOutreachDrafts() {
+function deprecated_refreshExistingOutreachDrafts() { console.log('deprecated_refreshExistingOutreachDrafts called — use live_apps_script_sync/OutreachAutomation.gs'); return; /* deprecated */
   const sheet = getLeadsSheet_();
   ensureAutomationColumns_();
   const data = getSheetData_(sheet);
@@ -380,7 +384,7 @@ function findDraft_(draftId, email, subject) {
   return null;
 }
 
-function refreshSentAndReplies() {
+function deprecated_refreshSentAndReplies() { console.log('deprecated_refreshSentAndReplies called — use live_apps_script_sync/OutreachAutomation.gs'); return; /* deprecated */
   const sheet = getLeadsSheet_();
   ensureAutomationColumns_();
   const data = getSheetData_(sheet);
@@ -647,7 +651,7 @@ function getLiftStudioAttachments_() {
 // Also available manually: Outreach Automation > Clean Up Inbox Now.
 // ============================================================
 
-function runInboxHygiene() {
+function deprecated_runInboxHygiene() { console.log('deprecated_runInboxHygiene called — use live_apps_script_sync/OutreachAutomation.gs'); return; /* deprecated */
   applyInboxLabels_();
   SpreadsheetApp.getActive().toast('Inbox hygiene complete — labels applied and closed threads archived.');
 }
@@ -719,7 +723,7 @@ function getOrCreateLabel_(name) {
 // Requires ANTHROPIC_API_KEY in Script Properties. Skips silently if not set.
 // ============================================================
 
-function classifyAndDraftReplies() {
+function deprecated_classifyAndDraftReplies() { console.log('deprecated_classifyAndDraftReplies called — use live_apps_script_sync/OutreachAutomation.gs'); return; /* deprecated */
   const apiKey = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_API_KEY');
   if (!apiKey) return;
 
@@ -883,7 +887,7 @@ function deleteExistingTriggers_(handlerName) {
 // Requires ANTHROPIC_API_KEY in Script Properties.
 // ============================================================
 
-function findNewLeads() {
+function deprecated_findNewLeads() { console.log('deprecated_findNewLeads called — use live_apps_script_sync/OutreachAutomation.gs'); return; /* deprecated */
   const apiKey = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_API_KEY');
   if (!apiKey) {
     SpreadsheetApp.getActive().toast('ANTHROPIC_API_KEY not set — add it in Apps Script Project Settings.');
@@ -1017,7 +1021,7 @@ function callClaudeLeadFinder_(apiKey, existingBrands) {
 // Skips silently if credentials are not set.
 // ============================================================
 
-function syncSnovTrackingData() {
+function deprecated_syncSnovTrackingData() { console.log('deprecated_syncSnovTrackingData called — use live_apps_script_sync/OutreachAutomation.gs'); return; /* deprecated */
   syncSnovTrackingData_();
   SpreadsheetApp.getActive().toast('Snov.io tracking data synced.');
 }

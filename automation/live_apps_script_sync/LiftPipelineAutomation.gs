@@ -1112,12 +1112,12 @@ function determineAuditPipelineStatus_(audit, previousRow) {
   const fitScore = Number(audit.fit_score);
   const hasDraft = Boolean(audit.draft_email || previousRow.draft_email);
   const hasOffer = Boolean(audit.recommended_offer);
-  const lowPriority = /^(c\s*-\s*low|hold)$/i.test(priority);
+  const isHold = /^hold$/i.test(priority);
+  const isLowPriority = /^c\s*-\s*low$/i.test(priority);
   const weakScore = !Number.isFinite(fitScore) || fitScore < 8;
 
-  if (lowPriority || weakScore || !hasDraft || !hasOffer) {
-    return 'New Lead';
-  }
+  if (isHold) return 'Hold';
+  if (isLowPriority || weakScore || !hasDraft || !hasOffer) return 'New Lead';
   return 'Ready to Draft';
 }
 

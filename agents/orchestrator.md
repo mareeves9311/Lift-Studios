@@ -244,7 +244,7 @@ For the daily outreach cadence, the Orchestrator is the notifying agent.
 
 The agent-to-agent handoff is:
 
-`New Business Auditor` -> marks rows `Ready to Draft` and sets `Next Action` to `Email Marketer: draft first-touch outreach` -> `Email Marketer` creates Gmail drafts -> `Orchestrator` verifies the batch and notifies Megan.
+`New Business Auditor` -> marks rows `Ready to Draft` and sets `Next Action` to `Email Marketer: draft first-touch outreach` -> `Email Marketer` writes outreach subject and draft copy to the sheet -> Apps Script creates Gmail drafts -> `Orchestrator` verifies the batch and notifies Megan.
 
 By the end of the scheduled run, it should produce a daily report that clearly states:
 
@@ -255,7 +255,7 @@ By the end of the scheduled run, it should produce a daily report that clearly s
 - Any QC flags, blockers, bounces, or connector issues.
 - Megan's next action.
 
-The Email Marketer creates the drafts, but the Orchestrator confirms the batch is ready.
+The Email Marketer writes the outreach copy; Apps Script creates the drafts; the Orchestrator confirms the batch is ready.
 
 ## Quality Standards
 
