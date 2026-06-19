@@ -865,6 +865,10 @@ function buildLiftAuditPrompt_(row, websiteText) {
       business_name: 'string',
       category: 'string|null',
       location: 'string|null',
+      email: 'string|null',
+      contact_form: 'string|null',
+      phone: 'string|null',
+      instagram: 'string|null',
       pipeline_status: 'Ready to Draft',
       fit_score: 'number 1-20',
       priority: 'A - High|B - Possible|C - Low|Hold',
@@ -890,6 +894,9 @@ function buildLiftAuditPrompt_(row, websiteText) {
     `Business name: ${row.business_name || ''}`,
     `Website: ${row.website || ''}`,
     `Instagram: ${row.instagram || ''}`,
+    `Known email: ${row.email || ''}`,
+    `Known contact form: ${row.contact_form || ''}`,
+    `Known phone: ${row.phone || ''}`,
     `Category: ${row.category || ''}`,
     `Location: ${row.location || [row.city, row.state].filter(Boolean).join(', ')}`,
     `User notes: ${row.notes || ''}`,
@@ -900,6 +907,11 @@ function buildLiftAuditPrompt_(row, websiteText) {
     '- Explain why it matters for bookings, visits, orders, inquiries, trust, or sales.',
     '- Include one practical quick win.',
     '- Include 3-5 content opportunities tied to real visible offers, differentiators, products, services, or user notes.',
+    '- Find the strongest public contact path if possible. Check the website contact page, footer, public Facebook/About info, and public business listings when available.',
+    '- Return email only when it is a real public business email. Do not invent emails. Do not use personal/private-looking emails unless clearly published by the business.',
+    '- Return contact_form when no email is found but a public inquiry/contact/booking URL exists.',
+    '- Return phone only when it is clearly a public business phone.',
+    '- Return instagram when a public official business Instagram URL or handle is found.',
     '- Recommend the smallest logical Lift offer.',
     '- Write subject as "One thing I noticed about [Business Name]".',
     '- Write a concise first-touch outreach email in draft_email. It should sound like Megan: warm, sharp, useful, and specific.',
@@ -921,6 +933,10 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
     category: audit.category || previousRow.category,
     city: parseLiftCity_(audit.location || previousRow.location || [previousRow.city, previousRow.state].filter(Boolean).join(', ')) || previousRow.city,
     state: parseLiftState_(audit.location || previousRow.location || [previousRow.city, previousRow.state].filter(Boolean).join(', ')) || previousRow.state,
+    email: previousRow.email || audit.email || '',
+    contact_form: previousRow.contact_form || audit.contact_form || '',
+    phone: previousRow.phone || audit.phone || '',
+    instagram: previousRow.instagram || audit.instagram || '',
     pipeline_status: determineAuditPipelineStatus_(audit, previousRow),
     fit_score: audit.fit_score == null ? '' : String(audit.fit_score),
     priority: audit.priority || '',
@@ -933,7 +949,7 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
     quick_win: audit.quick_win || '',
     subject: audit.subject || (previousRow.business_name ? `One thing I noticed about ${previousRow.business_name}` : ''),
     draft_email: audit.draft_email || previousRow.draft_email || '',
-    next_step: audit.draft_email ? 'Create Gmail draft from existing outreach copy.' : 'Email Marketer: draft first-touch outreach',
+    next_step: buildPostAuditNextStep_(previousRow, audit),
     notes: appendLiftNote_(previousRow.notes, audit.notes),
     automation_notes: `Audit completed automatically ${new Date().toISOString()}. ${audit.audit_summary || ''}`.trim()
   };
@@ -941,6 +957,17 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
   Object.keys(valuesByHeader).forEach(header => {
     if (headers[header]) setLiftCell_(sheet, rowNumber, headers[header], valuesByHeader[header]);
   });
+}
+
+function buildPostAuditNextStep_(previousRow, audit) {
+  const email = previousRow.email || audit.email;
+  const contactForm = previousRow.contact_form || audit.contact_form;
+  const draftEmail = audit.draft_email || previousRow.draft_email;
+
+  if (email && draftEmail) return 'Create Gmail draft from existing outreach copy.';
+  if (email && !draftEmail) return 'Email Marketer: draft first-touch outreach';
+  if (contactForm) return 'NO EMAIL FOUND - use contact form manually.';
+  return 'NO EMAIL FOUND - find contact info before outreach.';
 }
 
 function appendLiftMiniAudit_(row, audit) {

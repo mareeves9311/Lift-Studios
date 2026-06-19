@@ -74,6 +74,7 @@ In HTML outreach drafts, mentions of `Lift Studio` in the body should render as 
 - Do not type `form` into the `Email` column. If outreach happens through a website form, keep `Email` blank, keep the URL in `Contact Form`, then use `Lift Pipeline > Mark selected row as form submitted` after submitting it.
 - `Next Action` is an operational status field, not a freeform notes field. It should update from the current row state: no email means manual contact path, ready/draftable means draft generation, drafted means Megan review/send, sent/no reply means wait or follow up, and replied means review the Gmail thread. Use `Lift Pipeline > Reconcile next actions` if the column looks stale.
 - Contact discovery must include Facebook page contact details and, when Instagram exists but no email is visible on desktop, a manual Instagram mobile/app `Contact` button check. Do not invent or scrape private email addresses.
+- Auto-discovery may use DuckDuckGo internally as a search source, but `Pipeline!Website` must store the final business website URL, never a DuckDuckGo redirect wrapper. The audit step should attempt public email/contact-form/phone/Instagram discovery and write those fields back when found.
 
 ## Sheet Contract
 

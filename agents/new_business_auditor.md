@@ -139,8 +139,9 @@ For each city/category batch:
    - phone
    - owner/decision-maker name if obvious
    - if no email is found, explicitly flag it using the no-email rules below
-6. Avoid duplicates already in the master sheet.
-7. Add qualified leads to the sheet with source and date found.
+6. If an automated search tool uses a redirect URL, such as a DuckDuckGo result wrapper, resolve and store the final business website URL in the sheet. Do not store search-engine redirect URLs in `Website`.
+7. Avoid duplicates already in the master sheet.
+8. Add qualified leads to the sheet with source and date found.
 
 Suggested search patterns:
 
