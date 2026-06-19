@@ -386,7 +386,7 @@ function discoverLiftBrandLeads_(sheet, headers, maxLeads) {
 
   existingRows.forEach(row => {
     if (row.values.business_name) seenNames.add(String(row.values.business_name).trim().toLowerCase());
-    if (row.values.website) seenDomains.add(normalizeDomain_(String(row.values.website).trim()));
+    if (row.values.website) seenDomains.add(normalizeResolvedDomain_(String(row.values.website).trim()));
     if (row.values.email) seenEmails.add(String(row.values.email).trim().toLowerCase());
   });
 
@@ -399,7 +399,7 @@ function discoverLiftBrandLeads_(sheet, headers, maxLeads) {
     results.some(result => {
       if (added >= maxLeads) return true;
       if (!isUsableDiscoveryResult_(result)) return false;
-      const domain = normalizeDomain_(result.url);
+      const domain = normalizeResolvedDomain_(result.url);
       if (!domain || seenDomains.has(domain)) return false;
       if (isBlockedDiscoveryDomain_(domain)) return false;
       const businessName = normalizeBusinessName_(result.title);
@@ -647,6 +647,10 @@ function normalizeDomain_(url) {
   } catch (error) {
     return String(url || '').trim().toLowerCase();
   }
+}
+
+function normalizeResolvedDomain_(url) {
+  return normalizeDomain_(resolveDuckDuckGoUrl_(url));
 }
 
 function addLiftDiscoveryLeadRow_(sheet, headers, lead) {
