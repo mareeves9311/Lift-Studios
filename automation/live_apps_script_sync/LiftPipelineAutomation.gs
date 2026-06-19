@@ -25,7 +25,7 @@ const LIFT_PIPELINE_CONFIG = {
   miniAuditsSheetName: 'Mini Audits Archive',
   maxAuditsPerRun: 3,
   enableAutoDiscovery: true,
-  discoveryBatchSize: 10,
+  discoveryBatchSize: 3,
   webTextCharLimit: 9000,
   claudeMaxTokens: 2600,
   claudeTemperature: 0.2,
@@ -46,7 +46,7 @@ const LIFT_PIPELINE_CONFIG = {
     'plumber Mechanicsburg PA',
     'plumbing company Camp Hill PA'
   ],
-  maxDiscoveryResultsPerQuery: 4,
+  maxDiscoveryResultsPerQuery: 3,
   watchedHeaders: [
     'business_name',
     'website',
@@ -529,28 +529,10 @@ function buildLiftDiscoveryLead_(result, query) {
   const domain = normalizeDomain_(website);
   if (!domain || isBlockedDiscoveryDomain_(domain)) return null;
 
-  const websiteText = fetchWebsiteTextSafe_(website);
-  const homepageEmails = extractEmailsFromText_(websiteText);
   const categoryCity = parseDiscoveryQuery_(query);
   const businessName = normalizeBusinessName_(result.title);
 
   if (!businessName || !website) return null;
-
-  let email = homepageEmails.length ? homepageEmails[0] : '';
-  let contactForm = '';
-
-  if (!email) {
-    const contactUrls = findContactPageUrls_(websiteText, website);
-    for (let i = 0; i < contactUrls.length && !email; i += 1) {
-      const contactText = fetchWebsiteTextSafe_(contactUrls[i]);
-      const contactEmails = extractEmailsFromText_(contactText);
-      if (contactEmails.length) {
-        email = contactEmails[0];
-      } else if (!contactForm) {
-        contactForm = contactUrls[i];
-      }
-    }
-  }
 
   return {
     business_name: businessName,
@@ -558,12 +540,10 @@ function buildLiftDiscoveryLead_(result, query) {
     category: categoryCity.category || '',
     city: categoryCity.city || '',
     state: categoryCity.state || 'PA',
-    email: email || '',
-    contact_form: email ? '' : contactForm,
     pipeline_status: 'New Lead',
     next_step: 'Auto audit queued. Review output before outreach.',
-    notes: `Auto-discovered direct business website via query: ${query}`,
-    automation_notes: `Auto-discovered by Lift Studio discovery automation ${Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm')}.`,
+    notes: `Auto-discovered direct business website via query: ${query}. Contact discovery happens during audit or manual review.`,
+    automation_notes: `Auto-discovered by lightweight Lift Studio discovery ${Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm')}.`,
   };
 }
 
