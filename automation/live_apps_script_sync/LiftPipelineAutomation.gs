@@ -962,11 +962,15 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
 function buildPostAuditNextStep_(previousRow, audit) {
   const email = previousRow.email || audit.email;
   const contactForm = previousRow.contact_form || audit.contact_form;
+  const instagram = previousRow.instagram || audit.instagram;
+  const phone = previousRow.phone || audit.phone;
   const draftEmail = audit.draft_email || previousRow.draft_email;
 
   if (email && draftEmail) return 'Create Gmail draft from existing outreach copy.';
   if (email && !draftEmail) return 'Email Marketer: draft first-touch outreach';
   if (contactForm) return 'NO EMAIL FOUND - use contact form manually.';
+  if (instagram) return 'NO EMAIL FOUND - check Instagram mobile Contact button.';
+  if (phone) return 'NO EMAIL FOUND - call/text for best email.';
   return 'NO EMAIL FOUND - find contact info before outreach.';
 }
 

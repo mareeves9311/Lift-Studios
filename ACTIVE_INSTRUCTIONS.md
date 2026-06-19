@@ -73,14 +73,14 @@ In HTML outreach drafts, mentions of `Lift Studio` in the body should render as 
 - If Megan manually adds an email address to a qualified lead, the sheet edit trigger re-queues that row for outreach: existing outreach copy goes to Gmail draft generation, and missing outreach copy goes to `Email Marketer: draft first-touch outreach`.
 - Do not type `form` into the `Email` column. If outreach happens through a website form, keep `Email` blank, keep the URL in `Contact Form`, then use `Lift Pipeline > Mark selected row as form submitted` after submitting it.
 - `Next Action` is an operational status field, not a freeform notes field. It should update from the current row state: no email means manual contact path, ready/draftable means draft generation, drafted means Megan review/send, sent/no reply means wait or follow up, and replied means review the Gmail thread. Use `Lift Pipeline > Reconcile next actions` if the column looks stale.
-- Contact discovery must include Facebook page contact details and, when Instagram exists but no email is visible on desktop, a manual Instagram mobile/app `Contact` button check. Do not invent or scrape private email addresses.
+- Contact discovery must include Facebook page contact details and, when Instagram exists but no email is visible on desktop, a manual Instagram mobile/app `Contact` button check. Audit writeback should route those rows to `NO EMAIL FOUND - check Instagram mobile Contact button.` in `Next Action`. Do not invent or scrape private email addresses.
 - Auto-discovery may use DuckDuckGo internally as a search source, but `Pipeline!Website` must store the final business website URL, never a DuckDuckGo redirect wrapper. The audit step should attempt public email/contact-form/phone/Instagram discovery and write those fields back when found.
 
 ## Sheet Contract
 
 Do not rename or remove the `Pipeline` tab. It powers the Netlify dashboard and the Apps Script automations.
 
-`Working Pipeline` is the human-friendly view. `Pipeline` is the backend/source-of-truth tab.
+`Working Pipeline` is the human-friendly view where Megan should review rows, read `Next Action`, and manually add found emails/contact details. `Pipeline` is the backend/source-of-truth tab.
 
 ## Google Sheet Tab Notes
 

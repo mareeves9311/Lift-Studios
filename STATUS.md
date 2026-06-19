@@ -52,12 +52,13 @@ Archived files are reference-only. Do not use them as active instructions, promp
 ## Completed Setup
 
 - ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ✅ Apps Script web app endpoint deployed (2026-06-18, version 12). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
+- ✅ Apps Script web app endpoint deployed (2026-06-18, version 13). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
 - ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
 - ✅ Auto-discovery is active with `enableAutoDiscovery: true`. Discovery now uses stronger filters to reject directories, search-result pages, and non-business result pages before adding leads. It runs lightweight batches of up to 3 direct-business candidates per full-system run so Apps Script does not time out.
 - ✅ Audit writeback now includes public contact discovery fields (`Email`, `Contact Form`, `Phone`, `Instagram`) when Claude can verify them.
+- ✅ No-email rows with Instagram now route `Next Action` to `NO EMAIL FOUND - check Instagram mobile Contact button.`
 - ✅ Drive MCP write limitation documented — it is structural and cannot be fixed by reconnecting. All cloud agent sheet writes use the doPost endpoint.
 
 ## Do Not Touch Without Approval
