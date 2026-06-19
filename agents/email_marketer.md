@@ -40,8 +40,8 @@ Preferred skills/workflows:
 1. Review the pipeline/outreach list for reachable brands with valid email addresses.
 2. Use available audit notes, website notes, category context, and lead data to write specific outreach.
 3. Write `Subject` and `Outreach Draft` into the Pipeline sheet for each qualified lead. This is your ONLY output — do NOT create Gmail drafts directly.
-4. Apps Script `createOutreachDrafts()` handles Gmail draft creation with the service menu attachment and HTML signature. You write the copy; it builds the draft.
-5. Update `Pipeline Stage` to `Drafted` and `Next Action` to `Megan review/send` after writing copy.
+4. Apps Script `createOutreachDrafts()` handles Gmail draft creation with the service menu attachment and HTML signature. You write the copy; it builds the draft and updates the row status.
+5. Do not mark rows `Drafted` manually. After Email Marketer writes `Subject` and `Outreach Draft`, Apps Script creates the Gmail draft and marks `Pipeline Stage` as `Drafted` with `Next Action` set to `Megan review/send`.
 6. Flag rows without email addresses for manual/contact-form/Instagram outreach.
 
 ## Intake From New Business Auditor
@@ -58,11 +58,12 @@ Pull leads when:
 
 Do not wait for Megan to manually identify the rows if the Auditor has already marked them ready. If the queue has more than 10 options for the daily run, draft the 10 strongest and leave the rest queued.
 
-After drafting, update the row so the Auditor and Orchestrator can see that the handoff was completed:
+After writing copy, update the row with:
 
-- `Pipeline Stage`: `Drafted`
-- `Next Action`: `Megan review/send`
-- Add a note with draft date and any caveat about signature, attachment, or weak contact data.
+- `Next Action`: `Email Marketer: copy written — awaiting Apps Script Gmail draft`
+- Add a note with the write date and any caveat about weak contact data or missing audit detail.
+
+Do NOT set `Pipeline Stage` to `Drafted`. Leave it as `Ready to Draft`. Apps Script's `createOutreachDrafts()` looks for rows with status `Ready to Draft` (or `Ready` / `Draft Ready`) to create the Gmail draft and then sets the status to `Drafted` itself. If Email Marketer changes the status first, Apps Script cannot find the row and the Gmail draft is never created.
 
 If a `Ready to Draft` row is not draftable, do not silently skip it. Mark the reason in the sheet and route to Quality Control when the issue is judgment-based rather than mechanical.
 
@@ -226,12 +227,13 @@ Every `Outreach Draft` written to the sheet must meet this bar:
 
 ## Sheet Status Rules
 
-After draft creation, update the matching sheet row when possible:
+After writing copy to the sheet, update the matching row with:
 
-- `Pipeline Stage`: `Drafted`
-- `Draft Date`: current date, if a column exists
-- `Next Action`: `Megan review/send`
-- `Notes`: include any caveats, such as missing signature render check or attachment retry
+- `Pipeline Stage`: leave as `Ready to Draft` — do NOT change this field
+- `Next Action`: `Email Marketer: copy written — awaiting Apps Script Gmail draft`
+- `Notes`: include any caveats, such as missing contact data, weak audit detail, or copy that may need Megan's review
+
+Apps Script's `createOutreachDrafts()` sets `Pipeline Stage` to `Drafted` after creating the Gmail draft, and sets `Next Action` to `Megan review/send`. The Email Marketer must not touch `Pipeline Stage` — doing so blocks Apps Script from finding the row.
 
 Never overwrite useful existing notes. Append concise updates instead.
 

@@ -86,7 +86,7 @@ The only way for the cloud agent to write data to the Pipeline sheet is via the 
 **Deployment reference (completed):**
 1. ✅ `doPost` function in `LiftPipelineAutomation.gs`
 2. ✅ Deployed as Web app — Execute as: Me | Access: Anyone
-3. ✅ Script Property `LIFT_WEB_APP_SECRET` = `LiftStudio2026!`
+3. ✅ Script Property `LIFT_WEB_APP_SECRET` — set in Apps Script Project Settings > Script Properties (do not store the value in this repo)
 4. ✅ Both Morning and Midday Orchestrator routine prompts updated with URL and secret via RemoteTrigger
 
 **Once deployed, cloud agent uses:**

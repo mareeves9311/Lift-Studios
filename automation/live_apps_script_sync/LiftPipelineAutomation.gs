@@ -23,7 +23,8 @@ const LIFT_PIPELINE_CONFIG = {
   spreadsheetId: '1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8',
   pipelineSheetName: 'Pipeline',
   miniAuditsSheetName: 'Mini Audits Archive',
-  maxAuditsPerRun: 10,
+  maxAuditsPerRun: 3,
+  enableAutoDiscovery: false,
   discoveryBatchSize: 10,
   webTextCharLimit: 9000,
   claudeMaxTokens: 2600,
@@ -907,7 +908,7 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
     category: audit.category || previousRow.category,
     city: parseLiftCity_(audit.location || previousRow.location || [previousRow.city, previousRow.state].filter(Boolean).join(', ')) || previousRow.city,
     state: parseLiftState_(audit.location || previousRow.location || [previousRow.city, previousRow.state].filter(Boolean).join(', ')) || previousRow.state,
-    pipeline_status: 'Ready to Draft',
+    pipeline_status: determineAuditPipelineStatus_(audit, previousRow),
     fit_score: audit.fit_score == null ? '' : String(audit.fit_score),
     priority: audit.priority || '',
     recommended_offer: audit.recommended_offer || '',
@@ -1104,6 +1105,20 @@ function appendLiftNote_(existing, addition) {
   if (!existing) return addition;
   if (String(existing).indexOf(addition) !== -1) return existing;
   return `${existing}\n\nAuto audit note: ${addition}`;
+}
+
+function determineAuditPipelineStatus_(audit, previousRow) {
+  const priority = String(audit.priority || '').trim();
+  const fitScore = Number(audit.fit_score);
+  const hasDraft = Boolean(audit.draft_email || previousRow.draft_email);
+  const hasOffer = Boolean(audit.recommended_offer);
+  const lowPriority = /^(c\s*-\s*low|hold)$/i.test(priority);
+  const weakScore = !Number.isFinite(fitScore) || fitScore < 8;
+
+  if (lowPriority || weakScore || !hasDraft || !hasOffer) {
+    return 'New Lead';
+  }
+  return 'Ready to Draft';
 }
 
 function parseLiftCity_(location) {

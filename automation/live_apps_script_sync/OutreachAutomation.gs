@@ -31,6 +31,7 @@ const CONFIG = {
   defaultFollowUpDays: 3,
   maxDraftsPerRun: 10,
 };
+const SYSTEM_LOG_SHEET_NAME = 'System Log';
 
 // Embedded fallback logo image to support HTML signature rendering when a Drive image
 // file ID is not available. This is the local repo asset at
@@ -187,9 +188,14 @@ function runLiftStudioDailySystem() {
     steps.push('next actions reconciled');
   }
 
-  if (typeof discoverLiftBrandLeadsIfNeeded === 'function') {
+  const autoDiscoveryEnabled = typeof LIFT_PIPELINE_CONFIG !== 'undefined'
+    ? LIFT_PIPELINE_CONFIG.enableAutoDiscovery !== false
+    : true;
+  if (autoDiscoveryEnabled && typeof discoverLiftBrandLeadsIfNeeded === 'function') {
     const discovered = discoverLiftBrandLeadsIfNeeded(CONFIG.maxDraftsPerRun);
     steps.push(`${discovered} new leads discovered`);
+  } else if (!autoDiscoveryEnabled) {
+    steps.push('auto-discovery paused (enableAutoDiscovery: false in config)');
   }
 
   if (typeof reconcileLiftNextActions === 'function') {
@@ -328,9 +334,9 @@ function createOutreachDrafts() {
     created += 1;
   });
 
-  SpreadsheetApp.getActive().toast(
-    `Created ${created} draft(s). Missing email: ${missingEmail}. Missing copy: ${missingCopy}. Existing draft: ${alreadyHasDraft}. Drafted/no ID: ${draftedMissingId}. Sent/closed: ${alreadySentOrClosed}. Not ready: ${notReady}.`
-  );
+  const summary = `Created ${created} draft(s). Missing email: ${missingEmail}. Missing copy: ${missingCopy}. Existing draft: ${alreadyHasDraft}. Drafted/no ID: ${draftedMissingId}. Sent/closed: ${alreadySentOrClosed}. Not ready: ${notReady}.`;
+  appendSystemLogEntry_('Create Outreach Drafts', summary, '', '');
+  SpreadsheetApp.getActive().toast(summary);
 }
 
 function testServiceMenuAttachment() {
@@ -465,12 +471,30 @@ function findDraft_(draftId, email, subject) {
     const message = draft.getMessage();
     const to = String(message.getTo() || '').toLowerCase();
     const draftSubject = String(message.getSubject() || '').trim();
-    if (to.includes(targetEmail) && draftSubject === targetSubject) {
+    if (!to.includes(targetEmail)) continue;
+    if (!targetSubject || draftSubject === targetSubject) {
       return draft;
     }
   }
 
   return null;
+}
+
+function getDraftById_(draftId) {
+  if (!draftId) return null;
+  try {
+    return GmailApp.getDraft(draftId);
+  } catch (error) {
+    return null;
+  }
+}
+
+function isBounceMessage_(message) {
+  if (!message) return false;
+  const from = String(message.getFrom() || '').toLowerCase();
+  const subject = String(message.getSubject() || '').toLowerCase();
+  const body = String(message.getPlainBody ? message.getPlainBody() : message.getBody ? message.getBody() : '').toLowerCase();
+  return /mail delivery subsystem|mailer-daemon|delivery status notification|undeliverable|delivery failure|returned mail|message not delivered|recipient address rejected/i.test(`${from} ${subject} ${body}`);
 }
 
 function refreshSentAndReplies() {
@@ -501,26 +525,38 @@ function refreshSentAndReplies() {
     const thread = sentThreads[0];
     const messages = thread.getMessages();
     const sentMessage = messages.find((message) => {
-      return message.getFrom().toLowerCase().includes(senderEmail) || message.getFrom().toLowerCase().includes(CONFIG.senderName.toLowerCase());
+      const from = String(message.getFrom() || '').toLowerCase();
+      return from.includes(senderEmail) || from.includes(CONFIG.senderName.toLowerCase());
     });
+    const bounceMessage = messages.find((message) => isBounceMessage_(message));
     const reply = messages.find((message) => {
-      const from = message.getFrom().toLowerCase();
-      return !from.includes(senderEmail) && !from.includes(CONFIG.senderName.toLowerCase());
+      const from = String(message.getFrom() || '').toLowerCase();
+      return !from.includes(senderEmail) && !from.includes(CONFIG.senderName.toLowerCase()) && !isBounceMessage_(message);
     });
 
+    const currentStage = value_(row, headers, 'pipeline_stage').toLowerCase();
     const updates = {
       pipeline_stage: 'Sent',
       gmail_thread_id: thread.getId(),
       gmail_last_checked: today,
       automation_notes: 'Sent email detected in Gmail.',
     };
+    // Only clear gmail_draft_id on the initial transition to Sent.
+    // Subsequent runs must not overwrite follow-up draft IDs.
+    if (currentStage !== 'sent') {
+      updates.gmail_draft_id = '';
+    }
 
     if (sentMessage) {
       updates.last_contacted = sentMessage.getDate();
       updates.follow_up_date = addDays_(sentMessage.getDate(), CONFIG.defaultFollowUpDays);
     }
 
-    if (reply) {
+    if (bounceMessage && !reply) {
+      updates.response_status = 'Bounced';
+      updates.next_step = 'Bounce detected — verify email or remove from outreach.';
+      updates.automation_notes = `Bounce detected from ${bounceMessage.getFrom() || 'bounce sender'}.`;
+    } else if (reply) {
       updates.response_status = 'Needs review';
       updates.next_step = 'Open Gmail thread, read reply, and decide next action.';
       updates.automation_notes = `Reply detected from ${reply.getFrom()}`;
@@ -532,6 +568,12 @@ function refreshSentAndReplies() {
     writeLeadUpdates_(sheet, headers, rowNumber, updates);
   });
 
+  appendSystemLogEntry_(
+    'Refresh Sent + Replies',
+    `scanned=${rows.length}; updated=${rows.length};`,
+    'Sent/reply refresh completed',
+    ''
+  );
   runInboxHygiene_(false);
   createDueFollowUpDrafts();
 }
@@ -558,9 +600,26 @@ function createDueFollowUpDrafts() {
     const existingDraftId = value_(row, headers, 'gmail_draft_id');
     const rowNumber = rowIndex + 2;
 
-    if (!business || !email || existingDraftId) {
+    if (!business || !email) {
       skipped += 1;
       return;
+    }
+
+    const isSentNoResponseDue = stage === 'sent' && responseStatus === 'no response' && followUpRaw;
+    if (existingDraftId && !isSentNoResponseDue) {
+      skipped += 1;
+      return;
+    }
+
+    if (existingDraftId && isSentNoResponseDue) {
+      const existingDraft = getDraftById_(existingDraftId);
+      if (existingDraft) {
+        const existingSubject = String(existingDraft.getMessage().getSubject() || '');
+        if (/^re:/i.test(existingSubject)) {
+          skipped += 1;
+          return;
+        }
+      }
     }
 
     if (stage !== 'sent' || responseStatus !== 'no response' || !followUpRaw) {
@@ -595,7 +654,9 @@ function createDueFollowUpDrafts() {
     created += 1;
   });
 
-  SpreadsheetApp.getActive().toast(`Created ${created} due follow-up draft(s). Skipped ${skipped}.`);
+  const summary = `Created ${created} due follow-up draft(s). Skipped ${skipped}.`;
+  appendSystemLogEntry_('Create Due Follow-Up Drafts', summary, '', '');
+  SpreadsheetApp.getActive().toast(summary);
 }
 
 function buildFollowUpCopy_(business, row, headers) {
@@ -649,6 +710,7 @@ function runInboxHygiene_(showToast) {
       `Inbox hygiene complete. Labeled ${result.labeled} thread(s); archived ${result.archived} closed/bounced thread(s).`
     );
   }
+  appendSystemLogEntry_('Inbox Hygiene', `labeled=${result.labeled}; archived=${result.archived}`, '', '');
 }
 
 function applyInboxLabels_() {
@@ -765,6 +827,22 @@ function writeLeadUpdates_(sheet, headers, rowNumber, updates) {
     if (!col) return;
     sheet.getRange(rowNumber, col).setValue(updates[header]);
   });
+}
+
+function ensureSystemLogSheet_() {
+  const spreadsheet = SpreadsheetApp.openById(CONFIG.spreadsheetId);
+  let sheet = spreadsheet.getSheetByName(SYSTEM_LOG_SHEET_NAME);
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(SYSTEM_LOG_SHEET_NAME);
+    sheet.getRange(1, 1, 1, 5).setValues([['Timestamp', 'Action', 'Result', 'Details', 'Error']]);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function appendSystemLogEntry_(action, result, details, error) {
+  const sheet = ensureSystemLogSheet_();
+  sheet.appendRow([new Date(), action, result || '', details || '', error || '']);
 }
 
 function canonicalHeader_(header) {
