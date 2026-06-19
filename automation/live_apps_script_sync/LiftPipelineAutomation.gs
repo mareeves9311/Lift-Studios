@@ -24,7 +24,7 @@ const LIFT_PIPELINE_CONFIG = {
   pipelineSheetName: 'Pipeline',
   miniAuditsSheetName: 'Mini Audits Archive',
   maxAuditsPerRun: 3,
-  enableAutoDiscovery: false,
+  enableAutoDiscovery: true,
   discoveryBatchSize: 10,
   webTextCharLimit: 9000,
   claudeMaxTokens: 2600,
@@ -40,7 +40,11 @@ const LIFT_PIPELINE_CONFIG = {
     'restaurant Hummelstown PA',
     'cosmetic dentist Carlisle PA',
     'boutique shop Elizabethtown PA',
-    'real estate agent Lebanon PA'
+    'real estate agent Lebanon PA',
+    'lawn care Hershey PA',
+    'landscaper Harrisburg PA',
+    'plumber Mechanicsburg PA',
+    'plumbing company Camp Hill PA'
   ],
   maxDiscoveryResultsPerQuery: 4,
   watchedHeaders: [
@@ -394,6 +398,7 @@ function discoverLiftBrandLeads_(sheet, headers, maxLeads) {
     const results = searchLiftDiscoveryQuery_(query, LIFT_PIPELINE_CONFIG.maxDiscoveryResultsPerQuery);
     results.some(result => {
       if (added >= maxLeads) return true;
+      if (!isUsableDiscoveryResult_(result)) return false;
       const domain = normalizeDomain_(result.url);
       if (!domain || seenDomains.has(domain)) return false;
       if (isBlockedDiscoveryDomain_(domain)) return false;
@@ -472,7 +477,7 @@ function parseDuckDuckGoSearchResults_(html, maxResults) {
   if (results.length === 0) {
     const fallbackRegex = /<a[^>]+href="(https?:\/\/[^"#]+)[^"#]*"[^>]*>([^<]+)<\/a>/gi;
     while (results.length < maxResults && (match = fallbackRegex.exec(html))) {
-      const href = match[1];
+      const href = resolveDuckDuckGoUrl_(match[1]);
       const title = cleanText_(match[2]);
       if (!title || !href) continue;
       results.push({ url: href, title });
@@ -488,6 +493,7 @@ function parseDuckDuckGoSearchResults_(html, maxResults) {
 
 function resolveDuckDuckGoUrl_(href) {
   try {
+    href = decodeHtmlEntities_(href);
     if (href.startsWith('//')) {
       href = `https:${href}`;
     }
@@ -501,30 +507,40 @@ function resolveDuckDuckGoUrl_(href) {
   }
 }
 
-function cleanText_(text) {
+function decodeHtmlEntities_(text) {
   return String(text || '')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, ' ')
+    .replace(/&nbsp;/g, ' ');
+}
+
+function cleanText_(text) {
+  return decodeHtmlEntities_(text)
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
 function buildLiftDiscoveryLead_(result, query) {
-  const websiteText = fetchWebsiteTextSafe_(result.url);
+  if (!isUsableDiscoveryResult_(result)) return null;
+
+  const website = resolveDuckDuckGoUrl_(result.url);
+  const domain = normalizeDomain_(website);
+  if (!domain || isBlockedDiscoveryDomain_(domain)) return null;
+
+  const websiteText = fetchWebsiteTextSafe_(website);
   const homepageEmails = extractEmailsFromText_(websiteText);
   const categoryCity = parseDiscoveryQuery_(query);
   const businessName = normalizeBusinessName_(result.title);
 
-  if (!businessName || !result.url) return null;
+  if (!businessName || !website) return null;
 
   let email = homepageEmails.length ? homepageEmails[0] : '';
   let contactForm = '';
 
   if (!email) {
-    const contactUrls = findContactPageUrls_(websiteText, result.url);
+    const contactUrls = findContactPageUrls_(websiteText, website);
     for (let i = 0; i < contactUrls.length && !email; i += 1) {
       const contactText = fetchWebsiteTextSafe_(contactUrls[i]);
       const contactEmails = extractEmailsFromText_(contactText);
@@ -538,7 +554,7 @@ function buildLiftDiscoveryLead_(result, query) {
 
   return {
     business_name: businessName,
-    website: result.url,
+    website: website,
     category: categoryCity.category || '',
     city: categoryCity.city || '',
     state: categoryCity.state || 'PA',
@@ -546,13 +562,24 @@ function buildLiftDiscoveryLead_(result, query) {
     contact_form: email ? '' : contactForm,
     pipeline_status: 'New Lead',
     next_step: 'Auto audit queued. Review output before outreach.',
-    notes: `Auto-discovered via query: ${query}`,
+    notes: `Auto-discovered direct business website via query: ${query}`,
     automation_notes: `Auto-discovered by Lift Studio discovery automation ${Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm')}.`,
   };
 }
 
 function normalizeBusinessName_(name) {
-  return String(name || '').trim().replace(/\s+/g, ' ').replace(/\|.*$/, '').trim();
+  return String(name || '').trim().replace(/\s+/g, ' ').replace(/\|.*$/, '').replace(/\s+-\s+.*$/, '').trim();
+}
+
+function isUsableDiscoveryResult_(result) {
+  if (!result || !result.url || !result.title) return false;
+  const url = resolveDuckDuckGoUrl_(result.url);
+  const domain = normalizeDomain_(url);
+  const title = cleanText_(result.title).toLowerCase();
+  if (!domain || isBlockedDiscoveryDomain_(domain)) return false;
+  if (/search results?|near me|nearby|best .+ near|top \d+|directory|reviews? of|yellow pages|find .+ near/i.test(title)) return false;
+  if (/(\/search|[?&](q|query|find_desc|find_loc|cflt)=)/i.test(url)) return false;
+  return true;
 }
 
 function parseDiscoveryQuery_(query) {
@@ -626,7 +653,9 @@ function isBlockedDiscoveryDomain_(domain) {
     'superpages.com', 'manta.com', 'merchantcircle.com', 'houzz.com',
     'bark.com', 'birdeye.com', 'duckduckgo.com', 'bing.com', 'yahoo.com',
     'indeed.com', 'glassdoor.com', 'sitejabber.com', 'trustpilot.com',
-    'chamberofcommerce.com', 'loc8nearme.com', 'opentable.com'
+    'chamberofcommerce.com', 'loc8nearme.com', 'opentable.com',
+    'classpass.com', 'vagaro.com', 'mindbodyonline.com', 'booksy.com',
+    'weddingwire.com', 'theknot.com', 'zola.com'
   ];
   return blocked.some(b => domain === b || domain.endsWith('.' + b));
 }
