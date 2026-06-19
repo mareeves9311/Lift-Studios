@@ -242,7 +242,7 @@ function queueManualEmailForDraft_(sheet, rowNumber, headers) {
   if (!row.business_name || !row.email) return;
 
   const status = String(row.pipeline_status || '').trim();
-  const terminalStatuses = ['Sent', 'Replied', 'Warm', 'Won', 'Not a Fit'];
+  const terminalStatuses = ['Sent', 'Replied', 'Warm', 'Won', 'Not a Fit', 'Closed', 'Paused', 'Hold', 'Bounced'];
   if (terminalStatuses.includes(status) || row.gmail_draft_id) {
     reconcileLiftNextActionForRow_(sheet, rowNumber, headers);
     return;
@@ -1222,7 +1222,7 @@ function liftHandleAddLeads_(payload) {
       contact_name: lead.contact_name,
       email: lead.email,
       phone: lead.phone,
-      pipeline_status: lead.pipeline_status || 'Ready to Draft',
+      pipeline_status: determineInboundLeadStatus_(lead),
       fit_score: lead.fit_score != null ? String(lead.fit_score) : '',
       priority: lead.priority,
       recommended_offer: lead.recommended_offer,
@@ -1252,6 +1252,20 @@ function liftHandleAddLeads_(payload) {
 
   SpreadsheetApp.flush();
   return { ok: true, added, skipped, message: `Added ${added}, skipped ${skipped} duplicate(s).` };
+}
+
+function determineInboundLeadStatus_(lead) {
+  const providedStatus = String(lead.pipeline_status || '').trim();
+  if (providedStatus) return providedStatus;
+
+  const priority = String(lead.priority || '').trim();
+  const fitScore = Number(lead.fit_score);
+  const hasDraft = Boolean(lead.draft_email);
+  const hasOffer = Boolean(lead.recommended_offer);
+  const strongPriority = /^a\s*-\s*high$/i.test(priority) || /^b\s*-\s*possible$/i.test(priority);
+  const strongScore = Number.isFinite(fitScore) && fitScore >= 8;
+
+  return strongPriority && strongScore && hasDraft && hasOffer ? 'Ready to Draft' : 'New Lead';
 }
 
 function liftHandleUpdateRows_(payload) {

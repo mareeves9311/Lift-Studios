@@ -553,6 +553,7 @@ function refreshSentAndReplies() {
     }
 
     if (bounceMessage && !reply) {
+      updates.pipeline_stage = 'Bounced';
       updates.response_status = 'Bounced';
       updates.next_step = 'Bounce detected — verify email or remove from outreach.';
       updates.automation_notes = `Bounce detected from ${bounceMessage.getFrom() || 'bounce sender'}.`;
@@ -925,47 +926,47 @@ function signature_() {
 function getLiftStudioSignatureHtml_() {
   const hasLogo = Boolean(getLiftStudioLogoBlob_());
   const logoCell = hasLogo
-    ? `<td valign="middle" style="padding:0 18px 0 0;">
-        <img src="cid:liftStudioLogo" alt="Lift Studio logo" width="84" height="84" style="display:block; border-radius:42px; object-fit:cover;" />
+    ? `<td valign="middle" style="padding:0 14px 0 0;">
+        <img src="cid:liftStudioLogo" alt="Lift Studio logo" width="58" height="58" style="display:block; border-radius:29px; object-fit:cover;" />
       </td>`
-    : `<td valign="middle" style="padding:0 18px 0 0;">
+    : `<td valign="middle" style="padding:0 14px 0 0;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
           <tr>
-            <td align="center" valign="middle" width="84" height="84" style="width:84px; height:84px; background:#0f3f35; border-radius:42px; color:#fff8ea; font-family:Arial, Helvetica, sans-serif; font-size:25px; font-weight:700; letter-spacing:0.8px; line-height:84px;">
+            <td align="center" valign="middle" width="58" height="58" style="width:58px; height:58px; background:#0f3f35; border-radius:29px; color:#fff8ea; font-family:Arial, Helvetica, sans-serif; font-size:18px; font-weight:700; letter-spacing:0.6px; line-height:58px;">
               LS
             </td>
           </tr>
         </table>
       </td>`;
 
-  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family:Arial, Helvetica, sans-serif; color:#242424; max-width:560px;">
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; font-family:Arial, Helvetica, sans-serif; color:#242424; max-width:460px;">
     <tr>
       ${logoCell}
-      <td valign="middle" style="padding:0 20px 0 0; border-left:4px solid #d86f3f;"></td>
+      <td valign="middle" style="padding:0 15px 0 0; border-left:2px solid #d86f3f;"></td>
       <td valign="middle" style="padding:0;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
           <tr>
-            <td style="font-family:Arial, Helvetica, sans-serif; font-size:28px; line-height:31px; font-weight:700; letter-spacing:6px; color:#0f3f35; padding:0 0 10px 0; white-space:nowrap;">
+            <td style="font-family:Arial, Helvetica, sans-serif; font-size:20px; line-height:23px; font-weight:700; letter-spacing:4px; color:#0f3f35; padding:0 0 6px 0; white-space:nowrap;">
               LIFT STUDIO
             </td>
           </tr>
           <tr>
-            <td style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:20px; font-weight:700; color:#252525; padding:0 0 3px 0;">
+            <td style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:18px; font-weight:700; color:#252525; padding:0 0 2px 0;">
               Megan Reeves
             </td>
           </tr>
           <tr>
-            <td style="font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; font-weight:400; color:#686861; padding:0 0 9px 0;">
+            <td style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:17px; font-weight:400; color:#686861; padding:0 0 6px 0;">
               Social Strategy&nbsp; <span style="color:#d86f3f;">·</span>&nbsp; Content Direction&nbsp; <span style="color:#d86f3f;">·</span>&nbsp; Brand Audits
             </td>
           </tr>
           <tr>
-            <td style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; font-weight:400; color:#686861; padding:0 0 5px 0;">
+            <td style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; font-weight:400; color:#686861; padding:0 0 4px 0;">
               Content that works harder.
             </td>
           </tr>
           <tr>
-            <td style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; font-weight:400; color:#0f3f35; padding:0;">
+            <td style="font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:17px; font-weight:400; color:#0f3f35; padding:0;">
               <a href="mailto:helloliftstudio@gmail.com" style="color:#0f3f35; text-decoration:none; font-weight:600;">helloliftstudio@gmail.com</a>
             </td>
           </tr>

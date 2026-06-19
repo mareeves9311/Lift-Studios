@@ -2,11 +2,11 @@
 
 Last updated: 2026-06-17
 
-These are the live Claude Code cloud agent routines that run the Lift Studio automated agent system. They fire on a cron schedule in Anthropic's cloud — no Mac required, no session open.
+These are the configured Claude Code cloud agent routines intended to run the Lift Studio judgment layer. They are separate from Apps Script triggers. They should fire on a cron schedule in Anthropic's cloud — no Mac required, no session open — but their run history and status-email delivery must be verified in Claude Code Routines before treating them as healthy.
 
 ---
 
-## Active Routines
+## Configured Routines
 
 | Routine | ID | Schedule | Next Run |
 |---|---|---|---|
@@ -29,7 +29,7 @@ Both routines run the same relay in sequence:
 
 Weekly Innovator passes must explicitly revisit `INN-006 — Vibiz MCP` until it is activated, declined, or moved to `Revisit later`.
 
-The Orchestrator sends a plain-text status report to `helloliftstudio@gmail.com` after every run.
+The Orchestrator is expected to send a plain-text status report to `helloliftstudio@gmail.com` after every run. If no status email is found, treat the routine layer as unverified and check https://claude.ai/code/routines for run history/errors before assuming the cloud agents ran.
 
 ---
 
@@ -81,13 +81,14 @@ STATUS.md
 
 The only way for the cloud agent to write data to the Pipeline sheet is via the `doPost` web app endpoint deployed from `LiftPipelineAutomation.gs`.
 
-**Endpoint status:** DEPLOYED (2026-06-18). URL and secret are live in both routine prompts.
+**Endpoint status:** DEPLOYED (2026-06-18). The Apps Script endpoint was manually verified with `getStatus`. The URL and secret are documented as configured in both routine prompts, but routine execution/status emails still require routine-page verification.
 
 **Deployment reference (completed):**
 1. ✅ `doPost` function in `LiftPipelineAutomation.gs`
 2. ✅ Deployed as Web app — Execute as: Me | Access: Anyone
 3. ✅ Script Property `LIFT_WEB_APP_SECRET` — set in Apps Script Project Settings > Script Properties (do not store the value in this repo)
 4. ✅ Both Morning and Midday Orchestrator routine prompts updated with URL and secret via RemoteTrigger
+5. ⚠️ Verify routine run history and status-email delivery in Claude Code Routines before relying on the cloud-agent layer for daily work.
 
 **Once deployed, cloud agent uses:**
 
@@ -143,7 +144,7 @@ The Claude routines write content to the sheet; the Apps Script handles Gmail me
 
 ## If a Routine Fails
 
-Check `helloliftstudio@gmail.com` — the Orchestrator sends a status email every run. If no email arrives, check the routine at https://claude.ai/code/routines for error details.
+Check `helloliftstudio@gmail.com` — the Orchestrator is expected to send a status email every run. If no email arrives, check the routine at https://claude.ai/code/routines for run history and error details.
 
 Common issues:
 - **Repo not public** — the routine cannot fetch agent files. Keep the repo public.

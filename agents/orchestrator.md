@@ -193,7 +193,7 @@ Use these stages consistently across agents and sheet updates.
 - `Needs Instagram review`
 - `Audit drafted`
 - `Ready to Draft`
-- `Draft created`
+- `Drafted`
 - `Sent`
 - `Warm`
 - `Replied - interested`
@@ -213,7 +213,7 @@ Run these checks regularly:
 - Are there duplicate leads by business name, website, email, or Instagram?
 - Are there `Ready to Draft` leads without drafts?
 - Are there drafts without matching sheet rows?
-- Are there sent emails still marked `Draft created`?
+- Are there sent emails still marked `Drafted`?
 - Are there replies not reflected in the sheet?
 - Are there bounces without alternate contact research?
 - Are there warm leads without next-step drafts?

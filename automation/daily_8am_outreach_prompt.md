@@ -29,9 +29,9 @@ Do not send any emails.
 3. Use `agents/orchestrator.md` to coordinate.
 4. Use `agents/new_business_auditor.md` to find/audit/add 10 brands.
 5. Confirm the New Business Auditor marked draftable rows as `Ready to Draft` with `Next Action: Email Marketer: draft first-touch outreach`.
-6. Use `agents/email_marketer.md` to consume that ready queue and create 10 drafts.
-7. Verify drafted rows were updated to `Draft created` / `Drafted` with `Next Step: Megan review/send`.
-8. Use `agents/SIGNATURE_RENDERING_RULES.md` before creating Gmail drafts.
+6. Use `agents/email_marketer.md` to consume that ready queue and write/check `Subject` and `Outreach Draft` copy. Do not create Gmail draft objects directly.
+7. Verify Apps Script created Gmail drafts and updated rows to `Drafted` with `Next Step: Megan review/send`.
+8. Use `agents/SIGNATURE_RENDERING_RULES.md` when verifying the Apps Script-generated Gmail drafts.
 9. Use `agents/follow_up_pipeline_manager.md` only to note any obvious reply/bounce monitoring needs; do not run an extended inbox audit unless the lead/draft task is complete.
 10. Use `agents/quality_control.md` for uncertainty flags if that file exists.
 
@@ -118,9 +118,9 @@ Avoid duplicates by checking:
 - Instagram handle
 - Phone when available
 
-## Draft Requirements For The 10 Emails
+## Copy + Draft Requirements For The 10 Emails
 
-Create 10 Gmail drafts only. Never send.
+Write/check copy for 10 outreach rows, then verify Apps Script creates the Gmail drafts. Never send.
 
 The Email Marketer should draft from the Auditor's automatic handoff queue first:
 
@@ -130,18 +130,16 @@ The Email Marketer should draft from the Auditor's automatic handoff queue first
 - Valid email address exists
 - Specific audit notes are populated
 
-Draft format:
+Copy and draft format:
 
 - Subject: `One thing I noticed about [Brand Name]`
 - Body follows `agents/email_marketer.md`
 - `Lift Studio` is hyperlinked to `https://helloliftstudio.netlify.app/`
-- Attach `site/_lift-brand/Lift Studio Service Menu.pdf`
-- Use the simple signature by default:
-  `assets/lift-studio-gmail-signature-simple.html`
+- Apps Script attaches the Google Drive service menu PDF.
+- Apps Script embeds the tested `LIFT_STUDIO_HTML_SIGNATURE_` from `automation/live_apps_script_sync/OutreachAutomation.gs`.
 
-Because the prior visual signature did not render correctly, do not use `assets/lift-studio-gmail-signature.html` for a full batch unless a live test has passed.
+Do not create Gmail draft objects directly through the Gmail connector. If the Apps Script signature rendering cannot be verified, use the fallback from `agents/SIGNATURE_RENDERING_RULES.md` and note that in the report.
 
-If signature rendering cannot be verified, use the simple text fallback from `agents/SIGNATURE_RENDERING_RULES.md` and note that in the report.
 
 ## Daily Report
 

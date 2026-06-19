@@ -106,7 +106,9 @@ High-fit categories:
 - Real estate agents and real estate teams
 - Home organizers
 - Home staging companies
+- Lawn care and property maintenance companies
 - Landscape designers
+- Plumbers with strong local reviews or premium service positioning
 - Luxury service providers
 - Pet groomers / boutique pet services
 - Chiropractors / physical therapy / specialty health providers

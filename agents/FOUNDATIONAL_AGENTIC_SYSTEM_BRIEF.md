@@ -634,7 +634,7 @@ These are not failures; they are current boundaries.
    - The correct write path for the cloud agent is the Apps Script web app endpoint (`doPost`), deployed as a web app from `LiftPipelineAutomation.gs`.
    - Once deployed, the cloud agent uses WebFetch to POST to the endpoint with `action=addLeads` or `action=updateRows`.
    - The Apps Script layer continues running independently and keeps the mechanical loop alive.
-   - Web app endpoint deployment status: **DEPLOYED** (2026-06-18). URL and secret are set in both cloud agent routine prompts. See `automation/scheduled_routines.md` for full endpoint reference.
+   - Web app endpoint deployment status: **DEPLOYED** (2026-06-18). The endpoint has been manually verified with `getStatus`. URL/secret configuration for cloud routines is documented in `automation/scheduled_routines.md`, but routine run history and status-email delivery must be verified separately before treating the cloud-agent layer as healthy.
 
 9. The cloud agent cannot commit to the GitHub repo.
    - The cloud agent fetches files from GitHub raw URLs (read-only). It has no git write access.

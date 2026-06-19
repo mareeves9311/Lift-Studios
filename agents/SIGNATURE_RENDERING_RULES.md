@@ -16,24 +16,28 @@ Because of this, Lift agents should treat signature rendering as a quality gate,
 
 Current assets:
 
+- `automation/live_apps_script_sync/OutreachAutomation.gs`
+  - Production Apps Script contains `LIFT_STUDIO_HTML_SIGNATURE_`, the embedded signature used by `createOutreachDrafts()`, `refreshExistingOutreachDrafts()`, due follow-up drafts, and `Create Signature Test Draft`.
+  - This is the current tested production path.
+
 - `assets/lift-studio-gmail-signature.html`
   - More visual version with LS circle, divider, larger brand mark, and nested table layout.
-  - Use only after a live test confirms it renders correctly in sent mail.
+  - Historical/source reference only unless intentionally re-tested and copied into Apps Script.
 
 - `assets/lift-studio-gmail-signature-simple.html`
   - Safer text-first HTML version.
-  - Use as the default fallback for API-created drafts until the visual version is fixed and tested.
+  - Fallback only if the production embedded signature fails.
 
 ## Default Rule
 
-For Gmail connector/API-created drafts:
+For Apps Script-created drafts:
 
-1. Use `assets/lift-studio-gmail-signature-simple.html` by default.
-2. Create one test draft to `helloliftstudio@gmail.com` or Megan's preferred test inbox before a full batch.
-3. Megan should send/open the test and confirm the signature renders correctly.
-4. Only then create the full batch.
+1. Use the tested embedded `LIFT_STUDIO_HTML_SIGNATURE_` in `automation/live_apps_script_sync/OutreachAutomation.gs`.
+2. Create one test draft to `helloliftstudio@gmail.com` or Megan's preferred test inbox before a full batch when the signature changes.
+3. Megan should open the test draft in Gmail desktop/mobile when practical and confirm the signature renders correctly.
+4. Only then create or refresh a full batch.
 
-Do not use the more visual signature for a large batch until it has passed a send/render test.
+Do not use Gmail connector-created drafts as the normal production path. They may miss the service menu attachment or the tested signature. Apps Script creates the real drafts.
 
 ## Test Checklist
 
@@ -62,7 +66,7 @@ This creates one draft to `helloliftstudio@gmail.com` using the same Apps Script
 - service menu Drive attachment
 - GmailApp draft creation
 
-Inspect this test draft in Gmail before creating or refreshing a full batch. If the signature looks wrong, do not run the batch; fix `LIFT_STUDIO_HTML_SIGNATURE_` in `automation/live_apps_script_sync/OutreachAutomation.gs`, deploy with `clasp push -f`, then create a new signature test draft.
+Inspect this test draft in Gmail before creating or refreshing a full batch. If the signature looks wrong, do not run the batch; fix `LIFT_STUDIO_HTML_SIGNATURE_` in `automation/live_apps_script_sync/OutreachAutomation.gs`, paste/deploy the updated Apps Script project as a new version, then create a new signature test draft.
 
 ## Fallback Rule
 
@@ -87,7 +91,7 @@ The Email Marketer Agent must:
 
 - Never assume the signature renders correctly just because it appears in the HTML body.
 - Test one draft first before creating a full batch when signature HTML changes.
-- Use the simple signature by default for API-created drafts.
+- Use Apps Script as the production draft path; do not create Gmail draft objects directly.
 - Flag to Quality Control if signature rendering cannot be verified.
 - Record which signature asset was used in `STATUS.md` after each batch.
 

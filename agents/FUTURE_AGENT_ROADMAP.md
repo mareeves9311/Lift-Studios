@@ -566,7 +566,8 @@ Keep clients happy, surface wins, and support renewals/upsells.
    - New Business Auditor finds and audits leads.
 
 2. **Outreach**
-   - Email Marketer creates drafts.
+   - Email Marketer writes/checks outreach copy.
+   - Apps Script creates Gmail drafts with the tested signature and service menu attachment.
    - Megan reviews and sends.
 
 3. **Follow-Up**
@@ -677,4 +678,3 @@ The system should optimize for:
 - Strong client-facing quality
 - No accidental sending or financial/legal commitments
 - A clear record in the repo and sheet
-

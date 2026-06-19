@@ -41,7 +41,7 @@ This is a proactive step that runs before any reply-checking. It ensures the pip
 **When to run:**
 - Immediately after any outreach batch is sent.
 - On every scheduled run (hourly Apps Script trigger, or whenever this agent is invoked).
-- Any time the dashboard shows leads marked `Draft created` or `Not contacted` that Megan believes have already been sent.
+- Any time the dashboard shows leads marked `Drafted`, `Ready to Draft`, `New Lead`, or blank that Megan believes have already been sent.
 
 **How to run:**
 
@@ -53,7 +53,7 @@ This is a proactive step that runs before any reply-checking. It ensures the pip
      - `"Re: One thing I noticed about"` (follow-ups)
 2. For each sent email found, extract the recipient address and the sent date.
 3. Match to a pipeline lead by recipient email.
-4. If the pipeline row shows `Draft created`, `Not contacted`, or is blank — update:
+4. If the pipeline row shows `Drafted`, `Ready to Draft`, `New Lead`, or is blank — update:
    - `Pipeline Stage` -> `Sent`
    - `last_contacted` → sent date from Gmail
    - `follow_up_date` → sent date + 3 business days (if not already set)

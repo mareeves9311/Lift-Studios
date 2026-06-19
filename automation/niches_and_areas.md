@@ -27,7 +27,9 @@ These are strong because the website directly affects bookings, inquiries, or tr
 - Florists
 - Home organizers
 - Cleaning companies
+- Lawn care and property maintenance companies
 - Landscapers
+- Plumbers with strong local reviews or premium service positioning
 - Contractors with premium services
 - Realtors and small real estate teams
 - Therapists and coaches
