@@ -640,16 +640,20 @@ function createDueFollowUpDrafts() {
     const draftEmail = buildFollowUpCopy_(business, row, headers);
     const body = buildDraftBody_(business, draftEmail);
     const htmlBody = buildHtmlBody_(business, draftEmail);
+    const attachments = getLiftStudioAttachments_();
+    const inlineImages = getLiftStudioInlineImages_();
     const draft = GmailApp.createDraft(email, subject, body, {
       htmlBody: htmlBody,
       name: CONFIG.senderName,
+      attachments: attachments,
+      inlineImages: inlineImages,
     });
 
     writeLeadUpdates_(sheet, headers, rowNumber, {
       gmail_draft_id: draft.getId(),
       gmail_last_checked: new Date(),
       next_step: 'Review/send Gmail follow-up draft.',
-      automation_notes: `Follow-up draft created automatically ${new Date().toISOString()}.`,
+      automation_notes: `Follow-up draft created automatically with Lift Studio service menu attached ${new Date().toISOString()}.`,
     });
 
     created += 1;

@@ -83,6 +83,14 @@ The only way for the cloud agent to write data to the Pipeline sheet is via the 
 
 **Endpoint status:** DEPLOYED (2026-06-18). The Apps Script endpoint was manually verified with `getStatus`. The URL and secret are documented as configured in both routine prompts, but routine execution/status emails still require routine-page verification.
 
+**Network egress allowlist:** If Claude Code Routines blocks sheet writes, allowlist the real Apps Script web app endpoint:
+
+```
+https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec
+```
+
+Do **not** allowlist a Gmail-wrapped redirect such as `https://www.google.com/url?q=http://script.google.com...`; that is only Gmail's link-tracking wrapper from a status email, not the endpoint the routine should call.
+
 **Deployment reference (completed):**
 1. ✅ `doPost` function in `LiftPipelineAutomation.gs`
 2. ✅ Deployed as Web app — Execute as: Me | Access: Anyone
@@ -151,3 +159,4 @@ Common issues:
 - **"Drive MCP write access unavailable"** — this is NOT an auth error. The Drive MCP is structurally read-only and cannot write to Sheets. The fix is the web app endpoint (see above). Do not reconnect the Drive MCP to solve this.
 - **Gmail MCP connected to wrong account** — must be `helloliftstudio@gmail.com`. If emails appear in a wrong account's drafts, disconnect and reconnect the Gmail MCP at claude.ai/code/routines.
 - **Web app endpoint 401 / Unauthorized** — the `LIFT_WEB_APP_SECRET` in the POST body doesn't match the Script Property. Verify both match.
+- **Network egress blocked** — add the real `https://script.google.com/macros/s/.../exec` endpoint above to the routine allowlist. Do not add Gmail/Google redirect-wrapper URLs copied from status emails.
