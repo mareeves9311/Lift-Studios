@@ -616,79 +616,94 @@ function refreshSentAndReplies() {
   const rows = data.rows;
   const senderEmail = String(CONFIG.senderEmail || '').toLowerCase();
   const today = new Date();
+  let scanned = 0;
+  let updated = 0;
+  let errors = 0;
 
   rows.forEach((row, rowIndex) => {
-    const business = value_(row, headers, 'business_name');
-    const email = value_(row, headers, 'email');
     const rowNumber = rowIndex + 2;
-    if (!business || !email) return;
+    try {
+      const business = value_(row, headers, 'business_name');
+      const email = value_(row, headers, 'email');
+      if (!business || !email) return;
 
-    // Search by recipient only — catches all subject formats used in Lift Studio outreach
-    // (e.g. "One thing I noticed about [Brand]", "Quick website note for [Brand]", follow-up subjects)
-    const sentThreads = GmailApp.search(`in:sent to:${email} newer_than:90d`, 0, 5);
-    if (!sentThreads.length) {
+      scanned += 1;
+
+      // Search by recipient only — catches all subject formats used in Lift Studio outreach
+      // (e.g. "One thing I noticed about [Brand]", "Quick website note for [Brand]", follow-up subjects)
+      const sentThreads = GmailApp.search(`in:sent to:${email} newer_than:90d`, 0, 5);
+      if (!sentThreads.length) {
+        writeLeadUpdates_(sheet, headers, rowNumber, {
+          gmail_last_checked: today,
+        });
+        updated += 1;
+        return;
+      }
+
+      const thread = sentThreads[0];
+      const messages = thread.getMessages();
+      const sentMessages = messages
+        .filter((message) => {
+          const from = String(message.getFrom() || '').toLowerCase();
+          return from.includes(senderEmail) || from.includes(CONFIG.senderName.toLowerCase());
+        })
+        .sort((a, b) => b.getDate().getTime() - a.getDate().getTime());
+      const sentMessage = sentMessages[0];
+      const bounceMessage = messages.find((message) => isBounceMessage_(message));
+      const reply = messages.find((message) => {
+        const from = String(message.getFrom() || '').toLowerCase();
+        return !from.includes(senderEmail) && !from.includes(CONFIG.senderName.toLowerCase()) && !isBounceMessage_(message);
+      });
+
+      const currentStage = value_(row, headers, 'pipeline_stage').toLowerCase();
+      const existingDraftId = value_(row, headers, 'gmail_draft_id');
+      const draftStillExists = existingDraftId ? Boolean(getDraftById_(existingDraftId)) : false;
+      const updates = {
+        pipeline_stage: 'Sent',
+        gmail_thread_id: thread.getId(),
+        gmail_last_checked: today,
+        automation_notes: 'Sent email detected in Gmail.',
+      };
+      // Clear the draft ID when a row first becomes Sent, or when a stored draft ID
+      // points to a draft that no longer exists because Megan sent it.
+      if (currentStage !== 'sent' || (existingDraftId && !draftStillExists)) {
+        updates.gmail_draft_id = '';
+      }
+
+      if (sentMessage) {
+        updates.last_contacted = sentMessage.getDate();
+        updates.follow_up_date = addDays_(sentMessage.getDate(), CONFIG.defaultFollowUpDays);
+      }
+
+      if (bounceMessage && !reply) {
+        updates.pipeline_stage = 'Bounced';
+        updates.response_status = 'Bounced';
+        updates.next_step = 'Bounce detected — verify email or remove from outreach.';
+        updates.automation_notes = `Bounce detected from ${bounceMessage.getFrom() || 'bounce sender'}.`;
+      } else if (reply) {
+        updates.response_status = 'Needs review';
+        updates.next_step = 'Open Gmail thread, read reply, and decide next action.';
+        updates.automation_notes = `Reply detected from ${reply.getFrom()}`;
+      } else {
+        updates.response_status = 'No Response';
+        updates.next_step = 'Wait for reply or follow up on follow-up date.';
+      }
+
+      writeLeadUpdates_(sheet, headers, rowNumber, updates);
+      updated += 1;
+    } catch (error) {
+      errors += 1;
       writeLeadUpdates_(sheet, headers, rowNumber, {
         gmail_last_checked: today,
+        automation_notes: `Sent/reply refresh skipped row ${rowNumber}: ${error.message || error}`,
       });
-      return;
     }
-
-    const thread = sentThreads[0];
-    const messages = thread.getMessages();
-    const sentMessages = messages
-      .filter((message) => {
-        const from = String(message.getFrom() || '').toLowerCase();
-        return from.includes(senderEmail) || from.includes(CONFIG.senderName.toLowerCase());
-      })
-      .sort((a, b) => b.getDate().getTime() - a.getDate().getTime());
-    const sentMessage = sentMessages[0];
-    const bounceMessage = messages.find((message) => isBounceMessage_(message));
-    const reply = messages.find((message) => {
-      const from = String(message.getFrom() || '').toLowerCase();
-      return !from.includes(senderEmail) && !from.includes(CONFIG.senderName.toLowerCase()) && !isBounceMessage_(message);
-    });
-
-    const currentStage = value_(row, headers, 'pipeline_stage').toLowerCase();
-    const existingDraftId = value_(row, headers, 'gmail_draft_id');
-    const draftStillExists = existingDraftId ? Boolean(getDraftById_(existingDraftId)) : false;
-    const updates = {
-      pipeline_stage: 'Sent',
-      gmail_thread_id: thread.getId(),
-      gmail_last_checked: today,
-      automation_notes: 'Sent email detected in Gmail.',
-    };
-    // Clear the draft ID when a row first becomes Sent, or when a stored draft ID
-    // points to a draft that no longer exists because Megan sent it.
-    if (currentStage !== 'sent' || (existingDraftId && !draftStillExists)) {
-      updates.gmail_draft_id = '';
-    }
-
-    if (sentMessage) {
-      updates.last_contacted = sentMessage.getDate();
-      updates.follow_up_date = addDays_(sentMessage.getDate(), CONFIG.defaultFollowUpDays);
-    }
-
-    if (bounceMessage && !reply) {
-      updates.pipeline_stage = 'Bounced';
-      updates.response_status = 'Bounced';
-      updates.next_step = 'Bounce detected — verify email or remove from outreach.';
-      updates.automation_notes = `Bounce detected from ${bounceMessage.getFrom() || 'bounce sender'}.`;
-    } else if (reply) {
-      updates.response_status = 'Needs review';
-      updates.next_step = 'Open Gmail thread, read reply, and decide next action.';
-      updates.automation_notes = `Reply detected from ${reply.getFrom()}`;
-    } else {
-      updates.response_status = 'No Response';
-      updates.next_step = 'Wait for reply or follow up on follow-up date.';
-    }
-
-    writeLeadUpdates_(sheet, headers, rowNumber, updates);
   });
 
   appendSystemLogEntry_(
     'Refresh Sent + Replies',
-    `scanned=${rows.length}; updated=${rows.length};`,
-    'Sent/reply refresh completed',
+    `scanned=${scanned}; updated=${updated}; errors=${errors};`,
+    errors ? 'Sent/reply refresh completed with row-level errors. Check Automation Notes on skipped rows.' : 'Sent/reply refresh completed',
     ''
   );
   runInboxHygiene_(false);
@@ -705,78 +720,87 @@ function createDueFollowUpDrafts() {
   today.setHours(0, 0, 0, 0);
   let created = 0;
   let skipped = 0;
+  let errors = 0;
 
   rows.forEach((row, rowIndex) => {
     if (created >= CONFIG.maxDraftsPerRun) return;
 
-    const business = value_(row, headers, 'business_name');
-    const email = value_(row, headers, 'email');
-    const stage = value_(row, headers, 'pipeline_stage').toLowerCase();
-    const responseStatus = value_(row, headers, 'response_status').toLowerCase();
-    const followUpRaw = value_(row, headers, 'follow_up_date');
-    const existingDraftId = value_(row, headers, 'gmail_draft_id');
     const rowNumber = rowIndex + 2;
+    try {
+      const business = value_(row, headers, 'business_name');
+      const email = value_(row, headers, 'email');
+      const stage = value_(row, headers, 'pipeline_stage').toLowerCase();
+      const responseStatus = value_(row, headers, 'response_status').toLowerCase();
+      const followUpRaw = value_(row, headers, 'follow_up_date');
+      const existingDraftId = value_(row, headers, 'gmail_draft_id');
 
-    if (!business || !email) {
-      skipped += 1;
-      return;
-    }
+      if (!business || !email) {
+        skipped += 1;
+        return;
+      }
 
-    const isSentNoResponseDue = stage === 'sent' && responseStatus === 'no response' && followUpRaw;
-    if (existingDraftId && !isSentNoResponseDue) {
-      skipped += 1;
-      return;
-    }
+      const isSentNoResponseDue = stage === 'sent' && responseStatus === 'no response' && followUpRaw;
+      if (existingDraftId && !isSentNoResponseDue) {
+        skipped += 1;
+        return;
+      }
 
-    if (existingDraftId && isSentNoResponseDue) {
-      const existingDraft = getDraftById_(existingDraftId);
-      if (existingDraft) {
-        const existingSubject = String(existingDraft.getMessage().getSubject() || '');
-        if (/^re:/i.test(existingSubject)) {
-          skipped += 1;
-          return;
+      if (existingDraftId && isSentNoResponseDue) {
+        const existingDraft = getDraftById_(existingDraftId);
+        if (existingDraft) {
+          const existingSubject = String(existingDraft.getMessage().getSubject() || '');
+          if (/^re:/i.test(existingSubject)) {
+            skipped += 1;
+            return;
+          }
         }
       }
+
+      if (stage !== 'sent' || responseStatus !== 'no response' || !followUpRaw) {
+        skipped += 1;
+        return;
+      }
+
+      const followUpDate = new Date(followUpRaw);
+      followUpDate.setHours(0, 0, 0, 0);
+      if (Number.isNaN(followUpDate.getTime()) || followUpDate > today) {
+        skipped += 1;
+        return;
+      }
+
+      const originalSubject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
+      const subject = /^re:/i.test(originalSubject) ? originalSubject : `Re: ${originalSubject}`;
+      const draftEmail = buildFollowUpCopy_(business, row, headers);
+      const body = buildDraftBody_(business, draftEmail);
+      const htmlBody = buildHtmlBody_(business, draftEmail);
+      const attachments = getLiftStudioAttachments_();
+      const inlineImages = getLiftStudioInlineImages_();
+      const draft = GmailApp.createDraft(email, subject, body, {
+        htmlBody: htmlBody,
+        name: CONFIG.senderName,
+        attachments: attachments,
+        inlineImages: inlineImages,
+      });
+
+      writeLeadUpdates_(sheet, headers, rowNumber, {
+        gmail_draft_id: draft.getId(),
+        gmail_last_checked: new Date(),
+        next_step: 'Review/send Gmail follow-up draft.',
+        automation_notes: `Follow-up draft created automatically with Lift Studio service menu attached ${new Date().toISOString()}.`,
+      });
+
+      created += 1;
+    } catch (error) {
+      errors += 1;
+      writeLeadUpdates_(sheet, headers, rowNumber, {
+        gmail_last_checked: new Date(),
+        automation_notes: `Follow-up draft skipped row ${rowNumber}: ${error.message || error}`,
+      });
     }
-
-    if (stage !== 'sent' || responseStatus !== 'no response' || !followUpRaw) {
-      skipped += 1;
-      return;
-    }
-
-    const followUpDate = new Date(followUpRaw);
-    followUpDate.setHours(0, 0, 0, 0);
-    if (Number.isNaN(followUpDate.getTime()) || followUpDate > today) {
-      skipped += 1;
-      return;
-    }
-
-    const originalSubject = value_(row, headers, 'subject') || `One thing I noticed about ${business}`;
-    const subject = /^re:/i.test(originalSubject) ? originalSubject : `Re: ${originalSubject}`;
-    const draftEmail = buildFollowUpCopy_(business, row, headers);
-    const body = buildDraftBody_(business, draftEmail);
-    const htmlBody = buildHtmlBody_(business, draftEmail);
-    const attachments = getLiftStudioAttachments_();
-    const inlineImages = getLiftStudioInlineImages_();
-    const draft = GmailApp.createDraft(email, subject, body, {
-      htmlBody: htmlBody,
-      name: CONFIG.senderName,
-      attachments: attachments,
-      inlineImages: inlineImages,
-    });
-
-    writeLeadUpdates_(sheet, headers, rowNumber, {
-      gmail_draft_id: draft.getId(),
-      gmail_last_checked: new Date(),
-      next_step: 'Review/send Gmail follow-up draft.',
-      automation_notes: `Follow-up draft created automatically with Lift Studio service menu attached ${new Date().toISOString()}.`,
-    });
-
-    created += 1;
   });
 
-  const summary = `Created ${created} due follow-up draft(s). Skipped ${skipped}.`;
-  appendSystemLogEntry_('Create Due Follow-Up Drafts', summary, '', '');
+  const summary = `Created ${created} due follow-up draft(s). Skipped ${skipped}. Errors: ${errors}.`;
+  appendSystemLogEntry_('Create Due Follow-Up Drafts', summary, errors ? 'Some rows failed. Check Automation Notes for skipped row details.' : '', '');
   SpreadsheetApp.getActive().toast(summary);
 }
 
