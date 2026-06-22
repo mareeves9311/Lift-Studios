@@ -87,6 +87,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Install/Repair Full Automation', 'installLiftStudioFullAutomation')
     .addItem('Run Full Lift Studio System Now', 'runLiftStudioDailySystem')
     .addItem('Verify Automation Health', 'verifyLiftStudioAutomationHealth')
+    .addItem('Create Health Snapshot', 'createLiftStudioHealthSnapshot')
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Create Due Follow-Up Drafts', 'createDueFollowUpDrafts')
@@ -235,6 +236,116 @@ function verifyLiftStudioAutomationHealth() {
     : `Automation health OK. Triggers active. Service menu: ${hasAttachment ? 'OK' : 'missing'}. ${logoStatus}`;
   SpreadsheetApp.getActive().toast(message);
   return { missingTriggers: missing, serviceMenuAvailable: hasAttachment, logoStatus };
+}
+
+function createLiftStudioHealthSnapshot() {
+  const sheet = getLeadsSheet_();
+  ensureAutomationColumns_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+  const rows = data.rows;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const triggerHandlers = ScriptApp.getProjectTriggers().map(trigger => trigger.getHandlerFunction());
+  const requiredTriggers = [
+    'runLiftStudioDailySystem',
+    'refreshSentAndReplies',
+    'createOutreachDrafts',
+    'runQueuedLiftBrandAudits',
+    'handleLiftBrandPipelineEdit',
+  ];
+  const missingTriggers = requiredTriggers.filter(handler => !triggerHandlers.includes(handler));
+  let serviceMenuAvailable = false;
+
+  try {
+    serviceMenuAvailable = getLiftStudioAttachments_().length > 0;
+  } catch (error) {
+    serviceMenuAvailable = false;
+  }
+
+  const counts = {};
+  const risk = {
+    drafted: 0,
+    draftedMissingDraftId: 0,
+    readyToDraft: 0,
+    readyMissingEmail: 0,
+    sentNoResponse: 0,
+    overdueFollowUps: 0,
+    overdueFollowUpsWithoutDraft: 0,
+    overdueFollowUpsWithDraft: 0,
+    bounced: 0,
+    missingEmail: 0,
+    newLead: 0,
+    hold: 0,
+  };
+
+  rows.forEach(row => {
+    const business = value_(row, headers, 'business_name');
+    if (!business) return;
+
+    const stage = value_(row, headers, 'pipeline_stage') || 'Blank';
+    const stageKey = stage.trim() || 'Blank';
+    const stageLower = stageKey.toLowerCase();
+    const responseStatus = value_(row, headers, 'response_status').toLowerCase();
+    const email = value_(row, headers, 'email');
+    const draftId = value_(row, headers, 'gmail_draft_id');
+    const followUpRaw = value_(row, headers, 'follow_up_date');
+
+    counts[stageKey] = (counts[stageKey] || 0) + 1;
+    if (!email) risk.missingEmail += 1;
+    if (stageLower === 'drafted') {
+      risk.drafted += 1;
+      if (!draftId) risk.draftedMissingDraftId += 1;
+    }
+    if (isDraftReadyStatus_(stageLower)) {
+      risk.readyToDraft += 1;
+      if (!email) risk.readyMissingEmail += 1;
+    }
+    if (stageLower === 'new lead') risk.newLead += 1;
+    if (stageLower === 'hold') risk.hold += 1;
+    if (stageLower === 'bounced' || responseStatus === 'bounced') risk.bounced += 1;
+
+    if (stageLower === 'sent' && responseStatus === 'no response') {
+      risk.sentNoResponse += 1;
+      if (followUpRaw) {
+        const followUpDate = new Date(followUpRaw);
+        followUpDate.setHours(0, 0, 0, 0);
+        if (!Number.isNaN(followUpDate.getTime()) && followUpDate <= today) {
+          risk.overdueFollowUps += 1;
+          if (draftId) {
+            risk.overdueFollowUpsWithDraft += 1;
+          } else {
+            risk.overdueFollowUpsWithoutDraft += 1;
+          }
+        }
+      }
+    }
+  });
+
+  const result = {
+    generatedAt: new Date().toISOString(),
+    rows: Object.values(counts).reduce((sum, count) => sum + count, 0),
+    counts,
+    risk,
+    missingTriggers,
+    serviceMenuAvailable,
+  };
+  const summary = [
+    `rows=${result.rows}`,
+    `drafted=${risk.drafted}`,
+    `ready=${risk.readyToDraft}`,
+    `sent_no_response=${risk.sentNoResponse}`,
+    `overdue_followups=${risk.overdueFollowUps}`,
+    `overdue_without_draft=${risk.overdueFollowUpsWithoutDraft}`,
+    `missing_email=${risk.missingEmail}`,
+    `bounced=${risk.bounced}`,
+    `missing_triggers=${missingTriggers.length}`,
+    `service_menu=${serviceMenuAvailable ? 'OK' : 'MISSING'}`,
+  ].join('; ');
+
+  appendSystemLogEntry_('Automation Health Snapshot', summary, JSON.stringify(result, null, 2), '');
+  SpreadsheetApp.getActive().toast(`Health snapshot complete: ${summary}`);
+  return result;
 }
 
 function createOutreachDrafts() {
@@ -524,10 +635,13 @@ function refreshSentAndReplies() {
 
     const thread = sentThreads[0];
     const messages = thread.getMessages();
-    const sentMessage = messages.find((message) => {
-      const from = String(message.getFrom() || '').toLowerCase();
-      return from.includes(senderEmail) || from.includes(CONFIG.senderName.toLowerCase());
-    });
+    const sentMessages = messages
+      .filter((message) => {
+        const from = String(message.getFrom() || '').toLowerCase();
+        return from.includes(senderEmail) || from.includes(CONFIG.senderName.toLowerCase());
+      })
+      .sort((a, b) => b.getDate().getTime() - a.getDate().getTime());
+    const sentMessage = sentMessages[0];
     const bounceMessage = messages.find((message) => isBounceMessage_(message));
     const reply = messages.find((message) => {
       const from = String(message.getFrom() || '').toLowerCase();
@@ -535,15 +649,17 @@ function refreshSentAndReplies() {
     });
 
     const currentStage = value_(row, headers, 'pipeline_stage').toLowerCase();
+    const existingDraftId = value_(row, headers, 'gmail_draft_id');
+    const draftStillExists = existingDraftId ? Boolean(getDraftById_(existingDraftId)) : false;
     const updates = {
       pipeline_stage: 'Sent',
       gmail_thread_id: thread.getId(),
       gmail_last_checked: today,
       automation_notes: 'Sent email detected in Gmail.',
     };
-    // Only clear gmail_draft_id on the initial transition to Sent.
-    // Subsequent runs must not overwrite follow-up draft IDs.
-    if (currentStage !== 'sent') {
+    // Clear the draft ID when a row first becomes Sent, or when a stored draft ID
+    // points to a draft that no longer exists because Megan sent it.
+    if (currentStage !== 'sent' || (existingDraftId && !draftStillExists)) {
       updates.gmail_draft_id = '';
     }
 
