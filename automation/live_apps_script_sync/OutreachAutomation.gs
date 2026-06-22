@@ -351,6 +351,7 @@ function createLiftStudioHealthSnapshot() {
 function createOutreachDrafts() {
   const sheet = getLeadsSheet_();
   ensureAutomationColumns_();
+  repairLiftValidationIfAvailable_(sheet);
   const data = getSheetData_(sheet);
   const headers = data.headers;
   const rows = data.rows;
@@ -611,6 +612,7 @@ function isBounceMessage_(message) {
 function refreshSentAndReplies() {
   const sheet = getLeadsSheet_();
   ensureAutomationColumns_();
+  repairLiftValidationIfAvailable_(sheet);
   const data = getSheetData_(sheet);
   const headers = data.headers;
   const rows = data.rows;
@@ -713,6 +715,7 @@ function refreshSentAndReplies() {
 function createDueFollowUpDrafts() {
   const sheet = getLeadsSheet_();
   ensureAutomationColumns_();
+  repairLiftValidationIfAvailable_(sheet);
   const data = getSheetData_(sheet);
   const headers = data.headers;
   const rows = data.rows;
@@ -935,6 +938,12 @@ function ensureAutomationColumns_() {
     .setBackground('#1f473d')
     .setFontColor('#ffffff')
     .setHorizontalAlignment('center');
+}
+
+function repairLiftValidationIfAvailable_(sheet) {
+  if (typeof applyLiftPipelineValidation_ === 'function') {
+    applyLiftPipelineValidation_(sheet);
+  }
 }
 
 function getLeadsSheet_() {

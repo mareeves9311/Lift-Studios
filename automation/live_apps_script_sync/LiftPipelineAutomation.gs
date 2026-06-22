@@ -83,6 +83,32 @@ const LIFT_PIPELINE_CONFIG = {
   ]
 };
 
+const LIFT_PIPELINE_STAGE_VALUES = [
+  'New Lead',
+  'Auditing',
+  'Ready to Draft',
+  'Drafted',
+  'Sent',
+  'Replied',
+  'Warm',
+  'Won',
+  'Not a Fit',
+  'Bounced',
+  'Hold',
+  'Paused',
+  'Closed'
+];
+
+const LIFT_RESPONSE_STATUS_VALUES = [
+  'No Response',
+  'Needs review',
+  'Interested',
+  'Not Interested',
+  'Bounced',
+  'Out of Office',
+  'Closed'
+];
+
 const LIFT_HEADER_ALIASES = {
   business_name: ['Brand', 'Business Name', 'business_name'],
   website: ['Website', 'website'],
@@ -784,7 +810,7 @@ function queueLiftAuditForRow_(sheet, rowNumber, headers) {
   if (!row.business_name && !row.website && !row.instagram) return;
 
   const status = row.pipeline_status || '';
-  if (['Auditing', 'Ready to Draft', 'Drafted', 'Sent', 'Replied', 'Warm', 'Won', 'Paused', 'Not a Fit'].includes(status)) {
+  if (['Auditing', 'Ready to Draft', 'Drafted', 'Sent', 'Replied', 'Warm', 'Won', 'Paused', 'Hold', 'Bounced', 'Closed', 'Not a Fit'].includes(status)) {
     return;
   }
 
@@ -1083,6 +1109,28 @@ function formatLiftPipelineSheet_(sheet) {
     .setFontColor('#FBFAF6')
     .setWrap(true);
   sheet.autoResizeColumns(1, Math.min(sheet.getLastColumn(), 32));
+  applyLiftPipelineValidation_(sheet);
+}
+
+function applyLiftPipelineValidation_(sheet) {
+  const headers = getLiftHeaderMap_(sheet);
+  const maxRows = Math.max(sheet.getMaxRows() - 1, 1);
+
+  if (headers.pipeline_status) {
+    const rule = SpreadsheetApp.newDataValidation()
+      .requireValueInList(LIFT_PIPELINE_STAGE_VALUES, true)
+      .setAllowInvalid(false)
+      .build();
+    sheet.getRange(2, headers.pipeline_status, maxRows, 1).setDataValidation(rule);
+  }
+
+  if (headers.response_status) {
+    const rule = SpreadsheetApp.newDataValidation()
+      .requireValueInList(LIFT_RESPONSE_STATUS_VALUES, true)
+      .setAllowInvalid(false)
+      .build();
+    sheet.getRange(2, headers.response_status, maxRows, 1).setDataValidation(rule);
+  }
 }
 
 function readLiftPipelineRows_(sheet, headers) {

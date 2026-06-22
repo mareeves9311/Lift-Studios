@@ -52,7 +52,7 @@ Archived files are reference-only. Do not use them as active instructions, promp
 ## Completed Setup
 
 - ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ✅ Apps Script web app endpoint deployed (2026-06-22, version 16). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
+- ✅ Apps Script web app endpoint deployed (2026-06-22, version 17). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
 - ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
@@ -62,6 +62,7 @@ Archived files are reference-only. Do not use them as active instructions, promp
 - ✅ Follow-up Gmail drafts use the same service menu attachment and inline signature image handling as first-touch drafts.
 - ✅ Sent/reply reconciliation uses the newest sent message in a thread and clears stale Gmail draft IDs after Megan sends a pending draft.
 - ✅ Sent/reply reconciliation and due follow-up draft creation are row-safe: one bad row logs an error instead of killing the whole run.
+- ✅ Pipeline Stage and Response Status dropdown validation now includes all statuses the automation writes (`Bounced`, `Hold`, `Paused`, `Closed`) and is repaired before draft/reply runs.
 - ✅ `Outreach Automation > Create Health Snapshot` writes a local Apps Script health report to `System Log`, so system checks can run without Claude cloud tokens.
 - ⚠️ If Claude Code Routines reports egress blocking, allowlist the real Apps Script endpoint, not a Gmail-wrapped `google.com/url?...` redirect.
 - ✅ Drive MCP write limitation documented — it is structural and cannot be fixed by reconnecting. All cloud agent sheet writes use the doPost endpoint.
