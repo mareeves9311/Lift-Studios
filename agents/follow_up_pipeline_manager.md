@@ -50,7 +50,13 @@ This is a proactive step that runs before any reply-checking. It ensures the pip
    - Also check for subject patterns used in Lift Studio outreach:
      - `"One thing I noticed about"`
      - `"Quick website note for"`
-     - `"Re: One thing I noticed about"` (follow-ups)
+     - `"Quick thought for"`
+     - `"I made something for"` (follow-ups)
+     - `"A free concept for"` (follow-ups)
+     - `"A free article idea for"` (follow-ups)
+     - `"A free idea for"` (follow-ups)
+     - `"I have some ideas for"` (follow-ups)
+     - `"I have an idea for"` (follow-ups)
 2. For each sent email found, extract the recipient address and the sent date.
 3. Match to a pipeline lead by recipient email.
 4. If the pipeline row shows `Drafted`, `Ready to Draft`, `New Lead`, or is blank — update:
@@ -190,22 +196,34 @@ Avoid:
 Use:
 
 - One reminder of the original observation.
-- One additional specific idea.
-- A low-pressure question.
+- One concrete free idea or deliverable offered now (not vague "happy to share ideas").
+- A SEO/GEO content offer where applicable — one free optimized blog post is the standard hook.
+- A low-pressure question or meeting ask.
 - A clear next step.
+
+**Threading rule (mandatory):** All follow-up drafts must be created as replies to the original outreach thread using `replyToMessageId`. Never create a standalone new email for a follow-up. This keeps the conversation in one thread and shows continuity.
+
+**Subject line rule:** Change the subject line on the follow-up reply to something punchy and specific — do not keep "Re: One thing I noticed about [Brand]." Preferred formats:
+- `I made something for [Brand]` — when a visual mockup or concept is included
+- `A free concept for [Brand]` — when offering a website/content concept
+- `A free article idea for [Brand]` — when leading with the SEO blog post offer
+- `I have some ideas for [Brand]` — for elevated strategy-level follow-ups
+- `A free idea for [Brand]` — general free value offer
 
 Example first follow-up:
 
 ```text
-Subject: Re: One thing I noticed about [Brand]
+Subject: A free article idea for [Brand]
 
 Hi [Name],
 
-Wanted to put this back near the top of your inbox.
+[specific observation about what they're missing — one sentence, risk-framed]
 
-The piece I keep coming back to for [Brand] is [specific opportunity]. Even a small cleanup around [specific quick win] could make it easier for the right people to [book/buy/inquire/visit].
+I'd like to write [Brand] a free SEO blog post targeting [specific local search term] — yours to keep, no strings. [Term] has real local search intent and almost no competition right now. A single well-written post could start showing up in local results within 60–90 days.
 
-Happy to send over 2-3 specific ideas if useful.
+[optional: one concrete quick-win idea they can act on immediately]
+
+Happy to send the draft whenever you're ready.
 
 Megan
 Lift Studio
