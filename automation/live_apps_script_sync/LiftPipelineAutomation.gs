@@ -559,6 +559,7 @@ function buildLiftDiscoveryLead_(result, query) {
   const businessName = normalizeBusinessName_(result.title);
 
   if (!businessName || !website) return null;
+  if (isBlockedDiscoveryBusinessName_(businessName, query)) return null;
 
   return {
     business_name: businessName,
@@ -581,11 +582,42 @@ function isUsableDiscoveryResult_(result) {
   if (!result || !result.url || !result.title) return false;
   const url = resolveDuckDuckGoUrl_(result.url);
   const domain = normalizeDomain_(url);
-  const title = cleanText_(result.title).toLowerCase();
+  const rawTitle = cleanText_(result.title);
+  const title = rawTitle.toLowerCase();
   if (!domain || isBlockedDiscoveryDomain_(domain)) return false;
+  if (isBlockedDiscoveryBusinessName_(rawTitle, '')) return false;
   if (/search results?|near me|nearby|best .+ near|top \d+|directory|reviews? of|yellow pages|find .+ near/i.test(title)) return false;
+  if (/\bnear\b.+\b(pa|pennsylvania|\d{5})\b/i.test(title)) return false;
+  if (/\[(prospect pool|not a single business|no single business)/i.test(title)) return false;
   if (/(\/search|[?&](q|query|find_desc|find_loc|cflt)=)/i.test(url)) return false;
   return true;
+}
+
+function isBlockedDiscoveryBusinessName_(name, query) {
+  const normalized = String(name || '').trim().toLowerCase();
+  if (!normalized) return true;
+
+  const genericPageTitles = [
+    'services',
+    'service',
+    'about',
+    'about us',
+    'contact',
+    'contact us',
+    'home',
+    'welcome',
+  ];
+  if (genericPageTitles.includes(normalized)) return true;
+  if (/^(services?|about(?: us)?|contact(?: us)?|locations?|home)\b/i.test(normalized)) return true;
+
+  const locationWords = '(harrisburg|hershey|mechanicsburg|lancaster|camp hill|palmyra|hummelstown|carlisle|lebanon|elizabethtown|pa|pennsylvania|\\d{5})';
+  const categoryWords = '(med spa|medical spa|hair salons?|salons?|wellness clinics?|health and wellness centers?|wedding photographers?|interior designers?|florists?|restaurants?|cosmetic dentists?|plumbers?|plumbing companies?|lawn care|landscapers?)';
+  if (new RegExp(`^${categoryWords}\\b.*\\b${locationWords}\\b`, 'i').test(normalized)) return true;
+  if (new RegExp(`\\b${categoryWords}\\b\\s+near\\s+.*\\b${locationWords}\\b`, 'i').test(normalized)) return true;
+  if (/\b(yelp search result|search result|prospect pool|no single business identified)\b/i.test(normalized)) return true;
+
+  const normalizedQuery = String(query || '').trim().toLowerCase();
+  return Boolean(normalizedQuery && normalized === normalizedQuery);
 }
 
 function parseDiscoveryQuery_(query) {
