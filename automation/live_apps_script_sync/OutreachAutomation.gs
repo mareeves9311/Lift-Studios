@@ -393,7 +393,7 @@ function createOutreachDrafts() {
     if (!email) {
       writeLeadUpdates_(sheet, headers, rowNumber, {
         next_step: nextManualStep_(row, headers),
-        automation_notes: 'No email available. Use form, Instagram, or phone.',
+        automation_notes: 'No email. Check contact form, IG mobile Contact button, or Facebook About.',
       });
       missingEmail += 1;
       return;
@@ -1193,10 +1193,11 @@ function getLiftStudioAttachments_() {
 }
 
 function nextManualStep_(row, headers) {
-  if (value_(row, headers, 'instagram')) return 'NO EMAIL FOUND - check Facebook and IG mobile Contact button.';
-  if (value_(row, headers, 'contact_form')) return 'NO EMAIL FOUND - use contact form manually.';
-  if (value_(row, headers, 'phone')) return 'Call or text to ask for best email.';
-  return 'Find contact info before outreach.';
+  if (value_(row, headers, 'contact_form')) return 'USE CONTACT FORM - submit manually, then mark Sent.';
+  if (value_(row, headers, 'instagram')) return 'NO EMAIL FOUND - check IG mobile Contact button.';
+  if (value_(row, headers, 'phone')) return 'NO EMAIL FOUND - call/text for best email.';
+  if (value_(row, headers, 'website') || value_(row, headers, 'business_name')) return 'NO EMAIL FOUND - check Facebook About/contact.';
+  return 'NO CONTACT PATH FOUND - manual research needed.';
 }
 
 function addDays_(date, days) {

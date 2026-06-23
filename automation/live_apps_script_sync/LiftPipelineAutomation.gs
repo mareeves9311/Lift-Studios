@@ -344,10 +344,11 @@ function reconcileLiftNextActionForRow_(sheet, rowNumber, headers) {
 }
 
 function liftManualContactStep_(row) {
-  if (row.instagram) return 'NO EMAIL FOUND - check Facebook and IG mobile Contact button.';
-  if (row.contact_form) return 'NO EMAIL FOUND - use contact form manually.';
+  if (row.contact_form) return 'USE CONTACT FORM - submit manually, then mark Sent.';
+  if (row.instagram) return 'NO EMAIL FOUND - check IG mobile Contact button.';
   if (row.phone) return 'NO EMAIL FOUND - call/text for best email.';
-  return 'NO EMAIL FOUND - find contact info before outreach.';
+  if (row.website || row.business_name) return 'NO EMAIL FOUND - check Facebook About/contact.';
+  return 'NO CONTACT PATH FOUND - manual research needed.';
 }
 
 function formatLiftDateForAction_(dateValue) {
@@ -1067,17 +1068,18 @@ function writeLiftAuditResult_(sheet, rowNumber, headers, previousRow, audit) {
 
 function buildPostAuditNextStep_(previousRow, audit) {
   const email = previousRow.email || audit.email;
-  const contactForm = previousRow.contact_form || audit.contact_form;
-  const instagram = previousRow.instagram || audit.instagram;
-  const phone = previousRow.phone || audit.phone;
   const draftEmail = audit.draft_email || previousRow.draft_email;
 
   if (email && draftEmail) return 'Create Gmail draft from existing outreach copy.';
-  if (email && !draftEmail) return 'Email Marketer: draft first-touch outreach';
-  if (contactForm) return 'NO EMAIL FOUND - use contact form manually.';
-  if (instagram) return 'NO EMAIL FOUND - check Instagram mobile Contact button.';
-  if (phone) return 'NO EMAIL FOUND - call/text for best email.';
-  return 'NO EMAIL FOUND - find contact info before outreach.';
+  if (email) return 'Email Marketer: draft first-touch outreach.';
+
+  return liftManualContactStep_({
+    contact_form: previousRow.contact_form || audit.contact_form,
+    instagram: previousRow.instagram || audit.instagram,
+    phone: previousRow.phone || audit.phone,
+    website: previousRow.website,
+    business_name: previousRow.business_name,
+  });
 }
 
 function appendLiftMiniAudit_(row, audit) {
