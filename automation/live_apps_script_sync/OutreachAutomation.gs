@@ -93,6 +93,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Create Due Follow-Up Drafts', 'createDueFollowUpDrafts')
     .addItem('Review Draft Backlog (report only)', 'createDraftReviewReport')
+    .addItem('Delete Approved Draft Review Rows', 'deleteApprovedDraftReviewRows')
     .addItem('Test Service Menu Attachment', 'testServiceMenuAttachment')
     .addItem('Create Signature Test Draft', 'createSignatureTestDraft')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
@@ -1266,9 +1267,11 @@ function classifyDraftType_(subject, recipientEmail, pipelineStatus) {
   const statusLower = String(pipelineStatus || '').toLowerCase();
   const isContacted = ['sent', 'replied', 'warm', 'won', 'bounced'].includes(statusLower);
 
-  if (isContacted) return 'Follow-up outreach';
+  // Subject is a stronger signal than pipeline status — check it first.
+  // A first-touch subject on a Sent lead means a stale orphan, not a follow-up.
   if (/one thing i noticed/i.test(subject)) return 'First-touch outreach';
-  if (/follow.?up|checking in|circling back|just following|wanted to follow/i.test(subject)) return 'Follow-up outreach';
+  if (/follow.?up|checking in|circling back|just following|wanted to follow|^re:/i.test(subject)) return 'Follow-up outreach';
+  if (isContacted) return 'Follow-up outreach';
   if (pipelineStatus) return 'First-touch outreach';
   return 'Unknown — no pipeline match';
 }
@@ -1333,7 +1336,7 @@ function writeDraftReviewTab_(report) {
     reviewSheet.clearFormats();
   }
 
-  const colHeaders = ['Date', 'Draft Subject', 'Recipient', 'Likely Type', 'Pipeline Status', 'Sent Match?', 'Recommendation', 'Reason', 'Draft ID'];
+  const colHeaders = ['Date', 'Draft Subject', 'Recipient', 'Likely Type', 'Pipeline Status', 'Sent Match?', 'Recommendation', 'Reason', 'Draft ID', 'Approved'];
   reviewSheet.getRange(1, 1, 1, colHeaders.length)
     .setValues([colHeaders])
     .setFontWeight('bold')
@@ -1341,7 +1344,7 @@ function writeDraftReviewTab_(report) {
     .setFontColor('#FBFAF6');
 
   if (report.length > 0) {
-    reviewSheet.getRange(2, 1, report.length, colHeaders.length).setValues(report);
+    reviewSheet.getRange(2, 1, report.length, colHeaders.length - 1).setValues(report);
 
     // Color-code Recommendation column (col 7)
     report.forEach((row, idx) => {
@@ -1356,9 +1359,71 @@ function writeDraftReviewTab_(report) {
 
   reviewSheet.setFrozenRows(1);
   reviewSheet.autoResizeColumns(1, colHeaders.length);
+  reviewSheet.getRange(1, colHeaders.length + 2).setValue('Set Approved = YES in col J to mark a draft for deletion, then run Delete Approved Draft Review Rows.');
+}
 
-  // Note at top so Megan knows what this tab is
-  reviewSheet.getRange(1, colHeaders.length + 2).setValue('READ ONLY — no drafts deleted by this report. Delete manually after review.');
+function deleteApprovedDraftReviewRows() {
+  const ss = SpreadsheetApp.openById(CONFIG.spreadsheetId);
+  const reviewSheet = ss.getSheetByName(DRAFT_REVIEW_SHEET_NAME);
+  if (!reviewSheet) {
+    SpreadsheetApp.getActive().toast('No Draft Review tab found. Run Review Draft Backlog first.');
+    return;
+  }
+
+  const data = reviewSheet.getDataRange().getValues();
+  const headerRow = data[0].map(h => String(h).trim().toLowerCase());
+  const draftIdCol = headerRow.indexOf('draft id');
+  const recommendationCol = headerRow.indexOf('recommendation');
+  const approvedCol = headerRow.indexOf('approved');
+
+  if (draftIdCol === -1 || recommendationCol === -1 || approvedCol === -1) {
+    SpreadsheetApp.getActive().toast('Draft Review tab is missing required columns. Re-run the report.');
+    return;
+  }
+
+  const toDelete = [];
+  for (let i = 1; i < data.length; i++) {
+    const approved = String(data[i][approvedCol]).trim().toUpperCase();
+    const recommendation = String(data[i][recommendationCol]).trim();
+    const draftId = String(data[i][draftIdCol]).trim();
+    if (approved === 'YES' && recommendation.startsWith('Delete') && draftId) {
+      toDelete.push({ draftId, subject: String(data[i][1]).trim(), row: i + 1 });
+    }
+  }
+
+  if (!toDelete.length) {
+    SpreadsheetApp.getActive().toast('No rows have Approved = YES with a Delete recommendation. Nothing deleted.');
+    return;
+  }
+
+  let deleted = 0;
+  let failed = 0;
+  const log = [];
+
+  toDelete.forEach(item => {
+    try {
+      const draft = GmailApp.getDraft(item.draftId);
+      if (draft) {
+        draft.deleteDraft();
+        deleted++;
+        log.push(`Deleted: ${item.subject}`);
+        // Mark the row as done
+        reviewSheet.getRange(item.row, approvedCol + 1).setValue('DELETED');
+      } else {
+        failed++;
+        log.push(`Not found (already gone?): ${item.subject}`);
+        reviewSheet.getRange(item.row, approvedCol + 1).setValue('NOT FOUND');
+      }
+    } catch (err) {
+      failed++;
+      log.push(`Error on "${item.subject}": ${err.message}`);
+      reviewSheet.getRange(item.row, approvedCol + 1).setValue(`ERROR: ${err.message.slice(0, 80)}`);
+    }
+  });
+
+  const summary = `Deleted ${deleted} draft(s). Failed/not found: ${failed}.`;
+  appendSystemLogEntry_('Delete Approved Draft Review Rows', summary, log.join('\n'), '');
+  SpreadsheetApp.getActive().toast(summary);
 }
 
 function nextManualStep_(row, headers) {
