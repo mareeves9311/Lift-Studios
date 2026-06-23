@@ -24,7 +24,7 @@ const LIFT_PIPELINE_CONFIG = {
   pipelineSheetName: 'Pipeline',
   miniAuditsSheetName: 'Mini Audits Archive',
   maxAuditsPerRun: 3,
-  enableAutoDiscovery: true,
+  enableAutoDiscovery: false,
   discoveryBatchSize: 3,
   webTextCharLimit: 9000,
   claudeMaxTokens: 2600,
