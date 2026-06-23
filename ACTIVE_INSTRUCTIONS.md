@@ -58,6 +58,15 @@ In HTML outreach drafts, mentions of `Lift Studio` in the body should render as 
 
 ## Agent And Automation Split
 
+**The division of responsibility is fixed. Do not change it.**
+
+- **Claude agent (new_business_auditor + daily prompt) owns lead discovery.** It uses web search with judgment to find real local businesses, audit them, and write clean rows to the sheet. This is the only approved discovery path.
+- **Apps Script owns structured execution only:** sheet updates, Gmail draft creation, follow-up drafts, sent/reply reconciliation, inbox hygiene, and health checks.
+- **`enableAutoDiscovery` in `LIFT_PIPELINE_CONFIG` is intentionally set to `false` and must stay off.** DuckDuckGo HTML scraping in Apps Script produced junk rows (search result pages, fake businesses, directory listings) and was the primary source of pipeline noise. Do not re-enable it.
+- **Megan's only manual role:** review Gmail drafts and send, handle contact-form/no-email rows manually.
+
+No future session should re-enable `enableAutoDiscovery` or add any scrape-based discovery to Apps Script. If discovery needs improvement, improve the Claude agent prompt or use a structured source like Vibiz — not HTML scraping.
+
 - Agents write strategy, audit notes, email copy, status decisions, and sheet updates.
 - Apps Script creates Gmail drafts, attaches the service menu, embeds the HTML signature, and writes Gmail draft IDs back to the sheet.
 - Apps Script uses the simple tested Lift Studio HTML signature for automated drafts. Emergency Gmail connector drafts can miss the signature; repair those by running `Outreach Automation > Refresh Existing Drafts` from the sheet.
@@ -68,7 +77,7 @@ In HTML outreach drafts, mentions of `Lift Studio` in the body should render as 
 - Use `Outreach Automation > Test Service Menu Attachment` in the Google Sheet to verify the Drive PDF is accessible without needing a draftable lead.
 - Use `Outreach Automation > Create Signature Test Draft` before a full batch when signature rendering is in question. Inspect the Gmail draft in desktop/mobile, then run `Refresh Existing Drafts` or `Create Gmail Drafts`.
 - Use `Outreach Automation > Install/Repair Full Automation` to install all production triggers: daily full system run, hourly sent/reply/inbox hygiene scan, 8 AM and 1 PM draft creation, 5-minute queued audits, and sheet edit handling.
-- Use `Outreach Automation > Run Full Lift Studio System Now` when you want the Apps Script orchestrator to immediately reconcile next actions and discover new leads. Audits, draft creation, sent/reply scans, and inbox hygiene still run on their separate installed triggers. Note: `enableAutoDiscovery` in `LIFT_PIPELINE_CONFIG` is currently set to `true`; discovery is active with stronger filters to reject directories, search-result pages, and non-business result pages. Discovery runs as a lightweight batch of up to 3 direct-business candidates per full-system run; deeper audits/contact research happen on the separate audit/agent paths.
+- Use `Outreach Automation > Run Full Lift Studio System Now` when you want the Apps Script orchestrator to immediately reconcile next actions, run queued audits, and trigger draft creation. `enableAutoDiscovery` is `false` — this run will not attempt scrape-based discovery. New leads come from the Claude agent daily routine only.
 - Use `Outreach Automation > Verify Automation Health` to check required triggers and the service menu attachment.
 - If Megan manually adds an email address to a qualified lead, the sheet edit trigger re-queues that row for outreach: existing outreach copy goes to Gmail draft generation, and missing outreach copy goes to `Email Marketer: draft first-touch outreach`. Use `Lift Pipeline > Mark selected row as form submitted` after manually submitting a contact form.
 - `Next Action` is an operational status field, not a freeform notes field. It should update from the current row state: no email means manual contact path, ready/draftable means draft generation, drafted means Megan review/send, sent/no reply means wait or follow up, and replied means review the Gmail thread. Use `Lift Pipeline > Reconcile next actions` if the column looks stale.

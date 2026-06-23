@@ -56,7 +56,7 @@ Archived files are reference-only. Do not use them as active instructions, promp
 - ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
-- ✅ Auto-discovery is active with `enableAutoDiscovery: true`. Discovery now uses stronger filters to reject directories, search-result pages, and non-business result pages before adding leads. It runs lightweight batches of up to 3 direct-business candidates per full-system run so Apps Script does not time out.
+- ✅ `enableAutoDiscovery: false` — DuckDuckGo/Apps Script scrape-based discovery is permanently off (2026-06-22, version 24). It was the primary source of junk rows. **Lead discovery is owned by the Claude agent (new_business_auditor + daily prompt) using web search with judgment.** Apps Script is restricted to structured execution: sheet updates, Gmail drafts, follow-ups, reconciliation, health checks. Do not re-enable scrape-based discovery.
 - ✅ Google Sheet `Pipeline` tab cleaned (2026-06-22): removed junk/search-result rows (e.g. `Hair Salons near Hershey PA`, Yelp search result rows, generic `Services`/`About` page rows, duplicate rows). `Youveau Aesthetics Medspa & Wellness` normalized as a real prospect row with full contact details. `Working Pipeline` no longer contains obvious junk rows after row 39.
 - ✅ Auto-discovery guard logic tightened (commit `e00e654`): now rejects search-result/page-pool titles, "near [city/state/zip]" category rows, generic page titles (`Services`, `About`, `Contact`, `Home`, `Welcome`), category-location phrases pretending to be businesses, and query-title matches where result title equals the search query.
 - ✅ Uncommitted local draft-audit experiment removed from `OutreachAutomation.gs` before deployment — it was never pushed live.
@@ -83,6 +83,8 @@ Priority order — items 1–3 are the active next work block:
 4. ~~**Follow-up draft backlog needs Gmail review**~~ ✅ **Report ready (2026-06-22, commit `ecef331`, version 21)** — `Outreach Automation > Review Draft Backlog (report only)` generates a `Draft Review` tab in the sheet. Columns: Date, Draft Subject, Recipient, Likely Type, Pipeline Status, Sent Match?, Recommendation, Reason, Draft ID. Color-coded: red = Delete candidate, green = Keep, yellow = Review manually. Nothing is deleted — Megan approves cleanup in one pass.
 
 5. **Dashboard refresh check** — rows were deleted from `Pipeline`; confirm Netlify dashboard reflects cleaned counts and is not caching old row data.
+
+6. **Morning run verification (next session)** — run the daily Claude routine and confirm: 10 clean rows added (real businesses, no junk), 10 Gmail drafts created, no DuckDuckGo rows, health snapshot passes. If that passes, the system is in a sane state. Also fix cloud routine report delivery — morning/midday reports are currently landing as Gmail drafts to `helloliftstudio@gmail.com` instead of being delivered to Megan.
 
 6. **Discovery source is still DuckDuckGo HTML** — filters are better but fragile. Long-term options: structured lead source via Vibiz, known business URL directories, or a manual "Lead Intake" tab where Megan pastes raw candidates and the auditor validates one at a time.
 
