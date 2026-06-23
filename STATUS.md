@@ -1,6 +1,6 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-06-18
+Last updated: 2026-06-22
 
 ## Current Source Of Truth
 
@@ -52,11 +52,14 @@ Archived files are reference-only. Do not use them as active instructions, promp
 ## Completed Setup
 
 - ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ✅ Apps Script web app endpoint deployed (2026-06-22, version 17). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
+- ✅ Apps Script web app endpoint deployed (2026-06-22, **version 18** — `Tighten discovery filters 2026-06-22`). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
 - ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
 - ✅ Auto-discovery is active with `enableAutoDiscovery: true`. Discovery now uses stronger filters to reject directories, search-result pages, and non-business result pages before adding leads. It runs lightweight batches of up to 3 direct-business candidates per full-system run so Apps Script does not time out.
+- ✅ Google Sheet `Pipeline` tab cleaned (2026-06-22): removed junk/search-result rows (e.g. `Hair Salons near Hershey PA`, Yelp search result rows, generic `Services`/`About` page rows, duplicate rows). `Youveau Aesthetics Medspa & Wellness` normalized as a real prospect row with full contact details. `Working Pipeline` no longer contains obvious junk rows after row 39.
+- ✅ Auto-discovery guard logic tightened (commit `e00e654`): now rejects search-result/page-pool titles, "near [city/state/zip]" category rows, generic page titles (`Services`, `About`, `Contact`, `Home`, `Welcome`), category-location phrases pretending to be businesses, and query-title matches where result title equals the search query.
+- ✅ Uncommitted local draft-audit experiment removed from `OutreachAutomation.gs` before deployment — it was never pushed live.
 - ✅ Audit writeback now includes public contact discovery fields (`Email`, `Contact Form`, `Phone`, `Instagram`) when Claude can verify them.
 - ✅ No-email rows with Instagram now route `Next Action` to `NO EMAIL FOUND - check Instagram mobile Contact button.`
 - ✅ Follow-up Gmail drafts use the same service menu attachment and inline signature image handling as first-touch drafts.
@@ -66,6 +69,22 @@ Archived files are reference-only. Do not use them as active instructions, promp
 - ✅ `Outreach Automation > Create Health Snapshot` writes a local Apps Script health report to `System Log`, so system checks can run without Claude cloud tokens.
 - ⚠️ If Claude Code Routines reports egress blocking, allowlist the real Apps Script endpoint, not a Gmail-wrapped `google.com/url?...` redirect.
 - ✅ Drive MCP write limitation documented — it is structural and cannot be fixed by reconnecting. All cloud agent sheet writes use the doPost endpoint.
+
+## Open Follow-Up Items (from Codex handoff 2026-06-22)
+
+1. **Discovery source is still DuckDuckGo HTML** — filters are better but fragile. Long-term options: structured lead source via Vibiz, known business URL directories, or a manual "Lead Intake" tab where Megan pastes raw candidates and the auditor validates one at a time.
+
+2. **Audit JSON parse errors need hardening** — several rows showed `Audit error: Claude did not return JSON`. Need to: strip markdown/code fences from response, recover partial JSON if possible, retry once with "return JSON only", log failed raw response to `System Log` or an `Audit Errors` tab.
+
+3. **Contact discovery systematic pass needed** — rows with no email should consistently have `Next Action` set to `NO EMAIL FOUND - check Facebook and IG mobile Contact button.` or `USE CONTACT FORM - mark as Sent after manual form submission.` This still needs a full pass.
+
+4. **`Ready to Draft` rows missing email are a UX problem** — they look actionable but aren't. Recommendation: if audit is strong but no email, set `Pipeline Stage = New Lead` or `Hold` and `Next Action = NO EMAIL FOUND...`. Only set `Ready to Draft` when email exists or form/manual protocol is explicitly complete.
+
+5. **Follow-up draft backlog needs Gmail review** — a batch of follow-up drafts exists. Review Gmail drafts and delete any stale/internal/test drafts. The draft-vs-sent audit tool was stopped and not deployed; if rebuilt, start with a read-only report before adding any write operations.
+
+6. **Dashboard refresh check** — rows were deleted from `Pipeline`; confirm Netlify dashboard reflects cleaned counts and is not caching old row data.
+
+7. **Git untracked files** — intentionally untracked: `.github/`, `Lift Studio.html`, `assets/Lift Studio Brand Guidelines.pdf`, `assets/Lift Studio Logo - Circle.png`, `automation/launchd/`, `automation/run_daily_8am_outreach.sh`. Leave these alone unless Megan explicitly decides to track or ignore them.
 
 ## Do Not Touch Without Approval
 
