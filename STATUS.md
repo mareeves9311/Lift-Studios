@@ -52,7 +52,7 @@ Archived files are reference-only. Do not use them as active instructions, promp
 ## Completed Setup
 
 - ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ✅ Apps Script web app endpoint deployed (2026-06-22, **version 19** — `Harden audit JSON retry and Ready to Draft email gate 2026-06-22`). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
+- ✅ Apps Script web app endpoint deployed (2026-06-22, **version 20** — `Standardize contact discovery labels 2026-06-22`). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
 - ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
@@ -78,7 +78,7 @@ Priority order — items 1–3 are the active next work block:
 
 2. ~~**`Ready to Draft` rows missing email are a UX problem**~~ ✅ **Done (2026-06-22, commit `4683798`, version 19)** — `determineAuditPipelineStatus_` now requires a confirmed email before setting `Ready to Draft`; no-email rows fall back to `New Lead`.
 
-3. **Contact discovery systematic pass needed** — rows with no email should consistently have `Next Action` set to `NO EMAIL FOUND - check Facebook and IG mobile Contact button.` or `USE CONTACT FORM - mark as Sent after manual form submission.` Standardize these labels across all no-email rows.
+3. ~~**Contact discovery systematic pass needed**~~ ✅ **Done (2026-06-22, commit `4201bb6`, version 20)** — All three contact-path functions standardized to one priority order and label set: contact form → `USE CONTACT FORM - submit manually, then mark Sent.`; Instagram → `NO EMAIL FOUND - check IG mobile Contact button.`; phone → `NO EMAIL FOUND - call/text for best email.`; website/name only → `NO EMAIL FOUND - check Facebook About/contact.`; nothing → `NO CONTACT PATH FOUND - manual research needed.` `buildPostAuditNextStep_` now delegates to `liftManualContactStep_` — labels defined in one place. `ACTIVE_INSTRUCTIONS.md` updated with canonical label reference.
 
 4. **Follow-up draft backlog needs Gmail review** — a batch of follow-up drafts exists. Review Gmail drafts and delete any stale/internal/test drafts. The draft-vs-sent audit tool was stopped and not deployed; if rebuilt, start with a read-only report before adding any write operations.
 
