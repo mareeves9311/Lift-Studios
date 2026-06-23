@@ -52,7 +52,7 @@ Archived files are reference-only. Do not use them as active instructions, promp
 ## Completed Setup
 
 - ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ✅ Apps Script web app endpoint deployed (2026-06-22, **version 18** — `Tighten discovery filters 2026-06-22`). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
+- ✅ Apps Script web app endpoint deployed (2026-06-22, **version 19** — `Harden audit JSON retry and Ready to Draft email gate 2026-06-22`). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
 - ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
@@ -74,9 +74,9 @@ Archived files are reference-only. Do not use them as active instructions, promp
 
 Priority order — items 1–3 are the active next work block:
 
-1. **Audit JSON parse errors need hardening** — several rows showed `Audit error: Claude did not return JSON`. Fix: strip markdown/code fences from response, recover partial JSON if possible, retry once with "return JSON only", log failed raw response to `System Log` or an `Audit Errors` tab. Protects backend audit flow.
+1. ~~**Audit JSON parse errors need hardening**~~ ✅ **Done (2026-06-22, commit `4683798`, version 19)** — `callLiftClaudeAudit_` now retries once with a repair prompt on JSON parse failure; raw failures log to `System Log`; failed rows get `Auditing Failed` stage (not `New Lead`) so they're visually distinct.
 
-2. **`Ready to Draft` rows missing email are a UX problem** — they look actionable but aren't, which breaks daily usability. Fix: if audit is strong but no email, set `Pipeline Stage = New Lead` or `Hold`. Only set `Ready to Draft` when email exists or form/manual protocol is explicitly complete.
+2. ~~**`Ready to Draft` rows missing email are a UX problem**~~ ✅ **Done (2026-06-22, commit `4683798`, version 19)** — `determineAuditPipelineStatus_` now requires a confirmed email before setting `Ready to Draft`; no-email rows fall back to `New Lead`.
 
 3. **Contact discovery systematic pass needed** — rows with no email should consistently have `Next Action` set to `NO EMAIL FOUND - check Facebook and IG mobile Contact button.` or `USE CONTACT FORM - mark as Sent after manual form submission.` Standardize these labels across all no-email rows.
 
