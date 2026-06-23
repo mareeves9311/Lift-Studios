@@ -52,7 +52,7 @@ Archived files are reference-only. Do not use them as active instructions, promp
 ## Completed Setup
 
 - ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ✅ Apps Script web app endpoint deployed (2026-06-22, **version 21** — `Add Draft Review report read-only 2026-06-22`). Endpoint: `https://script.google.com/macros/s/AKfycbwbfgFcX1PJBXt3YTMN0fmGqhLQZybDSTPFgUtqu43Z6Ot28okgM8eSYhnODwTcgKoJ/exec`
+- ✅ Apps Script web app endpoint deployed (2026-06-23, new Web App deployment — `Lift Studio Pipeline Endpoint`, access: Anyone). Endpoint: `https://script.google.com/macros/s/AKfycbwAH7TozxFdUSk5dOM6_sX5nFdn62MOCDKZMGwaugL1vj42nHR21evVATnE_qAapV68/exec` — **previous URL was dead (returned 403); this new URL verified live (returns `{"ok":false,"error":"Unauthorized"}` without secret, confirming doPost executes)**
 - ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
@@ -89,6 +89,8 @@ Priority order — items 1–3 are the active next work block:
 6. **Discovery source is still DuckDuckGo HTML** — filters are better but fragile. Long-term options: structured lead source via Vibiz, known business URL directories, or a manual "Lead Intake" tab where Megan pastes raw candidates and the auditor validates one at a time.
 
 7. **Git untracked files** — intentionally untracked: `.github/`, `Lift Studio.html`, `assets/Lift Studio Brand Guidelines.pdf`, `assets/Lift Studio Logo - Circle.png`, `automation/launchd/`, `automation/run_daily_8am_outreach.sh`. Leave these alone unless Megan explicitly decides to track or ignore them.
+
+8. **Add Weekly SEO/GEO Blog Content to public offer materials** — website and service menu still need an explicit offer/package for one optimized blog per week, especially for home services, trades, automotive, commercial services, and real estate. Active agent instructions can already mention this in outreach when relevant, but the live website and service menu PDF should be updated so prospects see the offer clearly.
 
 ## Do Not Touch Without Approval
 
