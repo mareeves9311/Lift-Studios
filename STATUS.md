@@ -72,17 +72,19 @@ Archived files are reference-only. Do not use them as active instructions, promp
 
 ## Open Follow-Up Items (from Codex handoff 2026-06-22)
 
-1. **Discovery source is still DuckDuckGo HTML** — filters are better but fragile. Long-term options: structured lead source via Vibiz, known business URL directories, or a manual "Lead Intake" tab where Megan pastes raw candidates and the auditor validates one at a time.
+Priority order — items 1–3 are the active next work block:
 
-2. **Audit JSON parse errors need hardening** — several rows showed `Audit error: Claude did not return JSON`. Need to: strip markdown/code fences from response, recover partial JSON if possible, retry once with "return JSON only", log failed raw response to `System Log` or an `Audit Errors` tab.
+1. **Audit JSON parse errors need hardening** — several rows showed `Audit error: Claude did not return JSON`. Fix: strip markdown/code fences from response, recover partial JSON if possible, retry once with "return JSON only", log failed raw response to `System Log` or an `Audit Errors` tab. Protects backend audit flow.
 
-3. **Contact discovery systematic pass needed** — rows with no email should consistently have `Next Action` set to `NO EMAIL FOUND - check Facebook and IG mobile Contact button.` or `USE CONTACT FORM - mark as Sent after manual form submission.` This still needs a full pass.
+2. **`Ready to Draft` rows missing email are a UX problem** — they look actionable but aren't, which breaks daily usability. Fix: if audit is strong but no email, set `Pipeline Stage = New Lead` or `Hold`. Only set `Ready to Draft` when email exists or form/manual protocol is explicitly complete.
 
-4. **`Ready to Draft` rows missing email are a UX problem** — they look actionable but aren't. Recommendation: if audit is strong but no email, set `Pipeline Stage = New Lead` or `Hold` and `Next Action = NO EMAIL FOUND...`. Only set `Ready to Draft` when email exists or form/manual protocol is explicitly complete.
+3. **Contact discovery systematic pass needed** — rows with no email should consistently have `Next Action` set to `NO EMAIL FOUND - check Facebook and IG mobile Contact button.` or `USE CONTACT FORM - mark as Sent after manual form submission.` Standardize these labels across all no-email rows.
 
-5. **Follow-up draft backlog needs Gmail review** — a batch of follow-up drafts exists. Review Gmail drafts and delete any stale/internal/test drafts. The draft-vs-sent audit tool was stopped and not deployed; if rebuilt, start with a read-only report before adding any write operations.
+4. **Follow-up draft backlog needs Gmail review** — a batch of follow-up drafts exists. Review Gmail drafts and delete any stale/internal/test drafts. The draft-vs-sent audit tool was stopped and not deployed; if rebuilt, start with a read-only report before adding any write operations.
 
-6. **Dashboard refresh check** — rows were deleted from `Pipeline`; confirm Netlify dashboard reflects cleaned counts and is not caching old row data.
+5. **Dashboard refresh check** — rows were deleted from `Pipeline`; confirm Netlify dashboard reflects cleaned counts and is not caching old row data.
+
+6. **Discovery source is still DuckDuckGo HTML** — filters are better but fragile. Long-term options: structured lead source via Vibiz, known business URL directories, or a manual "Lead Intake" tab where Megan pastes raw candidates and the auditor validates one at a time.
 
 7. **Git untracked files** — intentionally untracked: `.github/`, `Lift Studio.html`, `assets/Lift Studio Brand Guidelines.pdf`, `assets/Lift Studio Logo - Circle.png`, `automation/launchd/`, `automation/run_daily_8am_outreach.sh`. Leave these alone unless Megan explicitly decides to track or ignore them.
 
