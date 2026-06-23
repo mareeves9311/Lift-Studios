@@ -1287,18 +1287,34 @@ function getDraftRecommendation_(likelyType, sentMatch, recipientEmail, pipeline
   if (!recipientEmail) {
     return { recommendation: 'Delete — no recipient', reason: 'Draft has no recipient address.' };
   }
-  if (sentMatch.startsWith('Yes')) {
-    return {
-      recommendation: 'Delete — already contacted',
-      reason: `Recipient has already been reached out to. Pipeline: ${pipelineStatus}. Draft is stale.`,
-    };
-  }
+
+  const statusLower = String(pipelineStatus || '').toLowerCase();
+
   if (likelyType === 'Follow-up outreach') {
-    return { recommendation: 'Keep — review before sending', reason: 'Valid follow-up for a Sent/Replied row.' };
+    // Bounced leads: follow-up is pointless
+    if (statusLower === 'bounced') {
+      return { recommendation: 'Delete — bounced', reason: 'Lead bounced. Follow-up draft is not sendable.' };
+    }
+    // Lead already replied, warm, or won: a follow-up draft sitting here is unexpected
+    if (['replied', 'warm', 'won'].includes(statusLower)) {
+      return { recommendation: 'Review manually', reason: `Lead is ${pipelineStatus} — they responded. Check if this follow-up is still needed.` };
+    }
+    // Sent + no response: this is exactly what the follow-up system creates — keep it
+    return { recommendation: 'Keep — review before sending', reason: `Valid follow-up draft for a ${pipelineStatus || 'pipeline'} lead.` };
   }
+
   if (likelyType === 'First-touch outreach') {
+    // First-touch draft but lead is already contacted: stale orphan
+    if (sentMatch.startsWith('Yes')) {
+      return {
+        recommendation: 'Delete — stale first-touch',
+        reason: `First-touch draft for a lead already at pipeline status: ${pipelineStatus}. Draft was never sent or is a duplicate.`,
+      };
+    }
     return { recommendation: 'Keep — review before sending', reason: 'Valid first-touch draft for a pipeline lead.' };
   }
+
+  // Unknown — no pipeline match: flag for manual review
   return { recommendation: 'Review manually', reason: 'No pipeline match or unclear draft type. Check recipient and subject.' };
 }
 
