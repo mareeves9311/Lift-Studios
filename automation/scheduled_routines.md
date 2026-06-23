@@ -43,7 +43,7 @@ The cloud agent **does not clone the repo** — it fetches agent files directly 
 
 **Raw URL pattern:**
 ```
-https://raw.githubusercontent.com/mareeves9311/Lift-Studios/main/agents/[filename].md
+https://raw.githubusercontent.com/megan319/Lift-Studios/main/agents/[filename].md
 ```
 
 ---
@@ -131,7 +131,7 @@ The routine prompt instructs the Orchestrator to route to the new agent per the 
 - Pipeline sheet: https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit
 - Dashboard: https://liftstudiosdashboard.netlify.app/
 - Gmail: helloliftstudio@gmail.com
-- GitHub repo: https://github.com/mareeves9311/Lift-Studios (must remain public)
+- GitHub repo: https://github.com/megan319/Lift-Studios (must remain public)
 - Routines management: https://claude.ai/code/routines
 
 ---
