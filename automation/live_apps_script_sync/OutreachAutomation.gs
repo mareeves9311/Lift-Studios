@@ -32,6 +32,7 @@ const CONFIG = {
   maxDraftsPerRun: 10,
 };
 const SYSTEM_LOG_SHEET_NAME = 'System Log';
+const DRAFT_REVIEW_SHEET_NAME = 'Draft Review';
 
 // Embedded fallback logo image to support HTML signature rendering when a Drive image
 // file ID is not available. This is the local repo asset at
@@ -91,6 +92,7 @@ function addOutreachAutomationMenu_() {
     .addItem('Create Gmail Drafts', 'createOutreachDrafts')
     .addItem('Refresh Existing Drafts', 'refreshExistingOutreachDrafts')
     .addItem('Create Due Follow-Up Drafts', 'createDueFollowUpDrafts')
+    .addItem('Review Draft Backlog (report only)', 'createDraftReviewReport')
     .addItem('Test Service Menu Attachment', 'testServiceMenuAttachment')
     .addItem('Create Signature Test Draft', 'createSignatureTestDraft')
     .addItem('Refresh Sent + Replies', 'refreshSentAndReplies')
@@ -1190,6 +1192,157 @@ function getLiftStudioAttachments_() {
       .getBlob()
       .setName('Lift Studio Service Menu.pdf')
   ];
+}
+
+// ============================================================
+// DRAFT REVIEW REPORT
+// Read-only. Lists all Gmail drafts with classification and
+// recommendation. No drafts are deleted. Megan reviews the
+// Draft Review tab and decides what to clean up manually.
+// ============================================================
+
+function createDraftReviewReport() {
+  const sheet = getLeadsSheet_();
+  const data = getSheetData_(sheet);
+  const headers = data.headers;
+  const rows = data.rows;
+
+  const emailToRow = {};
+  const draftIdToRow = {};
+  rows.forEach((row, idx) => {
+    const email = value_(row, headers, 'email').toLowerCase();
+    const draftId = value_(row, headers, 'gmail_draft_id');
+    if (email) emailToRow[email] = { row, rowNumber: idx + 2 };
+    if (draftId) draftIdToRow[draftId] = { row, rowNumber: idx + 2 };
+  });
+
+  const drafts = GmailApp.getDrafts();
+  const report = [];
+
+  drafts.forEach(draft => {
+    try {
+      const message = draft.getMessage();
+      const subject = message.getSubject() || '(no subject)';
+      const toRaw = message.getTo() || '';
+      const recipientEmail = extractFirstEmailAddress_(toRaw).toLowerCase();
+      const draftId = draft.getId();
+      const dateStr = Utilities.formatDate(message.getDate(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm');
+
+      const pipelineMatch = emailToRow[recipientEmail] || draftIdToRow[draftId];
+      const pipelineStatus = pipelineMatch ? value_(pipelineMatch.row, headers, 'pipeline_stage') : '';
+      const likelyType = classifyDraftType_(subject, recipientEmail, pipelineStatus);
+      const sentMatch = getSentMatchLabel_(pipelineStatus);
+      const { recommendation, reason } = getDraftRecommendation_(likelyType, sentMatch, recipientEmail, pipelineStatus);
+
+      report.push([dateStr, subject, toRaw || '(no recipient)', likelyType, pipelineStatus || '—', sentMatch, recommendation, reason, draftId]);
+    } catch (err) {
+      report.push(['', '(error reading draft)', '', 'Error', '', '', 'Review manually', err.message, '']);
+    }
+  });
+
+  // Sort: Delete candidates first, then Keep, then Review manually
+  report.sort((a, b) => {
+    const order = { 'Delete': 0, 'Keep': 1, 'Review': 2, 'Error': 3 };
+    const aKey = Object.keys(order).find(k => String(a[6]).startsWith(k)) || 'Review';
+    const bKey = Object.keys(order).find(k => String(b[6]).startsWith(k)) || 'Review';
+    return order[aKey] - order[bKey];
+  });
+
+  writeDraftReviewTab_(report);
+
+  const deleteCandidates = report.filter(r => String(r[6]).startsWith('Delete')).length;
+  const keepCount = report.filter(r => String(r[6]).startsWith('Keep')).length;
+  const reviewCount = report.filter(r => String(r[6]).startsWith('Review')).length;
+  const summary = `Draft Review: ${report.length} drafts. Delete candidates: ${deleteCandidates}. Keep: ${keepCount}. Review manually: ${reviewCount}.`;
+  appendSystemLogEntry_('Draft Review Report', summary, '', '');
+  SpreadsheetApp.getActive().toast(summary);
+}
+
+function classifyDraftType_(subject, recipientEmail, pipelineStatus) {
+  const senderEmail = String(CONFIG.senderEmail || '').toLowerCase();
+  if (!recipientEmail || recipientEmail === senderEmail) return 'Internal / Test';
+  if (/^(test|health snapshot|lift studio report|automation)/i.test(subject)) return 'Internal / Test';
+
+  const statusLower = String(pipelineStatus || '').toLowerCase();
+  const isContacted = ['sent', 'replied', 'warm', 'won', 'bounced'].includes(statusLower);
+
+  if (isContacted) return 'Follow-up outreach';
+  if (/one thing i noticed/i.test(subject)) return 'First-touch outreach';
+  if (/follow.?up|checking in|circling back|just following|wanted to follow/i.test(subject)) return 'Follow-up outreach';
+  if (pipelineStatus) return 'First-touch outreach';
+  return 'Unknown — no pipeline match';
+}
+
+function getSentMatchLabel_(pipelineStatus) {
+  if (!pipelineStatus) return 'No pipeline match';
+  const lower = pipelineStatus.toLowerCase();
+  if (['sent', 'replied', 'warm', 'won', 'bounced'].includes(lower)) return `Yes — ${pipelineStatus}`;
+  return `No — ${pipelineStatus}`;
+}
+
+function getDraftRecommendation_(likelyType, sentMatch, recipientEmail, pipelineStatus) {
+  if (likelyType === 'Internal / Test') {
+    return { recommendation: 'Delete — test/internal', reason: 'No business recipient or matches test/system draft pattern.' };
+  }
+  if (!recipientEmail) {
+    return { recommendation: 'Delete — no recipient', reason: 'Draft has no recipient address.' };
+  }
+  if (sentMatch.startsWith('Yes')) {
+    return {
+      recommendation: 'Delete — already contacted',
+      reason: `Recipient has already been reached out to. Pipeline: ${pipelineStatus}. Draft is stale.`,
+    };
+  }
+  if (likelyType === 'Follow-up outreach') {
+    return { recommendation: 'Keep — review before sending', reason: 'Valid follow-up for a Sent/Replied row.' };
+  }
+  if (likelyType === 'First-touch outreach') {
+    return { recommendation: 'Keep — review before sending', reason: 'Valid first-touch draft for a pipeline lead.' };
+  }
+  return { recommendation: 'Review manually', reason: 'No pipeline match or unclear draft type. Check recipient and subject.' };
+}
+
+function extractFirstEmailAddress_(toField) {
+  const match = String(toField || '').match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  return match ? match[0] : '';
+}
+
+function writeDraftReviewTab_(report) {
+  const ss = SpreadsheetApp.openById(CONFIG.spreadsheetId);
+  let reviewSheet = ss.getSheetByName(DRAFT_REVIEW_SHEET_NAME);
+  if (!reviewSheet) {
+    reviewSheet = ss.insertSheet(DRAFT_REVIEW_SHEET_NAME);
+  } else {
+    reviewSheet.clearContents();
+    reviewSheet.clearFormats();
+  }
+
+  const colHeaders = ['Date', 'Draft Subject', 'Recipient', 'Likely Type', 'Pipeline Status', 'Sent Match?', 'Recommendation', 'Reason', 'Draft ID'];
+  reviewSheet.getRange(1, 1, 1, colHeaders.length)
+    .setValues([colHeaders])
+    .setFontWeight('bold')
+    .setBackground('#2E4435')
+    .setFontColor('#FBFAF6');
+
+  if (report.length > 0) {
+    reviewSheet.getRange(2, 1, report.length, colHeaders.length).setValues(report);
+
+    // Color-code Recommendation column (col 7)
+    report.forEach((row, idx) => {
+      const rec = String(row[6]);
+      let bg = '#ffffff';
+      if (rec.startsWith('Delete')) bg = '#fce8e6';
+      else if (rec.startsWith('Keep')) bg = '#e6f4ea';
+      else if (rec.startsWith('Review')) bg = '#fef7e0';
+      reviewSheet.getRange(idx + 2, 7).setBackground(bg);
+    });
+  }
+
+  reviewSheet.setFrozenRows(1);
+  reviewSheet.autoResizeColumns(1, colHeaders.length);
+
+  // Note at top so Megan knows what this tab is
+  reviewSheet.getRange(1, colHeaders.length + 2).setValue('READ ONLY — no drafts deleted by this report. Delete manually after review.');
 }
 
 function nextManualStep_(row, headers) {
