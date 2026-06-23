@@ -86,6 +86,7 @@ const LIFT_PIPELINE_CONFIG = {
 const LIFT_PIPELINE_STAGE_VALUES = [
   'New Lead',
   'Auditing',
+  'Auditing Failed',
   'Ready to Draft',
   'Drafted',
   'Sent',
@@ -331,6 +332,8 @@ function reconcileLiftNextActionForRow_(sheet, rowNumber, headers) {
     }
   } else if (!row.email) {
     nextAction = liftManualContactStep_(row);
+  } else if (status === 'Auditing Failed') {
+    nextAction = 'Audit failed — check Automation Notes or System Log, then re-audit manually.';
   } else if (status === 'Auditing') {
     nextAction = 'Auto audit queued. Review output before outreach.';
   } else if (status === 'New Lead') {
@@ -832,8 +835,11 @@ function runLiftAuditForRow_(sheet, rowNumber, headers) {
     writeLiftAuditResult_(sheet, rowNumber, headers, row, audit);
     appendLiftMiniAudit_(row, audit);
   } catch (error) {
-    setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'New Lead');
-    setLiftCell_(sheet, rowNumber, headers.automation_notes, `Audit error: ${error.message.slice(0, 45000)}`);
+    setLiftCell_(sheet, rowNumber, headers.pipeline_status, 'Auditing Failed');
+    setLiftCell_(sheet, rowNumber, headers.automation_notes, `Audit error: ${error.message.slice(0, 500)}`);
+    if (headers.next_step) {
+      setLiftCell_(sheet, rowNumber, headers.next_step, 'Audit failed — check Automation Notes or System Log, then re-audit manually.');
+    }
   }
 }
 
@@ -863,6 +869,40 @@ function callLiftClaudeAudit_(row, websiteText) {
     LIFT_PIPELINE_CONFIG.defaultModel;
 
   const prompt = buildLiftAuditPrompt_(row, websiteText);
+  const rawText = callLiftClaudeRaw_(apiKey, model, prompt, LIFT_PIPELINE_CONFIG.claudeMaxTokens, true);
+  if (!rawText) throw new Error('Claude returned no text response for audit.');
+
+  try {
+    return JSON.parse(extractLiftJson_(rawText));
+  } catch (firstError) {
+    const repairPrompt = buildLiftAuditRepairPrompt_(rawText);
+    let retryText;
+    try {
+      retryText = callLiftClaudeRaw_(apiKey, model, repairPrompt, 3000, false);
+    } catch (retryApiError) {
+      logLiftAuditFailure_(row.business_name, rawText, `Repair API call failed: ${retryApiError.message}`);
+      throw new Error(`Claude did not return JSON and repair call failed: ${firstError.message}`);
+    }
+    try {
+      return JSON.parse(extractLiftJson_(retryText || ''));
+    } catch (secondError) {
+      logLiftAuditFailure_(row.business_name, rawText, `Both parse attempts failed. First: ${firstError.message}. Retry: ${secondError.message}`);
+      throw new Error(`Claude did not return JSON after retry: ${firstError.message}`);
+    }
+  }
+}
+
+function callLiftClaudeRaw_(apiKey, model, prompt, maxTokens, useWebSearch) {
+  const payload = {
+    model,
+    max_tokens: maxTokens,
+    temperature: LIFT_PIPELINE_CONFIG.claudeTemperature,
+    messages: [{ role: 'user', content: prompt }]
+  };
+  if (useWebSearch) {
+    payload.tools = [{ type: 'web_search_20250305', name: 'web_search', max_uses: 5 }];
+  }
+
   const response = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
     method: 'post',
     muteHttpExceptions: true,
@@ -871,24 +911,7 @@ function callLiftClaudeAudit_(row, websiteText) {
       'x-api-key': apiKey,
       'anthropic-version': '2023-06-01'
     },
-    payload: JSON.stringify({
-      model,
-      max_tokens: LIFT_PIPELINE_CONFIG.claudeMaxTokens,
-      temperature: LIFT_PIPELINE_CONFIG.claudeTemperature,
-      tools: [
-        {
-          type: 'web_search_20250305',
-          name: 'web_search',
-          max_uses: 5
-        }
-      ],
-      messages: [
-        {
-          role: 'user',
-          content: prompt
-        }
-      ]
-    })
+    payload: JSON.stringify(payload)
   });
 
   const statusCode = response.getResponseCode();
@@ -898,14 +921,39 @@ function callLiftClaudeAudit_(row, websiteText) {
   }
 
   const data = JSON.parse(body);
-  const text = (data.content || [])
+  return (data.content || [])
     .filter(part => part.type === 'text')
     .map(part => part.text)
     .join('\n')
     .trim();
+}
 
-  if (!text) throw new Error(`Claude returned no text response: ${body.slice(0, 700)}`);
-  return JSON.parse(extractLiftJson_(text));
+function buildLiftAuditRepairPrompt_(rawText) {
+  return [
+    'The text below was supposed to be a valid JSON object but cannot be parsed as-is.',
+    'Return ONLY the valid JSON object. No markdown fences. No backticks. No explanation.',
+    'Start your response with { and end with }.',
+    '',
+    rawText.slice(0, 8000)
+  ].join('\n');
+}
+
+function logLiftAuditFailure_(businessName, rawText, errorNote) {
+  try {
+    const ss = SpreadsheetApp.openById(LIFT_PIPELINE_CONFIG.spreadsheetId);
+    const logSheet = ss.getSheetByName('System Log');
+    if (!logSheet) return;
+    const timestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm:ss');
+    logSheet.appendRow([
+      timestamp,
+      'Audit JSON parse failure',
+      String(businessName || ''),
+      String(errorNote || ''),
+      String(rawText || '').slice(0, 2000)
+    ]);
+  } catch (logError) {
+    // Logging failure must not propagate and kill the audit error path
+  }
 }
 
 function buildLiftAuditPrompt_(row, websiteText) {
@@ -1234,6 +1282,7 @@ function appendLiftNote_(existing, addition) {
 function determineAuditPipelineStatus_(audit, previousRow) {
   const priority = String(audit.priority || '').trim();
   const fitScore = Number(audit.fit_score);
+  const hasEmail = Boolean(String(previousRow.email || audit.email || '').trim());
   const hasDraft = Boolean(audit.draft_email || previousRow.draft_email);
   const hasOffer = Boolean(audit.recommended_offer);
   const isHold = /^hold$/i.test(priority);
@@ -1241,7 +1290,7 @@ function determineAuditPipelineStatus_(audit, previousRow) {
   const weakScore = !Number.isFinite(fitScore) || fitScore < 8;
 
   if (isHold) return 'Hold';
-  if (isLowPriority || weakScore || !hasDraft || !hasOffer) return 'New Lead';
+  if (isLowPriority || weakScore || !hasDraft || !hasOffer || !hasEmail) return 'New Lead';
   return 'Ready to Draft';
 }
 
