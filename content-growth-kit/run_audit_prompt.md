@@ -94,7 +94,7 @@ Direction B: [Name + describe — e.g. "Clean and Editorial" — ivory, warm neu
 Each direction shows: color palette with hex codes · font pairing · logo direction · one real-world mockup (cup, signage, or storefront)
 
 **Pricing + CTA page:**
-Use the best-fit offer from the audit: Mini-Audit · Starter Content Kit · Growth Content Kit · Content Bank + Brand/Social Direction · Website + Brand Refresh Add-On
+Use the best-fit offer from the audit: The Mini-Audit · Brand Foundation · Starter Content Kit · Content Bank · Blog & SEO Foundation · Blog Essentials · Blog Growth · Instagram Refresh · UGC Script Pack · Custom scoped add-on
 CTA: Ready to see what this looks like for [Business Name]? Let's start with a conversation.
 Signoff: Megan Reeves, Lift Studio
 

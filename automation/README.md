@@ -9,22 +9,30 @@ Lift Studio is a boutique brand and content studio for local businesses that alr
 ## Why This Works
 
 - Local businesses understand the value of a strong first impression.
-- Beauty, wellness, med spa, salon, aesthetic, hospitality, retail, and creative businesses have high visual standards.
+- Home services, trades, automotive, commercial services, and real estate businesses rely heavily on trust, local search, clear quote paths, reviews, and proof of real work.
+- Beauty, wellness, hospitality, retail, and creative businesses still have strong visual/content opportunities, but they are no longer the only default target.
 - The offer can start light: intro outreach, brand/content direction, social content systems, and website/social quick wins.
 - Full audits should be saved for warm replies or follow-ups, not the first cold email.
 - The work can still be automated: lead finding, scoring, outreach drafts, follow-up tracking, and later audit generation.
 
 ## Target Niche
 
-Start with med spas, salons, estheticians, wellness clinics, and beauty service businesses around Hershey, Harrisburg, Camp Hill, and nearby areas.
+Start with home services and practical local service businesses around Hershey, Harrisburg, Camp Hill, Mechanicsburg, and nearby areas: pest control, fencing, pool services, pressure washing, dumpster rental, roofing, electrical, HVAC, plumbing, concrete, septic, tree services, landscaping, automotive services, commercial cleaning, janitorial, commercial specialty contractors, and facility services.
+
+Real estate agents, teams, and local brokerages are also a strong expansion lane. Beauty, wellness, restaurants, hospitality, and retail remain valid secondary targets.
 
 ## Starter Offers
 
-- Mini-Audit Starter
-- Instagram Refresh
+- The Mini-Audit
+- Brand Foundation
+- Starter Content Kit
 - Content Bank
-- Growth Content Kit
-- Homepage First Impression Audit
+- Blog & SEO Foundation
+- Blog Essentials
+- Blog Growth
+- Instagram Refresh
+- UGC Script Pack
+- Custom scoped add-on
 
 Website notes are part of the value, but Lift Studio is not positioned as a website refresh company.
 

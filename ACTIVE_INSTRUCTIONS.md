@@ -5,7 +5,7 @@ This file is the first stop for Claude, Codex, or any other agent working in thi
 ## Source Of Truth
 
 - Current project root: `/Users/meganreeves/Documents/Projects/Lift Studio`
-- Current website: `https://helloliftstudio.netlify.app/`
+- Current website: `https://helloliftstudio.com/`
 - Current dashboard: `https://liftstudiosdashboard.netlify.app/`
 - Current Google Sheet: `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit`
 - Current GitHub repo: `https://github.com/mareeves9311/Lift-Studios`
@@ -45,6 +45,8 @@ Default outreach uses:
 
 - Link to the Lift Studio website for broader brand/studio context.
 - Attach only `site/_lift-brand/Lift Studio Service Menu.pdf`.
+- Current service-menu copy source: `site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`.
+- Current Canva service-menu design: `https://www.canva.com/design/DAHONAVSJIw/FUReYDpLrfT9CIT85pe_hg/edit`.
 
 Do not attach `About Lift Studio.pdf` or any old brand book unless Megan explicitly asks.
 
@@ -66,6 +68,40 @@ In HTML outreach drafts, mentions of `Lift Studio` in the body should render as 
 - **Megan's only manual role:** review Gmail drafts and send, handle contact-form/no-email rows manually.
 
 No future session should re-enable `enableAutoDiscovery` or add any scrape-based discovery to Apps Script. If discovery needs improvement, improve the Claude agent prompt or use a structured source like Vibiz — not HTML scraping.
+
+## Current Lead Strategy
+
+Home services and practical local service businesses are now the highest-priority discovery lane. Do not let the system default back to mostly med spas, salons, and restaurants.
+
+Primary categories to prioritize:
+
+- Pest control
+- Fencing
+- Pool services
+- Pressure washing
+- Dumpster rental
+- Roofing
+- Electrical
+- HVAC
+- Plumbing
+- Concrete contractors
+- Septic services
+- Tree services
+- Landscaping
+- Automotive services
+- Auto repair shops
+- Mobile detailing
+- Tire and brake shops
+- Commercial cleaning
+- Janitorial services
+- Commercial specialty contractors
+- Facility services
+
+Real estate agents, real estate teams, and local brokerages are also a strong expansion lane. Beauty, wellness, restaurants, hospitality, and retail remain valid, but they should not dominate daily discovery while the home-services push is active.
+
+For blue-collar and home-service audits, look for practical revenue leaks: unclear emergency/service-area pages, weak Google/local SEO, outdated or generic websites, no quote/request path, weak trust proof, review strength not used on-site, before/after work not turned into content, financing/warranty/service guarantees buried, and social content that does not show real jobs or expertise.
+
+For home-service, automotive, commercial-service, and real estate outreach, prioritize mentioning SEO/GEO blog content when it fits the audit: a simple recurring package where Lift provides one optimized blog per week for the business to post on its website. Position this as local search support, not generic blogging: service-area pages, seasonal questions, emergency/high-intent searches, homeowner FAQs, project explainers, and trust-building content that can help both Google search and AI/GEO visibility.
 
 - Agents write strategy, audit notes, email copy, status decisions, and sheet updates.
 - Apps Script creates Gmail drafts, attaches the service menu, embeds the HTML signature, and writes Gmail draft IDs back to the sheet.

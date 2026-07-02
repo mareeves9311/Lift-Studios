@@ -24,7 +24,7 @@ https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9v
 
 ## Current Brand Website
 
-https://helloliftstudio.netlify.app/
+https://helloliftstudio.com/
 
 ## Working Rule
 

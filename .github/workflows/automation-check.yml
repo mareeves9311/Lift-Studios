@@ -1,0 +1,26 @@
+name: Automation file sanity check
+
+on: [push, pull_request]
+
+jobs:
+  check-install-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Count installOutreachAutomation definitions
+        run: |
+          set -euo pipefail
+          count=$(grep -R --line-number "function installOutreachAutomation" . | wc -l || true)
+          echo "Found $count definitions of installOutreachAutomation"
+          if [ "$count" -gt 1 ]; then
+            echo "Error: multiple installOutreachAutomation functions found. Consolidate Apps Script entrypoints into automation/live_apps_script_sync/OutreachAutomation.gs" >&2
+            exit 1
+          fi
+      - name: Count Gmail draft creators
+        run: |
+          set -euo pipefail
+          drafts=$(grep -R --line-number "GmailApp.createDraft" automation || true)
+          if [ -n "$drafts" ]; then
+            echo "Gmail draft creation sites in automation:"
+            echo "$drafts"
+          fi

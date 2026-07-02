@@ -14,6 +14,20 @@ Score each lead from 0-20. Prioritize anything 13+.
 
 Examples of 4-point niches:
 
+- HVAC
+- Plumbing
+- Roofing
+- Electrical
+- Pest control
+- Fencing
+- Pool services
+- Concrete contractors
+- Septic services
+- Tree services
+- Landscaping
+- Commercial cleaning / facility services
+- Auto repair and mobile detailing
+- Real estate teams
 - Med spas
 - Cosmetic dental
 - Interior design
@@ -69,6 +83,9 @@ Examples of 4-point niches:
 - Clear niche but generic homepage copy
 - Mobile site has obvious issues
 - Services are valuable but hard to understand
+- Clear local search demand but no blog/FAQ/resource content
+- Seasonal or emergency services where weekly SEO/GEO blog content could capture customer questions
+- Strong project proof or expertise that could be turned into recurring website content
 
 ## Red Flags
 

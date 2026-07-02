@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lift Studio — Services Reference Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#3B5742; --invert:#2E4435; --sage:#9DB29F; --mist:#C6CFC2;
+    --cream:#FBFAF6; --cream2:#F4F2EA; --card:#F3F1EA; --tint:#EEF2EC;
+    --stone:#DEDBD3; --line:#E4E0D6; --body:#5F635A; --meta:#9A9C92; --ondark:#EDEBE2;
+    --serif:'Newsreader',Georgia,serif; --sans:'Hanken Grotesk',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#d9d6cc;font-family:var(--sans);color:var(--body);-webkit-font-smoothing:antialiased}
+  .slide{
+    position:relative;width:1280px;height:720px;margin:0 auto 28px;overflow:hidden;
+    background:var(--cream);padding:46px 80px 40px;display:flex;flex-direction:column;
+  }
+  .rh{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .rh .brand{font-weight:700;font-size:14px;letter-spacing:.28em;color:var(--forest)}
+  .rh .ref{font-size:11.5px;letter-spacing:.26em;color:var(--meta)}
+  .eyebrow{font-size:12.5px;letter-spacing:.24em;font-weight:600;color:var(--forest);text-transform:uppercase}
+  .tick{width:44px;height:2px;background:var(--forest);margin:0 0 18px}
+  h1.section{font-family:var(--serif);font-weight:300;font-size:44px;letter-spacing:-.02em;color:var(--invert);line-height:1.02}
+  .lede{font-size:16px;line-height:1.5;color:var(--body);max-width:780px}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.24em;color:var(--meta)}
+  .badge{display:inline-block;font-size:10.5px;letter-spacing:.18em;font-weight:600;text-transform:uppercase;padding:6px 11px;border-radius:5px}
+  .badge.fill{background:var(--invert);color:var(--ondark)}
+  .badge.outline{border:1px solid var(--stone);color:var(--meta)}
+  .badge.start{background:var(--forest);color:var(--cream)}
+
+  /* service row */
+  .svc{display:grid;grid-template-columns:290px 1fr;gap:44px;padding:22px 0;border-top:1px solid var(--line)}
+  .svc:last-of-type{border-bottom:1px solid var(--line)}
+  .svc .name{font-family:var(--serif);font-weight:400;font-size:26px;color:var(--invert);margin:12px 0 4px;line-height:1.05}
+  .svc .price{font-size:15px;font-weight:600;color:var(--forest)}
+  .svc .tag{font-family:var(--serif);font-style:italic;font-weight:300;font-size:15px;color:var(--meta);margin-top:6px;line-height:1.3}
+  .inc-label{font-size:11px;letter-spacing:.2em;font-weight:600;color:var(--forest);text-transform:uppercase;margin-bottom:10px}
+  .inc{display:grid;grid-template-columns:1fr 1fr;gap:5px 26px}
+  .inc li{list-style:none;position:relative;padding-left:15px;font-size:13.5px;line-height:1.35;color:var(--body)}
+  .inc li:before{content:'·';position:absolute;left:2px;color:var(--sage);font-weight:700}
+  .note{font-size:12.5px;line-height:1.45;color:var(--body);margin-top:11px}
+  .note b{color:var(--forest);font-weight:600}
+  .note.diff{color:var(--meta);margin-top:6px}
+
+  /* dark slides */
+  .slide.dark{background:var(--invert);color:var(--ondark)}
+  .slide.dark .rh{border-color:rgba(237,235,226,.18)}
+  .slide.dark .rh .brand{color:var(--cream)}
+  .slide.dark .rh .ref{color:var(--sage)}
+  .slide.dark .eyebrow{color:var(--sage)}
+  .slide.dark .tick{background:var(--sage)}
+  .cover-h{font-family:var(--serif);font-weight:300;font-size:92px;letter-spacing:-.025em;line-height:.98;color:var(--cream)}
+  .cover-h em{font-style:italic;color:var(--sage)}
+  .cover-sub{font-size:17px;line-height:1.55;color:rgba(237,235,226,.82);max-width:600px;margin-top:26px}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:22px}
+  .card{background:var(--cream2);border:1px solid var(--line);border-radius:10px;padding:22px 20px;display:flex;flex-direction:column}
+  .card.hl{background:var(--tint);border-color:var(--mist);box-shadow:0 18px 40px rgba(40,52,42,.10)}
+  .card .name{font-family:var(--serif);font-weight:400;font-size:23px;color:var(--invert);margin:12px 0 2px}
+  .card .price{font-size:14px;font-weight:600;color:var(--forest)}
+  .card .tag{font-family:var(--serif);font-style:italic;font-weight:300;font-size:14px;color:var(--meta);margin:7px 0 13px;line-height:1.3}
+  .card ul{margin-top:16px}
+  .card li{list-style:none;position:relative;padding-left:14px;font-size:12.5px;line-height:1.38;color:var(--body);margin-bottom:3px}
+  .card li:before{content:'·';position:absolute;left:2px;color:var(--sage);font-weight:700}
+  .card .best{font-size:12px;line-height:1.4;color:var(--body);margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+  .card .best b{color:var(--forest);font-weight:600}
+
+  /* add-ons */
+  .ala{display:grid;grid-template-columns:1fr 1fr;gap:20px 48px;margin-top:24px}
+  .ala .item{border-top:1px solid var(--line);padding-top:16px}
+  .ala .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .ala .name{font-family:var(--serif);font-weight:400;font-size:23px;color:var(--invert);line-height:1.08}
+  .ala .price{font-size:15px;font-weight:600;color:var(--forest);white-space:nowrap}
+  .ala .desc{font-size:14px;line-height:1.5;color:var(--body);margin-top:9px}
+  .onreq{margin-top:26px;padding:20px 24px;background:var(--tint);border:1px solid var(--line);border-radius:10px;font-size:14px;line-height:1.55;color:var(--body)}
+  .onreq b{color:var(--forest);font-weight:600}
+
+  /* legend / path */
+  .path{display:flex;flex-direction:column;gap:0;margin-top:26px;max-width:940px}
+  .path .row{display:grid;grid-template-columns:54px 220px 1fr;gap:24px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
+  .path .row:last-child{border-bottom:none}
+  .path .num{font-family:var(--serif);font-weight:300;font-size:34px;color:var(--sage);line-height:1}
+  .path .lbl{font-family:var(--serif);font-weight:400;font-size:22px;color:var(--invert)}
+  .path .desc{font-size:15px;line-height:1.5;color:var(--body)}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 — COVER -->
+<section class="slide dark" data-document-role="page" data-label="Cover">
+  <div class="rh"><span class="brand">LIFT STUDIO</span><span class="ref">CAPABILITIES &amp; CONTENT GUIDE</span></div>
+  <div style="margin-top:96px">
+    <div class="tick"></div>
+    <div class="eyebrow" style="margin-bottom:22px">Services Reference</div>
+    <h1 class="cover-h">Services,<br><em>explained.</em></h1>
+    <p class="cover-sub">Everything Lift offers, what each one includes, and where to start, so you always know which thing is right for you.</p>
+  </div>
+  <div class="foot" style="color:var(--sage)"><span>LIFT STUDIO</span><span>helloliftstudio@gmail.com</span></div>
+</section>
+
+<!-- SLIDE 2 — HOW TO WORK TOGETHER -->
+<section class="slide" data-document-role="page" data-label="How to work together">
+  <div class="rh"><span class="brand">LIFT STUDIO</span><span class="ref">SERVICES REFERENCE</span></div>
+  <div style="margin-top:34px">
+    <div class="tick"></div>
+    <div class="eyebrow">How to work together</div>
+    <h1 class="section" style="margin-top:12px">Simple, and built to fit.</h1>
+  </div>
+  <div class="path">
+    <div class="row"><span class="num">1</span><span class="lbl">Start with the Mini-Audit</span><span class="desc">See exactly where you stand, and get a clear next step. $250.</span></div>
+    <div class="row"><span class="num">2</span><span class="lbl">Set your foundation</span><span class="desc">Brand identity, or a blog and local SEO setup, or both.</span></div>
+    <div class="row"><span class="num">3</span><span class="lbl">Choose a monthly lane</span><span class="desc">Social content, blog and local SEO, or both. Switch tiers anytime.</span></div>
+    <div class="row"><span class="num">4</span><span class="lbl">Add on as needed</span><span class="desc">Profile refreshes, script packs, and more, available on request.</span></div>
+  </div>
+  <div class="foot"><span>Prices shown are starting ranges. Final scope is confirmed in your proposal.</span><span>01</span></div>
+</section>
+
+<!-- SLIDE 3 — SECTION 01 FOUNDATIONS -->
+<section class="slide" data-document-role="page" data-label="Foundations & one-time">
+  <div class="rh"><span class="brand">LIFT STUDIO</span><span class="ref">SERVICES REFERENCE</span></div>
+  <div style="margin-top:32px">
+    <div class="eyebrow">Section 01</div>
+    <h1 class="section" style="margin-top:10px">Foundations &amp; one-time</h1>
+    <p class="lede" style="margin-top:10px">Paid once. Where most people start, and the groundwork the rest is built on.</p>
+  </div>
+  <div style="margin-top:20px">
+    <div class="svc">
+      <div>
+        <span class="badge start">Start here</span>
+        <div class="name">The Mini-Audit</div>
+        <div class="price">$250</div>
+        <div class="tag">The fastest way to see where you stand.</div>
+      </div>
+      <div>
+        <div class="inc-label">What's included</div>
+        <ul class="inc">
+          <li>Website and social review</li>
+          <li>First-impression notes</li>
+          <li>5–7 specific quick wins</li>
+          <li>Content opportunities</li>
+          <li>A clear recommended next step</li>
+        </ul>
+        <p class="note diff"><b>Where it differs</b> One focused review of your whole presence. Deeper homepage or funnel reviews are available as add-ons.</p>
+      </div>
+    </div>
+    <div class="svc">
+      <div>
+        <span class="badge fill">One-time</span>
+        <div class="name">Brand Foundation</div>
+        <div class="price">$900–$1,800</div>
+        <div class="tag">The identity everything else is built on.</div>
+      </div>
+      <div>
+        <div class="inc-label">What's included</div>
+        <ul class="inc">
+          <li>Logo direction + final lockups and icon</li>
+          <li>Color &amp; type system</li>
+          <li>Simple usage guide</li>
+          <li>Profile, highlight &amp; signage application</li>
+        </ul>
+        <p class="note diff"><b>Where it differs</b> The full identity build with final files. Blog and SEO setup lives in its own section.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span></span><span>02</span></div>
+</section>
+
+<!-- SLIDE 4 — SECTION 02 SOCIAL CONTENT -->
+<section class="slide" data-document-role="page" data-label="Monthly social content">
+  <div class="rh"><span class="brand">LIFT STUDIO</span><span class="ref">SERVICES REFERENCE</span></div>
+  <div style="margin-top:30px">
+    <div class="eyebrow">Section 02</div>
+    <h1 class="section" style="margin-top:10px">Monthly social content</h1>
+    <p class="lede" style="margin-top:10px">Ongoing content built around your real services, FAQs, and objections. No long contract, switch tiers anytime.</p>
+  </div>
+  <div class="cards" style="grid-template-columns:1fr 1fr;max-width:880px;margin-top:26px">
+    <div class="card">
+      <span class="badge outline">Monthly</span>
+      <div class="name">Starter Content Kit</div>
+      <div class="price">$650 / month</div>
+      <div class="tag">A steady monthly rhythm, no full retainer.</div>
+      <ul>
+        <li>6 ready-to-film UGC-style video concepts</li>
+        <li>8 static post or carousel concepts</li>
+        <li>15 caption hooks</li>
+        <li>Monthly content calendar</li>
+        <li>Bio &amp; pinned-post recommendations</li>
+        <li>Light website/social quick-win notes</li>
+      </ul>
+      <p class="best"><b>Best for</b> Solo operators who want consistency without a full retainer.</p>
+    </div>
+    <div class="card hl">
+      <span class="badge fill">Most clients start here</span>
+      <div class="name">Content Bank</div>
+      <div class="price">$950 / month</div>
+      <div class="tag">A fuller monthly bank across Reels, posts, and captions.</div>
+      <ul>
+        <li>10 UGC-style video concepts</li>
+        <li>10 static post or carousel concepts</li>
+        <li>25 caption hooks</li>
+        <li>Monthly content calendar</li>
+        <li>3 pinned-post recommendations</li>
+        <li>1 monthly promo, offer, or campaign idea</li>
+      </ul>
+      <p class="best"><b>Best for</b> Most businesses, enough volume to stay consistent and start converting.</p>
+    </div>
+  </div>
+  <div class="foot"><span></span><span>03</span></div>
+</section>
+
+<!-- SLIDE 5 — SECTION 03 BLOG & LOCAL SEO -->
+<section class="slide" data-document-role="page" data-label="Blog & Local SEO">
+  <div class="rh"><span class="brand">LIFT STUDIO</span><span class="ref">SERVICES REFERENCE</span></div>
+  <div style="margin-top:26px">
+    <div class="eyebrow">Section 03</div>
+    <h1 class="section" style="margin-top:10px">Blog &amp; Local SEO</h1>
+    <p class="lede" style="margin-top:10px">Done-for-you website content built to rank. We write, optimize, and publish, so you show up when local customers search.</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="badge fill">One-time</span>
+      <div class="name">Blog &amp; SEO Foundation</div>
+      <div class="price">$600–$1,200</div>
+      <div class="tag">The groundwork your search visibility sits on.</div>
+      <ul>
+        <li>Local ranking snapshot for your key terms</li>
+        <li>High-intent local keyword research</li>
+        <li>Content pillars mapped to your services</li>
+        <li>Blog structure &amp; internal-linking plan</li>
+        <li>On-page baseline: titles, meta, alt text, FAQ, GBP</li>
+        <li>12-month seasonal topic calendar</li>
+      </ul>
+      <p class="best"><b>Start here,</b> then choose a monthly cadence.</p>
+    </div>
+    <div class="card hl">
+      <span class="badge fill">Most popular</span>
+      <div class="name">Blog Essentials</div>
+      <div class="price">$500–$750 / month</div>
+      <div class="tag">A steady, consistent publishing rhythm.</div>
+      <ul>
+        <li>2 SEO-optimized posts written &amp; published</li>
+        <li>Local keyword targeting</li>
+        <li>Internal links to the right service pages</li>
+        <li>Your real project photos placed in posts</li>
+        <li>Light monthly performance note</li>
+      </ul>
+      <p class="best"><b>Best for</b> Consistent ranking gains on a lean budget.</p>
+    </div>
+    <div class="card">
+      <span class="badge outline">Monthly</span>
+      <div class="name">Blog Growth</div>
+      <div class="price">$900–$1,400 / month</div>
+      <div class="tag">Faster momentum toward page one.</div>
+      <ul>
+        <li>4 SEO-optimized posts written &amp; published</li>
+        <li>Ongoing on-page SEO across your site</li>
+        <li>Quarterly topic &amp; keyword planning</li>
+        <li>Monthly performance report</li>
+        <li>Calls &amp; quote-request tracking</li>
+      </ul>
+      <p class="best"><b>Best for</b> Actively pushing to page one and more booked jobs.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Social content builds your feed. Blog content gets you found in search.</span><span>04</span></div>
+</section>
+
+<!-- SLIDE 6 — SECTION 04 ADD-ONS -->
+<section class="slide" data-document-role="page" data-label="Add-ons">
+  <div class="rh"><span class="brand">LIFT STUDIO</span><span class="ref">SERVICES REFERENCE</span></div>
+  <div style="margin-top:32px">
+    <div class="eyebrow">Section 04</div>
+    <h1 class="section" style="margin-top:10px">Add-ons</h1>
+    <p class="lede" style="margin-top:10px">Single pieces, billed per project, for when you need just one thing.</p>
+  </div>
+  <div class="ala">
+    <div class="item">
+      <div class="top"><span class="name">Instagram Refresh</span><span class="price">$250</span></div>
+      <p class="desc">Bio rewrite, highlight covers and structure, pinned-post plan, profile-grid cleanup, and a link-in-bio recommendation. Profile-level polish in one pass.</p>
+    </div>
+    <div class="item">
+      <div class="top"><span class="name">UGC Script Pack</span><span class="price">$300</span></div>
+      <p class="desc">5 ready-to-film UGC scripts with hooks, talking points, shot and angle notes, and on-screen text suggestions.</p>
+    </div>
+  </div>
+  <div class="onreq"><b>Also available on request:</b> carousel concept packs, caption &amp; hook banks, content calendars, brand direction mini-guides, and deeper homepage or funnel audits. Just ask and we'll scope it.</div>
+  <div class="foot"><span></span><span>05</span></div>
+</section>
+
+<!-- SLIDE 7 — CLOSING -->
+<section class="slide dark" data-document-role="page" data-label="Not sure which fits">
+  <div class="rh"><span class="brand">LIFT STUDIO</span><span class="ref">SERVICES REFERENCE</span></div>
+  <div style="margin-top:104px">
+    <div class="tick"></div>
+    <div class="eyebrow" style="margin-bottom:20px">Not sure which fits?</div>
+    <h1 class="cover-h" style="font-size:72px">Start with the <em>Mini-Audit.</em></h1>
+    <p class="cover-sub">It's the clearest first step. Tell us where you're stuck and we'll point you to exactly the right thing.</p>
+  </div>
+  <div class="foot" style="color:var(--sage)"><span>helloliftstudio@gmail.com</span><span>helloliftstudio.com</span></div>
+</section>
+
+</body>
+</html>

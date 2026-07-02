@@ -85,7 +85,33 @@ Expansion markets:
 
 Go wide. Do not limit Lift to beauty or restaurants.
 
-High-fit categories:
+Current highest-priority lane:
+
+- Pest control
+- Fencing
+- Pool services
+- Pressure washing
+- Dumpster rental
+- Roofing
+- Electrical
+- HVAC
+- Plumbing
+- Concrete contractors
+- Septic services
+- Tree services
+- Landscaping
+- Automotive services
+- Auto repair shops
+- Mobile detailing
+- Tire and brake shops
+- Commercial cleaning
+- Janitorial services
+- Commercial specialty contractors
+- Facility services
+
+These home-service, trade, automotive, and commercial-service businesses should be the default discovery focus until Megan changes the strategy. They are strong because their websites and local content directly affect quote requests, calls, emergency jobs, route density, and trust.
+
+Secondary high-fit categories:
 
 - Med spas
 - Facial spas / estheticians
@@ -106,9 +132,6 @@ High-fit categories:
 - Real estate agents and real estate teams
 - Home organizers
 - Home staging companies
-- Lawn care and property maintenance companies
-- Landscape designers
-- Plumbers with strong local reviews or premium service positioning
 - Luxury service providers
 - Pet groomers / boutique pet services
 - Chiropractors / physical therapy / specialty health providers
@@ -227,17 +250,18 @@ Use the smallest credible paid next step.
 
 Offer options:
 
-- Mini-Audit
+- The Mini-Audit
+- Brand Foundation
 - Starter Content Kit
-- Growth Content Kit
-- Content Bank + Brand/Social Direction
-- Homepage Refresh
-- Homepage + Service Page Refresh
-- Homepage + Inquiry Flow Refresh
-- Website + Brand Refresh Add-On
-- Growth Content Kit + Brand/Social Direction
+- Content Bank
+- Blog & SEO Foundation
+- Blog Essentials
+- Blog Growth
+- Instagram Refresh
+- UGC Script Pack
+- Custom scoped add-on
 
-Do not default every lead to a website refresh. If the website is acceptable but the content/social presence is weak, lead with content direction.
+Do not default every lead to a website refresh. If the website is acceptable but the content/social presence is weak, lead with social content direction. If there is local search demand and the site has weak educational content, lead with Blog & Local SEO.
 
 ## Category-Specific Angles
 
@@ -255,6 +279,72 @@ Look for:
 Good Lift angle:
 
 `Turn local expertise into clearer positioning, neighborhood content, stronger buyer/seller pages, and social content that builds trust before someone reaches out.`
+
+**Home Services / Trades**
+
+Includes pest control, fencing, pool services, pressure washing, dumpster rental, roofing, electrical, HVAC, plumbing, concrete, septic, tree services, landscaping, and related contractors.
+
+Look for:
+
+- Weak service-area pages
+- No clear quote/request path
+- Emergency or high-intent services buried
+- Strong Google reviews not used on the website
+- Before/after work not shown clearly
+- Generic service descriptions that do not explain process, trust, warranties, or guarantees
+- No seasonal content strategy
+- Social content that does not show real jobs, crews, equipment, project outcomes, or customer proof
+- Missing local SEO language for nearby towns
+
+Good Lift angle:
+
+`Turn local search demand and real project proof into clearer service pages, quote paths, before/after content, and trust-building website/social content that helps more homeowners call or request an estimate.`
+
+Strong offer to recommend when relevant:
+
+`Weekly SEO/GEO Blog Content` — one optimized blog per week for the client's website, built around local service searches, seasonal questions, emergency/high-intent needs, service-area terms, homeowner FAQs, project explainers, and trust-building content. This is especially strong for HVAC, roofing, plumbing, pest control, tree services, landscaping, septic, concrete, fencing, pool services, and other businesses where customers search before they call.
+
+**Automotive Services**
+
+Includes auto repair shops, mobile detailing, tire and brake shops, and specialty automotive services.
+
+Look for:
+
+- Service menu is unclear or too generic
+- Booking/request flow is hard to find
+- Reviews are strong but not surfaced
+- No trust-building content around diagnostics, maintenance, pricing expectations, or common customer questions
+- Before/after detailing work or repair expertise is not used in social content
+- No local SEO pages for high-intent services
+
+Good Lift angle:
+
+`Make the service path easier to understand, turn customer trust and real work into stronger proof, and create local content that helps drivers choose them before they call around.`
+
+Strong offer to recommend when relevant:
+
+`Weekly SEO/GEO Blog Content` — one optimized blog per week around common repairs, maintenance questions, seasonal issues, local service searches, pricing/diagnostic expectations, and trust-building explainers.
+
+**Commercial Services / Facility Services**
+
+Includes commercial cleaning, janitorial services, commercial specialty contractors, and facility services.
+
+Look for:
+
+- B2B buyer path is unclear
+- Industries served are buried or missing
+- No proof of reliability, insurance, safety, team process, or recurring service structure
+- Quote/request process is vague
+- Case studies, before/after photos, and maintenance outcomes are missing
+- Website speaks broadly instead of to property managers, offices, retail, medical, industrial, or schools
+
+Good Lift angle:
+
+`Clarify the buyer path for property managers and business owners, package proof of reliability, and turn recurring service strengths into website and sales content that supports more qualified inquiries.`
+
+Strong offer to recommend when relevant:
+
+`Weekly SEO/GEO Blog Content` — one optimized blog per week for the website, focused on industry-specific buyer questions, facility maintenance topics, compliance/safety considerations, recurring service needs, and local commercial search terms.
 
 **Med Spas / Beauty / Wellness**
 
@@ -460,10 +550,11 @@ The handoff destination is:
 
 If there are more ready leads than the daily draft target, prioritize:
 
-1. `A - High` leads with reachable email addresses.
-2. Leads with the strongest specific audit notes.
-3. Leads in categories most likely to afford Lift services.
-4. Leads that round out the daily batch across categories/cities.
+1. `A - High` home-service, trade, automotive, commercial-service, or real estate leads with reachable email addresses.
+2. Other `A - High` or `B - Possible` leads with reachable email addresses.
+3. Leads with the strongest specific audit notes.
+4. Leads in categories most likely to afford Lift services.
+5. Leads that round out the daily batch across categories/cities.
 
 ## Batch Workflow
 

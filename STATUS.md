@@ -7,7 +7,7 @@ Last updated: 2026-06-22
 - Active instruction entrypoint: `ACTIVE_INSTRUCTIONS.md`
 - Local workspace: `/Users/meganreeves/Documents/Projects/Lift Studio`
 - GitHub repo: `https://github.com/mareeves9311/Lift-Studios`
-- Website: `https://helloliftstudio.netlify.app/`
+- Website: `https://helloliftstudio.com/`
 - Dashboard: `https://liftstudiosdashboard.netlify.app/`
 - Google Sheet: `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit`
 

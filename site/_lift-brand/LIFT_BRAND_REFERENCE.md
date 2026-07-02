@@ -1,118 +1,171 @@
-# Lift Studio — Brand Reference
-*Master reference for Claude Design and all creative work. Keep this file open when designing for Lift Studio.*
+# Lift Studio - Brand Reference
 
----
+Master reference for Lift Studio creative, outreach, audits, proposals, decks, and service positioning.
+
+Last updated: 2026-07-02
+
+## Current Source Of Truth
+
+- Canva services/menu reference: https://www.canva.com/design/DAHONAVSJIw/FUReYDpLrfT9CIT85pe_hg/edit
+- Canva design title: `Lift Studio - Services Reference (v3)`
+- Website: https://helloliftstudio.com/
+- Contact: `helloliftstudio@gmail.com`
+
+Use the Canva v3 menu above as the current commercial reference. Older PDFs and markdown files may exist in the repo for archive/context only.
 
 ## Studio Identity
 
 **Name:** Lift Studio
-**Type:** Boutique content and brand studio
+
 **Owner:** Megan Reeves
-**Contact:** hello@liftcreativestudio.com
-**Tagline territory:** Calm, premium, specific. Content and brand direction for local businesses.
+
+**Type:** Boutique content and brand studio for local businesses.
+
+**Positioning:** Lift helps local businesses create a clearer, more polished first impression through audits, brand clarity, social content systems, and done-for-you blog and local SEO content.
+
+**Core promise:** Make the business easier to understand, easier to trust, and easier to find.
 
 **What Lift is:**
-A boutique studio that helps local businesses look credible, post consistently, and convert through social content and brand clarity. Lift is not a full-service agency. It sells direction, audits, and content systems — not execution, website redesign, or development.
 
-**What Lift is NOT:**
-- A social media management agency (no posting on behalf of clients)
-- A web development shop (no builds, redesigns, or dev work)
-- A generic template shop (everything is built from the client's real services, FAQs, and objections)
+Lift is a boutique studio that helps local businesses look credible, post consistently, and show up when local customers search. Lift offers audits, brand identity foundations, social content direction, and blog/local SEO execution.
 
----
+**What Lift is not:**
+
+- Not a social media management agency. Social work is content direction, concepts, scripts, captions, calendars, and profile polish, not daily posting.
+- Not a web development shop. Website work is audit, copy, layout direction, SEO content, and implementation-ready guidance, not full dev builds.
+- Not a generic template shop. Every recommendation is built from the client's real services, FAQs, objections, audience, and local market.
 
 ## Brand Voice
 
-**Tone:** Calm. Premium. Direct. Specific. Never corporate, never salesy, never generic.
-**Personality:** Confident advisor, not aggressive closer. Like a high-taste friend who knows brand and content cold.
+**Tone:** Calm, premium, direct, specific.
+
+**Personality:** Confident advisor, not aggressive closer. Warm, polished, practical, and clear.
+
 **Writing rules:**
-- Outcome-first language
-- Short declarative sentences preferred
-- No filler, no hedging
-- No em dashes (use commas, periods, or restructure the sentence)
-- Specificity over generality — name the real problem, name the real fix
 
-**Voice in practice:**
-- YES: "Your homepage has no CTA above the fold. Here's what to change."
-- NO: "Your website could potentially benefit from some improvements to the call-to-action placement."
-- YES: "Every piece is built from your real services, FAQs, and objections — never generic templates."
-- NO: "We create personalized content solutions tailored to your unique business needs."
+- Lead with the business outcome.
+- Use short, declarative language.
+- Name the real problem and the real fix.
+- Avoid filler, hedging, hype, and corporate agency language.
+- Avoid em dashes in client-facing copy. Use commas, periods, or restructure.
 
----
+**Voice examples:**
+
+- Yes: "Your homepage does not say what you do fast enough."
+- Yes: "Every piece is built from your real services, FAQs, and objections."
+- No: "We create personalized content solutions tailored to your unique business needs."
 
 ## Visual Identity
-*Pull from the Claude Design system Megan has already built. Key notes:*
 
-- **Color palette:** [Add hex codes from your Claude Design system here]
-- **Primary font:** [Add from Claude Design system]
-- **Secondary/accent font:** [Add from Claude Design system]
-- **Visual mood:** Clean, airy, editorial. Think boutique studio, not agency.
-- **Photography style:** Warm, real, lifestyle-adjacent. Not stock. Not corporate.
-- **Logo files:** [Add file paths or Canva links once exported]
+Current visual system remains the Lift Studio editorial identity.
 
-> **Note:** Full visual spec lives in the Lift Studio Claude Design system. Reference that for color tokens, type scales, and component styles.
+**Primary palette**
 
----
+| Name | Hex | Use |
+| --- | --- | --- |
+| Forest | `#3B5742` | Primary accent, headlines on light, key marks |
+| Deep Invert | `#2E4435` | Dark backgrounds and footers |
+| Sage | `#9DB29F` | Secondary accent, dividers, tags |
+| Green Mist | `#C6CFC2` | Soft fills and highlight blocks |
+| Cream | `#FBFAF6` | Primary background |
+| Warm Cream | `#F4F2EA` | Alternate background |
+| Card Cream | `#F3F1EA` | Cards and panels |
+| Sage Tint | `#EEF2EC` | Tinted surfaces |
+| Stone | `#DEDBD3` | Subtle fills |
+| Line | `#E4E0D6` | Borders and rules |
+| Body | `#5F635A` | Body copy on light |
+| Meta | `#9A9C92` | Captions and labels |
+| On Dark | `#EDEBE2` | Text on forest backgrounds |
 
-## Services — Full Reference
+**Typography**
 
-### ONE-TIME SERVICES
+- Display/headlines: Newsreader, light weight, editorial and airy.
+- Body/UI/labels: Hanken Grotesk, regular and bold.
+- Wordmark-style labels: Hanken Grotesk uppercase with wide tracking.
 
-| Service | Price | What's Included |
-|---|---|---|
-| **Brand Foundation** | $900–$1,800 | Logo direction + final lockups and icon, color & type system, simple usage guide, profile/highlight/signage application |
-| **Mini-Audit Starter** | $250–$350 | Website + social review, first-impression notes, 5–7 quick wins, content opportunities, recommended next step |
+**Mood:** Clean, airy, editorial, premium but approachable. Boutique studio, not generic agency.
 
-### MONTHLY CONTENT KITS
+## Current Service Menu
 
-| Service | Price | What's Included |
-|---|---|---|
-| **Starter Content Kit** | $650/mo | 6 UGC video concepts, 8 static/carousel concepts, 15 caption hooks, monthly content calendar, bio + pinned-post recs, light website/social quick-win notes |
-| **Content Bank** *(Most clients start here)* | $950/mo | 10 UGC video concepts, 10 static/carousel concepts, 25 caption hooks, monthly content calendar, 3 pinned-post recs, 1 monthly promo/offer/campaign idea, light brand/content direction notes |
-| **Growth Content Kit** | $1,350/mo | 12–15 video concepts, 12–16 static/carousel concepts, 30 caption hooks, monthly content calendar, offer + content direction, light brand direction, website/social quick-win notes, bio/highlight/pinned-post recs, 1 campaign/seasonal/promo concept |
+### How To Work Together
 
-### À LA CARTE
+1. **Start with the Mini-Audit.** See exactly where you stand and get a clear next step. `$250`.
+2. **Set your foundation.** Brand identity, or a blog and local SEO setup, or both.
+3. **Choose a monthly lane.** Social content, blog and local SEO, or both. Switch tiers anytime.
+4. **Add on as needed.** Profile refreshes, script packs, and more, available on request.
 
-| Service | Price | What's Included |
-|---|---|---|
-| **Instagram Refresh** | $250 | Bio rewrite, highlight covers + structure, pinned-post plan, profile-grid cleanup, link-in-bio recommendation |
-| **Carousel Concept Pack** | $250 | 3–4 carousel concepts, each with hook, slide-by-slide outline, suggested CTA, caption starter |
-| **UGC Script Pack** | $300 | 5 ready-to-film UGC scripts with hooks, talking points, shot/angle notes, on-screen text suggestions |
-| **Homepage First Impression Audit** | $300 | Deep review of one homepage: above-fold clarity, messaging, CTA, trust/proof, mobile notes, prioritized fix list |
-| **Caption + Hook Bank** | $200 | 25 scroll-stopping hooks + reusable caption frameworks, tailored to client offers/audience |
-| **Brand Direction Mini-Guide** | $400–$600 | Moodboard + visual direction, color + type direction, voice/tone notes, reference examples (direction only — no logo or final files) |
-| **Content Calendar Only** | $250 | One month of planned content slots: themes/series, posting cadence, format mix across Reels/carousels/statics |
+Prices shown are starting ranges. Final scope is confirmed in the proposal.
 
----
+### Foundations & One-Time
 
-## Service Positioning Notes
+| Service | Price | Positioning | Includes |
+| --- | --- | --- | --- |
+| **The Mini-Audit** | `$250` | The fastest way to see where you stand. | Website and social review, first-impression notes, 5-7 specific quick wins, content opportunities, and a clear recommended next step. |
+| **Brand Foundation** | `$900-$1,800` | The identity everything else is built on. | Logo direction and final lockups/icon, color and type system, simple usage guide, profile/highlight/signage application. |
 
-- Most clients start with the Mini-Audit Starter or Content Bank, then add à la carte pieces
-- Brand Foundation = full identity build. Brand Direction Mini-Guide = direction only, no deliverables
-- Mini-Audit Starter = broad sweep across site + social. Homepage First Impression Audit = one page, deep
-- Instagram Refresh = profile-level only. Monthly kits = ongoing post content
-- Content Calendar Only = the plan. Monthly kits = the plan + all the content inside it
+**Mini-Audit positioning:** One focused review of the whole presence. Deeper homepage or funnel reviews are available as add-ons.
 
----
+**Brand Foundation positioning:** Full identity build with final files. Blog and SEO setup lives in its own service lane.
+
+### Monthly Social Content
+
+Ongoing content built around the client's real services, FAQs, and objections. No long contract, switch tiers anytime.
+
+| Service | Price | Positioning | Includes |
+| --- | --- | --- | --- |
+| **Starter Content Kit** | `$650 / month` | A steady monthly rhythm, no full retainer. | 6 ready-to-film UGC-style video concepts, 8 static post or carousel concepts, 15 caption hooks, monthly content calendar, bio and pinned-post recommendations, light website/social quick-win notes. |
+| **Content Bank** | `$950 / month` | A fuller monthly bank across Reels, posts, and captions. | 10 UGC-style video concepts, 10 static post or carousel concepts, 25 caption hooks, monthly content calendar, 3 pinned-post recommendations, 1 monthly promo/offer/campaign idea. |
+
+**Starter Content Kit is best for:** Solo operators who want consistency without a full retainer.
+
+**Content Bank is best for:** Most businesses, enough volume to stay consistent and start converting.
+
+### Blog & Local SEO
+
+Done-for-you website content built to rank. Lift writes, optimizes, and publishes so clients show up when local customers search.
+
+| Service | Price | Positioning | Includes |
+| --- | --- | --- | --- |
+| **Blog & SEO Foundation** | `$600-$1,200` one-time | The groundwork search visibility sits on. | Local ranking snapshot for key terms, high-intent local keyword research, content pillars mapped to services, blog structure and internal-linking plan, on-page baseline for titles/meta/alt text/FAQ/GBP, 12-month seasonal topic calendar. |
+| **Blog Essentials** | `$500-$750 / month` | A steady, consistent publishing rhythm. | 2 SEO-optimized posts written and published, local keyword targeting, internal links to the right service pages, real project photos placed in posts, light monthly performance note. |
+| **Blog Growth** | `$900-$1,400 / month` | Faster momentum toward page one. | 4 SEO-optimized posts written and published, ongoing on-page SEO across the site, quarterly topic and keyword planning, monthly performance report, calls and quote-request tracking. |
+
+**Positioning note:** Social content builds the feed. Blog content gets the business found in search.
+
+### Add-Ons
+
+| Service | Price | Includes |
+| --- | --- | --- |
+| **Instagram Refresh** | `$250` | Bio rewrite, highlight covers and structure, pinned-post plan, profile-grid cleanup, and a link-in-bio recommendation. Profile-level polish in one pass. |
+| **UGC Script Pack** | `$300` | 5 ready-to-film UGC scripts with hooks, talking points, shot and angle notes, and on-screen text suggestions. |
+
+Also available on request: carousel concept packs, caption and hook banks, content calendars, brand direction mini-guides, and deeper homepage or funnel audits. Scope individually when asked.
+
+## Default Recommendation Logic
+
+- If the business is unsure where to start, recommend **The Mini-Audit**.
+- If the business needs identity clarity, recommend **Brand Foundation**.
+- If the business needs consistent social presence, recommend **Starter Content Kit** or **Content Bank**.
+- If the business wants more local search visibility, recommend **Blog & SEO Foundation**, then **Blog Essentials** or **Blog Growth**.
+- If the business only needs one piece, recommend an add-on or custom scoped item.
 
 ## Target Clients
 
-Local businesses with a real offer and an underperforming online presence. Examples: med spas, salons, fitness studios, boutique restaurants, wellness practitioners, specialty retail. They have customers but don't look the part on social or online. They need direction, not a big agency.
+Local service-based and consumer-facing businesses with a real offer and an underperforming online presence.
 
----
+Strong fits include:
 
-## Current Active Projects
-
-- **Lift Studio Content Growth Kit** — Reusable outreach attachment built around fictional client Juniper Skin Studio (boutique med spa). Demonstrates brand direction, website design, social content, and monthly content systems.
-- **Cold outreach targets:** Morning Fuel (Mechanicsburg, PA) and ongoing
-
----
+- Home services and contractors
+- Landscapers, roofers, HVAC, plumbing, electricians, fencing, pools, pressure washing, concrete, septic, pest control
+- Auto repair and commercial cleaning
+- Realtors and real estate teams
+- Med spas, salons, wellness clinics, chiropractors, physical therapists
+- Restaurants, cafes, boutiques, and specialty retail when there is clear visual/content potential
 
 ## Source Files
 
-- `About Lift Studio.pdf` — Historical/source studio overview in this folder. Do not attach to default outreach; link the live website instead.
-- `Lift Studio Service Menu.pdf` — Default outreach attachment and complete service breakdown.
-- Claude Design system — Visual identity tokens, components, and style guide
-
----
-*Last updated: June 2026*
+- Current Canva services/menu reference: https://www.canva.com/design/DAHONAVSJIw/FUReYDpLrfT9CIT85pe_hg/edit
+- Canva brand kit: https://www.canva.com/brand/kAHOMtNvA50
+- Live website: https://helloliftstudio.com/
+- Local fonts: `Lift Studio Brand Kit/Fonts/`
+- Logo files: `assets/` and `Lift Studio Brand Kit/03 Logos/`

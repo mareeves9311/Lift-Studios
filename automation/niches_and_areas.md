@@ -4,7 +4,34 @@
 
 These are strong because the website directly affects bookings, inquiries, or trust.
 
-### Tier 1: Highest Priority
+### Tier 1: Highest Priority Now
+
+Home services and practical local service businesses are the current top discovery priority.
+
+- Pest control
+- Fencing
+- Pool services
+- Pressure washing
+- Dumpster rental
+- Roofing
+- Electrical
+- HVAC
+- Plumbing
+- Concrete contractors
+- Septic services
+- Tree services
+- Landscaping
+- Automotive services
+- Auto repair shops
+- Mobile detailing
+- Tire and brake shops
+- Commercial cleaning
+- Janitorial services
+- Commercial specialty contractors
+- Facility services
+- Realtors and small real estate teams
+
+### Tier 2: Still Strong
 
 - Med spas
 - Aesthetic clinics
@@ -20,18 +47,12 @@ These are strong because the website directly affects bookings, inquiries, or tr
 - Wedding planners
 - Interior designers
 
-### Tier 2: Good Expansion Niches
+### Tier 3: Good Expansion Niches
 
 - Local boutiques
 - Restaurants and cafes with catering/private events
 - Florists
 - Home organizers
-- Cleaning companies
-- Lawn care and property maintenance companies
-- Landscapers
-- Plumbers with strong local reviews or premium service positioning
-- Contractors with premium services
-- Realtors and small real estate teams
 - Therapists and coaches
 - Pet groomers
 - Dog trainers
@@ -97,6 +118,22 @@ Run searches by combining:
 
 Examples:
 
+- pest control Harrisburg PA
+- fencing contractor Mechanicsburg PA
+- pool service Hershey PA
+- pressure washing Camp Hill PA
+- dumpster rental Harrisburg PA
+- roofing contractor Hershey PA
+- electrician Mechanicsburg PA
+- HVAC company Harrisburg PA
+- plumber Camp Hill PA
+- concrete contractor Lancaster PA
+- septic service Lebanon PA
+- tree service Carlisle PA
+- landscaper Hershey PA
+- auto repair shop Mechanicsburg PA
+- mobile detailing Harrisburg PA
+- commercial cleaning Harrisburg PA
 - med spa Harrisburg PA
 - esthetician Hershey PA
 - salon Camp Hill PA
@@ -105,3 +142,16 @@ Examples:
 - cosmetic dentist Mechanicsburg PA
 
 The goal is not to find every business. The goal is to find businesses with enough visible opportunity that a short, specific pitch feels useful.
+
+## Offer Angle To Prioritize
+
+For home services, trades, automotive services, commercial services, and real estate, prioritize `Weekly SEO/GEO Blog Content` when the business has clear search demand or weak educational content.
+
+Positioning:
+
+- One optimized blog per week for the client's website
+- Built around local search terms, service-area pages, customer FAQs, seasonal questions, emergency/high-intent searches, project explainers, and trust-building topics
+- Helps Google understand the business better and gives AI/GEO search more useful context
+- Gives customers practical answers before they request a quote, call, book, or inquire
+
+This should be framed as useful local search/content infrastructure, not generic blogging.

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.liftstudio.daily-outreach</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/meganreeves/Documents/Projects/Lift Studio/automation/run_daily_8am_outreach.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/meganreeves/Documents/Projects/Lift Studio</string>
+
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict>
+      <key>Hour</key>
+      <integer>5</integer>
+      <key>Minute</key>
+      <integer>30</integer>
+    </dict>
+    <dict>
+      <key>Hour</key>
+      <integer>10</integer>
+      <key>Minute</key>
+      <integer>30</integer>
+    </dict>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/Users/meganreeves/Documents/Projects/Lift Studio/automation/logs/launchd-daily-outreach.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/meganreeves/Documents/Projects/Lift Studio/automation/logs/launchd-daily-outreach.err.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

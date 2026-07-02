@@ -78,7 +78,7 @@ Rules:
 
 Website:
 
-`https://helloliftstudio.netlify.app/`
+`https://helloliftstudio.com/`
 
 Dashboard:
 

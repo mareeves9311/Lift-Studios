@@ -69,7 +69,34 @@ Prioritize Central PA:
 - Lebanon
 - Annville
 
-Categories to rotate:
+Categories to prioritize first:
+
+- Pest control
+- Fencing
+- Pool services
+- Pressure washing
+- Dumpster rental
+- Roofing
+- Electrical
+- HVAC
+- Plumbing
+- Concrete contractors
+- Septic services
+- Tree services
+- Landscaping
+- Automotive services
+- Auto repair shops
+- Mobile detailing
+- Tire and brake shops
+- Commercial cleaning
+- Janitorial services
+- Commercial specialty contractors
+- Facility services
+- Real estate agents and teams
+
+These are the current highest-priority discovery lanes. Beauty, wellness, restaurants, retail, and hospitality remain useful, but do not let them dominate the daily run while home services are the active priority.
+
+Secondary categories to rotate:
 
 - Med spas
 - Facial spas / estheticians
@@ -83,7 +110,6 @@ Categories to rotate:
 - Bakeries / dessert shops
 - Coffee shops
 - Restaurants with visual/social potential
-- Real estate agents and teams
 - Home staging / home organization
 - Boutique fitness / pilates / yoga
 
@@ -107,6 +133,18 @@ Each added/audited brand should have:
 - Recommended Lift offer
 - Draft angle / outreach angle
 - Date added or updated
+
+For home-service, trade, automotive, and commercial-service audits, prioritize concrete revenue leaks:
+
+- Local search/service-area weakness
+- Unclear quote, call, or estimate path
+- Emergency/high-intent service pages buried or missing
+- Reviews, guarantees, warranties, safety, insurance, or team proof not used well
+- Before/after work, crews, projects, equipment, or outcomes not turned into content
+- Seasonal service opportunities not reflected in website/social content
+- B2B buyer path unclear for commercial services
+
+When relevant, recommend or mention `Weekly SEO/GEO Blog Content`: one optimized blog per week for the business to post on its website, built around local service searches, service-area terms, seasonal demand, customer FAQs, project explainers, emergency/high-intent questions, and AI-search/GEO visibility. This should feel specific to the business, not like a generic blogging upsell.
 
 Use column names rather than fixed positions when updating sheets.
 
@@ -134,7 +172,7 @@ Copy and draft format:
 
 - Subject: `One thing I noticed about [Brand Name]`
 - Body follows `agents/email_marketer.md`
-- `Lift Studio` is hyperlinked to `https://helloliftstudio.netlify.app/`
+- `Lift Studio` is hyperlinked to `https://helloliftstudio.com/`
 - Apps Script attaches the Google Drive service menu PDF.
 - Apps Script embeds the tested `LIFT_STUDIO_HTML_SIGNATURE_` from `automation/live_apps_script_sync/OutreachAutomation.gs`.
 

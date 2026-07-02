@@ -13,3 +13,14 @@ __pycache__/
 *.psd
 *.ai
 *.indd
+
+# Generated local exports and temporary render assets
+.tmp_master_upload/
+Lift Studio Brand Kit/
+Lift Studio Brand Kit - archived wrong prompt */
+audits/
+
+# Canva / deck / document exports should live in Canva or Drive unless force-added intentionally.
+*.pdf
+*.pptx
+*.xlsx

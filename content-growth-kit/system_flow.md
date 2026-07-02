@@ -83,14 +83,18 @@ Reference example: `morning_fuel_mechanicsburg_mini_audit.md`
 
 Pick the smallest logical next step:
 
-- Mini-Audit
+- The Mini-Audit
+- Brand Foundation
 - Starter Content Kit
-- Growth Content Kit
-- Content Bank + Brand/Social Direction
-- Website + Brand Refresh Add-On
-- Growth Content Kit + Brand/Social Direction
+- Content Bank
+- Blog & SEO Foundation
+- Blog Essentials
+- Blog Growth
+- Instagram Refresh
+- UGC Script Pack
+- Custom scoped add-on
 
-Do not default every lead to a website refresh. If the website is strong but social or brand consistency is weak, lead with content/brand direction.
+Do not default every lead to a website refresh. If the website is strong but social or brand consistency is weak, lead with social content or brand direction. If local search demand is visible, lead with Blog & Local SEO.
 
 ---
 

@@ -11,7 +11,7 @@ This agent turns qualified local-business leads into thoughtful first-touch outr
 - Canonical repo: `/Users/meganreeves/Documents/Projects/Lift Studio`
 - Active sheet: Lift Studio Master Pipeline
   - `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit`
-- Brand website: `https://helloliftstudio.netlify.app/`
+- Brand website: `https://helloliftstudio.com/`
 - Gmail account: `helloliftstudio@gmail.com`
 - Service menu attachment:
   - `site/_lift-brand/Lift Studio Service Menu.pdf`
@@ -87,6 +87,7 @@ Use:
 - One genuine hook about what the business already has going for it
 - Two useful observations pulled from audit notes or category logic
 - Plain-language SEO, UX, social, or content direction comments
+- For home-service, automotive, commercial-service, and real estate leads, mention weekly SEO/GEO blog content when it fits: one optimized blog per week for their website, built around local search terms, service-area questions, seasonal demand, customer FAQs, and AI-search/GEO visibility.
 - A low-pressure close
 - The service menu attachment
 - The visual HTML signature
@@ -124,7 +125,7 @@ Lift Studio
 
 In HTML drafts, hyperlink `Lift Studio` to:
 
-`https://helloliftstudio.netlify.app/`
+`https://helloliftstudio.com/`
 
 ## Observation Categories
 
@@ -138,10 +139,15 @@ Choose the two strongest and most actionable observations for each brand.
 - Google Business Profile gaps
 - Lack of location-specific content
 - Missing FAQ/blog content to capture search intent
+- Weekly SEO/GEO blog content opportunities: one optimized post per week around local service searches, homeowner/customer FAQs, seasonal demand, service-area terms, and AI-search visibility.
 
 Use plain language. Example:
 
 `Most massage therapy discovery starts with search. People are looking for pain relief, relaxation, therapeutic massage, and licensed providers nearby. Clearer service language, stronger local terms, and content that answers common client questions before they book would be a meaningful first step.`
+
+Home-services example:
+
+`For a roofing or HVAC company, a simple weekly blog rhythm could do real work: one SEO/GEO-optimized post each week around the questions homeowners are already searching, like emergency repairs, seasonal maintenance, service-area needs, warranties, pricing expectations, and when to call a pro. That kind of content gives Google and AI search engines more useful context while also helping customers trust you before they request an estimate.`
 
 **Website/UX**
 

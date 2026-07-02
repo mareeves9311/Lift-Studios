@@ -19,7 +19,7 @@ The goal is to make sure good opportunities do not disappear after the first ema
 - Lead/audit owner:
   - `agents/new_business_auditor.md`
 - Brand website:
-  - `https://helloliftstudio.netlify.app/`
+  - `https://helloliftstudio.com/`
 - Gmail signature:
   - `assets/lift-studio-gmail-signature.html`
 

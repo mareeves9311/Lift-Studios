@@ -80,7 +80,7 @@ Lift Studio
 Social Strategy · Content Direction · Brand Audits
 Content that works harder.
 helloliftstudio@gmail.com
-https://helloliftstudio.netlify.app/
+https://helloliftstudio.com/
 ```
 
 This is less visual, but it is better than sending a broken visual block.

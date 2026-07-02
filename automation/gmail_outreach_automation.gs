@@ -630,7 +630,7 @@ function buildHtmlBody_(business, draftEmail) {
 
   const bodyHtml = paragraphs.join('\n').replace(
     /\bLift Studio\b/g,
-    `<a href="https://helloliftstudio.netlify.app/" style="color:#0f3f35; text-decoration:none; font-weight:600;">Lift Studio</a>`
+    `<a href="https://helloliftstudio.com/" style="color:#0f3f35; text-decoration:none; font-weight:600;">Lift Studio</a>`
   );
 
   return `${bodyHtml}\n<br>\n${LIFT_STUDIO_HTML_SIGNATURE_}`;

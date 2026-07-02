@@ -338,7 +338,7 @@ function buildLiftAuditPrompt_(row, websiteText) {
       content_opportunities: 'string',
       quick_win: 'string',
       why_it_matters: 'string',
-      recommended_offer: 'Mini-Audit|Starter Content Kit|Growth Content Kit|Content Bank + Brand/Social Direction|Website + Brand Refresh Add-On|Growth Content Kit + Brand/Social Direction',
+      recommended_offer: 'The Mini-Audit|Brand Foundation|Starter Content Kit|Content Bank|Blog & SEO Foundation|Blog Essentials|Blog Growth|Instagram Refresh|UGC Script Pack|Custom scoped add-on',
       audit_type: 'Website only|Social only|Brand only|Website + Social|Website + Social + Brand',
       next_step: 'string',
       notes: 'string',
