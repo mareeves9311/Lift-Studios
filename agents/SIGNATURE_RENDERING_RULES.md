@@ -1,5 +1,7 @@
 # Lift Studio Signature Rendering Rules
 
+> **LEGACY / V2 CANDIDATE NOTE.** These rules describe the old Apps Script draft-rendering path. The current Lift workflow is manual-first; do not run Apps Script test-draft functions, `createOutreachDrafts()`, or sheet automation menus unless Megan explicitly reapproves a simplified V2.
+
 ## Why This Exists
 
 The first Gmail outreach batch was sent, but the embedded visual signature did not render correctly.

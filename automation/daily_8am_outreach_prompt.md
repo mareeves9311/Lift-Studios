@@ -1,5 +1,7 @@
 # Lift Studio Twice-Daily Outreach Batch
 
+> **LEGACY / V2 CANDIDATE — DO NOT RUN.** This prompt belongs to the old outbound engine. Old live Apps Script triggers were found and manually deleted on 2026-07-06. No scheduled Lift automation is currently approved. Do not use this prompt to run daily outbound, create drafts, call doPost, run Apps Script functions, or revive the old engine.
+
 You are running the Lift Studio daily outbound workflow unattended.
 
 Canonical repo:

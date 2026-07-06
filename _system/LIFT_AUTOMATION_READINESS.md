@@ -18,29 +18,30 @@ The Lift Studio system operates in a simplified manual-first mode:
 **Category:** LEGACY / V2 CANDIDATE
 **Connection:** clasp (`automation/live_apps_script_sync/.clasp.json`)
 **Reconciliation Status:** Not attempted since 2026-06-23
+**Runtime Status:** LEGACY / V2 CANDIDATE / CONNECTED BUT NOT RECONCILED / DO NOT RUN
 
 ### Trigger Status
-**All triggers removed:** 2026-07-06
+**Old live triggers found and manually removed:** 2026-07-06
 - ✅ `refreshSentAndReplies` — DELETED
 - ✅ `runLiftStudioDailySystem` — DELETED
 - ✅ `createOutreachDrafts` — DELETED
 - ✅ `runQueuedLiftBrandAudits` — DELETED
 - ✅ `handleLiftBrandPipelineEdit` — DELETED
 
-No time-based or event-based triggers are currently active.
+No time-based or event-based triggers are currently approved. The documented deletion means the old engine is decommissioned, not safe to revive.
 
 ### Known Issues (Do not fix without reapproval)
 
 1. **Fail-open secret check** in `LiftPipelineAutomation.gs` line 1345:
    - Web app endpoint skips authorization if `LIFT_WEB_APP_SECRET` property is missing
-   - Endpoint marked **UNSAFE UNTIL REVIEWED** and patched
+   - Endpoint marked **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED**
    - Required fix: `if (!secret || payload.secret !== secret) { return liftJsonResponse_({ ok:false, error:'Unauthorized' }); }`
    - Cannot deploy fix without explicit reapproval + clasp access as helloliftstudio
 
 2. **Gmail writers present** in `OutreachAutomation.gs`:
    - `GmailApp.createDraft()` calls at three locations
    - Inbox hygiene functions (label/archive)
-   - None approved to run; all functions are blocked by missing triggers
+   - None approved to run; trigger deletion reduces background risk but is not permission to run functions manually
 
 3. **Repo/live drift unverified**:
    - clasp is wired but has not pulled/pushed since 2026-06-23
@@ -53,15 +54,15 @@ No time-based or event-based triggers are currently active.
 - Manual Gmail drafts via Megan's email client
 - Megan's direct user interactions with the website
 - Claude chat audits via `$liftaudit`
-- Read-only reports (e.g., health snapshot if manually triggered via sheet menu)
+- Read-only local reports only if they do not execute Apps Script functions. Sheet-menu health snapshots are Apps Script function execution and require explicit reapproval.
 
 ### What is blocked
 - All automatic discovery (disabled 2026-06-22, `enableAutoDiscovery: false`)
-- All scheduled runs (triggers deleted 2026-07-06)
+- All scheduled runs (old live triggers found and deleted 2026-07-06)
 - All auto-send (never enabled, all sends are Megan's click)
 - Web app endpoint (unsafe until patched)
 - Any Apps Script function execution without explicit request
-- Any clasp operations (pull/push/diff) without re-login and explicit reapproval
+- Any clasp operations (pull/push/diff/status) without re-login and explicit reapproval
 
 ## Reapproval Required For
 
@@ -73,10 +74,10 @@ No time-based or event-based triggers are currently active.
 
 ## For V2 Revival
 
-Requires Megan's explicit reapproval AND completion of:
+Requires Megan's explicit reapproval AND a simplified V2 rebuild plan. Do not revive the old outbound engine as-is. Completion requirements:
 1. Fail-closed secret patch deployed via clasp
 2. Web app endpoint verified safe
-3. Live/repo drift reconciled via clasp pull/diff
+3. Live/repo drift reconciled through an explicitly approved archival diff workflow
 4. Trigger inventory clean (already done)
 5. Each function supervised-tested before enabling
 6. Explicit division of labor enforced: AI judgment (discovery) + structured execution (mechanics) + no HTML scraping + nothing auto-sends

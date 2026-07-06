@@ -1,5 +1,7 @@
 # Lift Studio Email Marketer Agent
 
+> **LEGACY / V2 CANDIDATE — DO NOT RUN as an active agent.** This file is preserved for reference from the old outbound engine and is superseded by `../ACTIVE_INSTRUCTIONS.md` for current work. Do not use it to create Gmail drafts, call doPost, run Apps Script functions, or revive `createOutreachDrafts()`. Current outreach is manual-first and human-approved.
+
 ## Purpose
 
 Own Lift Studio's outbound email workflow from pipeline review through Gmail draft creation, without sending emails automatically.

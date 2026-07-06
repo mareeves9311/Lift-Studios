@@ -1,5 +1,7 @@
 # Lift Studio Foundational Agentic System Brief
 
+> **LEGACY / V2 CANDIDATE — DO NOT RUN.** This brief describes the old staged outbound engine. It is preserved for reference only and is superseded by `../ACTIVE_INSTRUCTIONS.md`. Old live Apps Script triggers were found and manually deleted on 2026-07-06. The clasp-connected script remains "Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN" (`1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su`). Do not run Apps Script functions, doPost, scheduled routines, clasp pull, clasp push, or trigger installers from this model. Any future automation must be rebuilt as simplified V2.
+
 This is the grounding document for the Lift Studio agent system. It defines the agents, the automation layers, the sheet/Gmail handoffs, and the intended closed-loop operating model.
 
 Use this file before changing any agent, Apps Script automation, dashboard logic, or outreach workflow.
@@ -35,7 +37,7 @@ GitHub repo:
 The repo stores:
 
 - active agent instructions,
-- production Apps Script source,
+- legacy Apps Script source (connected but not reconciled; do not run),
 - dashboard/source website files,
 - system documentation,
 - service menu source PDF,
@@ -102,7 +104,7 @@ Do not attach `About Lift Studio.pdf` or old brand-book files unless Megan expli
 
 There are two kinds of automation. Keep them distinct.
 
-### Layer 1: Google Apps Script
+### Layer 1: Google Apps Script — LEGACY / V2 CANDIDATE, DO NOT RUN
 
 This is the dependable cloud executor. It runs even when Codex/Claude are not open, once triggers are installed.
 

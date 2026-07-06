@@ -1,6 +1,8 @@
 # Lift Studio Scheduled Cloud Agent Routines
 
-Last updated: 2026-06-17
+Last updated: 2026-07-06
+
+> **LEGACY / V2 CANDIDATE — DO NOT RUN.** This file documents the old Lift outbound cloud-agent routine layer. Old live Apps Script triggers were found and manually deleted on 2026-07-06. No scheduled Lift automation is currently approved. Do not run these routines, call the doPost web app endpoint, run Apps Script functions, install triggers, or run clasp pull/push. Any future Lift automation must be rebuilt as simplified V2, not revived from this old engine.
 
 These are the configured Claude Code cloud agent routines intended to run the Lift Studio judgment layer. They are separate from Apps Script triggers. They should fire on a cron schedule in Anthropic's cloud — no Mac required, no session open — but their run history and status-email delivery must be verified in Claude Code Routines before treating them as healthy.
 

@@ -4,6 +4,8 @@ Running log of all opportunity briefs surfaced by the Innovator agent. Updated a
 
 Status labels: `Open` / `In progress` / `Accepted` / `Declined` / `Revisit later`
 
+**2026-07-06 safety override:** items that recommend Apps Script triggers, scheduled outbound, doPost writes, draft creation, or GitHub dispatch from the old Lift engine are historical only unless re-scoped as simplified V2 and explicitly reapproved. Old live Apps Script triggers were found and manually deleted on 2026-07-06.
+
 See `agents/innovator.md` for the brief format, scoring rubric, and observation cadence.
 
 ---
@@ -14,7 +16,7 @@ See `agents/innovator.md` for the brief format, scoring rubric, and observation 
 **Date:** 2026-06-17
 **Category:** Tool unlock
 **Priority score:** 11/12
-**Status:** Accepted
+**Status:** Revisit later — superseded by 2026-07-06 legacy-engine decommission
 
 **Opportunity:** The system previously depended on the Mac being on for scheduled batch runs via LaunchAgent. Google Apps Script time-based triggers now run the core scheduled work in Google's cloud.
 
@@ -24,7 +26,7 @@ See `agents/innovator.md` for the brief format, scoring rubric, and observation 
 
 **What it takes:** Done for the core schedule. Remaining maintenance should use the current sheet ID: `1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8`.
 
-**Recommended next step:** Keep triggers monitored from Apps Script. Do not restore the archived LaunchAgent workflow unless explicitly needed.
+**Recommended next step:** Do not reinstall triggers. If automation returns, rebuild as simplified V2 after fail-closed endpoint review and explicit reapproval.
 
 ---
 
@@ -96,7 +98,7 @@ See `agents/innovator.md` for the brief format, scoring rubric, and observation 
 
 **What it takes:** Medium. A simple GitHub Actions workflow file (`.github/workflows/commit-run-report.yml`) triggered by a repository dispatch event. The Apps Script `onComplete` function would call the GitHub API to fire the dispatch. This requires adding a GitHub personal access token to Apps Script properties.
 
-**Recommended next step:** Implement INN-001 first (Apps Script triggers). Then add the GitHub dispatch call to the existing scripts' run-report output blocks.
+**Recommended next step:** Deferred. Do not implement against the old Apps Script engine; revisit only after a simplified V2 exists and is explicitly approved.
 
 ---
 

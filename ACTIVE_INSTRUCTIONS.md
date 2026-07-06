@@ -28,11 +28,15 @@ Automated discovery · automated scoring/priority fields · recommended-offer ma
 
 Everything below is preserved for reference and possible V2 revival. **CONNECTED BUT NOT RECONCILED — DO NOT RUN.**
 
+- Script ID: `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su`
+- Script name: "Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN"
+- Old live triggers were found and manually deleted on 2026-07-06. No scheduled Lift automation is currently approved.
 - Agent profiles: `agents/` (orchestrator, new_business_auditor, email_marketer, follow_up_pipeline_manager, quality_control, innovator) + `agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md`, `agents/OPERATING_SYSTEM.md`
 - Apps Script: `automation/live_apps_script_sync/OutreachAutomation.gs` + `LiftPipelineAutomation.gs` — see `automation/LEGACY_README.md` for the safety findings (fail-open secret check; trigger installers; draft creators)
 - Batch prompts: `automation/daily_8am_outreach_prompt.md`, `automation/scheduled_routines.md`
 - Do NOT use the sheet's `Outreach Automation` / `Lift Pipeline` menus — several items install triggers or create drafts (`Install/Repair Full Automation`, `Run Full Lift Studio System Now`, `Create Gmail Drafts`).
-- The live Apps Script web app endpoint is **UNSAFE UNTIL REVIEWED**: the secret check is fail-open if `LIFT_WEB_APP_SECRET` is missing (verified in code, LiftPipelineAutomation.gs `doPost`). No web-app calls until a fail-closed patch is reviewed and approved.
+- The live Apps Script web app endpoint is **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED**: the secret check is fail-open if `LIFT_WEB_APP_SECRET` is missing (verified in code, LiftPipelineAutomation.gs `doPost`). No web-app calls until a fail-closed patch is reviewed and approved.
+- Do not run clasp pull, clasp push, Apps Script functions, trigger installers, or scheduled routines. Any future automation must be rebuilt as simplified V2, not revived from this old engine.
 - Locked lesson that carries into any V2: discovery is judgment-led by an AI agent, never HTML scraping; `enableAutoDiscovery` stays `false`.
 
 ## Still-valid reference material (usable for manual audits + outreach)

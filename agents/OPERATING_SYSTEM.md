@@ -1,5 +1,7 @@
 # Lift Studio Agent Operating System
 
+> **LEGACY / V2 CANDIDATE — DO NOT RUN.** This map describes the old outbound engine and is superseded by `../ACTIVE_INSTRUCTIONS.md`. Old live Apps Script triggers were found and manually deleted on 2026-07-06. Do not run Apps Script functions, scheduled routines, doPost, clasp pull, clasp push, or trigger installers from this model.
+
 This file is a short map of the Lift Studio agent system.
 
 For the full source of truth, use:
@@ -26,7 +28,7 @@ The shared state layer is the Google Sheet:
 
 `Pipeline` is the backend/source-of-truth tab.
 
-The dependable background executor is Google Apps Script:
+The old background executor was Google Apps Script and is now legacy/do-not-run:
 
 `automation/live_apps_script_sync/`
 
@@ -82,5 +84,5 @@ Claude/Codex sessions and scheduled routines provide judgment, research, strateg
 - The website is linked in outreach.
 - Only the service menu PDF is attached by default.
 - The old About/brand-book PDF is not attached unless Megan explicitly asks.
-- Apps Script is the production automation source.
+- Apps Script is legacy/V2-candidate automation source, connected but not reconciled, and must not run without explicit reapproval.
 - Old archived instructions are reference-only.

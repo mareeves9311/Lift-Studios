@@ -12,7 +12,7 @@ Before making Lift Studio changes, read:
 
 Account: **helloliftstudio@gmail.com** for Gmail/Sheets/Drive. GitHub: mareeves9311/Lift-Studios. Wrong account = stop and tell Megan.
 
-Current model (2026-07-06): simplified manual-first workflow — tracker sheet, manual audits via `$liftaudit`, human-approved outreach. The Apps Script outbound engine and multi-agent files are **LEGACY / V2 CANDIDATE — DO NOT RUN** (`automation/LEGACY_README.md`). Never run sheet automation menus, install triggers, create/delete Gmail drafts, or call the web app endpoint (fail-open secret bug, UNSAFE UNTIL REVIEWED).
+Current model (2026-07-06): simplified manual-first workflow — tracker sheet, manual audits via `$liftaudit`, human-approved outreach. The Apps Script outbound engine and multi-agent files are **LEGACY / V2 CANDIDATE — CONNECTED BUT NOT RECONCILED — DO NOT RUN** (`automation/LEGACY_README.md`). Old live triggers were found and manually deleted on 2026-07-06 from Script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su` ("Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN"). Never run sheet automation menus, install triggers, create/delete Gmail drafts, call the web app endpoint, run clasp pull, or run clasp push. The endpoint remains UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED.
 
 Preserve the active archive rule: files under `_archive/` are reference-only unless Megan explicitly asks to recover something from them.
 

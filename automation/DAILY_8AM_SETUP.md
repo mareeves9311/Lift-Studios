@@ -1,5 +1,7 @@
 # Twice-Daily Outreach Schedule
 
+> **LEGACY / V2 CANDIDATE — DO NOT RUN.** This setup doc is preserved only as historical reference for the old outbound engine. Old live Apps Script triggers were found and manually deleted on 2026-07-06 from Script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su` ("Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN"). Do not install triggers, run Apps Script functions, run clasp pull/push, or revive this schedule.
+
 ## What the schedule produces
 
 Two batches per day, every day, without Megan's Mac needing to be on:

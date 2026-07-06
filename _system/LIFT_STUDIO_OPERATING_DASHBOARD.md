@@ -49,7 +49,7 @@ Last updated: 2026-07-06 23:45 ET
 - **What:** `$liftaudit` command in Claude chat
 - **How:** Claude agent (conversation-aware, not email-driven)
 - **Triggers:** User request, no automation
-- **Output:** Audit results written to sheet via doPost endpoint
+- **Output:** Audit results reviewed in chat and sheet updates handled manually unless a future simplified V2 write path is explicitly approved
 
 ### 3. Outreach Layer ✅ MANUAL
 - **Status:** Manual (no automation)
@@ -62,7 +62,7 @@ Last updated: 2026-07-06 23:45 ET
 - **Status:** Live
 - **Location:** `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit`
 - **Tabs:** Pipeline (source), Working Pipeline (human view), System Log (diagnostics)
-- **API:** doPost web app endpoint (fail-open, unsafe until patched)
+- **API:** doPost web app endpoint is legacy/blocked and **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED**
 
 ### 5. Dashboard Layer ✅ OPERATIONAL
 - **Status:** Live
@@ -80,8 +80,8 @@ Last updated: 2026-07-06 23:45 ET
   - ~~createOutreachDrafts~~ ✅ DELETED
   - ~~runQueuedLiftBrandAudits~~ ✅ DELETED
   - ~~handleLiftBrandPipelineEdit~~ ✅ DELETED
-- **Functions:** Present but not running (no triggers, safe for now)
-- **Web App Endpoint:** UNSAFE UNTIL PATCHED (fail-open secret check)
+- **Functions:** Present but not approved to run; trigger deletion lowers background risk but does not make manual execution safe
+- **Web App Endpoint:** UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED
 - **Repo State:** Unreconciled since 2026-06-23
 
 ## Data Flow
@@ -97,7 +97,7 @@ Claude Agent
   ├─ Contact verification
   └─ Assessment
        ↓
-    doPost
+	    manual sheet update / future approved V2 write path
        ↓
 Sheet [Ready to Draft / No Email Found / etc.]
 ```
@@ -133,10 +133,10 @@ Sheet [Pipeline tab]
 | Component | Automated | Scheduled | Auto-Send | Safe |
 |-----------|-----------|-----------|-----------|------|
 | Prospect Selection | ❌ | ❌ | N/A | ✅ YES |
-| Audit Engine | ✅ (AI) | ❌ | N/A | ✅ YES |
+| Audit Engine | ✅ (chat/manual) | ❌ | N/A | ✅ YES |
 | Draft Creation | ❌ | ❌ | N/A | ✅ YES |
 | Gmail Sending | ❌ | ❌ | ❌ | ✅ YES |
-| Sheet Management | ✅ (doPost) | ❌ | N/A | ⚠️ REVIEW |
+| Sheet Management | ❌ manual/current; doPost blocked | ❌ | N/A | ⚠️ REVIEW |
 | Apps Script Triggers | ❌ | ❌ | ❌ | ✅ YES |
 | Web App Endpoint | ✅ | ❌ | N/A | ❌ UNSAFE |
 
@@ -144,8 +144,8 @@ Sheet [Pipeline tab]
 
 | Issue | Severity | Status | Fix |
 |-------|----------|--------|-----|
-| Web app fail-open auth | HIGH | UNPATCHED | Deploy fail-closed secret check via clasp + reapproval |
-| Repo/live drift unknown | MEDIUM | UNRECONCILED | clasp pull/diff/reconcile + reapproval |
+| Web app fail-open auth | HIGH | UNSAFE UNTIL REVIEWED | Do not call endpoint; any future patch requires explicit reapproval and approved clasp workflow |
+| Repo/live drift unknown | MEDIUM | UNRECONCILED | Explicitly approved archival diff workflow only; no clasp commands are approved by default |
 | Discovery source is HTML-scrape-based | MEDIUM | DISABLED | Structured lead source (Vibiz / manual intake) when V2 revives |
 | Morning/Midday reports as drafts | LOW | UNFIXED | Reconfigure cloud routine delivery (not urgent, no automation running) |
 
@@ -157,13 +157,15 @@ Sheet [Pipeline tab]
 - Deploy changes via clasp without explicit reapproval
 - Enable auto-send in any form
 - Re-enable HTML-scrape discovery
-- Use web app endpoint without fail-closed patch
+- Use web app endpoint without fail-closed patch and explicit reapproval
+- Run clasp pull, clasp push, Apps Script functions, or legacy scheduled routines
+- Revive the old outbound engine instead of rebuilding simplified V2
 - Mix Lift Studio operations with other Google accounts
 
 ### DO
 - Keep all outreach sends as Megan's manual clicks
 - Use Claude audit agent for assessment (judgment-led, not scrape-led)
-- Update sheet tabs manually or via doPost only
+- Update sheet tabs manually unless a simplified V2 write path is explicitly approved
 - Monitor System Log for errors
 - Report any unexpected automation activity immediately
 - Follow division of labor: AI = judgment, Apps Script = structured execution
@@ -174,8 +176,8 @@ Sheet [Pipeline tab]
 
 **Requirements for 100%:**
 1. ✅ Triggers deleted (done 2026-07-06)
-2. ⚠️ Web app fail-closed patch deployed & verified
-3. ⚠️ Live/repo drift reconciled via clasp
+2. ⚠️ Web app fail-closed patch reviewed, deployed, and verified through an explicitly approved workflow
+3. ⚠️ Live/repo drift reconciled through an explicitly approved workflow
 4. ⚠️ Each function supervised-tested
 5. ⚠️ Structured lead source in place (Vibiz / manual intake)
 6. ⚠️ Explicit reapproval from Megan

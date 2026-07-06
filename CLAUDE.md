@@ -31,7 +31,7 @@ AdviseHer-related material has previously lived under paths like:
 See `STATUS.md` at the repo root for current operating state, open decisions, and next recommended action.
 
 - Read `ACTIVE_INSTRUCTIONS.md` before doing any Lift Studio work — it defines the CURRENT simplified manual-first workflow (tracker + manual audits via `$liftaudit` + human-approved outreach only).
-- The multi-agent outbound engine (`agents/OPERATING_SYSTEM.md`, orchestrator, new_business_auditor, email_marketer, follow_up_pipeline_manager) and the Apps Script automation are **LEGACY / V2 CANDIDATE — DO NOT RUN** (see `automation/LEGACY_README.md`). Do not coordinate, extend, or execute them unless Megan explicitly reapproves.
+- The multi-agent outbound engine (`agents/OPERATING_SYSTEM.md`, orchestrator, new_business_auditor, email_marketer, follow_up_pipeline_manager) and the Apps Script automation are **LEGACY / V2 CANDIDATE — CONNECTED BUT NOT RECONCILED — DO NOT RUN** (see `automation/LEGACY_README.md`). Old live triggers were found and manually deleted on 2026-07-06 from Script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su` ("Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN"). Do not coordinate, extend, execute, or revive them unless Megan explicitly approves a simplified V2 rebuild.
 - Keep current scripts, prompts, audit templates, and outreach copy in this repo.
 - Prefer updating existing files over creating duplicate versions.
 - If a Google Sheet or Drive file is updated, note the URL and date in the relevant repo file.

@@ -1,5 +1,7 @@
 # Lift Studio Follow-Up & Pipeline Manager Agent
 
+> **LEGACY / V2 CANDIDATE — DO NOT RUN as an active agent.** This file is preserved for reference from the old outbound engine and is superseded by `../ACTIVE_INSTRUCTIONS.md`. Current follow-up work is manual/on-request. Do not run Apps Script functions, Gmail labeling/archive automation, scheduled triggers, doPost, clasp pull, or clasp push from this model.
+
 ## Purpose
 
 Own everything that happens after first-touch outreach.

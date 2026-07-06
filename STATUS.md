@@ -5,8 +5,8 @@ Last updated: 2026-07-06
 ## Session Lock
 - Agent: Fable 5 (commissioning & trigger decommission)
 - Date: 2026-07-06 23:45 ET
-- State: Codex-audit corrections applied. Automated outbound engine formally downgraded to LEGACY / V2 CANDIDATE — DO NOT RUN (`automation/LEGACY_README.md`). ACTIVE_INSTRUCTIONS.md rewritten around the current simplified manual-first workflow (tracker + $liftaudit + human-approved outreach). Web app endpoint marked UNSAFE UNTIL REVIEWED — fail-open secret check verified in code (doPost skips auth if LIFT_WEB_APP_SECRET property is missing). **Apps Script triggers manually deleted 2026-07-06** — Script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su` ("Lift Studio Legacy Outreach Engine - Clasp Connected") had triggers for `refreshSentAndReplies`, `runLiftStudioDailySystem`, `createOutreachDrafts`, `runQueuedLiftBrandAudits`, and `handleLiftBrandPipelineEdit` removed. Script remains connected via clasp but no reconciliation attempted. Do not run clasp operations, Apps Script functions, or install triggers without explicit reapproval.
-- In progress / not finished: (1) clasp pull/diff still pending clasp re-login as helloliftstudio; (2) Web app endpoint patch (fail-closed secret check) needs reapproval and clasp deploy.
+- State: Codex-audit corrections applied. Automated outbound engine formally downgraded to **LEGACY / V2 CANDIDATE — CONNECTED BUT NOT RECONCILED — DO NOT RUN** (`automation/LEGACY_README.md`). ACTIVE_INSTRUCTIONS.md rewritten around the current simplified manual-first workflow (tracker + $liftaudit + human-approved outreach). Web app endpoint marked **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED** because `doPost` skips auth if `LIFT_WEB_APP_SECRET` is missing. **Old Apps Script triggers were found live and manually deleted 2026-07-06** — Script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su` ("Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN") had triggers for `refreshSentAndReplies`, `runLiftStudioDailySystem`, `createOutreachDrafts`, `runQueuedLiftBrandAudits`, and `handleLiftBrandPipelineEdit` removed. Script remains connected via clasp but no reconciliation attempted. Do not run clasp pull, clasp push, Apps Script functions, or install triggers without explicit reapproval.
+- In progress / not finished: Web app endpoint fail-closed patch is not approved or deployed; live/repo drift remains unreconciled. Do not run clasp pull/push or any Apps Script function unless Megan explicitly approves an archival safety diff or a rebuilt simplified V2.
 - Next step: Trigger decommission is complete. System is safe to run in manual-first mode indefinitely.
 
 ## Current Source Of Truth
@@ -23,7 +23,7 @@ Last updated: 2026-07-06
 - `Pipeline` is the Google Sheet backend/source-of-truth tab; `Working Pipeline` is the human view; the Netlify dashboard reads the published CSV from `Pipeline`.
 - Prospect selection is manual. Audits run via `$liftaudit` in chat, on request.
 - Megan writes/approves and sends all outreach herself. No auto-send, no automated draft creation.
-- The Apps Script outbound engine is **LEGACY / V2 CANDIDATE — DO NOT RUN** (`automation/LEGACY_README.md`). Web app endpoint: **UNSAFE UNTIL REVIEWED** (fail-open secret check verified in code). Live trigger inventory: **UNVERIFIED — NEEDS HUMAN.**
+- The Apps Script outbound engine is **LEGACY / V2 CANDIDATE — CONNECTED BUT NOT RECONCILED — DO NOT RUN** (`automation/LEGACY_README.md`). Old live triggers were found and manually deleted on 2026-07-06. Web app endpoint: **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED**. No scheduled Lift automation is currently approved.
 
 ## Outreach Rule
 
@@ -33,18 +33,15 @@ Current default outreach:
 - Attach only `site/_lift-brand/Lift Studio Service Menu.pdf`.
 - Do not attach `About Lift Studio.pdf` or any old brand book unless Megan explicitly asks.
 
-For scheduled Gmail draft automation, Apps Script must use a Google Drive copy of the service menu PDF via `CONFIG.serviceMenuPdfFileId`; Apps Script cannot read local project files at runtime.
+If a future simplified V2 is explicitly approved, any Gmail draft automation would need a Google Drive copy of the service menu PDF via `CONFIG.serviceMenuPdfFileId`; Apps Script cannot read local project files at runtime. This is historical/V2 planning only, not permission to run the legacy engine.
 
 ## Active Files
 
-- Agent operating system: `agents/OPERATING_SYSTEM.md`
-- Email marketer: `agents/email_marketer.md`
-- Follow-up manager: `agents/follow_up_pipeline_manager.md`
-- New business auditor: `agents/new_business_auditor.md`
-- Orchestrator: `agents/orchestrator.md`
-- Current Apps Script source: `automation/live_apps_script_sync/`
-  - `OutreachAutomation.gs` — Gmail drafts, sent/reply reconciliation, inbox hygiene
-  - `LiftPipelineAutomation.gs` — brand audits, pipeline management, doPost web app endpoint
+- Manual audit workflow: `skills/liftaudit/SKILL.md`
+- Legacy agent references: `agents/OPERATING_SYSTEM.md`, `agents/email_marketer.md`, `agents/follow_up_pipeline_manager.md`, `agents/new_business_auditor.md`, `agents/orchestrator.md` — reference-only unless Megan explicitly approves a simplified V2 redesign.
+- Legacy Apps Script reference: `automation/live_apps_script_sync/`
+  - `OutreachAutomation.gs` — historical Gmail drafts, sent/reply reconciliation, inbox hygiene
+  - `LiftPipelineAutomation.gs` — historical brand audits, pipeline management, doPost web app endpoint
 - Gmail signature rules: `agents/SIGNATURE_RENDERING_RULES.md`
 
 ## Archive Policy
@@ -58,11 +55,11 @@ Archived files are reference-only. Do not use them as active instructions, promp
 ## Completed Setup
 
 - ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ✅ Apps Script web app endpoint deployed (2026-06-23, new Web App deployment — `Lift Studio Pipeline Endpoint`, access: Anyone). Endpoint: `https://script.google.com/macros/s/AKfycbwAH7TozxFdUSk5dOM6_sX5nFdn62MOCDKZMGwaugL1vj42nHR21evVATnE_qAapV68/exec` — **previous URL was dead (returned 403); this new URL verified live (returns `{"ok":false,"error":"Unauthorized"}` without secret, confirming doPost executes)**
-- ✅ Apps Script endpoint manually verified with `getStatus`; signature/attachment draft path manually tested.
+- ⚠️ Historical Apps Script web app endpoint deployed (2026-06-23, new Web App deployment — `Lift Studio Pipeline Endpoint`, access: Anyone). Endpoint: `https://script.google.com/macros/s/AKfycbwAH7TozxFdUSk5dOM6_sX5nFdn62MOCDKZMGwaugL1vj42nHR21evVATnE_qAapV68/exec`. This endpoint is now **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED** and must not be called until explicitly reapproved and patched.
+- ⚠️ Historical Apps Script endpoint and signature/attachment draft path were manually tested in June; those tests do not make the legacy engine active or approved now.
 - ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
 - ⚠️ Cloud agent routines (Morning + Midday Orchestrator) are documented/configured, but status-email delivery/run history still needs verification in Claude Code Routines before they are treated as healthy.
-- ✅ `enableAutoDiscovery: false` — DuckDuckGo/Apps Script scrape-based discovery is permanently off (2026-06-22, version 24). It was the primary source of junk rows. **Lead discovery is owned by the Claude agent (new_business_auditor + daily prompt) using web search with judgment.** Apps Script is restricted to structured execution: sheet updates, Gmail drafts, follow-ups, reconciliation, health checks. Do not re-enable scrape-based discovery.
+- ✅ `enableAutoDiscovery: false` — DuckDuckGo/Apps Script scrape-based discovery is permanently off (2026-06-22, version 24). It was the primary source of junk rows. Current lead discovery is manual/chat-based and judgment-led. Apps Script structured execution is legacy/V2-candidate only. Do not re-enable scrape-based discovery.
 - ✅ Google Sheet `Pipeline` tab cleaned (2026-06-22): removed junk/search-result rows (e.g. `Hair Salons near Hershey PA`, Yelp search result rows, generic `Services`/`About` page rows, duplicate rows). `Youveau Aesthetics Medspa & Wellness` normalized as a real prospect row with full contact details. `Working Pipeline` no longer contains obvious junk rows after row 39.
 - ✅ Auto-discovery guard logic tightened (commit `e00e654`): now rejects search-result/page-pool titles, "near [city/state/zip]" category rows, generic page titles (`Services`, `About`, `Contact`, `Home`, `Welcome`), category-location phrases pretending to be businesses, and query-title matches where result title equals the search query.
 - ✅ Uncommitted local draft-audit experiment removed from `OutreachAutomation.gs` before deployment — it was never pushed live.
@@ -72,9 +69,9 @@ Archived files are reference-only. Do not use them as active instructions, promp
 - ✅ Sent/reply reconciliation uses the newest sent message in a thread and clears stale Gmail draft IDs after Megan sends a pending draft.
 - ✅ Sent/reply reconciliation and due follow-up draft creation are row-safe: one bad row logs an error instead of killing the whole run.
 - ✅ Pipeline Stage and Response Status dropdown validation now includes all statuses the automation writes (`Bounced`, `Hold`, `Paused`, `Closed`) and is repaired before draft/reply runs.
-- ✅ `Outreach Automation > Create Health Snapshot` writes a local Apps Script health report to `System Log`, so system checks can run without Claude cloud tokens.
+- ⚠️ Historical note: `Outreach Automation > Create Health Snapshot` can write a local Apps Script health report to `System Log`, but it is an Apps Script function and must not be run without explicit reapproval.
 - ⚠️ If Claude Code Routines reports egress blocking, allowlist the real Apps Script endpoint, not a Gmail-wrapped `google.com/url?...` redirect.
-- ✅ Drive MCP write limitation documented — it is structural and cannot be fixed by reconnecting. All cloud agent sheet writes use the doPost endpoint.
+- ✅ Drive MCP write limitation documented — it is structural and cannot be fixed by reconnecting. The old doPost write path is now blocked/unsafe until reviewed; manual sheet edits or a rebuilt simplified V2 are the current path.
 
 ## Open Follow-Up Items (from Codex handoff 2026-06-22)
 
@@ -90,7 +87,7 @@ Priority order — items 1–3 are the active next work block:
 
 5. **Dashboard refresh check** — rows were deleted from `Pipeline`; confirm Netlify dashboard reflects cleaned counts and is not caching old row data.
 
-6. **Morning run verification (next session)** — run the daily Claude routine and confirm: 10 clean rows added (real businesses, no junk), 10 Gmail drafts created, no DuckDuckGo rows, health snapshot passes. If that passes, the system is in a sane state. Also fix cloud routine report delivery — morning/midday reports are currently landing as Gmail drafts to `helloliftstudio@gmail.com` instead of being delivered to Megan.
+6. **Legacy morning/midday run verification — superseded** — do not run the daily Claude routine, create Gmail drafts, or run a health snapshot under the old engine. Any future version must be redesigned as simplified V2 and explicitly reapproved.
 
 6. **Discovery source is still DuckDuckGo HTML** — filters are better but fragile. Long-term options: structured lead source via Vibiz, known business URL directories, or a manual "Lead Intake" tab where Megan pastes raw candidates and the auditor validates one at a time.
 
