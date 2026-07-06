@@ -2,6 +2,24 @@
 
 Status set 2026-07-06 after adversarial audit. Everything in `automation/` (including `live_apps_script_sync/`) is the retired automated outbound engine: **CONNECTED BUT NOT RECONCILED — DO NOT RUN.** Preserved for reference and possible V2 revival with Megan's explicit reapproval. Do not delete; do not treat as active instructions.
 
+## Apps Script Project Identity
+
+**Script ID:** `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su`
+**Project Name:** "Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN"
+**Connected via:** clasp (not reconciled since 2026-06-23)
+**Clasp config:** `automation/live_apps_script_sync/.clasp.json`
+
+## Trigger Decommission (2026-07-06)
+
+All time-based triggers were manually deleted on 2026-07-06 from the live Apps Script project. The following triggers were removed:
+- `refreshSentAndReplies` (hourly scan)
+- `runLiftStudioDailySystem` (daily run at 8am)
+- `createOutreachDrafts` (1pm run)
+- `runQueuedLiftBrandAudits` (queued audit handler)
+- `handleLiftBrandPipelineEdit` (sheet edit trigger)
+
+The script remains connected via clasp but no reconciliation (clasp pull/diff/push) has been attempted. Repo copies in `live_apps_script_sync/` may not reflect live deployment state.
+
 ## Verified safety findings (code-inspected 2026-07-06, read-only)
 
 1. **Fail-open secret check** — `LiftPipelineAutomation.gs` `doPost` (~line 1345):

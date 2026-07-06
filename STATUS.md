@@ -3,11 +3,11 @@
 Last updated: 2026-07-06
 
 ## Session Lock
-- Agent: Fable 5 (commissioning pass)
-- Date: 2026-07-06 23:00 ET
-- State: Codex-audit corrections applied. Automated outbound engine formally downgraded to LEGACY / V2 CANDIDATE — DO NOT RUN (`automation/LEGACY_README.md`). ACTIVE_INSTRUCTIONS.md rewritten around the current simplified manual-first workflow (tracker + $liftaudit + human-approved outreach). Web app endpoint marked UNSAFE UNTIL REVIEWED — fail-open secret check verified in code (doPost skips auth if LIFT_WEB_APP_SECRET property is missing).
-- In progress / not finished: (1) Megan must check the live Apps Script Triggers page and delete any surviving time-based triggers (LEGACY_README.md instructions) — until then, old triggers may still fire; (2) clasp pull/diff still pending clasp re-login as helloliftstudio.
-- Next step: Megan does the trigger inventory check — highest-priority safety item for this project.
+- Agent: Fable 5 (commissioning & trigger decommission)
+- Date: 2026-07-06 23:45 ET
+- State: Codex-audit corrections applied. Automated outbound engine formally downgraded to LEGACY / V2 CANDIDATE — DO NOT RUN (`automation/LEGACY_README.md`). ACTIVE_INSTRUCTIONS.md rewritten around the current simplified manual-first workflow (tracker + $liftaudit + human-approved outreach). Web app endpoint marked UNSAFE UNTIL REVIEWED — fail-open secret check verified in code (doPost skips auth if LIFT_WEB_APP_SECRET property is missing). **Apps Script triggers manually deleted 2026-07-06** — Script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su` ("Lift Studio Legacy Outreach Engine - Clasp Connected") had triggers for `refreshSentAndReplies`, `runLiftStudioDailySystem`, `createOutreachDrafts`, `runQueuedLiftBrandAudits`, and `handleLiftBrandPipelineEdit` removed. Script remains connected via clasp but no reconciliation attempted. Do not run clasp operations, Apps Script functions, or install triggers without explicit reapproval.
+- In progress / not finished: (1) clasp pull/diff still pending clasp re-login as helloliftstudio; (2) Web app endpoint patch (fail-closed secret check) needs reapproval and clasp deploy.
+- Next step: Trigger decommission is complete. System is safe to run in manual-first mode indefinitely.
 
 ## Current Source Of Truth
 
