@@ -2,6 +2,14 @@
 
 Project: Lift Studio
 
+Read `/Users/meganreeves/Documents/Projects/FOUNDATION.md` first for identity rules, tool routing, and the cross-agent handoff protocol.
+
+## Identity
+
+- Account for everything here: **helloliftstudio@gmail.com** (Gmail, Sheets, Drive). Canva: mareeves93@gmail.com Canva. GitHub: **mareeves9311/Lift-Studios**. Website: helloliftstudio.com.
+- If a connected account does not match, stop and tell Megan to switch before touching Gmail, the pipeline sheet, or Drive.
+- Before editing shared files, read the Session Lock at the top of `STATUS.md` and update it when you finish (protocol in FOUNDATION.md).
+
 Use this repository as the single source of truth for Lift Studio work.
 
 Read `ACTIVE_INSTRUCTIONS.md` first. It defines the current source-of-truth files, current outreach attachment rule, active sheet/dashboard contract, and archive policy.

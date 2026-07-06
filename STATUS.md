@@ -1,6 +1,13 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-06-22
+Last updated: 2026-07-06
+
+## Session Lock
+- Agent: Claude Code
+- Date: 2026-07-06 21:30 ET
+- State: Foundation setup — identity block added to CLAUDE.md, Session Lock protocol adopted (see FOUNDATION.md at Projects root). System scaled back per Megan 2026-07-02: orchestrator + email marketer ON HOLD; brand auditing/lead discovery continues.
+- In progress / not finished: none
+- Next step: clasp setup so Apps Script deploys from repo instead of copy-paste (see FOUNDATION.md deployed-code rule)
 
 ## Current Source Of Truth
 

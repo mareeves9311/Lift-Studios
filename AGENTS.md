@@ -4,9 +4,13 @@ Use this repository as the source of truth for Lift Studio work.
 
 Before making Lift Studio changes, read:
 
-1. `ACTIVE_INSTRUCTIONS.md`
-2. `CLAUDE.md`
-3. Any relevant active agent, automation, skill, or template file
+1. `/Users/meganreeves/Documents/Projects/FOUNDATION.md` — identity rules, tool routing, handoff protocol
+2. `ACTIVE_INSTRUCTIONS.md`
+3. `CLAUDE.md`
+4. `STATUS.md` — check the Session Lock before editing; update it when you finish
+5. Any relevant active agent, automation, skill, or template file
+
+Account: **helloliftstudio@gmail.com** for Gmail/Sheets/Drive. GitHub: mareeves9311/Lift-Studios. Wrong account = stop and tell Megan.
 
 Preserve the active archive rule: files under `_archive/` are reference-only unless Megan explicitly asks to recover something from them.
 
