@@ -24,3 +24,6 @@ audits/
 *.pdf
 *.pptx
 *.xlsx
+
+# Local exports
+_local_exports/
