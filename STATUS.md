@@ -3,11 +3,11 @@
 Last updated: 2026-07-06
 
 ## Session Lock
-- Agent: Claude Code (Fable 5)
-- Date: 2026-07-06 22:15 ET
-- State: Foundation hardening pass complete — loops/blocked-automations added to CLAUDE.md; full system map at Projects root (`AI_OS_VISUAL_DASHBOARD.md`, `_system/`). clasp found half-wired (`automation/live_apps_script_sync/.clasp.json` valid, `clasp status` clean) but login identity unverified. System hold unchanged (2026-07-02): orchestrator + email marketer paused; brand auditing continues.
-- In progress / not finished: clasp pull/diff/reconcile blocked on Megan confirming clasp login = helloliftstudio@gmail.com (`_system/CLASP_SETUP_PLAN.md` step 1)
-- Next step: Megan runs `clasp logout && clasp login` as helloliftstudio → then Claude runs the pull/diff cycle
+- Agent: Fable 5 (commissioning pass)
+- Date: 2026-07-06 23:00 ET
+- State: Codex-audit corrections applied. Automated outbound engine formally downgraded to LEGACY / V2 CANDIDATE — DO NOT RUN (`automation/LEGACY_README.md`). ACTIVE_INSTRUCTIONS.md rewritten around the current simplified manual-first workflow (tracker + $liftaudit + human-approved outreach). Web app endpoint marked UNSAFE UNTIL REVIEWED — fail-open secret check verified in code (doPost skips auth if LIFT_WEB_APP_SECRET property is missing).
+- In progress / not finished: (1) Megan must check the live Apps Script Triggers page and delete any surviving time-based triggers (LEGACY_README.md instructions) — until then, old triggers may still fire; (2) clasp pull/diff still pending clasp re-login as helloliftstudio.
+- Next step: Megan does the trigger inventory check — highest-priority safety item for this project.
 
 ## Current Source Of Truth
 
@@ -18,13 +18,12 @@ Last updated: 2026-07-06
 - Dashboard: `https://liftstudiosdashboard.netlify.app/`
 - Google Sheet: `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit`
 
-## Active System
+## Active System (simplified manual-first, since 2026-07-02)
 
-- `Pipeline` is the Google Sheet backend/source-of-truth tab.
-- `Working Pipeline` is the cleaner human-facing sheet view.
-- The Netlify dashboard reads the published CSV from `Pipeline`.
-- Apps Script creates Gmail drafts, attaches the service menu, embeds the HTML signature, and writes Gmail draft IDs back to the sheet.
-- Megan reviews and sends manually. No auto-send.
+- `Pipeline` is the Google Sheet backend/source-of-truth tab; `Working Pipeline` is the human view; the Netlify dashboard reads the published CSV from `Pipeline`.
+- Prospect selection is manual. Audits run via `$liftaudit` in chat, on request.
+- Megan writes/approves and sends all outreach herself. No auto-send, no automated draft creation.
+- The Apps Script outbound engine is **LEGACY / V2 CANDIDATE — DO NOT RUN** (`automation/LEGACY_README.md`). Web app endpoint: **UNSAFE UNTIL REVIEWED** (fail-open secret check verified in code). Live trigger inventory: **UNVERIFIED — NEEDS HUMAN.**
 
 ## Outreach Rule
 

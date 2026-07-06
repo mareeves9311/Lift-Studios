@@ -1,6 +1,7 @@
 # Lift Studio Active Instructions
 
-This file is the first stop for Claude, Codex, or any other agent working in this repo.
+This file is the first stop for Claude, Codex, Fable, or any other agent working in this repo.
+Status updated 2026-07-06 after adversarial audit: the automated outbound engine is **LEGACY / V2 CANDIDATE — DO NOT RUN**. The current workflow is simplified and manual-first.
 
 ## Source Of Truth
 
@@ -9,138 +10,44 @@ This file is the first stop for Claude, Codex, or any other agent working in thi
 - Current dashboard: `https://liftstudiosdashboard.netlify.app/`
 - Current Google Sheet: `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit`
 - Current GitHub repo: `https://github.com/mareeves9311/Lift-Studios`
+- System-wide rules: `/Users/meganreeves/Documents/Projects/FOUNDATION.md`
 
-## Active Instruction Files
+## CURRENT ACTIVE WORKFLOW (simplified, manual-first — since 2026-07-02)
 
-Primary grounding brief for the full agentic system:
+1. **Business/category tracker:** the Pipeline sheet is a tracker, organized by category. `Pipeline` tab = source of truth; `Working Pipeline` = human view.
+2. **Manual prospect selection:** Megan (or an agent on request, with judgment) picks who to pursue. No automated discovery.
+3. **Manual/chat-based audits:** `$liftaudit` (`skills/liftaudit/SKILL.md`) is the proven audit workflow. Run it in chat, on request only.
+4. **Human-approved outreach only:** Megan writes/approves and sends every email herself. Follow-up drafting rules (reply-in-thread etc.) live in the global `follow-up-draft` skill for when she asks for a draft.
+5. **Gmail sent-folder cross-reference:** possible future supervised/read-only workflow (pipeline-sync skill) — not scheduled, run only on request with the helloliftstudio@gmail.com connector verified.
 
-- `agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md`
+## NOT ACTIVE unless Megan explicitly reapproves
 
-Use these files for current behavior:
+Automated discovery · automated scoring/priority fields · recommended-offer machinery · automated audit generation · automated Gmail draft creation · automatic follow-up machinery · draft deletion · trigger-based daily runs (8am/1pm/hourly) · Apps Script web app writes · Gmail label/archive modifications · sheet mutations beyond approved supervised sync.
 
-- `agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md`
-- `agents/OPERATING_SYSTEM.md`
-- `agents/orchestrator.md`
-- `agents/new_business_auditor.md`
-- `agents/email_marketer.md`
-- `agents/follow_up_pipeline_manager.md`
-- `agents/quality_control.md`
-- `agents/innovator.md`
-- `agents/SIGNATURE_RENDERING_RULES.md`
-- `automation/niches_and_areas.md` ← canonical source for niches and geographies
-- `automation/live_apps_script_sync/OutreachAutomation.gs`
-- `automation/live_apps_script_sync/LiftPipelineAutomation.gs`
-- `automation/daily_8am_outreach_prompt.md` ← load this only when running a daily/midday outreach batch
-- `automation/scheduled_routines.md`
+## LEGACY / V2 CANDIDATE — the automated outbound engine
 
-Production Apps Script source lives in `automation/live_apps_script_sync/`. Older mirror scripts outside that folder are reference-only unless Megan explicitly asks to restore a function from them.
+Everything below is preserved for reference and possible V2 revival. **CONNECTED BUT NOT RECONCILED — DO NOT RUN.**
+
+- Agent profiles: `agents/` (orchestrator, new_business_auditor, email_marketer, follow_up_pipeline_manager, quality_control, innovator) + `agents/FOUNDATIONAL_AGENTIC_SYSTEM_BRIEF.md`, `agents/OPERATING_SYSTEM.md`
+- Apps Script: `automation/live_apps_script_sync/OutreachAutomation.gs` + `LiftPipelineAutomation.gs` — see `automation/LEGACY_README.md` for the safety findings (fail-open secret check; trigger installers; draft creators)
+- Batch prompts: `automation/daily_8am_outreach_prompt.md`, `automation/scheduled_routines.md`
+- Do NOT use the sheet's `Outreach Automation` / `Lift Pipeline` menus — several items install triggers or create drafts (`Install/Repair Full Automation`, `Run Full Lift Studio System Now`, `Create Gmail Drafts`).
+- The live Apps Script web app endpoint is **UNSAFE UNTIL REVIEWED**: the secret check is fail-open if `LIFT_WEB_APP_SECRET` is missing (verified in code, LiftPipelineAutomation.gs `doPost`). No web-app calls until a fail-closed patch is reviewed and approved.
+- Locked lesson that carries into any V2: discovery is judgment-led by an AI agent, never HTML scraping; `enableAutoDiscovery` stays `false`.
+
+## Still-valid reference material (usable for manual audits + outreach)
+
+- **Attachment rule:** outreach links to the website and attaches only `site/_lift-brand/Lift Studio Service Menu.pdf` (copy source: `site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`; Canva design: `https://www.canva.com/design/DAHONAVSJIw/FUReYDpLrfT9CIT85pe_hg/edit`). Never attach the old brand book. "Lift Studio" renders in brand green, bold, linked, in HTML drafts. Drive copy of the menu (for any future automation): file ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx`.
+- **Lead strategy:** home services and practical local businesses are the priority lane (pest control, fencing, pools, pressure washing, dumpster rental, roofing, electrical, HVAC, plumbing, concrete, septic, tree, landscaping, automotive/repair/detailing/tires, commercial cleaning/janitorial/specialty contractors, facility services). Real estate is a strong expansion lane. Beauty/wellness/restaurants/retail valid but secondary.
+- **Audit angle for blue-collar:** practical revenue leaks — weak local SEO, no quote path, unused review strength, before/after work not turned into content, buried guarantees. Lead with the SEO/GEO blog package (one optimized blog/week) framed as local-search support.
+- **No-email conventions:** never invent/scrape private emails; never type "form" in the Email column (leave blank, URL in `Contact Form`). `Next Action` labels: `USE CONTACT FORM - submit manually, then mark Sent.` / `NO EMAIL FOUND - check IG mobile Contact button.` / `NO EMAIL FOUND - call/text for best email.` / `NO EMAIL FOUND - check Facebook About/contact.` / `NO CONTACT PATH FOUND - manual research needed.`
+- **Sheet contract:** do not rename/remove the `Pipeline` tab (feeds the Netlify dashboard). `Research Queries` tab contains pasted junk — use `automation/niches_and_areas.md` as the clean niche/geo source.
+- **Signature:** `agents/SIGNATURE_RENDERING_RULES.md` still applies to any HTML draft.
 
 ## Archive Rule
 
-Files under `_archive/` are reference-only. Do not use them as active instructions, prompt sources, script sources, attachment rules, or outreach templates unless Megan explicitly asks to recover something from archive.
-
-## Outreach Attachment Rule
-
-Default outreach uses:
-
-- Link to the Lift Studio website for broader brand/studio context.
-- Attach only `site/_lift-brand/Lift Studio Service Menu.pdf`.
-- Current service-menu copy source: `site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`.
-- Current Canva service-menu design: `https://www.canva.com/design/DAHONAVSJIw/FUReYDpLrfT9CIT85pe_hg/edit`.
-
-Do not attach `About Lift Studio.pdf` or any old brand book unless Megan explicitly asks.
-
-For scheduled Gmail draft automation, Apps Script cannot access local files directly. The local PDF is the source copy; the production attachment must be a Google Drive copy referenced by `CONFIG.serviceMenuPdfFileId`.
-
-Current production service menu Drive file ID:
-
-`1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx`
-
-In HTML outreach drafts, mentions of `Lift Studio` in the body should render as the linked website in Lift green with bold font weight.
-
-## Agent And Automation Split
-
-**The division of responsibility is fixed. Do not change it.**
-
-- **Claude agent (new_business_auditor + daily prompt) owns lead discovery.** It uses web search with judgment to find real local businesses, audit them, and write clean rows to the sheet. This is the only approved discovery path.
-- **Apps Script owns structured execution only:** sheet updates, Gmail draft creation, follow-up drafts, sent/reply reconciliation, inbox hygiene, and health checks.
-- **`enableAutoDiscovery` in `LIFT_PIPELINE_CONFIG` is intentionally set to `false` and must stay off.** DuckDuckGo HTML scraping in Apps Script produced junk rows (search result pages, fake businesses, directory listings) and was the primary source of pipeline noise. Do not re-enable it.
-- **Megan's only manual role:** review Gmail drafts and send, handle contact-form/no-email rows manually.
-
-No future session should re-enable `enableAutoDiscovery` or add any scrape-based discovery to Apps Script. If discovery needs improvement, improve the Claude agent prompt or use a structured source like Vibiz — not HTML scraping.
-
-## Current Lead Strategy
-
-Home services and practical local service businesses are now the highest-priority discovery lane. Do not let the system default back to mostly med spas, salons, and restaurants.
-
-Primary categories to prioritize:
-
-- Pest control
-- Fencing
-- Pool services
-- Pressure washing
-- Dumpster rental
-- Roofing
-- Electrical
-- HVAC
-- Plumbing
-- Concrete contractors
-- Septic services
-- Tree services
-- Landscaping
-- Automotive services
-- Auto repair shops
-- Mobile detailing
-- Tire and brake shops
-- Commercial cleaning
-- Janitorial services
-- Commercial specialty contractors
-- Facility services
-
-Real estate agents, real estate teams, and local brokerages are also a strong expansion lane. Beauty, wellness, restaurants, hospitality, and retail remain valid, but they should not dominate daily discovery while the home-services push is active.
-
-For blue-collar and home-service audits, look for practical revenue leaks: unclear emergency/service-area pages, weak Google/local SEO, outdated or generic websites, no quote/request path, weak trust proof, review strength not used on-site, before/after work not turned into content, financing/warranty/service guarantees buried, and social content that does not show real jobs or expertise.
-
-For home-service, automotive, commercial-service, and real estate outreach, prioritize mentioning SEO/GEO blog content when it fits the audit: a simple recurring package where Lift provides one optimized blog per week for the business to post on its website. Position this as local search support, not generic blogging: service-area pages, seasonal questions, emergency/high-intent searches, homeowner FAQs, project explainers, and trust-building content that can help both Google search and AI/GEO visibility.
-
-- Agents write strategy, audit notes, email copy, status decisions, and sheet updates.
-- Apps Script creates Gmail drafts, attaches the service menu, embeds the HTML signature, and writes Gmail draft IDs back to the sheet.
-- Apps Script uses the simple tested Lift Studio HTML signature for automated drafts. Emergency Gmail connector drafts can miss the signature; repair those by running `Outreach Automation > Refresh Existing Drafts` from the sheet.
-- Apps Script also runs Follow-Up Manager inbox hygiene through `refreshSentAndReplies()` and `runInboxHygiene()`: label tracked outreach threads, tag replies/warm/follow-up/bounced threads, and archive closed/bounced outreach.
-- Apps Script creates due follow-up drafts for rows marked `Sent` + `No Response` when `Follow-Up Date` is today or earlier and no pending Gmail draft ID exists. Megan still reviews and sends manually.
-- Megan reviews and sends manually. Nothing auto-sends.
-- Gmail draft creation only runs for leads with `Pipeline Stage` set to `Ready to Draft`, `Ready`, or `Draft Ready`, with an email address, outreach copy, and no existing Gmail draft ID.
-- Use `Outreach Automation > Test Service Menu Attachment` in the Google Sheet to verify the Drive PDF is accessible without needing a draftable lead.
-- Use `Outreach Automation > Create Signature Test Draft` before a full batch when signature rendering is in question. Inspect the Gmail draft in desktop/mobile, then run `Refresh Existing Drafts` or `Create Gmail Drafts`.
-- Use `Outreach Automation > Install/Repair Full Automation` to install all production triggers: daily full system run, hourly sent/reply/inbox hygiene scan, 8 AM and 1 PM draft creation, 5-minute queued audits, and sheet edit handling.
-- Use `Outreach Automation > Run Full Lift Studio System Now` when you want the Apps Script orchestrator to immediately reconcile next actions, run queued audits, and trigger draft creation. `enableAutoDiscovery` is `false` — this run will not attempt scrape-based discovery. New leads come from the Claude agent daily routine only.
-- Use `Outreach Automation > Verify Automation Health` to check required triggers and the service menu attachment.
-- If Megan manually adds an email address to a qualified lead, the sheet edit trigger re-queues that row for outreach: existing outreach copy goes to Gmail draft generation, and missing outreach copy goes to `Email Marketer: draft first-touch outreach`. Use `Lift Pipeline > Mark selected row as form submitted` after manually submitting a contact form.
-- `Next Action` is an operational status field, not a freeform notes field. It should update from the current row state: no email means manual contact path, ready/draftable means draft generation, drafted means Megan review/send, sent/no reply means wait or follow up, and replied means review the Gmail thread. Use `Lift Pipeline > Reconcile next actions` if the column looks stale.
-- Contact discovery must check the website contact page, footer, public Facebook/About, and business listings. When Instagram exists but no email is found, flag the row for the Instagram mobile Contact button check. Standardized `Next Action` labels for no-email rows are:
-  - Contact form found: `USE CONTACT FORM - submit manually, then mark Sent.`
-  - Instagram found (no form): `NO EMAIL FOUND - check IG mobile Contact button.`
-  - Phone found (no form, no IG): `NO EMAIL FOUND - call/text for best email.`
-  - Website/name only (no other path): `NO EMAIL FOUND - check Facebook About/contact.`
-  - Nothing at all: `NO CONTACT PATH FOUND - manual research needed.`
-- Do not invent or scrape private email addresses. Do not type `form` into the `Email` column — leave it blank and store the URL in `Contact Form`.
-- Auto-discovery may use DuckDuckGo internally as a search source, but `Pipeline!Website` must store the final business website URL, never a DuckDuckGo redirect wrapper. The audit step should attempt public email/contact-form/phone/Instagram discovery and write those fields back when found.
-
-## Sheet Contract
-
-Do not rename or remove the `Pipeline` tab. It powers the Netlify dashboard and the Apps Script automations.
-
-`Working Pipeline` is the human-friendly view where Megan should review rows, read `Next Action`, and manually add found emails/contact details. `Pipeline` is the backend/source-of-truth tab.
-
-## Google Sheet Tab Notes
-
-The `Research Queries` tab in the Pipeline sheet contains accidental pasted chat text in the first column. Do not use it as a data source. Use `automation/niches_and_areas.md` as the clean, authoritative source for niches and geographies.
-
-Current lead state and new companies live in the `Pipeline` tab. The `Working Pipeline` tab is the human-facing view; treat `Pipeline` as the source of truth.
+Files under `_archive/` are reference-only. Do not use them as active instructions, prompt sources, script sources, attachment rules, or outreach templates unless Megan explicitly asks to recover something.
 
 ## Before Editing
 
-1. Read this file.
-2. Read `CLAUDE.md`.
-3. Read the relevant active agent/script file.
-4. Ignore archived instruction packs unless specifically asked.
+1. Read this file. 2. Read `CLAUDE.md` + check `STATUS.md` Session Lock. 3. Read the relevant active file. 4. Ignore `_archive/` and LEGACY items unless explicitly asked.

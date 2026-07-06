@@ -12,6 +12,8 @@ Before making Lift Studio changes, read:
 
 Account: **helloliftstudio@gmail.com** for Gmail/Sheets/Drive. GitHub: mareeves9311/Lift-Studios. Wrong account = stop and tell Megan.
 
+Current model (2026-07-06): simplified manual-first workflow — tracker sheet, manual audits via `$liftaudit`, human-approved outreach. The Apps Script outbound engine and multi-agent files are **LEGACY / V2 CANDIDATE — DO NOT RUN** (`automation/LEGACY_README.md`). Never run sheet automation menus, install triggers, create/delete Gmail drafts, or call the web app endpoint (fail-open secret bug, UNSAFE UNTIL REVIEWED).
+
 Preserve the active archive rule: files under `_archive/` are reference-only unless Megan explicitly asks to recover something from them.
 
 ## Lift Studio Brand Audits

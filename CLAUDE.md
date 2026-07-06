@@ -30,24 +30,18 @@ AdviseHer-related material has previously lived under paths like:
 
 See `STATUS.md` at the repo root for current operating state, open decisions, and next recommended action.
 
-- Read `ACTIVE_INSTRUCTIONS.md` before doing any Lift Studio work.
-- Maintain the Lift Studio Master Pipeline and Outreach Drafts.
-- Read `agents/OPERATING_SYSTEM.md` before coordinating multi-agent Lift outreach work.
-- Use `agents/orchestrator.md` when deciding what Lift outreach agent should run next or when coordinating the full system.
-- Use `agents/new_business_auditor.md` for prospect research, lead scoring, local audits, and sheet population.
-- Use `agents/email_marketer.md` for outbound email copywriting; Apps Script creates the actual Gmail drafts with the tested signature and service menu attachment.
-- Use `agents/follow_up_pipeline_manager.md` for reply monitoring, follow-up drafting, bounce handling, and pipeline status updates.
+- Read `ACTIVE_INSTRUCTIONS.md` before doing any Lift Studio work — it defines the CURRENT simplified manual-first workflow (tracker + manual audits via `$liftaudit` + human-approved outreach only).
+- The multi-agent outbound engine (`agents/OPERATING_SYSTEM.md`, orchestrator, new_business_auditor, email_marketer, follow_up_pipeline_manager) and the Apps Script automation are **LEGACY / V2 CANDIDATE — DO NOT RUN** (see `automation/LEGACY_README.md`). Do not coordinate, extend, or execute them unless Megan explicitly reapproves.
 - Keep current scripts, prompts, audit templates, and outreach copy in this repo.
 - Prefer updating existing files over creating duplicate versions.
 - If a Google Sheet or Drive file is updated, note the URL and date in the relevant repo file.
 
 ## Loops (see _system/LOOP_LIBRARY.md at Projects root)
 
-- **L4 outreach pipeline:** discover → qualify → enrich → audit ($liftaudit) → draft outreach → pipeline update. Discovery is judgment-led by the AI agent, never HTML scraping (locked June 2026).
+- **L4 outreach pipeline:** runs MANUALLY on request — Megan picks prospects, `$liftaudit` audits, drafts are human-approved, sheet updated. The automated version is LEGACY / V2 CANDIDATE. Discovery, when agent-assisted, is judgment-led, never HTML scraping (locked June 2026).
 - **L3 ship content:** draft → review → attachment/signature check → Megan approves → Megan sends.
-- **L9 run governance:** every automated batch gets an automation-watchdog check; verdicts logged here in STATUS.md.
 
-Agent roles live in `agents/` (orchestrator, new_business_auditor, email_marketer, follow_up_pipeline_manager, quality_control, innovator) — those files remain the role definitions; FOUNDATION.md rules override where they conflict. Current hold (2026-07-02): orchestrator + email marketer paused; brand auditing/discovery continues.
+Agent role files in `agents/` are LEGACY / V2 CANDIDATE reference, not active roles (see ACTIVE_INSTRUCTIONS.md and `automation/LEGACY_README.md`). FOUNDATION.md rules override where they conflict.
 
 ## Blocked / never automate
 
