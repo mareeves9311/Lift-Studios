@@ -40,3 +40,19 @@ See `STATUS.md` at the repo root for current operating state, open decisions, an
 - Keep current scripts, prompts, audit templates, and outreach copy in this repo.
 - Prefer updating existing files over creating duplicate versions.
 - If a Google Sheet or Drive file is updated, note the URL and date in the relevant repo file.
+
+## Loops (see _system/LOOP_LIBRARY.md at Projects root)
+
+- **L4 outreach pipeline:** discover → qualify → enrich → audit ($liftaudit) → draft outreach → pipeline update. Discovery is judgment-led by the AI agent, never HTML scraping (locked June 2026).
+- **L3 ship content:** draft → review → attachment/signature check → Megan approves → Megan sends.
+- **L9 run governance:** every automated batch gets an automation-watchdog check; verdicts logged here in STATUS.md.
+
+Agent roles live in `agents/` (orchestrator, new_business_auditor, email_marketer, follow_up_pipeline_manager, quality_control, innovator) — those files remain the role definitions; FOUNDATION.md rules override where they conflict. Current hold (2026-07-02): orchestrator + email marketer paused; brand auditing/discovery continues.
+
+## Blocked / never automate
+
+- Sending email — all sends are Megan's click, permanently.
+- Deleting drafts or sheet rows without a Megan-approved itemized list.
+- Clipboard Apps Script deploys — clasp/repo only (_system/CLASP_SETUP_PLAN.md).
+- Re-enabling scrape-led auto-discovery (`enableAutoDiscovery` stays false).
+- Any Gmail/Sheets operation while a non-Lift Google account is connected.
