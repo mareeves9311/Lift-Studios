@@ -107,7 +107,7 @@ Hi [Brand Short Name] team,
 
 [SPECIFIC HOOK] One to two sentences about what they already do well, paired with the actual opportunity. This should feel genuine and specific to the business.
 
-I run Lift Studio, a boutique brand and content studio that helps local businesses sharpen their messaging, improve their digital presence, and make it easier for the right clients to find them and book.
+I run Lift Studio. I help local service businesses make their website, content, and follow-up materials clearer so more of the right customers understand what they do and know how to reach out.
 
 A few things stood out when I looked at [Brand Short Name]:
 

@@ -10,7 +10,7 @@ Body structure:
 1. One-line, prospect-specific opener (what was actually observed — never generic).
 2. Name what's working (per the GPT reference's rule: recognize the real strength before critiquing).
 3. The two selected opportunities, each tied to a business outcome (call, book, quote) — not a vibe.
-4. The required boilerplate line: "I run Lift Studio, a boutique brand and content studio that helps local businesses sharpen their messaging, improve their digital presence, and make it easier for the right clients to find them and take action," with "Lift Studio" linked to `https://helloliftstudio.com/`.
+4. The required boilerplate line: "I run Lift Studio. I help local service businesses make their website, content, and follow-up materials clearer so more of the right customers understand what they do and know how to reach out," with "Lift Studio" linked to `https://helloliftstudio.com/`.
 5. Note the service menu is attached.
 6. Low-pressure close — a question, not a push.
 7. Sign "Best, Megan."

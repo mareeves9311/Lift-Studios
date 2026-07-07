@@ -16,7 +16,7 @@ Hi [Name],
 
 I came across [Business Name] and wanted to introduce Lift Studio.
 
-Lift Studio is a boutique brand and content studio for local businesses that already have a real offer, but need their website, social presence, and content direction to feel clearer, more premium, and easier to act on.
+Lift Studio helps local service businesses make their website, content, and follow-up materials clearer, so more of the right customers understand what they do and know how to reach out.
 
 From a quick look, I noticed [specific issue]. I also think [secondary issue] could be tightened up so the digital experience feels easier to trust and easier to act on.
 
@@ -87,6 +87,8 @@ The main thing I usually look at is whether the homepage quickly answers:
 I will keep it simple and practical.
 
 ## Paid Offer Message
+
+**STALE — do not use as-is.** This message and its $650 price predate the current v3 service menu/ladder (`site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`, `_system/LIFT_OFFER_LADDER.md`) and don't match any current rung. Do not send until corrected — see ticket **T23** in `_system/LIFT_MONEY_MACHINE_BUILD_QUEUE.md` (correcting the scope/price is a package decision, not a wording fix, so it isn't guessed here).
 
 Based on what I saw, I would recommend starting with a focused Lift Studio starter project.
 

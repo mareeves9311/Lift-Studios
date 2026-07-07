@@ -4,7 +4,7 @@
 
 The Web Refresh Co. / website-refresh-only concept is retired. This system now supports **Lift Studio**.
 
-Lift Studio is a boutique brand and content studio for local businesses that already have a real offer, but need their website, social presence, and content direction to feel clearer, more premium, and easier to act on.
+Lift Studio helps local service businesses make their website, content, and follow-up materials clearer, so more of the right customers understand what they do and know how to reach out.
 
 ## Why This Works
 
