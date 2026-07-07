@@ -27,11 +27,11 @@ Read-only static audit, 2026-07-06 (Fable 5, audit mode). No code run, no clasp,
 - `lift_brand_pipeline_automation.gs` (598 lines) — 2 trigger installers, 2 UrlFetch, predecessor of LiftPipelineAutomation. Classification: **archive candidate, never revive.**
 
 **Local scheduler chain:**
-- `automation/launchd/com.liftstudio.daily-outreach.plist` — repo copy; **a loaded copy exists in launchd** (location to confirm: `~/Library/LaunchAgents/`). Classification: repo copy = archive candidate; loaded job = **NEEDS HUMAN removal.**
+- `automation/launchd/com.liftstudio.daily-outreach.plist` — repo copy; the loaded launchd copy was **removed by Megan 2026-07-06** (`launchctl remove`; plist deleted from `~/Library/LaunchAgents/` if present). Re-verification returned: "No Lift launchd jobs loaded / No Lift launchd plist found." Classification: repo copy = archive candidate (T1); live job = **resolved.**
 - `automation/run_daily_8am_outreach.sh` — invokes Codex CLI with `--sandbox danger-full-access --ask-for-approval never` against `daily_8am_outreach_prompt.md`, expects "10 additional drafts ready" per run. Classification: **LEGACY / DO NOT RUN / archive candidate.** The full-access-no-approval pattern must never be reused.
 - `automation/daily_8am_outreach_prompt.md`, `automation/DAILY_8AM_SETUP.md`, `automation/logs/`, `automation/daily-runs/` — evidence/reference. Classification: archive candidates.
 
-**Cloud routine layer:** `automation/scheduled_routines.md` (correctly banner-marked LEGACY 2026-07-06) — documents the two routines above. Classification: safe reference; the LIVE routines are **unknown/NEEDS HUMAN.**
+**Cloud routine layer:** `automation/scheduled_routines.md` (correctly banner-marked LEGACY 2026-07-06) — documents the two routines above. Classification: safe reference. Resolved by Megan manual check/pause/delete 2026-07-06; local repo cannot independently verify cloud state, so this is not described as healthy or active — only as checked/cleared.
 
 **Python/CSV era (`automation/*.py`, `*.csv`, `*.xlsx`):** lead_audit_generator, mini_audit_generator, followup_scheduler, process_batch, research_query_generator (+requests), add_knockknock_to_tracker (+requests), drive setup scripts, batch CSVs, `mr_automation_lead_tracker.xlsx`. Pre-Apps-Script generation, local-only, no Gmail access. Classification: **archive candidates — harmless but clutter that confuses future sessions.**
 

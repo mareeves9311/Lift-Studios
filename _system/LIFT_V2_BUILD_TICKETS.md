@@ -32,7 +32,7 @@
 
 **T8 V2 safety test harness** — greps any V2 artifact for GmailApp/sendEmail/newTrigger/UrlFetch/network → must be zero for local assists; part of every P2+ ticket's test. Allowed: new `automation/_v2/safety_check.sh`. Gate: none. Codex: yes. Fable: no. **Prereq: none — build alongside first P2.**
 
-**T10 Codex no-revival audit** — the LIFT_LEGACY_AUTOMATION_AUDIT §17-style checklist as a runnable Codex prompt, quarterly + before any P3. Doc + Codex. Gate: none. Fable: no. **Prereq: none.**
+**T10 Codex no-revival audit** — the `_system/LIFT_LEGACY_AUTOMATION_AUDIT.md` risk register / no-revival checklist as a runnable Codex prompt, quarterly + before any P3. Doc + Codex. Gate: none. Fable: no. **Prereq: none.**
 
 ## P3 — gated, needs full proof + likely Fable design pass
 
