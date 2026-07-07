@@ -41,3 +41,7 @@ The audit skill already produces a website concept brief and a ChatGPT visual-ha
 - **Option B:** add a productized "Website Build" tier later, once there's evidence prospects are asking for it after seeing the concept brief.
 
 Recommend **Option A for now** — building sites is a different skill/time commitment than the rest of this ladder and would dilute focus during the 90-day proof window. Revisit only if multiple prospects independently ask for it.
+
+## Related gap: fulfillment/admin mechanics aren't written down yet
+
+Nothing above specifies what happens mechanically after a client says yes — proposal, invoicing, kickoff, asset collection, revision boundaries, reporting cadence. That's intentional scope-splitting, not an oversight: it's queued as build ticket **T24 (Paid Client Fulfillment/Admin SOP)** in `LIFT_MONEY_MACHINE_BUILD_QUEUE.md`, not duplicated here.

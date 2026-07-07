@@ -56,7 +56,7 @@ Manual triage only, for now — classified High risk in the agent orchestration 
 
 ## How to move from audit to paid offer
 
-Existing pattern (`automation/outreach_templates.md`'s "Reply When They Say Yes" and "Paid Offer Message"): when a prospect says yes, respond with what the audit will look at (homepage clarity: what do you offer, why trust you, what to do next), then propose the paid package. **Flag:** that file's "Paid Offer Message" cites a $650 starter project, which predates and doesn't match the current v3 service menu (Mini-Audit $250 → ladder). Recommend refreshing that template to reference the current Mini-Audit/Blog ladder pricing — logged as a build-queue item (see `LIFT_MONEY_MACHINE_BUILD_QUEUE.md`), not changed in this task since it's outside the docs this task was scoped to create.
+Existing pattern (`automation/outreach_templates.md`'s "Reply When They Say Yes" and "Paid Offer Message"): when a prospect says yes, respond with what the audit will look at (homepage clarity: what do you offer, why trust you, what to do next), then propose the paid package. **Flag:** that file's "Paid Offer Message" cites a $650 starter project, which predates and doesn't match the current v3 service menu (Mini-Audit $250 → ladder). Recommend refreshing that template to reference the current Mini-Audit/Blog ladder pricing — queued as build ticket **T23** (see `LIFT_MONEY_MACHINE_BUILD_QUEUE.md`), not changed here since a blind edit to that file is outside a doc-patch's safe scope until Megan reviews the corrected wording in context.
 
 ## When to stop following up
 

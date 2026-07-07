@@ -89,7 +89,7 @@ A local-only, doc/read-only dashboard concept — **not to be confused with the 
 
 | Agent/Skill | Active workflow | Blocked? | Permission level | Last run/tested | Next safe action |
 |---|---|---|---|---|---|
-| `$liftaudit` (Audit Research/Clarity/SEO-GEO/Social) | Audit production (Days 1–14 of the 90-day plan) | No | Bucket 2 | 3 audits completed: joy-daniels, shaffer-landscapes, witmer-group | Continue audit-lite batch |
+| `$liftaudit` (Audit Research/Clarity/SEO-GEO/Social) | Audit production (Days 1–14 of the 90-day plan) | No | Bucket 2 | 3 completed audit proof-runs recorded (joy-daniels, shaffer-landscapes, witmer-group) — full-depth count should be tracked separately for the 5-full-depth gate. Per `LIFT_AUDIT_PRODUCTION_SYSTEM.md`'s proof-gate rule these 3 predate the lite/full split and count as full-depth, but that shouldn't be assumed for future rows without checking. | Continue audit-lite batch |
 | Outreach Personalization | First-touch + follow-up drafting | No | Bucket 2 | Rules proven; 0 recorded sends yet | Send first real batch this week |
 | Human Voice QA / Anti-AI Output Editor | — | No (no gate blocks it) | Bucket 1 | Not yet built | Build checklist this week |
 | Prospect Scoring | — | No | Bucket 2 | Rubric defined; not yet run ×10 | Score first 15–20 prospect batch |

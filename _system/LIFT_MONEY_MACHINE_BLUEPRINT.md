@@ -51,7 +51,7 @@ Free hook → Mini-Audit ($250) → Blog & SEO Foundation ($600–1,200) → Blo
 
 ## Pricing / package hypotheses — honest proof state
 
-Every price above already exists in the live service menu (`LIFT_SERVICES_REFERENCE_V3.md`) — these are not invented. What's still a **hypothesis**, per the profit-engine workflow doc, is whether they close and what they actually cost Megan in hours: as of this writing, 3 audits exist (joy-daniels, shaffer-landscapes, witmer-group), 0 paid closes are recorded, and the tracker streak is at 0 weeks. The proof-run gate (≥10 audits, ≥10 reviewed sends, 4-week tracker streak, ≥3 manual replies, 0 identity mishaps) has not been reached. Treat every margin/time claim in this blueprint as a hypothesis to be measured during the 90-day plan, not a settled fact.
+Every price above already exists in the live service menu (`LIFT_SERVICES_REFERENCE_V3.md`) — these are not invented. What's still a **hypothesis**, per the profit-engine workflow doc, is whether they close and what they actually cost Megan in hours: as of this writing, 3 audits exist (joy-daniels, shaffer-landscapes, witmer-group, all full-depth), 0 paid closes are recorded, and the tracker streak is at 0 weeks. The proof-run gate (≥10 total audit proof-runs with at least 5 full-depth, ≥10 reviewed sends, 4-week tracker streak, ≥3 manual replies, 0 identity mishaps — blended definition in `LIFT_AUDIT_PRODUCTION_SYSTEM.md`) has not been reached. Treat every margin/time claim in this blueprint as a hypothesis to be measured during the 90-day plan, not a settled fact.
 
 ## Why customers would pay
 

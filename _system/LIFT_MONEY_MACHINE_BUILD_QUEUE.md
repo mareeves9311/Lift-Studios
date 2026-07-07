@@ -29,7 +29,7 @@
   - **Expected output:** One runnable checklist file.
   - **Codex audit:** No.
   - **Fable/Opus:** No.
-- **Supporting ticket — T6 (existing): Audit-to-outreach packet generator.** Assembles summary + draft email + checklist into a DOC (never a Gmail draft). Prereq: 5 manual audits (pattern known) — 2 more needed past the current 3. Codex: yes. Fable: no.
+- **Supporting ticket — T6 (existing): Audit-to-outreach packet generator.** Assembles summary + draft email + checklist into a DOC (never a Gmail draft). Prereq: 5 manual **full-depth** audits (pattern known) — 2 more needed past the current 3, since packet assembly depends on full-depth output (asset pack, concept brief) that audit-lite doesn't produce. Codex: yes. Fable: no.
 
 ## 3. Outreach approval checklist
 
@@ -43,6 +43,20 @@
   - **Approval gate:** none required to build; Megan uses it going forward.
   - **Expected output:** One checklist file, used before every send.
   - **Codex audit:** No.
+  - **Fable/Opus:** No.
+
+## Additional ticket: stale outreach template pricing (T23)
+
+- **New ticket — T23: Audit and clean stale outreach template pricing language**
+  - **Objective:** `automation/outreach_templates.md`'s "Paid Offer Message" cites a $650 "starter project" that predates and doesn't match the current v3 service menu (Mini-Audit $250 → Blog/Content ladder, `LIFT_SERVICES_REFERENCE_V3.md`). Audit that file, and sweep any other outreach template, for pricing/offer language that doesn't match the current ladder.
+  - **Files involved:** `automation/outreach_templates.md`; grep-sweep any other template file for stale prices/offer names.
+  - **Allowed:** doc-only edits to template copy, correcting pricing/offer references to match the current ladder.
+  - **Forbidden:** blind search-and-replace without reading each match in context; edits to anything outside plain-text outreach templates; any Gmail/Sheets/send action.
+  - **Manual proof required:** none to audit; Megan reviews the corrected wording before it's used live.
+  - **Tests:** grep confirms no stale price/offer name remains in any active outreach template after the pass.
+  - **Approval gate:** Megan approves the corrected wording before first live use.
+  - **Expected output:** Updated template copy, pricing aligned with the current offer ladder.
+  - **Codex audit:** Yes — good fit for a mechanical consistency sweep.
   - **Fable/Opus:** No.
 
 ## 4. Tracker schema cleanup
@@ -105,6 +119,24 @@
 
 **Correctly not yet ticketed.** This is Phase 6 of `LIFT_V2_SAFE_AUTOMATION_BLUEPRINT.md` — explicitly deferred, may never happen, gated on full proof-run plus a separate explicit approval decision. Do not create a ticket for this now; doing so would be exactly the kind of premature building this queue's own ordering is designed to prevent. When/if the gate ever clears, it gets a Fable-designed spec first, same as T5's write-path gate.
 
+## Additional ticket: Paid Client Fulfillment/Admin SOP (T24)
+
+Gap identified: nothing in this doc set covers what happens mechanically *after* a client says yes.
+
+- **New ticket — T24: Paid Client Fulfillment/Admin SOP**
+  - **Objective:** Document the operational SOP for everything between "client agrees to pay" and "client is a running, satisfied retainer" — currently undocumented anywhere in this repo.
+  - **Files involved:** new `_system/LIFT_CLIENT_FULFILLMENT_SOP.md` (doc-only).
+  - **Allowed:** doc creation only.
+  - **Forbidden:** any invoicing/payment-tool integration, any live client-communication automation, any Gmail/Drive/connector action.
+  - **Must cover:** proposal (verbal/email yes → written scope + price confirmation); payment/invoice (confirm payment before work starts — tool-agnostic, this documents process, it doesn't stand up a payment tool); kickoff (first client touchpoint after payment); asset collection (logo files, photos, GBP access, brand guidelines, and how they're requested); approval workflow (drafts go to the client for sign-off before anything publishes); delivery format (what a finished deliverable looks like per offer-ladder rung); revision boundary (how many rounds are included before it's a new scope/price); reporting cadence (what a monthly report contains and when, for retainer clients); blog retainer fulfillment constraints (Blog Essentials = 2 posts/mo, Blog Growth = 4/mo, and what happens if a client wants more mid-cycle); client approval and publishing access (who can publish to the client's own site/blog, and the access/approval boundary if Lift ever publishes on a client's behalf — that's a client-owned-platform action, outside this repo's own live-system safety gate, but the boundary should still be written down); what Megan must approve (every deliverable before client delivery, every invoice before it's sent, any scope change before work starts on it).
+  - **Manual proof required:** none to draft; validate against the first 1–2 real paid engagements (90-day plan, Days 31–60) and correct from real experience.
+  - **Tests:** N/A (doc-only).
+  - **Approval gate:** Megan reviews before first paid delivery uses it.
+  - **Expected output:** One SOP doc covering the full paid-client lifecycle.
+  - **Codex audit:** No — no safety-critical surface, pure business-process doc.
+  - **Fable/Opus:** No.
+  - **Build priority:** best drafted right before or during Days 31–60 of the 90-day plan — the first paid close is exactly when it gets used and stress-tested for real.
+
 ## Priority 0 addition: Anti-AI Output QA Checklist / Skill
 
 Not one of Megan's original 10, added this session because it's flagged as a foundation-level requirement and — unlike almost everything else in this queue — has **zero live-system risk**, so it doesn't need to wait for anything.
@@ -125,8 +157,9 @@ Not one of Megan's original 10, added this session because it's flagged as a fou
 ## Queue summary, in build order
 
 1. T22 (Anti-AI QA checklist) and T19 (rubric addition) — both zero-gate, buildable immediately, highest leverage per hour.
-2. T11 (audit SOP), T14 (outreach checklist), T17 (KPI tracker) — all P1, doc-only, no gate.
+2. T11 (audit SOP), T14 (outreach checklist), T17 (KPI tracker), T23 (stale template pricing sweep) — all P1, doc-only, no gate.
 3. T20 (agent prompts), T21 (status dashboard) — doc-only, no gate, slightly more effort.
 4. T5 spec (reconciliation) — doc-only now, but its *use* stays gated.
-5. T13, T6 — wait on their existing prereqs (rubric ×10; 5 manual audits).
-6. Phase 6 (Gmail draft assist) — not ticketed, may never happen.
+5. T24 (fulfillment/admin SOP) — doc-only, no gate, but best drafted once the first paid close is imminent (Days 31–60) so it reflects a real engagement, not a guess.
+6. T13, T6 — wait on their existing prereqs (rubric ×10; 5 manual full-depth audits for T6).
+7. Phase 6 (Gmail draft assist) — not ticketed, may never happen.

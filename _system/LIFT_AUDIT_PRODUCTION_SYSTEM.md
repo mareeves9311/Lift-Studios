@@ -13,6 +13,17 @@ Recommend two depths going forward:
 
 The 13 steps below apply in full to full-depth audits; audit-lite uses steps 1, 2, 4/5/6 (skimmed), 7, and 10 only — the rest are skipped until a prospect earns full depth by paying or replying.
 
+### Proof-gate counting rule (audit-lite vs full-depth)
+
+The profit-engine proof-run gate (`LIFT_PROFIT_ENGINE_WORKFLOW.md`) was defined before audit-lite existed, as "≥10 completed $liftaudits." Introducing a second, shallower depth makes that number ambiguous unless restated. Restated, blended, and **not a weakening** of the original gate:
+
+- **≥10 total audit proof-runs** (audit-lite or full-depth) satisfies the outreach-volume / offer-message-learning floor. Audit-lite passes count here.
+- **Of those, ≥5 must be full-depth `$liftaudit` passes.** Only full-depth passes exercise the asset-verification and visual-QA steps (3, 8, 11 below) this gate was originally built to prove out — audit-lite skips them by design and cannot substitute for them.
+- Audit-lite passes count **only** toward outreach/offer-message learning. They do **not** count toward visual-quality-consistency or automation-readiness validation.
+- The other proof-run legs — ≥10 reviewed sends, 4-consecutive-week tracker streak, ≥3 manually-handled replies, 0 identity mishaps — are unaffected by audit depth and unchanged.
+
+Any other doc in this set that references "10 audits" toward the proof gate means this blended definition, not 10 audit-lite passes alone. The 3 audits completed to date (joy-daniels, shaffer-landscapes, witmer-group) all pre-date the lite/full split and count as full-depth.
+
 ## The 13 steps
 
 ### 1. Audit intake

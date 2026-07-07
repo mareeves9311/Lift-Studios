@@ -1,12 +1,12 @@
 # Lift 90-Day Revenue Plan
 
-2026-07-06. Grounded in the actual current state: 3 completed audits (joy-daniels, shaffer-landscapes, witmer-group), 0 recorded paid closes, 0-week tracker streak. The proof-run gate (`LIFT_PROFIT_ENGINE_WORKFLOW.md`) requires ≥10 audits, ≥10 reviewed sends, a 4-consecutive-week same-session tracker streak, ≥3 manually-handled replies, and 0 identity mishaps before any P2 automation becomes buildable. This plan is built to reach that gate, not around it — automation timing follows the proof gate, not the calendar.
+2026-07-06. Grounded in the actual current state: 3 completed audits (joy-daniels, shaffer-landscapes, witmer-group) — all full-depth, run before the audit-lite/full-depth split existed — 0 recorded paid closes, 0-week tracker streak. The proof-run gate (`LIFT_PROFIT_ENGINE_WORKFLOW.md`, blended per `LIFT_AUDIT_PRODUCTION_SYSTEM.md`'s proof-gate counting rule) requires **≥10 total audit proof-runs with at least 5 full-depth**, ≥10 reviewed sends, a 4-consecutive-week same-session tracker streak, ≥3 manually-handled replies, and 0 identity mishaps before any P2 automation becomes buildable. Audit-lite passes count toward the 10-total floor and toward outreach/offer-message learning only — they do not substitute for the 5 required full-depth passes, which alone validate visual QA and asset verification. This plan is built to reach that gate, not around it — automation timing follows the proof gate, not the calendar.
 
 ## Days 1–14 — Proof-run and offer sharpening
 
 - **Goal:** move toward the ≥10-audit / ≥10-send proof gate using Tier A verticals only; learn whether the Mini-Audit/Blog pitch resonates at all.
 - **Exact actions:** score and add 15–20 Tier A prospects (PA core geo) to the tracker using the rubric in `LIFT_PROSPECTING_AND_SCORING_SYSTEM.md`; run audit-lite depth on each (see `LIFT_AUDIT_PRODUCTION_SYSTEM.md`); send first-touch emails referencing 1–2 specific findings; run every send through the Anti-AI Output QA Standard first; update the tracker same-session, every time.
-- **Audits:** ~7 more audit-lite passes (to reach 10 cumulative); full `$liftaudit` depth only if a prospect replies positive.
+- **Audits:** ~7 more audit-lite passes (toward the 10-total floor; counts for outreach/offer learning only, not the full-depth requirement); full `$liftaudit` depth only if a prospect replies positive — each of those also counts toward the 5-full-depth minimum.
 - **Prospects sourced/scored:** 15–20.
 - **Outreach emails:** 10–15 first-touch sends.
 - **What to measure:** score distribution (too early for correlation, but start the record), time per audit-lite, time per email, Anti-AI QA pass rate (are drafts passing clean or needing multiple rewrites — signal for whether the Human Voice QA checklist is worth building immediately).
@@ -20,7 +20,7 @@
 
 - **Goal:** build toward the 4-week same-session tracker streak; get first replies; learn what copy/angle actually converts.
 - **Exact actions:** keep sourcing 10–15 new Tier A/B prospects per week; send Follow-Up 1 to the day 1–14 batch that hasn't replied (per the cadence in `LIFT_OUTREACH_AND_FOLLOWUP_SYSTEM.md`); introduce Tier B verticals as a deliberate comparison against Tier A response rate.
-- **Audits:** ~10–15 more, mostly audit-lite; full depth only on replies.
+- **Audits:** ~10–15 more, mostly audit-lite (counts toward the 10-total volume floor only); full depth only on replies — track the full-depth count separately against the 5-minimum.
 - **Prospects sourced/scored:** 20–30 more.
 - **Outreach emails:** 15–25 first-touch + 8–10 Follow-Up 1 sends.
 - **What to measure:** reply rate by vertical, reply rate by specific-issue type named, whether Follow-Up 1 lifts response at all over first-touch alone.
@@ -38,7 +38,7 @@
 - **Prospects sourced/scored:** ~10/week background rate.
 - **Outreach emails:** ~10/week first-touch + ongoing Follow-Up 1/2 on the aging batch.
 - **What to measure:** close rate (replies → paid), average deal size, real time-to-deliver per paid engagement, and — most important — **actual Megan-hours per close**, which turns every price in `LIFT_OFFER_LADDER.md` from hypothesis into fact.
-- **What to automate:** likely nothing new yet, but the manual-proof gate may clear mid-phase — only then do doc/local P1 tools (already buildable, see build queue) get joined by the P2 tier (T13 prospect scoring assistant, T6 audit packet assembler), and only as Claude Code local tools, never live-system automation.
+- **What to automate:** likely nothing new yet, but the manual-proof gate may clear mid-phase — check specifically for ≥10 total audits **and** ≥5 full-depth among them, not just the 10-total count. Only then do doc/local P1 tools (already buildable, see build queue) get joined by the P2 tier (T13 prospect scoring assistant, T6 audit packet assembler), and only as Claude Code local tools, never live-system automation.
 - **What not to automate:** delivery/fulfillment of the first paid packages — do these fully manually to learn the real time cost before ever templating them. Final Anti-AI QA acceptance stays Megan's call even after the flagging checklist exists.
 - **Expected learning:** the real hourly economics of a Mini-Audit and a Blog package cycle — this is the number that decides whether current pricing is right.
 - **Success criteria:** first $1,000 in signed/paid revenue; at least one recurring Blog package client, or two Mini-Audits plus one one-time package.
