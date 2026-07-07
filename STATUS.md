@@ -3,11 +3,11 @@
 Last updated: 2026-07-06
 
 ## Session Lock
-- Agent: Fable 5 (commissioning & trigger decommission)
-- Date: 2026-07-06 23:45 ET
-- State: Codex-audit corrections applied. Automated outbound engine formally downgraded to **LEGACY / V2 CANDIDATE — CONNECTED BUT NOT RECONCILED — DO NOT RUN** (`automation/LEGACY_README.md`). ACTIVE_INSTRUCTIONS.md rewritten around the current simplified manual-first workflow (tracker + $liftaudit + human-approved outreach). Web app endpoint marked **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED** because `doPost` skips auth if `LIFT_WEB_APP_SECRET` is missing. **Old Apps Script triggers were found live and manually deleted 2026-07-06** — Script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su` ("Lift Studio Legacy Outreach Engine - Clasp Connected - DO NOT RUN") had triggers for `refreshSentAndReplies`, `runLiftStudioDailySystem`, `createOutreachDrafts`, `runQueuedLiftBrandAudits`, and `handleLiftBrandPipelineEdit` removed. Script remains connected via clasp but no reconciliation attempted. Do not run clasp pull, clasp push, Apps Script functions, or install triggers without explicit reapproval.
+- Agent: Codex
+- Date: 2026-07-06 19:59 ET
+- State: `/project-start` completed for Lift Studio. Active workflow confirmed manual-first; legacy Apps Script engine remains LEGACY / V2 CANDIDATE — CONNECTED BUT NOT RECONCILED — DO NOT RUN. No Apps Script, Gmail, trigger, clasp, or automation actions ran.
 - In progress / not finished: Web app endpoint fail-closed patch is not approved or deployed; live/repo drift remains unreconciled. Do not run clasp pull/push or any Apps Script function unless Megan explicitly approves an archival safety diff or a rebuilt simplified V2.
-- Next step: Trigger decommission is complete. System is safe to run in manual-first mode indefinitely.
+- Next step: Safe manual Lift work only — choose a prospect/category and run `$liftaudit` in chat, or update the business/category tracker manually.
 
 ## Current Source Of Truth
 
