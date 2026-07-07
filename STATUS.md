@@ -3,11 +3,11 @@
 Last updated: 2026-07-06
 
 ## Session Lock
-- Agent: Claude Code (Sonnet)
-- Date: 2026-07-06 (session open)
-- State: `/project-start` run as a real-work test — first manual operating-loop proof-run after the architecture/audit cycle (foundation clean through commit d780640). Preparing Megan for one manual `$liftaudit` proof-run in ChatGPT. No files edited beyond this lock; no Apps Script, Gmail, clasp, triggers, Canva, or automation actions ran.
-- In progress / not finished: manual $liftaudit proof-run about to happen in ChatGPT (outside this session) — tracker update + closeout expected after Megan runs it. Standing risks unchanged: web app endpoint fail-closed patch not approved/deployed; live/repo Apps Script drift unreconciled.
-- Next step: Megan runs $liftaudit in ChatGPT for a chosen prospect → returns to update tracker manually → /project-closeout.
+- Agent: Fable 5 (audit) → doc update
+- Date: 2026-07-06
+- State: Lift profit-engine legacy audit produced (7 `_system/` docs, commit acf71bc). Audit found the old engine had FOUR scheduler layers, not one. **Megan then closed the two critical live-scheduler risks the same day:** R1 macOS launchd job `com.liftstudio.daily-outreach` removed + plist deleted (verified: "No Lift launchd jobs loaded / No Lift launchd plist found"); R2 Anthropic cloud routines checked, paused/deleted if found. No Apps Script, Gmail, Drive, clasp, Canva, trigger, or automation execution occurred.
+- In progress / not finished: R3 (fail-open web app endpoint, still deployed "access: Anyone") is now the top open risk — no live scheduler drives it, but un-deploy is NEEDS HUMAN next time Megan is in the Apps Script editor. R5 (local↔live drift) still unresolved. Legacy archive hardening (ticket T1) pending.
+- Next step: manual $liftaudit proof-run continues the manual-proof clock; when convenient, Megan un-deploys the legacy web app endpoint to close the last live surface.
 
 ## Current Source Of Truth
 

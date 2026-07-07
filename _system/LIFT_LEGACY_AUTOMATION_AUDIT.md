@@ -4,16 +4,16 @@ Read-only static audit, 2026-07-06 (Fable 5, audit mode). No code run, no clasp,
 
 ## Headline finding
 
-**The old engine had FOUR scheduler layers. Only one was decommissioned.**
+**The old engine had FOUR scheduler layers.** As of 2026-07-06, layers 1–3 (the active schedulers) are decommissioned. Layer 4 (the passive endpoint) remains deployed but is not driven by any live scheduler.
 
 | Layer | Status | Evidence |
 |---|---|---|
 | 1. Apps Script time triggers | ✅ deleted by Megan 2026-07-06 | LEGACY_README.md decommission log |
-| 2. macOS launchd `com.liftstudio.daily-outreach` | 🔴 **STILL LOADED on this Mac** — fires 5:30 + 10:30 daily, currently failing (exit 78; err.log: "can't open input file: run_daily_8am_outreach.sh", last entry 2026-06-30) | `launchctl list` shows job present; plist `StartCalendarInterval` 5:30/10:30; `automation/logs/launchd-daily-outreach.err.log` |
-| 3. Anthropic cloud routines ×2 — Morning `trig_01XBAmYLBHjv4kzcBr8rRLFU` (7am ET), Midday `trig_01P8apy2dZsMAuBHxz1N4m5G` (12pm ET) | 🟡 **UNKNOWN — cannot verify locally.** May still fire daily in Anthropic's cloud, no Mac required | `automation/scheduled_routines.md` lines 15–16 |
-| 4. Web app endpoint (doPost) | 🔴 deployed, passive, **fail-open auth** | STATUS.md (deployment URL, access: Anyone); code at LiftPipelineAutomation.gs:1341 |
+| 2. macOS launchd `com.liftstudio.daily-outreach` | ✅ **REMOVED by Megan 2026-07-06.** Job unloaded (`launchctl remove`) and `~/Library/LaunchAgents/com.liftstudio.daily-outreach.plist` deleted if present. Re-verification returned: "No Lift launchd jobs loaded / No Lift launchd plist found." | Megan's manual removal + verification 2026-07-06 (originally: `launchctl list` showed job present, plist 5:30/10:30) |
+| 3. Anthropic cloud routines ×2 — Morning `trig_01XBAmYLBHjv4kzcBr8rRLFU` (7am ET), Midday `trig_01P8apy2dZsMAuBHxz1N4m5G` (12pm ET) | ✅ **CHECKED by Megan 2026-07-06** in Claude/Anthropic Routines; paused/deleted if found | Megan's manual check 2026-07-06 (originally documented in `automation/scheduled_routines.md` lines 15–16) |
+| 4. Web app endpoint (doPost) | 🔴 deployed, passive, **fail-open auth** — no longer driven by any live scheduler (layers 1–3 down), but still deployed "access: Anyone" | STATUS.md (deployment URL, access: Anyone); code at LiftPipelineAutomation.gs:1341 |
 
-Layer 2's failure is accidental (stale path/quoting), not designed. Layer 3 is the scariest unknown: cloud routines were designed to drive the outbound engine and can call the fail-open endpoint. **"The engine is dead" is not yet a true statement.**
+**Update 2026-07-06:** the two critical live-scheduler risks (R1 launchd, R2 cloud routines) were addressed by Megan the same day this audit was produced — see risk register. Layer 4 remains the one open item: the endpoint is still deployed with fail-open auth, but with no live scheduler calling it, its exposure is reduced from "actively driven" to "publicly reachable but idle." Un-deploying it (NEEDS HUMAN, next time Megan is in the Apps Script editor) closes the last live surface. **With layers 1–3 down, "the engine is no longer running" is now a true statement; "the engine cannot be reached at all" is not yet true (layer 4).**
 
 ## Inventory (all inspected statically)
 
@@ -41,9 +41,9 @@ Layer 2's failure is accidental (stale path/quoting), not designed. Layer 3 is t
 
 | # | Risk | Sev | Where | Failure mode → consequence | Mitigation now | Recommended | Local-fixable? | Codex audit? |
 |---|---|---|---|---|---|---|---|---|
-| R1 | launchd job still loaded, fires 2×/day | **CRITICAL** | loaded `com.liftstudio.daily-outreach` | stale Codex path self-heals (extension update/reinstall) → resumes full-access no-approval outreach runs unattended | failing by accident only | **Megan this week:** `launchctl remove com.liftstudio.daily-outreach` + delete plist from `~/Library/LaunchAgents/` (find: `ls ~/Library/LaunchAgents \| grep -i lift`) | the unload = human cmd; repo copy archive = local | verify gone after removal |
-| R2 | Cloud routines possibly still firing daily | **CRITICAL** | `trig_01XBAm…`, `trig_01P8…` in Anthropic cloud | routine runs → follows old orchestrator prompts → calls fail-open endpoint / expects drafts | none — status unknown | **Megan this week:** claude.ai → Routines → pause/delete both; report what run history shows | no — cloud UI only | no (human-only surface) |
-| R3 | Fail-open doPost on a live "access: Anyone" endpoint | **HIGH** | LiftPipelineAutomation.gs:1341 + deployed URL in STATUS.md | anyone (or R2's routines) posts → sheet writes without auth if secret property missing | endpoint documented UNSAFE; nothing calls it that we control | leave dead; if V2 ever needs an endpoint, new script, fail-closed from line 1; consider un-deploying the web app when Megan is next in the editor (NEEDS HUMAN) | design local; un-deploy needs human | design review yes |
+| R1 | ~~launchd job still loaded, fires 2×/day~~ **RESOLVED 2026-07-06** | ~~CRITICAL~~ → CLOSED | `com.liftstudio.daily-outreach` | (was) stale Codex path self-heals → resumes full-access no-approval outreach runs | **Megan removed the job (`launchctl remove`) and deleted the plist. Re-verify: "No Lift launchd jobs loaded / No Lift launchd plist found."** Repo copy of plist still exists → archive via T1. | done (job); T1 archives repo copy | ✅ verified gone |
+| R2 | ~~Cloud routines possibly still firing daily~~ **RESOLVED 2026-07-06** | ~~CRITICAL~~ → CLOSED | `trig_01XBAm…`, `trig_01P8…` | (was) routine runs → old orchestrator prompts → calls fail-open endpoint | **Megan checked Claude/Anthropic Routines and paused/deleted both if found.** | done | ✅ checked/cleared |
+| R3 | Fail-open doPost on a live "access: Anyone" endpoint — **now the top open risk (R1/R2 closed)** | HIGH | LiftPipelineAutomation.gs:1341 + deployed URL in STATUS.md | anyone posts → sheet writes without auth if secret property missing. (R2 no longer a caller — cloud routines cleared) | endpoint documented UNSAFE; no live scheduler drives it now | **un-deploy the web app next time Megan is in the Apps Script editor** (NEEDS HUMAN) — closes the last live surface; if V2 ever needs an endpoint, new script fail-closed from line 1 | un-deploy needs human | design review yes |
 | R4 | `sendEmail`-capable legacy variant un-quarantined | **HIGH** | automation/gmail_outreach_automation.gs:284,936 | future session/agent grabs "the outreach script," runs the one that SENDS | none — file sits beside active docs | archive under `automation/_LEGACY_QUARANTINE/` + deprecation banner (ticket T1/T9) | yes | yes (no-revival sweep) |
 | R5 | Local ≠ live Apps Script drift | MED | scriptId `1g_9-U…` | reasoning from repo code that doesn't match deployed reality | drift documented | someday: one approved read-only clasp pull as archival snapshot; until then treat live state as unknown | no — needs approved clasp | after pull |
 | R6 | Trigger installers one menu-click away | MED | 7 installers across both live-sync files + sheet menus | someone clicks `Install/Repair Full Automation` in the sheet | DO NOT RUN docs | deprecation banners in code comments (doc-edit ticket, needs approval since it touches .gs text) + Codex quarterly no-revival audit | yes (comment-only edit, gated) | yes |
@@ -52,7 +52,8 @@ Layer 2's failure is accidental (stale path/quoting), not designed. Layer 3 is t
 | R9 | Duplicate scheduler definitions confuse future cleanup | LOW | plist repo copy, DAILY_8AM_SETUP.md, scheduled_routines.md | future session "restores" a scheduler believing it's config | LEGACY banners partial | archive hardening ticket T1 | yes | yes |
 
 ## Unknowns requiring live verification later (all NEEDS HUMAN or gated)
-Live Apps Script code vs repo (R5) · web app deployment list + whether secret Script Property currently exists · cloud routine run history (R2) · loaded plist location + any other lift-named LaunchAgents (R1) · whether any Gmail filters/rules were created by old runs.
+Live Apps Script code vs repo (R5) · web app deployment list + whether secret Script Property currently exists (R3 — un-deploy pending) · whether any Gmail filters/rules were created by old runs.
+**Resolved 2026-07-06:** ~~cloud routine run history (R2)~~ checked/cleared by Megan · ~~loaded plist + other lift LaunchAgents (R1)~~ removed + verified ("No Lift launchd jobs loaded / No Lift launchd plist found").
 
 ## Classification summary
 - **Never revive as running code:** both root-level .gs variants, run_daily_8am shell + plist, danger-full-access pattern, auto-send anything.
