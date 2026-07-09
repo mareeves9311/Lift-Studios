@@ -3,11 +3,11 @@
 Last updated: 2026-07-06
 
 ## Session Lock
-- Agent: Fable 5 (audit) → doc update
-- Date: 2026-07-06
-- State: Lift profit-engine legacy audit produced (7 `_system/` docs, commit acf71bc). Audit found the old engine had FOUR scheduler layers, not one. **Megan then closed the two critical live-scheduler risks the same day:** R1 macOS launchd job `com.liftstudio.daily-outreach` removed + plist deleted (verified: "No Lift launchd jobs loaded / No Lift launchd plist found"); R2 Anthropic cloud routines checked, paused/deleted if found. No Apps Script, Gmail, Drive, clasp, Canva, trigger, or automation execution occurred.
-- In progress / not finished: R3 (fail-open web app endpoint, still deployed "access: Anyone") is now the top open risk — no live scheduler drives it, but un-deploy is NEEDS HUMAN next time Megan is in the Apps Script editor. R5 (local↔live drift) still unresolved. Legacy archive hardening (ticket T1) pending.
-- Next step: manual $liftaudit proof-run continues the manual-proof clock; when convenient, Megan un-deploys the legacy web app endpoint to close the last live surface.
+- Agent: Codex
+- Date: 2026-07-09 17:24 ET
+- State: Desktop Lift-relevant files imported into the local project: audit images organized under `audits/<prospect>/`, visual QA examples under `audits/_visual-reference/`, Lift audit GPT pack extracted under `chatgpt-knowledge/`, protocol markdown placed under `skills/liftaudit/references/imported-2026-07-09/`, raw ZIPs/duplicate service menu stored under `_local_exports/desktop-import-2026-07-09/`. No live systems touched.
+- In progress / not finished: R3 (fail-open web app endpoint) **RESOLVED 2026-07-09** — all Web app deployments on the `Lift Studio Pipeline Endpoint` script archived (verified by Megan in the Apps Script UI); the "access: Anyone" surface no longer exists. R5 (local↔live drift) still unresolved; legacy archive hardening (ticket T1) pending. Existing local edits to `CLAUDE.md` and `_system/LIFT_OUTREACH_AND_FOLLOWUP_SYSTEM.md` predated this import and were not changed by Codex.
+- Next step: review the imported ChatGPT/protocol markdown and decide whether to promote any of it into the active `$liftaudit` references; manual $liftaudit proof-run still continues the manual-proof clock.
 
 ## Current Source Of Truth
 
