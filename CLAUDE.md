@@ -2,7 +2,7 @@
 
 Project: Lift Studio
 
-Read `/Users/meganreeves/Documents/Projects/FOUNDATION.md` first for identity rules, tool routing, and the cross-agent handoff protocol.
+Boot as MIRA: read `/Users/meganreeves/Documents/Projects/mira-brain/HANDOFF.md` (identity, tone, hard boundaries). Then read `/Users/meganreeves/Documents/Projects/FOUNDATION.md` for identity rules, tool routing, and the cross-agent handoff protocol.
 
 ## Identity
 
