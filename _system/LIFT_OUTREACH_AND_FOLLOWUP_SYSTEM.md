@@ -74,6 +74,23 @@ Everything. No exceptions, permanently — per `CLAUDE.md` and `LIFT_STUDIO_OPER
 
 Per the tracker schema in `LIFT_PROSPECTING_AND_SCORING_SYSTEM.md`: `outreach_status`, `first_sent_date`, `last_touch_date`, `reply_state`, `next_action`. Same-session updates are what the 4-week proof streak measures — see `LIFT_PROFIT_ENGINE_WORKFLOW.md`.
 
+## Open experiment — format/CTA test (added 2026-07-08, from Hall & Sons proof-run QA)
+
+Neither short direct emails nor longer audit-heavy emails have shown strong reply rates so far. Don't overlearn "short wins" from one proof-run. Open question: what actually gets a local business owner to reply — not just length.
+
+Hypotheses to test:
+1. Visual proof may beat email length — a strong visual could prove capability faster than more text, especially for prospects who won't click through to helloliftstudio.com.
+2. The offer may need to feel more concrete than "site/content cleanup" — e.g. "I made a quick example of how your FAQ/service-area content could work harder for local search."
+3. CTA may need to lower friction — "Want me to send the short audit?" / "Want me to send the notes?" may outperform "Worth a quick call?" for cold prospects (a call is a bigger ask).
+4. If a visual is used, it may belong in the first touch, not held for follow-up — but only if polished and tied directly to revenue/search/trust, never decorative.
+
+**Test A — text-only:** 125–160 words, one observation, one business outcome, CTA = "Want me to send the short audit?"
+**Test B — visual-led:** 80–120 words, one strong visual preview/mockup, CTA = "I mocked up one example — want me to send the notes behind it?"
+
+Track per prospect once live batches run (new tracker columns, not added this session — Megan's call when the next batch starts): sent date, format (text-only/visual-led), CTA type, vertical, prospect quality, reply yes/no, reply quality, follow-up needed, notes on what seemed to work.
+
+Goal isn't "pick short or long" as a rule — it's learning what builds enough trust/curiosity for a reply. Revisit after enough sends exist to compare.
+
 ## Pre-send gate (non-negotiable)
 
 Before any send: Anti-AI Output QA Standard's six-pass check complete, service menu attached (and only the service menu), website link present, no guarantee language, tracker row ready to update same-session after send.
