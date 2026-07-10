@@ -88,7 +88,7 @@ I will keep it simple and practical.
 
 ## Paid Offer Message
 
-**STALE — do not use as-is.** This message and its $650 price predate the current v3 service menu/ladder (`site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`, `_system/LIFT_OFFER_LADDER.md`) and don't match any current rung. Do not send until corrected — see ticket **T23** in `_system/LIFT_MONEY_MACHINE_BUILD_QUEUE.md` (correcting the scope/price is a package decision, not a wording fix, so it isn't guessed here).
+**STALE — do not use as-is.** This message and its $650 price predate the current v3 service menu (`site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`) and don't match any current offer. This whole file is queued for rewrite against the two-lane system — see ticket **T23** in `_system/LIFT_BUILD_QUEUE.md` and `_system/LIFT_SYSTEM.md` §2/§4. Do not send anything from this file until that rewrite lands and Megan approves it.
 
 Based on what I saw, I would recommend starting with a focused Lift Studio starter project.
 

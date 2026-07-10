@@ -3,103 +3,37 @@
 Last updated: 2026-07-09
 
 ## Session Lock
-- Agent: Claude Code (Opus 4.8)
-- Date: 2026-07-09 21:10 ET
-- State: Full read-only audit of the client-acquisition system, extended with live Gmail/Canva/Ahrefs verification. **Ground truth established and it contradicts this file:** 72 sent threads (~55 distinct businesses, June 11 – July 2), **zero prospect replies ever**, ~5 bounces (~9%), 63% open rate on the 35 Snov.io-tracked emails, 0 clients, $0 revenue. The local tracker (`templates/LIFT_PIPELINE_WEEK_TRACKER.csv`) is header-only and recorded none of it. Every send went from the free `@gmail.com`, linked to `helloliftstudio.netlify.app` rather than the real domain, and (from June 23) carried a Snov.io pixel + `mheho.com` link-wrapper. Engagement skews to visual businesses (bakery, medspa, aesthetics), not the trades the strategy docs designate Tier 1. Full findings, Megan's POV, killed hypotheses, and open decisions: **`_system/LIFT_FABLE_HANDOFF_2026-07-09.md`**.
-- Nothing shipped: no emails sent, no drafts created, no sheet writes, no Apps Script execution. Read-only on all connectors.
-- In progress / not finished: **Handing off to Fable for an architecture + consolidation pass** (Megan's call, per FOUNDATION.md tool routing — architecture, multi-phase system decisions, complex refactor of ~24 `_system/LIFT_*` docs). Fable must read the handoff brief §6 (hypotheses tested and killed) before proposing anything. Megan still owes the brief one input: the first-outreach date, marked `[MEGAN TO FILL]` in §1. Also open: `skills/liftaudit/references/imported-2026-07-09/` still untracked and still not wired into `SKILL.md`'s reference-loading block (990-line verification protocol has zero effect on live audits); T14/T17/T19/T22/T23/T24 all still open; R5 (local↔live Apps Script drift) unresolved; the fail-open `doPost` branch still exists in the repo copy of `LiftPipelineAutomation.gs` even though live deployments were archived.
-- Running in parallel, independent of Fable: stand up `megan@helloliftstudio.com` (MX/SPF/DKIM/DMARC, then 2–3 week warmup at 5–10 sends/day). `helloliftstudio@gmail.com` stays — it owns the Sheet, Drive, Netlify, Snov.io, Apps Script. Requires a `FOUNDATION.md` Identity Map amendment.
-- Next step: Fable reads `_system/LIFT_FABLE_HANDOFF_2026-07-09.md`, forces the §9 open decisions (lead offer first), and consolidates `_system/` under a strict deletion mandate — fewer files out than in. Claude Code then builds the three-stage critic pipeline (§10). Do not resume outreach until the lead offer is decided.
+- Agent: Fable 5 (Architect mode)
+- Date: 2026-07-09 23:55 ET
+- State: **Consolidation landed.** `_system/` reduced from 25 files to 5; `_system/LIFT_SYSTEM.md` is now the single client-acquisition operating doc, `_system/LIFT_BUILD_QUEUE.md` the single build queue. Megan locked the open decisions live this session: **two co-lead lanes as a timed test** (Lane V visual / Lane S search, decision checkpoint 2026-08-07), SEO lane survives as co-lead, free hook = one remade piece only, invented website case studies come down and get replaced with real labeled spec work, price lives in the menu only. FOUNDATION.md Identity Map amended (second Lift sending address, accepted by Fable). `skills/liftaudit/SKILL.md` now loads the imported 990-line asset-verification protocol on every run. Local CSV tracker deleted — the Google Sheet `Pipeline` tab is the only tracker. Outreach resumes **Monday 2026-07-13** per `LIFT_SYSTEM.md` §6.
+- Nothing shipped: no sends, no drafts, no sheet writes, no Apps Script, no push. All changes are local commits on `repo-consolidation-2026-07-02`.
+- In progress / not finished: Claude Code build queue items 1–7 (`_system/LIFT_BUILD_QUEUE.md`) — critic pipeline skill first. Megan's pre-Monday items: Snov tracking off, invented case studies down, GPT netlify link fixed, megan@helloliftstudio.com stood up, Witmer web-team + Tang Instagram verified.
+- Next step: Claude Code builds `LIFT_BUILD_QUEUE.md` #1–#5 before Monday where possible (critic skill, T22 gate, microsite template, T23 template rewrite, T14 checklist). Monday runs on checklists if builds aren't done — the date does not move.
 
 ## Current Source Of Truth
 
-- Active instruction entrypoint: `ACTIVE_INSTRUCTIONS.md`
-- Local workspace: `/Users/meganreeves/Documents/Projects/Lift Studio`
-- GitHub repo: `https://github.com/mareeves9311/Lift-Studios`
-- Website: `https://helloliftstudio.com/`
-- Dashboard: `https://liftstudiosdashboard.netlify.app/`
-- Google Sheet: `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit`
+- **Operating doc: `_system/LIFT_SYSTEM.md`** (audit, offers, outreach, critic pipeline, tracker, two-lane test)
+- Build queue: `_system/LIFT_BUILD_QUEUE.md` · QA gate: `_system/LIFT_ANTI_AI_OUTPUT_QA_STANDARD.md` · Legacy safety record: `_system/LIFT_LEGACY_AUTOMATION_AUDIT.md`
+- Entry point: `ACTIVE_INSTRUCTIONS.md` · Local workspace: `/Users/meganreeves/Documents/Projects/Lift Studio`
+- GitHub: `https://github.com/mareeves9311/Lift-Studios` (branch `repo-consolidation-2026-07-02`, local commits unpushed)
+- Website: `https://helloliftstudio.com/` · Dashboard: `https://liftstudiosdashboard.netlify.app/`
+- Google Sheet (the only tracker): `https://docs.google.com/spreadsheets/d/1N7ZhHE1pzKsNVd130FDcFy0huA1YrLO6yrsuTh9vGE8/edit` — `Pipeline` tab is source of truth; do not rename/remove it (feeds the Netlify dashboard).
 
-## Active System (simplified manual-first, since 2026-07-02)
+## Ground truth (established 2026-07-09, do not let docs drift from it)
 
-- `Pipeline` is the Google Sheet backend/source-of-truth tab; `Working Pipeline` is the human view; the Netlify dashboard reads the published CSV from `Pipeline`.
-- Prospect selection is manual. Audits run via `$liftaudit` in chat, on request.
-- Megan writes/approves and sends all outreach herself. No auto-send, no automated draft creation.
-- The Apps Script outbound engine is **LEGACY / V2 CANDIDATE — CONNECTED BUT NOT RECONCILED — DO NOT RUN** (`automation/LEGACY_README.md`). Old live triggers were found and manually deleted on 2026-07-06. Web app endpoint: **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED**. No scheduled Lift automation is currently approved.
+72 sent threads (~55 businesses, Jun 11–Jul 2) · **zero prospect replies ever** · ~5 bounces · 0 clients · $0 revenue · every likely-human opener was a visual business. The full evidence base and killed hypotheses live in `_system/LIFT_SYSTEM.md` §9 (graveyard) and in git history (`_system/LIFT_FABLE_HANDOFF_2026-07-09.md`, deleted at consolidation per its own instruction).
 
-## Outreach Rule
+## Active System
 
-Current default outreach:
+Manual-first, per `LIFT_SYSTEM.md`: Megan picks prospects (5/lane/week) → hook-lite → QA-passed observation-led email, no attachments, real-domain links only → Megan sends → Sheet updated same session → FU1 day 4–5, FU2 day 10–12, stop. Full `$liftaudit` depth only for paid or replied prospects. Every send is Megan's click, permanently.
 
-- Link to the Lift Studio website for broader studio/brand context.
-- Attach only `site/_lift-brand/Lift Studio Service Menu.pdf`.
-- Do not attach `About Lift Studio.pdf` or any old brand book unless Megan explicitly asks.
+## Legacy (unchanged)
 
-If a future simplified V2 is explicitly approved, any Gmail draft automation would need a Google Drive copy of the service menu PDF via `CONFIG.serviceMenuPdfFileId`; Apps Script cannot read local project files at runtime. This is historical/V2 planning only, not permission to run the legacy engine.
-
-## Active Files
-
-- Manual audit workflow: `skills/liftaudit/SKILL.md`
-- Legacy agent references: `agents/OPERATING_SYSTEM.md`, `agents/email_marketer.md`, `agents/follow_up_pipeline_manager.md`, `agents/new_business_auditor.md`, `agents/orchestrator.md` — reference-only unless Megan explicitly approves a simplified V2 redesign.
-- Legacy Apps Script reference: `automation/live_apps_script_sync/`
-  - `OutreachAutomation.gs` — historical Gmail drafts, sent/reply reconciliation, inbox hygiene
-  - `LiftPipelineAutomation.gs` — historical brand audits, pipeline management, doPost web app endpoint
-- Gmail signature rules: `agents/SIGNATURE_RENDERING_RULES.md`
-
-## Archive Policy
-
-Old Claude cowork packs, duplicate Apps Script variants, and historical handoff docs now live under:
-
-`_archive/old-instructions-2026-06-17/`
-
-Archived files are reference-only. Do not use them as active instructions, prompt sources, script sources, attachment rules, or outreach templates unless Megan explicitly asks.
-
-## Completed Setup
-
-- ✅ Service menu PDF uploaded to Google Drive. File ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx` is live in `CONFIG.serviceMenuPdfFileId` in OutreachAutomation.gs.
-- ⚠️ Historical Apps Script web app endpoint deployed (2026-06-23, new Web App deployment — `Lift Studio Pipeline Endpoint`, access: Anyone). Endpoint: `https://script.google.com/macros/s/AKfycbwAH7TozxFdUSk5dOM6_sX5nFdn62MOCDKZMGwaugL1vj42nHR21evVATnE_qAapV68/exec`. This endpoint is now **UNSAFE UNTIL REVIEWED — FAIL-CLOSED REQUIREMENT NOT VERIFIED** and must not be called until explicitly reapproved and patched.
-- ⚠️ Historical Apps Script endpoint and signature/attachment draft path were manually tested in June; those tests do not make the legacy engine active or approved now.
-- ✅ Apps Script and Google Sheet timezones are both set to `America/New_York`.
-- ✅ Cloud agent routines (Morning + Midday Orchestrator) — R2, resolved 2026-07-06: Megan manually checked Claude/Anthropic Routines and paused/deleted both if found. Local repo cannot independently verify cloud state; not treated as a health-check target. R3 (the fail-open web app endpoint, still deployed "access: Anyone") is the last open live surface — see `_system/LIFT_LEGACY_AUTOMATION_AUDIT.md`.
-- ✅ `enableAutoDiscovery: false` — DuckDuckGo/Apps Script scrape-based discovery is permanently off (2026-06-22, version 24). It was the primary source of junk rows. Current lead discovery is manual/chat-based and judgment-led. Apps Script structured execution is legacy/V2-candidate only. Do not re-enable scrape-based discovery.
-- ✅ Google Sheet `Pipeline` tab cleaned (2026-06-22): removed junk/search-result rows (e.g. `Hair Salons near Hershey PA`, Yelp search result rows, generic `Services`/`About` page rows, duplicate rows). `Youveau Aesthetics Medspa & Wellness` normalized as a real prospect row with full contact details. `Working Pipeline` no longer contains obvious junk rows after row 39.
-- ✅ Auto-discovery guard logic tightened (commit `e00e654`): now rejects search-result/page-pool titles, "near [city/state/zip]" category rows, generic page titles (`Services`, `About`, `Contact`, `Home`, `Welcome`), category-location phrases pretending to be businesses, and query-title matches where result title equals the search query.
-- ✅ Uncommitted local draft-audit experiment removed from `OutreachAutomation.gs` before deployment — it was never pushed live.
-- ✅ Audit writeback now includes public contact discovery fields (`Email`, `Contact Form`, `Phone`, `Instagram`) when Claude can verify them.
-- ✅ No-email rows with Instagram now route `Next Action` to `NO EMAIL FOUND - check Instagram mobile Contact button.`
-- ✅ Follow-up Gmail drafts use the same service menu attachment and inline signature image handling as first-touch drafts.
-- ✅ Sent/reply reconciliation uses the newest sent message in a thread and clears stale Gmail draft IDs after Megan sends a pending draft.
-- ✅ Sent/reply reconciliation and due follow-up draft creation are row-safe: one bad row logs an error instead of killing the whole run.
-- ✅ Pipeline Stage and Response Status dropdown validation now includes all statuses the automation writes (`Bounced`, `Hold`, `Paused`, `Closed`) and is repaired before draft/reply runs.
-- ⚠️ Historical note: `Outreach Automation > Create Health Snapshot` can write a local Apps Script health report to `System Log`, but it is an Apps Script function and must not be run without explicit reapproval.
-- ⚠️ If Claude Code Routines reports egress blocking, allowlist the real Apps Script endpoint, not a Gmail-wrapped `google.com/url?...` redirect.
-- ✅ Drive MCP write limitation documented — it is structural and cannot be fixed by reconnecting. The old doPost write path is now blocked/unsafe until reviewed; manual sheet edits or a rebuilt simplified V2 are the current path.
-
-## Open Follow-Up Items (from Codex handoff 2026-06-22)
-
-Priority order — items 1–3 are the active next work block:
-
-1. ~~**Audit JSON parse errors need hardening**~~ ✅ **Done (2026-06-22, commit `4683798`, version 19)** — `callLiftClaudeAudit_` now retries once with a repair prompt on JSON parse failure; raw failures log to `System Log`; failed rows get `Auditing Failed` stage (not `New Lead`) so they're visually distinct.
-
-2. ~~**`Ready to Draft` rows missing email are a UX problem**~~ ✅ **Done (2026-06-22, commit `4683798`, version 19)** — `determineAuditPipelineStatus_` now requires a confirmed email before setting `Ready to Draft`; no-email rows fall back to `New Lead`.
-
-3. ~~**Contact discovery systematic pass needed**~~ ✅ **Done (2026-06-22, commit `4201bb6`, version 20)** — All three contact-path functions standardized to one priority order and label set: contact form → `USE CONTACT FORM - submit manually, then mark Sent.`; Instagram → `NO EMAIL FOUND - check IG mobile Contact button.`; phone → `NO EMAIL FOUND - call/text for best email.`; website/name only → `NO EMAIL FOUND - check Facebook About/contact.`; nothing → `NO CONTACT PATH FOUND - manual research needed.` `buildPostAuditNextStep_` now delegates to `liftManualContactStep_` — labels defined in one place. `ACTIVE_INSTRUCTIONS.md` updated with canonical label reference.
-
-4. ~~**Follow-up draft backlog needs Gmail review**~~ ✅ **Report ready (2026-06-22, commit `ecef331`, version 21)** — `Outreach Automation > Review Draft Backlog (report only)` generates a `Draft Review` tab in the sheet. Columns: Date, Draft Subject, Recipient, Likely Type, Pipeline Status, Sent Match?, Recommendation, Reason, Draft ID. Color-coded: red = Delete candidate, green = Keep, yellow = Review manually. Nothing is deleted — Megan approves cleanup in one pass.
-
-5. **Dashboard refresh check** — rows were deleted from `Pipeline`; confirm Netlify dashboard reflects cleaned counts and is not caching old row data.
-
-6. **Legacy morning/midday run verification — superseded** — do not run the daily Claude routine, create Gmail drafts, or run a health snapshot under the old engine. Any future version must be redesigned as simplified V2 and explicitly reapproved.
-
-6. **Discovery source is still DuckDuckGo HTML** — filters are better but fragile. Long-term options: structured lead source via Vibiz, known business URL directories, or a manual "Lead Intake" tab where Megan pastes raw candidates and the auditor validates one at a time.
-
-7. **Git untracked files** — intentionally untracked: `.github/`, `Lift Studio.html`, `assets/Lift Studio Brand Guidelines.pdf`, `assets/Lift Studio Logo - Circle.png`, `automation/launchd/`, `automation/run_daily_8am_outreach.sh`. Leave these alone unless Megan explicitly decides to track or ignore them.
-
-8. **Add Weekly SEO/GEO Blog Content to public offer materials** — website and service menu still need an explicit offer/package for one optimized blog per week, especially for home services, trades, automotive, commercial services, and real estate. Active agent instructions can already mention this in outreach when relevant, but the live website and service menu PDF should be updated so prospects see the offer clearly.
+The Apps Script outbound engine remains **LEGACY — DO NOT RUN** (`_system/LIFT_LEGACY_AUTOMATION_AUDIT.md` holds the risk register, decommission log, and reapproval rules). Open items: R3 (fail-open doPost — live un-deploy NEEDS HUMAN; repo-copy fix is build queue #7), R4 (sendEmail-capable variant un-quarantined), R5 (local↔live drift unverifiable without approved clasp). `enableAutoDiscovery` stays false forever.
 
 ## Do Not Touch Without Approval
 
-- Do not add AdviseHer or AMP3 files to this repo.
+- No AdviseHer or AMP3 files in this repo.
 - Do not rename/remove the Google Sheet `Pipeline` tab.
 - Do not delete `brand-images/` or `site/lift-studio-images/` until the image duplication question is resolved.
-- Do not restore archived MR Studio/Web Refresh/Claude cowork instruction packs into the active path.
+- Do not restore archived instruction packs, or the deleted `_system` planning docs, into the active path.

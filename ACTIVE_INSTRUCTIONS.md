@@ -5,6 +5,7 @@ Status updated 2026-07-06 after adversarial audit: the automated outbound engine
 
 ## Source Of Truth
 
+- **Client-acquisition operating doc: `_system/LIFT_SYSTEM.md`** (2026-07-09 consolidation — two-lane test, audit, outreach, critic pipeline, tracker; supersedes the deleted `_system/LIFT_*` planning set). Build work: `_system/LIFT_BUILD_QUEUE.md`.
 - Current project root: `/Users/meganreeves/Documents/Projects/Lift Studio`
 - Current website: `https://helloliftstudio.com/`
 - Current dashboard: `https://liftstudiosdashboard.netlify.app/`
@@ -41,9 +42,8 @@ Everything below is preserved for reference and possible V2 revival. **CONNECTED
 
 ## Still-valid reference material (usable for manual audits + outreach)
 
-- **Attachment rule:** outreach links to the website and attaches only `site/_lift-brand/Lift Studio Service Menu.pdf` (copy source: `site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`; Canva design: `https://www.canva.com/design/DAHONAVSJIw/FUReYDpLrfT9CIT85pe_hg/edit`). Never attach the old brand book. "Lift Studio" renders in brand green, bold, linked, in HTML drafts. Drive copy of the menu (for any future automation): file ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx`.
-- **Lead strategy:** home services and practical local businesses are the priority lane (pest control, fencing, pools, pressure washing, dumpster rental, roofing, electrical, HVAC, plumbing, concrete, septic, tree, landscaping, automotive/repair/detailing/tires, commercial cleaning/janitorial/specialty contractors, facility services). Real estate is a strong expansion lane. Beauty/wellness/restaurants/retail valid but secondary.
-- **Audit angle for blue-collar:** practical revenue leaks — weak local SEO, no quote path, unused review strength, before/after work not turned into content, buried guarantees. Lead with the SEO/GEO blog package (one optimized blog/week) framed as local-search support.
+- **Attachment rule (changed 2026-07-09, `LIFT_SYSTEM.md` §4):** first-touch cold emails carry **no attachments** — one clean link to helloliftstudio.com or a Lift microsite. The service menu PDF (`site/_lift-brand/Lift Studio Service Menu.pdf`, copy source `site/_lift-brand/LIFT_SERVICES_REFERENCE_V3.md`, Drive file ID `1jvKBJo3l1i7HJ9vUi_8pV9-G7EJrfSJx`) goes in the *reply* to an interested prospect. Never attach the old brand book. "Lift Studio" renders in brand green, bold, linked, in HTML drafts.
+- **Lead strategy (changed 2026-07-09, Megan's decision):** two co-lead lanes under a timed test — Lane V (image-driven local businesses: bakeries, food, medspas, aesthetics, wellness; product = content batch from their real photos) and Lane S (trades & local services; product = SEO-blog foundation/retainer). Full definition, hooks, and the 2026-08-07 decision checkpoint: `_system/LIFT_SYSTEM.md` §2 and §7.
 - **No-email conventions:** never invent/scrape private emails; never type "form" in the Email column (leave blank, URL in `Contact Form`). `Next Action` labels: `USE CONTACT FORM - submit manually, then mark Sent.` / `NO EMAIL FOUND - check IG mobile Contact button.` / `NO EMAIL FOUND - call/text for best email.` / `NO EMAIL FOUND - check Facebook About/contact.` / `NO CONTACT PATH FOUND - manual research needed.`
 - **Sheet contract:** do not rename/remove the `Pipeline` tab (feeds the Netlify dashboard). `Research Queries` tab contains pasted junk — use `automation/niches_and_areas.md` as the clean niche/geo source.
 - **Signature:** `agents/SIGNATURE_RENDERING_RULES.md` still applies to any HTML draft.

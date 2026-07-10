@@ -2,6 +2,8 @@
 
 Read-only static audit, 2026-07-06 (Fable 5, audit mode). No code run, no clasp, no Gmail/Drive/connectors, no live-system contact. Every finding cites its evidence.
 
+*2026-07-09 consolidation note: this file also absorbs the operational content of the deleted `LIFT_AUTOMATION_READINESS.md` and `LIFT_STUDIO_OPERATING_DASHBOARD.md` — see "Decommission log & reapproval rules" at the end. This is the single legacy-safety record.*
+
 ## Headline finding
 
 **The old engine had FOUR scheduler layers.** As of 2026-07-06, layers 1–3 (the active schedulers) are decommissioned. Layer 4 (the passive endpoint) remains deployed but is not driven by any live scheduler.
@@ -54,6 +56,14 @@ Read-only static audit, 2026-07-06 (Fable 5, audit mode). No code run, no clasp,
 ## Unknowns requiring live verification later (all NEEDS HUMAN or gated)
 Live Apps Script code vs repo (R5) · web app deployment list + whether secret Script Property currently exists (R3 — un-deploy pending) · whether any Gmail filters/rules were created by old runs.
 **Resolved 2026-07-06:** ~~cloud routine run history (R2)~~ checked/cleared by Megan · ~~loaded plist + other lift LaunchAgents (R1)~~ removed + verified ("No Lift launchd jobs loaded / No Lift launchd plist found").
+
+## Decommission log & reapproval rules (absorbed from LIFT_AUTOMATION_READINESS.md, 2026-07-09)
+
+**Old live triggers found and manually deleted by Megan 2026-07-06:** `refreshSentAndReplies` · `runLiftStudioDailySystem` · `createOutreachDrafts` · `runQueuedLiftBrandAudits` · `handleLiftBrandPipelineEdit`. No time- or event-based triggers are approved. clasp is wired (`automation/live_apps_script_sync/.clasp.json`, script ID `1g_9-U-01qaFBzzMtZwNEEWM9bdr6AUBsGFxHVfey_U6o9q-nHPGVa9Su`) but unreconciled since 2026-06-23 — live state unknown (R5).
+
+**Explicit reapproval required for:** any Apps Script function execution (even "testing," even sheet-menu health snapshots) · any clasp operation (pull/push/diff/status) · trigger installation · web-app endpoint use (fail-open until patched; required fix documented at R3) · any change to `automation/live_apps_script_sync/` beyond the repo-only fail-closed patch queued in `LIFT_BUILD_QUEUE.md` #7.
+
+**If anything fires unexpectedly:** check Apps Script Triggers page (as helloliftstudio@gmail.com) → the Sheet's `System Log` tab → Gmail drafts for unexpected drafts → report to Megan with timestamps; change nothing without her direction.
 
 ## Classification summary
 - **Never revive as running code:** both root-level .gs variants, run_daily_8am shell + plist, danger-full-access pattern, auto-send anything.

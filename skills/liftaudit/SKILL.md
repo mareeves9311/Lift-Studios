@@ -30,6 +30,8 @@ Accept brand name, website URL, Instagram URL, blog URL, screenshots supplied by
 Read only what the task needs:
 
 - Always read `references/audit-protocol.md` and `references/brand-asset-protocol.md`.
+- Before any visual is produced or any brand asset is used, read `references/imported-2026-07-09/Lift_Audit_Brand_Asset_Verification_Protocol.md` — it is the binding asset-verification standard (no fabricated testimonials, no AI-generated people, no invented before/afters) and wins over the shorter brand-asset-protocol where they differ.
+- If a visual deliverable is being designed, also read `references/imported-2026-07-09/08_Lift_Studio_Visual_Branding_Protocol.md`.
 - If Website is selected or likely, read `references/website-audit.md` and `references/visual-quality-rules.md`.
 - If Instagram is selected or likely, read `references/instagram-audit.md`.
 - If Blog/SEO/GEO is selected or likely, read `references/seo-geo-audit.md`; for home services and local lead-gen categories also read `references/home-services-seo.md`.
