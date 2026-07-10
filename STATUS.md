@@ -1,13 +1,15 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-07-06
+Last updated: 2026-07-09
 
 ## Session Lock
-- Agent: Codex
-- Date: 2026-07-09 17:24 ET
-- State: Desktop Lift-relevant files imported into the local project: audit images organized under `audits/<prospect>/`, visual QA examples under `audits/_visual-reference/`, Lift audit GPT pack extracted under `chatgpt-knowledge/`, protocol markdown placed under `skills/liftaudit/references/imported-2026-07-09/`, raw ZIPs/duplicate service menu stored under `_local_exports/desktop-import-2026-07-09/`. No live systems touched.
-- In progress / not finished: R3 (fail-open web app endpoint) **RESOLVED 2026-07-09** — all Web app deployments on the `Lift Studio Pipeline Endpoint` script archived (verified by Megan in the Apps Script UI); the "access: Anyone" surface no longer exists. R5 (local↔live drift) still unresolved; legacy archive hardening (ticket T1) pending. Existing local edits to `CLAUDE.md` and `_system/LIFT_OUTREACH_AND_FOLLOWUP_SYSTEM.md` predated this import and were not changed by Codex.
-- Next step: review the imported ChatGPT/protocol markdown and decide whether to promote any of it into the active `$liftaudit` references; manual $liftaudit proof-run still continues the manual-proof clock.
+- Agent: Claude Code (Opus 4.8)
+- Date: 2026-07-09 21:10 ET
+- State: Full read-only audit of the client-acquisition system, extended with live Gmail/Canva/Ahrefs verification. **Ground truth established and it contradicts this file:** 72 sent threads (~55 distinct businesses, June 11 – July 2), **zero prospect replies ever**, ~5 bounces (~9%), 63% open rate on the 35 Snov.io-tracked emails, 0 clients, $0 revenue. The local tracker (`templates/LIFT_PIPELINE_WEEK_TRACKER.csv`) is header-only and recorded none of it. Every send went from the free `@gmail.com`, linked to `helloliftstudio.netlify.app` rather than the real domain, and (from June 23) carried a Snov.io pixel + `mheho.com` link-wrapper. Engagement skews to visual businesses (bakery, medspa, aesthetics), not the trades the strategy docs designate Tier 1. Full findings, Megan's POV, killed hypotheses, and open decisions: **`_system/LIFT_FABLE_HANDOFF_2026-07-09.md`**.
+- Nothing shipped: no emails sent, no drafts created, no sheet writes, no Apps Script execution. Read-only on all connectors.
+- In progress / not finished: **Handing off to Fable for an architecture + consolidation pass** (Megan's call, per FOUNDATION.md tool routing — architecture, multi-phase system decisions, complex refactor of ~24 `_system/LIFT_*` docs). Fable must read the handoff brief §6 (hypotheses tested and killed) before proposing anything. Megan still owes the brief one input: the first-outreach date, marked `[MEGAN TO FILL]` in §1. Also open: `skills/liftaudit/references/imported-2026-07-09/` still untracked and still not wired into `SKILL.md`'s reference-loading block (990-line verification protocol has zero effect on live audits); T14/T17/T19/T22/T23/T24 all still open; R5 (local↔live Apps Script drift) unresolved; the fail-open `doPost` branch still exists in the repo copy of `LiftPipelineAutomation.gs` even though live deployments were archived.
+- Running in parallel, independent of Fable: stand up `megan@helloliftstudio.com` (MX/SPF/DKIM/DMARC, then 2–3 week warmup at 5–10 sends/day). `helloliftstudio@gmail.com` stays — it owns the Sheet, Drive, Netlify, Snov.io, Apps Script. Requires a `FOUNDATION.md` Identity Map amendment.
+- Next step: Fable reads `_system/LIFT_FABLE_HANDOFF_2026-07-09.md`, forces the §9 open decisions (lead offer first), and consolidates `_system/` under a strict deletion mandate — fewer files out than in. Claude Code then builds the three-stage critic pipeline (§10). Do not resume outreach until the lead offer is decided.
 
 ## Current Source Of Truth
 
