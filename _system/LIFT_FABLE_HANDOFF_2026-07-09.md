@@ -29,7 +29,7 @@ Megan's own `LIFT_MONEY_MACHINE_EXECUTIVE_UPGRADE.md` (2026-07-06) concluded: *"
 Therefore this pass operates under three hard rules:
 
 1. **Deletion mandate.** Every file in `_system/` gets explicitly marked `keep` / `merge` / `delete`. The output must contain **fewer files than the input**. If you add a document, retire two.
-2. **A date.** Outreach resumes on `[MEGAN TO FILL: FIRST-OUTREACH DATE]`. The system is whatever exists by that date. Not "when it's ready."
+2. **A date.** Outreach resumes **Monday, 2026-07-13** — four days from this brief. The system is whatever exists by that date. Not "when it's ready."
 3. **Anti-goal, stated plainly.** This is a *consolidation and decision-forcing* pass. It is **not** a design exploration. Do not produce options where a decision is required. Do not produce a roadmap for building the thing instead of the thing.
 
 **Success criterion:** Megan can go from "I found a business" to "I sent an email" in a bounded number of hours, every factual claim in the deliverable carries a fetched source, and the first sends go out on the date above.
@@ -328,4 +328,4 @@ Handed off, not started, pending the decisions above:
 
 Megan has a real capability, a real eye, a genuinely good audit process, and a fail-closed verification instinct she built herself. She has sent 55 emails, gotten 63% of the tracked ones opened, and received zero replies — not because they weren't delivered, but because she gave away the complete answer and asked for a retainer. Her engagement data points at a different customer than her strategy docs do. She has thirty planning documents, zero clients, and a strong unsent deck aimed at her warmest lead.
 
-**She does not need a more complex system. She needs a cleaner one — efficient and effective — pointed at the customer who is already reading her email.**
+**She does not need a more complex system. She needs a cleaner one — efficient and effective — pointed at the customer who is already reading her email. However, if you feel that this direction is wrong, please give me your expertise and advice on what direction you think the system should be. You are a top marketing professional, top AI professional, system builder, engineer, coder, and salesperson. Use all those skills to hone in on the best system.**
