@@ -65,6 +65,8 @@ Audit mechanics live in `skills/liftaudit/` (now wired to the imported 990-line 
 
 **Follow-up cadence (locked):** Day 4–5 FU1 (reply in-thread, restate the strongest original observation, refreshed subject allowed) · Day 10–12 FU2 (last note, lowest pressure) · then stop. No FU3. Immediate stop on bounce or "not interested."
 
+**Replies and calls (added 2026-07-09, Megan's call):** cold prospecting stays digital — that's the business. But a warm reply may be offered a 15-minute call, and Megan is willing to take/make that call to close. Calls are a closing tool for people already interested, never a prospecting tool. This is the difference between "hustling cold calling" (out, permanently) and "picking up the phone for someone who raised their hand" (in).
+
 ---
 
 ## 5. The critic pipeline (three stages, every client-facing artifact)
@@ -83,10 +85,12 @@ Until Claude Code ships this as a skill (build queue #1), the three stages run a
 
 **Steady rhythm (~5 hrs):** Mon 1h — pick 10 prospects (5/lane), hook-lite each; Tue/Wed 1.5h — build the 10 hooks (Lane V lifts + drag-to-reveal links, Lane S findings); Thu 1h — draft 10 emails, QA-pass, **send** (Megan's click), Sheet updated same session; Fri 30m — due follow-ups, log replies, one two-line learning note in the Sheet. Busy week: halve everything; never skip the Sheet update or QA.
 
-**Week of 2026-07-13 specifically:**
-- **Monday, before any new outreach:** (1) reply-in-thread probe to the five likely-human openers (Revived Medical Aesthetics, Moore Desserts, Always Plumbing, Cosmetic & Plastic Surgery of Central PA, Dr. Gordner): *"I noticed you took a look at what I sent a while back — was there something that didn't land? No pitch, genuinely curious."* Five sends, cheapest information in the whole system — zero replies currently means zero data about willingness to buy. (2) Invented case studies off the live site. (3) Snov pixel/wrap off. Then pick the week's 10.
-- Tue–Thu: hooks, drafts, QA, send per the rhythm above.
-- **Cut from this week, deliberately:** the critic pipeline as software (checklist instead) · content-batch automation · full fulfillment SOP (one-page provisional in the build queue) · new website spec pieces beyond taking the fake ones down (build during week) · Witmer deck rework (her call on timing; it's Lane S's warmest lead and the deck needs before-evidence + a menu price before it ever ships).
+**Week of 2026-07-13 specifically** (Megan relaxed the Monday-strict date on 2026-07-09 — the slack buys hook quality, not drift):
+- **Monday:** (1) reply-in-thread probe to the five likely-human openers (Revived Medical Aesthetics, Moore Desserts, Always Plumbing, Cosmetic & Plastic Surgery of Central PA, Dr. Gordner): *"I noticed you took a look at what I sent a while back — was there something that didn't land? No pitch, genuinely curious."* Five sends, cheapest information in the whole system — zero replies currently means zero data about willingness to buy. (2) Invented case studies off the live site. (3) Snov pixel/wrap off. (4) Pick the week's 10 (5/lane), hook-lite each.
+- **Tuesday:** Claude Code ships the Lift Creative Agent's hook mode (build queue #3); Megan builds/curates the five Lane V lifts and five Lane S findings.
+- **Wednesday 2026-07-15 — first new-lane sends.** All 10 (or 5 Wed / 5 Thu), each QA-passed, Sheet updated same session. This date is the hard one.
+- Friday: log replies, due follow-ups on the Monday probe, two-line learning note.
+- **Cut from this week, deliberately:** the critic pipeline as software (checklist instead) · content-*batch* automation (hook mode only — batch mode waits for a paying client) · full fulfillment SOP (one-page provisional in the build queue) · new website spec pieces beyond taking the fake ones down (build during week) · Witmer deck rework (her call on timing; it's Lane S's warmest lead and the deck needs before-evidence + a menu price before it ever ships).
 
 ---
 
