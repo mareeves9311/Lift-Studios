@@ -1,6 +1,6 @@
 # Lift Studio Anti-AI Output QA Standard
 
-2026-07-06. Practical, reusable quality gate — not a style guide. Applies to every client-facing or prospect-facing Lift Studio output: outreach emails, follow-ups, audit summaries, visual copy, packet documents, social captions. Does not apply to internal system docs like this one.
+2026-07-06 (imagery section added 2026-07-11). Practical, reusable quality gate — not a style guide. Applies to every client-facing or prospect-facing Lift Studio output: outreach emails, follow-ups, audit summaries, visual copy, packet documents, social captions, **and AI-generated/regenerated imagery** (see the imagery section below). Does not apply to internal system docs like this one.
 
 ## Why this exists
 
@@ -62,9 +62,23 @@ Run all six before any output is considered done. Each is a pass/fail question, 
 5. **Human voice pass** — Read it out loud. Does it sound like Megan talking to this owner, or like a brochure? If it sounds performed, flatten it.
 6. **Final tightening pass** — Cut the intro to one sentence if possible. Cut any sentence that restates a point already made. Cut to the shortest version that keeps every fact.
 
+## Generated imagery (added 2026-07-11, Lane V content pipeline)
+
+The same "does not read as AI" bar governs any image we regenerate from a client's real photo (Lane V content-batch product). Copy and imagery fail the same way — a hollow tell a human catches on sight — so imagery gets its own audit **before it is ever shown to Megan**. Megan is not the AI-detector; the audit happens first, and when options are presented each is pre-rated on the "reads as AI" axis.
+
+Three gates, all must pass (established across the My Way Pizza and Generations in Bloom regen tests):
+
+1. **Fidelity** — the food/product itself stays pixel-true to the source (crust, cheese, the actual flowers in the actual arrangement). Props, composition, background, and camera craft are free to reimagine and elevate. Never redesign the product. Before/afters and any medical-result image are never AI-touched at all — those get a branded *frame*, not regeneration (that's a design/template job, and a marketing-strategy problem, not a regeneration one).
+2. **Play-safe on unverified specifics** — never invent an identifiable, checkable detail about the real business's premises or equipment (a wood-fired oven we can't confirm, their signage text, their interior). Where unsure, push it to a soft unidentifiable blur and let the product be the star. Sanity-check physics against the product's real state (raw uncooked food must not steam).
+3. **Does not read as AI** — realism and restraint beat polish. Over-styled, prop-perfect, symmetric sets; even HDR "glow"/halo light; creamy melt-everything bokeh; waxy flawless texture; over-saturation; duplicated/warped background detail — these are the tells. Favor a believable, slightly-imperfect real environment, natural directional light, ordinary texture. When in doubt, the plainer, more real-looking option is the safer client-facing pick.
+
+**Vibe range is deliberate, not accidental.** We can dial from seamless studio-editorial (premium, "expensive") to warm approachable workshop/lifestyle ("gorgeous but reachable") — match the vibe to the client's price positioning, and when unsure show the range as the pitch. Ban "authentic phone-photo realism" from prompts (aims down-market); specify real camera craft instead (rule of thirds, low three-quarter angle, shallow DOF, warm directional light).
+
+**Tooling:** nano-banana-pro (via Runway) is the validated default for photo regeneration that must keep the real product true. Ideogram (v4, `edit_image`, real text spelled out exactly) is the lead when the image carries logos/signage/printed text. Full session record + example outputs: `content-bank/myway-pizza-regen-test/` and `content-bank/generations-in-bloom-regen-test/`.
+
 ## Scope boundary
 
-Applies to: outreach emails, follow-ups, audit summaries, visual copy/headlines, packet documents, social captions, any Instagram/website concept text.
+Applies to: outreach emails, follow-ups, audit summaries, visual copy/headlines, packet documents, social captions, any Instagram/website concept text, and AI-generated/regenerated client imagery (per the imagery section above).
 
 Does not apply to: internal `_system/` docs, build tickets, SOPs, or anything Megan reads but a prospect never will. Keep this gate on client-facing output only — don't let it balloon into a company-wide prose style mandate.
 
