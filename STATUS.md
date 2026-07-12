@@ -1,8 +1,15 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-07-09
+Last updated: 2026-07-12
 
 ## Session Lock
+- Agent: Claude Code (MIRA, Fable 5)
+- Date: 2026-07-12 00:20 ET
+- State: **AI-systems offering scoped and shelved, deliberately.** Megan asked (via Alyssa's "this is a business idea" nudge) whether Lift should add AI-systems consulting ($1,500 setup + $500/mo). Scout verified market pricing (verdict: $1,500 is market-floor for a simple single-workflow setup, $2,500–3,500 for voice/multi-channel, $500/mo is market IF the client pays tool subscriptions directly — the billing structure matters more than the headline). Skeptic returned NO-GO on "third lane now" (protects the 2026-08-07 two-lane test + Wednesday 2026-07-15 sends; flagged $500/mo as an unsigned on-call contract; named the displacement pattern). Synthesis shipped: **`skills/ai-systems/PLAYBOOK.md`** — a DORMANT delivery protocol (warm/referral-only, three activation gates, setup-only pilot, care plan locked until a pilot runs 30 days untouched, send-weeks sacred). Registered as LF-09 in AI_OS_REGISTRY.yaml (status: documented), dashboard data rebuilt, plain-language layer updated. Demand test captured in mira-brain TASK_INBOX: text Alyssa for one named business owner — after Wednesday's sends.
+- In progress / not finished: none for this thread. (Prior session's open items unchanged: hero-image picks + Generations in Bloom first-touch, IMG_6490.PNG keep-vs-clean, Wednesday send prep.)
+- Next step: unchanged from previous lock — Wednesday 2026-07-15 first sends remain the priority; the AI-systems track waits for a named buyer.
+
+## Previous Session Lock (Opus regen R&D, preserved)
 - Agent: Claude Code (Fable 5 → switched to Opus 4.8 mid-session)
 - Date: 2026-07-11 23:03 ET
 - State: **Lane V content-regeneration recipe is now locked and proven across two brands.** Established the process live and committed it. The recipe: regenerate a client's real photo keeping the **product pixel-true**, freely reimagine props/composition/environment, **invent no unverifiable specifics** about their premises, sanity-check physics (raw food ≠ steam), and **self-audit every image for AI-tells before showing Megan** (realism/restraint > polish; over-styling/glow/creamy-bokeh = the tell). Vibe is dialable studio-editorial ↔ warm-approachable-workshop; match to the client's price positioning or show the range as the pitch.
