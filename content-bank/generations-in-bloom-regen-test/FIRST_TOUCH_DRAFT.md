@@ -17,7 +17,7 @@ Flowers are about as visual as a business gets. People pick their florist from a
 
 So instead of a pitch, I made you something. I took two photos you'd already posted, that spray and a summer bouquet, and gave each the set and light it deserved. Your flowers untouched. Drag the handle and see: https://helloliftstudio.com/reveal/generations-in-bloom
 
-That's the whole service in miniature. You tell me where Generations In Bloom is headed and how you want customers to feel when they find you. You keep taking quick photos of the real work. I turn them into a content bank that carries the new brand, true to you, every image a first impression.
+That's the whole service in miniature. You tell me where Generations In Bloom is headed and how you want customers to feel when they find you. You keep taking quick photos of the real work. I turn them into a monthly calendar that's completely built out, images, captions, all of it, so posting stays consistent without becoming one more job on your list.
 
 I run Lift Studio — I find the specific things costing a local business customers, show the fix, and deliver it done.
 
