@@ -1,14 +1,15 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-07-12
+Last updated: 2026-07-14
 
 ## Session Lock
 - Agent: Claude Code (MIRA, Fable 5)
-- Date: 2026-07-12 00:20 ET
-- State: **AI-systems offering scoped and shelved, deliberately.** Megan asked (via Alyssa's "this is a business idea" nudge) whether Lift should add AI-systems consulting ($1,500 setup + $500/mo). Scout verified market pricing (verdict: $1,500 is market-floor for a simple single-workflow setup, $2,500–3,500 for voice/multi-channel, $500/mo is market IF the client pays tool subscriptions directly — the billing structure matters more than the headline). Skeptic returned NO-GO on "third lane now" (protects the 2026-08-07 two-lane test + Wednesday 2026-07-15 sends; flagged $500/mo as an unsigned on-call contract; named the displacement pattern). Synthesis shipped: **`skills/ai-systems/PLAYBOOK.md`** — a DORMANT delivery protocol (warm/referral-only, three activation gates, setup-only pilot, care plan locked until a pilot runs 30 days untouched, send-weeks sacred). Registered as LF-09 in AI_OS_REGISTRY.yaml (status: documented), dashboard data rebuilt, plain-language layer updated. Demand test captured in mira-brain TASK_INBOX: text Alyssa for one named business owner — after Wednesday's sends.
-- In progress / not finished: none for this thread. (Prior session's open items unchanged: hero-image picks + Generations in Bloom first-touch, IMG_6490.PNG keep-vs-clean, Wednesday send prep.)
-- Next step: unchanged from previous lock — Wednesday 2026-07-15 first sends remain the priority; the AI-systems track waits for a named buyer.
+- Date: 2026-07-14 22:15 ET
+- State: **Wednesday's first send is built and QA-passed.** Megan blessed the two Generations in Bloom finals tonight ("both, yes" — studio spray 01 + vase bouquet 06). Shipped (commit `562e20b`): the Lane V drag-to-reveal hook page (`site/reveal/generations-in-bloom/`, Lift palette/type, screenshot-verified desktop+phone) + the first-touch email draft with all six QA passes recorded (`content-bank/generations-in-bloom-regen-test/FIRST_TOUCH_DRAFT.md`). Prospect row added to the Pipeline sheet (row 93; never contacted — verified via Gmail search + sheet). Observed opener verified live: their site's social buttons still point to the old Usztics accounts.
+- In progress / not finished: (1) **the reveal page is NOT deployed** — helloliftstudio.com is Netlify but no deploy config lives in this repo; deploy before sending or the link 404s. (2) **No public email exists for the shop** (site ×4 pages, Yahoo Local, Zola checked; WeddingWire 403) — send via their contact form or an address Megan holds privately. (3) This is 1 send of the planned 10 (5/lane) — the other 9 picks/hooks never happened (Mon/Tue got consumed by AI-OS work); Wednesday realistically = this send + the Monday reply-probe 5, not a 10-send day.
+- Next step (Megan, in order): deploy the reveal page → open FIRST_TOUCH_DRAFT.md → send via their contact form (or her own address for them) → mark sent in the Pipeline sheet same session.
 
+## Previous Session Lock (2026-07-12, preserved)
 ## Previous Session Lock (Opus regen R&D, preserved)
 - Agent: Claude Code (Fable 5 → switched to Opus 4.8 mid-session)
 - Date: 2026-07-11 23:03 ET
