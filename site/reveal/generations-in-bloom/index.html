@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Generations In Bloom — restaged by Lift Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #3B5742; --deep: #2E4435; --sage: #9DB29F;
+    --mist: #C6CFC2; --cream: #FBFAF6; --warm: #F4F2EA; --ink: #26332B;
+    --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+    --font-serif: "Newsreader", Georgia, serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--font-sans); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 40px 20px 64px; }
+  header { text-align: center; margin-bottom: 8px; }
+  .mark { font-family: var(--font-sans); font-weight: 700; letter-spacing: .34em; font-size: 13px; color: var(--forest); text-transform: uppercase; }
+  .rule { width: 44px; height: 2px; background: var(--sage); margin: 14px auto 26px; }
+  h1 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(26px, 4.6vw, 38px); color: var(--deep); line-height: 1.2; }
+  .sub { font-size: 16px; color: #5A6B5E; margin: 14px auto 6px; max-width: 560px; line-height: 1.55; }
+  .hint { font-size: 13.5px; color: #7A8A7D; margin-bottom: 34px; }
+  .piece { margin: 0 auto 46px; max-width: 620px; }
+  .piece h2 { font-family: var(--font-serif); font-weight: 500; font-size: 20px; color: var(--forest); margin-bottom: 12px; text-align: center; }
+  .ba {
+    position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
+    border-radius: 6px; box-shadow: 0 18px 44px -20px rgba(46, 68, 53, .45);
+    touch-action: none; user-select: none; -webkit-user-select: none; cursor: ew-resize;
+    background: var(--warm);
+  }
+  .ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .ba .after-layer { clip-path: inset(0 0 0 var(--cut, 50%)); }
+  .ba .handle {
+    position: absolute; top: 0; bottom: 0; left: var(--cut, 50%); width: 2px;
+    background: var(--cream); box-shadow: 0 0 0 1px rgba(46,68,53,.25);
+  }
+  .ba .knob {
+    position: absolute; top: 50%; left: var(--cut, 50%); transform: translate(-50%, -50%);
+    width: 44px; height: 44px; border-radius: 50%; background: var(--cream);
+    border: 1px solid var(--sage); box-shadow: 0 6px 18px -6px rgba(46,68,53,.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; color: var(--forest); letter-spacing: 1px;
+  }
+  .ba .tag {
+    position: absolute; bottom: 12px; padding: 5px 12px; border-radius: 3px;
+    font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
+    background: rgba(251, 250, 246, .88); color: var(--deep);
+  }
+  .ba .tag.before { left: 12px; }
+  .ba .tag.after { right: 12px; }
+  .note { text-align: center; font-size: 14.5px; color: #5A6B5E; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+  footer { margin-top: 48px; text-align: center; }
+  footer a { color: var(--forest); font-weight: 600; text-decoration: none; font-size: 14px; letter-spacing: .04em; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">Lift Studio</div>
+    <div class="rule"></div>
+    <h1>Your arrangements, restaged for<br>the Generations&nbsp;In&nbsp;Bloom era</h1>
+    <p class="sub">Same stems, same builds — your real work, untouched. We restaged the set and the light around them.</p>
+    <p class="hint">Drag the handle. Left: your photo as posted. Right: restaged.</p>
+  </header>
+
+  <div class="piece">
+    <h2>The standing spray</h2>
+    <div class="ba" id="ba1" style="--cut: 50%">
+      <img src="spray-before.png" alt="Standing spray — original photo as posted">
+      <img class="after-layer" src="spray-after.png" alt="Standing spray — restaged studio photo">
+      <div class="handle"></div><div class="knob">⇄</div>
+      <span class="tag before">Your photo</span><span class="tag after">Restaged</span>
+    </div>
+  </div>
+
+  <div class="piece">
+    <h2>The summer bouquet</h2>
+    <div class="ba" id="ba2" style="--cut: 50%">
+      <img src="bouquet-before.png" alt="Summer bouquet — original photo as posted">
+      <img class="after-layer" src="bouquet-after.png" alt="Summer bouquet — restaged in a vase, warm light">
+      <div class="handle"></div><div class="knob">⇄</div>
+      <span class="tag before">Your photo</span><span class="tag after">Restaged</span>
+    </div>
+  </div>
+
+  <p class="note">These two were made from photos already on your pages — no shoot, no studio day. A monthly set that looks like this is the whole service.</p>
+
+  <footer><a href="https://helloliftstudio.com">helloliftstudio.com</a></footer>
+</div>
+<script>
+  document.querySelectorAll(".ba").forEach(function (el) {
+    function setCut(clientX) {
+      var r = el.getBoundingClientRect();
+      var pct = Math.min(97, Math.max(3, (clientX - r.left) / r.width * 100));
+      el.style.setProperty("--cut", pct + "%");
+    }
+    var down = false;
+    el.addEventListener("pointerdown", function (e) { down = true; el.setPointerCapture(e.pointerId); setCut(e.clientX); });
+    el.addEventListener("pointermove", function (e) { if (down) setCut(e.clientX); });
+    el.addEventListener("pointerup", function () { down = false; });
+    el.addEventListener("pointercancel", function () { down = false; });
+  });
+</script>
+</body>
+</html>
