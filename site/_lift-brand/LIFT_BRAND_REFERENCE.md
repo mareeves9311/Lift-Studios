@@ -85,6 +85,13 @@ Current visual system remains the Lift Studio editorial identity.
 
 **Mood:** Clean, airy, editorial, premium but approachable. Boutique studio, not generic agency.
 
+**Before/after labeling (Megan's law, 2026-07-14):**
+
+- Any before/after or reveal presentation labels the pair **"Your photo" → "Lifted."** "Lifted" is the brand verb; never "after," "restaged," "enhanced," or "improved" as the visible label.
+- Client-facing reveal/hook pages carry full Lift branding: deep-forest masthead with the LIFT · STUDIO wordmark, editorial numbering, Newsreader/Hanken type, forest "LIFTED" tag, deep footband with CTA. Never an unbranded utility page. Built example: `site/reveal/generations-in-bloom/`.
+
+
+
 ## Current Service Menu
 
 ### How To Work Together

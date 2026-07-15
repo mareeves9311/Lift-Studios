@@ -7,15 +7,15 @@
 
 ---
 
-**Subject:** Two of your own arrangements, restaged for the new name
+**Subject:** Two of your own arrangements, Lifted for the new name
 
 Hi Azlynn,
 
-Your site says Usztics is becoming Generations In Bloom — but the Instagram and Facebook buttons on it still point to the old Usztics accounts, so the new name disappears the moment someone clicks through.
+Your site says Usztics is becoming Generations In Bloom. But the Instagram and Facebook buttons on it still point to the old Usztics accounts, so the new name disappears the moment someone clicks through.
 
 The work itself doesn't need any help. The standing spray in your photos is the kind of arrangement most shops wish they could build.
 
-So instead of a pitch, I made you something: I took two photos you'd already posted — that spray and a summer bouquet — and restaged them to match where the new brand is headed. Your flowers untouched; only the set and light around them changed. Drag the handle and see: https://helloliftstudio.com/reveal/generations-in-bloom
+So instead of a pitch, I made you something. I took two photos you'd already posted, that spray and a summer bouquet, and gave each the set and light it deserved. Your flowers untouched. Drag the handle and see: https://helloliftstudio.com/reveal/generations-in-bloom
 
 I run Lift Studio — I find the specific things costing a local business customers, show the fix, and deliver it done.
 
@@ -23,6 +23,8 @@ If the photo side of the rebrand is on your list, want me to send the notes behi
 
 Best,
 Megan
+
+*(Brand-voice note: em-dashes removed per LIFT_BRAND_REFERENCE writing rules, except the positioning line, which is locked verbatim in LIFT_SYSTEM §2 as "goes in every send identically" — Megan may rewrite it dash-free once and that becomes the standard.)*
 
 ---
 
