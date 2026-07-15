@@ -39,6 +39,9 @@ These were decided, not defaulted. Do not reopen them without her.
 
 Positioning line (both lanes, replaces the old boilerplate that failed our own QA standard): *"I run Lift Studio — I find the specific things costing a local business customers, show the fix, and deliver it done."* Megan may rewrite; whatever she locks goes in every send identically.
 
+**Lane V pitch essence (Megan, dictated 2026-07-14 — every Lane V send leans into this):** content is everything for a visual local business; customers choose from a photo, so the imagery has to do the product justice and create the first impression. The offer is a partnership, not a service drop: the OWNER names where the brand is headed and how they want customers to feel ("What do you want? How do you want to come across? What is the essence?"), then any quick photo they take becomes brand-true content through Lift's tools — a content bank that portrays the product at its best while staying true to them. Sell the system (direction → quick photos → brand-carrying content bank), not individual retouches. Wording note: carry these ideas within the QA gate — "elevated"/"incredible" are banned-or-hollow words; say the concrete thing instead.
+
+
 ---
 
 ## 3. The audit
