@@ -48,6 +48,7 @@ Positioning line (both lanes, replaces the old boilerplate that failed our own Q
 
 Three buckets, always: **social · website-visual · website-SEO**. Two depths:
 
+- **Contact discovery (Megan's protocol, repeated 2026-07-14 — do not miss again): check the FACEBOOK page first.** Local businesses list their email in the Facebook About/intro section far more often than on their website. Order: Facebook About → website contact/footer → listings (Zola/WeddingWire/Yahoo). Automated fetches hit Facebook's JS wall, so if tools can't read it, say so and ask Megan to click the page rather than declaring "no public email exists."
 - **Hook-lite (free, cold):** 15–20 minutes hard cap. Enough live looking to produce ONE sharp lane-appropriate hook and confirm the business is real and reachable. No asset pack, no concept brief, no full writeup. If nothing specific surfaces in 20 minutes, skip the prospect — don't manufacture an angle.
 - **Full `$liftaudit` (paid, or any prospect who replied):** the existing skill pipeline, all three buckets, verified asset pack, concept briefs. The deliverable ends at **findings + up to 3 remakes + the priced next step from the menu**. Roadmaps, implementation sequences, scopes of work are the paid engagement, not the audit. (The Witmer deck gave the scope of work away free and included no findings — exactly backwards.)
 
