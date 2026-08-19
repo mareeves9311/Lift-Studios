@@ -37,7 +37,13 @@ These were decided, not defaulted. Do not reopen them without her.
 | Proof speed | Instant — they see their own photo lifted | Slow — rankings take months; sell the *finding* and the plan, promise no timeline |
 | Never | Generate food/products/people they don't have; fabricate before/afters | Ranking guarantees, traffic numbers without a fetched source, invented stats |
 
-Positioning line (both lanes, replaces the old boilerplate that failed our own QA standard): *"I run Lift Studio — I find the specific things costing a local business customers, show the fix, and deliver it done."* Megan may rewrite; whatever she locks goes in every send identically.
+**Positioning line — LOCKED BY MEGAN 2026-08-19, both lanes, goes in every send identically:**
+
+> *"I run Lift Studio. I work with businesses doing excellent work that their website and social don't reflect yet."*
+
+Her words, from her own homepage ("Service-based and consumer-facing businesses doing excellent work that their website and social don't yet reflect"), chosen 8/19 from three options all drawn from live site copy. No em dash, so it satisfies the no-em-dash protocol with no workaround needed.
+
+**The line it replaces was never hers, and that is the lesson.** *"I run Lift Studio — I find the specific things costing a local business customers, show the fix, and deliver it done"* was written by a MIRA session during the 7/9 `_system` consolidation (commit `a446d88`), carrying the caveat "Megan may rewrite" — provisional from birth. Nobody ever asked her, and it shipped into three drafts before she saw it and said: *"I don't like the things costing a local business customers and deliver it done. That does not sound good at all... I feel like we've never used that wording before. Where the fuck did you get that?"* **Standing rule: copy that speaks AS Megan is never invented when her own published words exist. Mine the live site, the brand kit, and her dictated notes first, and any placeholder that reaches a draft is flagged to her as unblessed, not carried silently.**
 
 **Lane V pitch essence (Megan, dictated 2026-07-14 — every Lane V send leans into this):** content is everything for a visual local business; customers choose from a photo, so the imagery has to do the product justice and create the first impression. The offer is a partnership, not a service drop: the OWNER names where the brand is headed and how they want customers to feel ("What do you want? How do you want to come across? What is the essence?"), then any quick photo they take becomes brand-true content through Lift's tools — a content bank that portrays the product at its best while staying true to them. Sell the system (direction → quick photos → brand-carrying content bank), not individual retouches. The deliverable frame is the **fully built monthly calendar**: content + captions + copywriting done, guesswork removed, so the owner can actually stay consistent — and consistency/regular posting is the crucial business behavior the service buys them (Megan, 2026-07-14). Wording note: carry these ideas within the QA gate — "elevated"/"incredible" are banned-or-hollow words; say the concrete thing instead.
 
@@ -51,6 +57,19 @@ Three buckets, always: **social · website-visual · website-SEO**. Two depths:
 - **Contact discovery (Megan's protocol, repeated 2026-07-14 — do not miss again): check the FACEBOOK page first.** Local businesses list their email in the Facebook About/intro section far more often than on their website. Order: Facebook About → website contact/footer → listings (Zola/WeddingWire/Yahoo). Automated fetches hit Facebook's JS wall, so if tools can't read it, say so and ask Megan to click the page rather than declaring "no public email exists."
 - **Hook-lite (free, cold):** 15–20 minutes hard cap. Enough live looking to produce ONE sharp lane-appropriate hook and confirm the business is real and reachable. No asset pack, no concept brief, no full writeup. If nothing specific surfaces in 20 minutes, skip the prospect — don't manufacture an angle.
 - **Full `$liftaudit` (paid, or any prospect who replied):** the existing skill pipeline, all three buckets, verified asset pack, concept briefs. The deliverable ends at **findings + up to 3 remakes + the priced next step from the menu**. Roadmaps, implementation sequences, scopes of work are the paid engagement, not the audit. (The Witmer deck gave the scope of work away free and included no findings — exactly backwards.)
+
+**DIAGNOSIS SELLS, PRESCRIPTION IS THE PRODUCT (Megan, 2026-08-06 — extends the Witmer lesson from scopes of work to finished written assets).** Her words, cutting a bio rewrite out of the Creation Cakes pitch page: *"I don't want to give too much away, as we are saying we charge 250 for an Instagram reset... I don't want to give all of that away, then she'll be like, 'Why do I need to pay 250?'"*
+
+Name the problem completely and in specifics — that is what proves we see what they cannot, and it is what earns the reply. Withhold the finished artifact, because the artifact IS the paid deliverable. Concretely, in any free or pitch-stage material:
+
+| Say this (diagnosis) | Not this (the deliverable) |
+|---|---|
+| "Your bio truncates before the important part" | the rewritten bio, ready to paste |
+| "The name field is a search field and yours repeats your handle" | the exact 30-character replacement line |
+| "You have no highlights and two different customers both have to scroll" | the named list of highlight covers |
+| "Your link redirects back to Instagram" | the sitemap and page plan |
+
+Then bridge: state plainly that the fixed versions are already written and come with the priced item. Watch the surrounding copy too — a line like *"none of these cost anything"* sitting on the same page as a $250 offer argues against the offer.
 
 Audit mechanics live in `skills/liftaudit/` (now wired to the imported 990-line asset-verification protocol — every run loads it).
 

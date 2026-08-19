@@ -1,4 +1,54 @@
-# Generations In Bloom — first-touch draft (2026-07-14, QA-passed)
+# Generations In Bloom — first-touch draft (2026-07-14, QA-passed · REFRESHED 2026-08-19 · V2 VISUAL 2026-08-19 PM)
+
+## 2026-08-19 PM — V2 VISUAL EMAIL. THIS IS THE CURRENT DRAFT (MIRA, Fable 5)
+
+Megan on the morning draft: signature not high caliber (needs the real logo), body way too many words, needs visual taste, the words can live in the reveal page. V2 delivers both. **CURRENT DRAFT: `r6584556005567249624`** (message `1a01bcd2360eeaf8`, v3) in **megan@helloliftstudio.com Drafts** — the NEWEST in the folder. Superseded, none deleted (deletion needs her itemized OK): v2 `r-8090458486512869533`, morning text-only `r-3880128668317725072`, and the 7/14 gmail.com draft.
+
+**V3 = the positioning line, replaced at Megan's order (8/19).** She rejected the old one hard: *"I don't like the things costing a local business customers and deliver it done. That does not sound good at all... Where the fuck did you get that?"* Traced it: written by a MIRA session in the 7/9 `_system` consolidation (commit `a446d88`), always caveated "Megan may rewrite," never actually run past her, carried silently into three drafts. She chose the replacement from three options mined from her live homepage. **Now locked in LIFT_SYSTEM §2 with the standing rule: copy that speaks AS Megan is never invented while her own published words exist.**
+
+Locked line: *"I run Lift Studio. I work with businesses doing excellent work that their website and social don't reflect yet."*
+
+**What v2 is:**
+- Body cut to ~65 words: greeting, the Instagram-button fact, "I made you something, here's the first", teaser image, one button, positioning line + ask, signature.
+- **Hero visual: before/after teaser** of the standing spray (source 00 vs Megan-pick 01), built HTML/CSS as the site's own wipe component frozen mid-drag — same tags ("Your photo" cream / "Lifted" forest), same 2px cream handle, 44px knob, Hanken Grotesk, rendered @2x. Both image and button link to the reveal page. **Hosted (required — Gmail strips embedded images): `https://helloliftstudio.com/assets/email/lift-teaser-bloom-1120.png`.**
+- **Signature v2 with the REAL circle mark**, hosted at `https://helloliftstudio.com/assets/email/lift-mark-circle-152.png`. Standalone install file for Gmail Settings: `assets/lift-studio-gmail-signature-v2.html` (Megan pastes once; API drafts carry it baked in regardless).
+- Deploy receipt: Netlify draft `6a86123560c1ab8289c6b306` verified (new assets + `/` + reveal + creation-cakes all 200), promoted to prod, re-verified 200 on helloliftstudio.com.
+
+**Fresh-eyes verifier pass (staff verifier, cold context) — three catches, all applied:**
+1. **"Your flowers untouched" RETIRED as a claim.** The restage rearranged stems; a florist comparing against her own work would spot it, and the copy invited her to. Now: "two of your own arrangements, restaged in the set and light they deserve." Law for all Lift regen sends: never claim untouched/unedited about generated restagings — the client is the world expert on their own product.
+2. "two photos / these two" vs one visible pair → image is now framed "Here's the first", giving a reason to click through to the second pair on the reveal page.
+3. **Em-dash removed from the positioning line** ("I run Lift Studio: I find..."). ⚠️ OPEN FOR MEGAN: LIFT_SYSTEM §2 locks that line verbatim WITH the dash; her no-em-dash law (hard, newer, all copy) contradicts it. The colon version needs her one-word blessing to become the locked standard.
+- Verifier also confirmed: teaser has no AI-screamers (petal texture holds at 2x, no glow/bokeh), no typos, signature mark intact, half-second glance test PASS.
+
+---
+
+**The 7/14 copy went stale in five weeks; the send never happened. Re-verified everything today:**
+
+- **They launched a NEW WEBSITE:** `uszticsflowershop.com` now 301s to **`generationsinbloompa.com`** (title carries "Generations In Bloom"; verified by fetch 8/19). The 7/14 opener's "your site" claims described the old site.
+- **The new site STILL links the old socials:** `facebook.com/usztics1019` and `instagram.com/uszticsflowershop`, verified in the new site's HTML 8/19. The core hook survives.
+- **The Instagram claim changed shape:** `instagram.com/uszticsflowershop` no longer titles as "Usztics' Flower Shop" — it now presents as **"Lindsey Ramm (@uszticsflowershop)"**. So the accurate claim is "doesn't land on Generations In Bloom", NOT "still says Usztics' Flower Shop". Copy updated accordingly.
+- **Facebook claim DROPPED from the copy** — couldn't re-verify the FB page state today (curl-blocked); play-safe law says omit.
+- **"websites" dropped from the service list** — they just shipped a new site; offering websites would read as not having looked.
+- **Reveal page re-verified live 8/19:** `helloliftstudio.com/reveal/generations-in-bloom` → 200 (301 is just the trailing-slash redirect).
+- **Warm check run (per feedback_ask-if-warm-before-drafting-outreach): Megan confirmed COLD 8/19.**
+- **Never contacted from liftmail:** gmail_search in megan@helloliftstudio.com for their address → 0 hits (8/19).
+- **NEW GMAIL DRAFT: `r-3880128668317725072`** (message `1a01bae21ec0003d`) in **megan@helloliftstudio.com** — the correct sending address per LIFT_SYSTEM warmup rule (the 7/14 draft sat in the gmail.com account, which is history/assets only). Simple Lift signature block baked into the HTML body. **The old 7/14 draft `r-7510003638149931172` in helloliftstudio@gmail.com is SUPERSEDED — do not send it** (not deleted; deletion needs Megan's itemized approval).
+- **Open flag:** greeting still "Hi Azlynn" (Zola-verified 7/14). The IG now showing "Lindsey Ramm" raises the possibility of staff change; unverifiable today. Megan may swap the greeting before sending.
+- Sends remain Megan's click, permanently.
+
+**Current body as staged 8/19** (changes from 7/14: paragraph 1 rewritten to the new-site reality; Facebook sentence removed; "websites" → "whatever comes next"; all else verbatim incl. the locked positioning line):
+
+> Hi Azlynn,
+>
+> Your new site is live under the new name, and it looks right. One thing is still working against it: the Instagram button on it points to the old @uszticsflowershop account, so people who click through from your own website don't land on Generations In Bloom.
+>
+> *(paragraphs 2–5 and close verbatim from the 7/14 draft below, except the service list now reads "SEO, marketing materials, whatever comes next")*
+
+QA re-run 8/19, all six passes hold: evidence re-verified same-day (fetches above), specificity intact, one em-dash total (the locked positioning line), commercial chain intact, voice unchanged, body ~170 words.
+
+---
+
+## Original 7/14 record below (superseded copy, kept for audit)
 
 **Prospect:** Generations In Bloom (formerly Usztics' Flower Shop), 305 Bridge St Unit A, New Cumberland PA 17070 · (717) 636-9220
 **Contact:** Azlynn Beshore, Lead Designer (per their Zola listing). **Email: Generationsinbloom509@outlook.com** — found by Megan on their Facebook page (2026-07-14). PROTOCOL: Facebook About is the FIRST place to look for a local business email; persisted in LIFT_SYSTEM §3.

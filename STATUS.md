@@ -1,8 +1,189 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-07-14
+Last updated: 2026-08-19 (Generations in Bloom draft REFRESHED and staged in megan@helloliftstudio.com — one click from Megan sends it)
 
 ## Session Lock
+
+### ▶ CURRENT — TANG DUMPLINGS REBUILT AND LIVE AT `helloliftstudio.com/tang` (2026-08-19 ~16:30 ET, Opus 5)
+
+Megan is going to Tang for dinner tonight and wanted the old proposal re-jiggered to the Creation
+Cakes standard. She chose "live page on my phone + link to leave." Built, verified, deployed.
+
+**The old 7/9 proposal was not fit to hand over and was NOT printed.** Two flat PNGs carrying the
+wrong address (1205 vs **1134 Mae Street**), the wrong phone ((717) 298-0888 vs **223-900-5066**),
+the wrong Friday/Saturday closing time, a 2025 copyright, **entirely generated food photography**
+(LIFT_SYSTEM §2/§10 violation), and their logo silently redrawn from **湯** to **唐**, a different
+character. It also gave away the whole $250 Instagram Refresh free, against §3 DIAGNOSIS SELLS.
+Kept as the audit trail, never to be sent. Full table in `audits/tang/RESUME.md`.
+
+**The new page:** their real 湯 mark, a five-finding diagnosis that names problems and withholds
+every fix, a black "2 posts" stat block, cost-first how-it-works, **three before/Lifted sliders on
+real photographs graded only, nothing generated**, direction framing, and four services quoted
+verbatim from the menu per §1.5. 1.31MB, phone-first, light-locked, `noindex`. Verified: 3 sliders
+painting and dragging, both brand fonts loading, zero horizontal overflow at 485 and 741, zero em
+dashes, and the wrong address/phone appear zero times on the live page.
+
+**Deployed by CLI, draft then prod, all four routes re-checked 200** (`/`, `/tang`,
+`/creation-cakes`, `/reveal/generations-in-bloom`). Netlify auth firewall-verified on
+helloliftstudio@gmail.com first.
+
+**`LIFT_BUILD_QUEUE.md` item CLOSED:** Tang does have an Instagram. `@tangdumpling2026`, bio "Not
+Just Dumpling", **2 posts, 84 followers, 1 following**, no link in bio. Dormant, and it is the
+spine of the pitch.
+
+**Megan has `audits/tang/HOW_TO_USE_TONIGHT.md`** — what to say, what the three sliders do, and
+the three things not to promise (above all: do not hand over the bio rewrite in the room, it is
+the $250).
+
+**OPEN, HER CALL:** (1) the two customer photos are credited and the page is noindex, but they
+belong to reviewers, not Tang — swapping them for Tang-owned assets is a one-line change;
+(2) `tanghershey1134@gmail.com` came from a search summary and is NOT confirmed on their own site,
+so it does not ship until verified; (3) §1.3 "exactly ONE remade piece" is at three lifts again,
+the same question Creation Cakes left open on 8/6.
+
+
+### ▶ CURRENT — GENERATIONS IN BLOOM V2: VISUAL EMAIL + REAL-LOGO SIGNATURE, STAGED (2026-08-19 PM, Fable 5, MIRA)
+
+Megan's notes on the morning draft: signature not high caliber (wants the real logo), way too many words, needs visual taste. V2 built and staged same session:
+
+- **SEND THIS ONE: draft `r6584556005567249624`** (v3) in megan@helloliftstudio.com — the NEWEST in Drafts. v2 `r-8090458486512869533` superseded.
+- **POSITIONING LINE RE-LOCKED BY MEGAN 8/19** — the old one was AI-written in the 7/9 `_system` consolidation (`a446d88`), tagged "Megan may rewrite," never run past her, and rode into three drafts before she caught it. New locked line, her pick from her own homepage copy: *"I run Lift Studio. I work with businesses doing excellent work that their website and social don't reflect yet."* Written into `_system/LIFT_SYSTEM.md` §2 with a standing rule: **never invent copy that speaks AS Megan while her published words exist; an unblessed placeholder gets flagged, not carried.** This also closes the old em-dash conflict — the new line has none. Body ~65 words + before/after teaser (site's own wipe component frozen mid-drag, spray pair 00→01, Your photo/Lifted tags) + forest button, both linking to the reveal page + signature with the real circle mark. Morning draft `r-3880128668317725072` SUPERSEDED (not deleted).
+- **Email assets hosted on prod** (Gmail strips embedded images): `/assets/email/lift-teaser-bloom-1120.png` + `/assets/email/lift-mark-circle-152.png`, deployed draft→verify→prod, all existing routes re-checked 200.
+- **Signature v2 for Gmail Settings:** `assets/lift-studio-gmail-signature-v2.html` — Megan pastes once into megan@helloliftstudio.com settings and every hand-written email matches.
+- **Fresh-eyes verifier caught, all applied:** "your flowers untouched" RETIRED (restage rearranged stems; the florist would spot it — new law: never claim untouched about a generated restaging); "these two" now matches by framing the image "Here's the first"; positioning-line em-dash swapped for a colon.
+- **OPEN, Megan's call:** (1) positioning line dash-free version vs LIFT_SYSTEM §2 verbatim lock — bless "I run Lift Studio: I find..." as the new locked standard? (2) greeting "Hi Azlynn" vs the "Lindsey Ramm" IG name. (3) Delete the two superseded drafts (itemized: morning liftmail `r-3880128668317725072`; 7/14 gmail.com `r-7510003638149931172`)?
+
+### ▶ SUPERSEDED SAME DAY — GENERATIONS IN BLOOM DRAFT REFRESHED, RE-VERIFIED, AND STAGED IN THE RIGHT INBOX (2026-08-19 AM, Fable 5, MIRA)
+
+Megan asked to send "the Lift Studio Outreach email" from the new address. What happened:
+
+1. **Sender settled: megan@helloliftstudio.com** (Megan's pick, and the LIFT_SYSTEM warmup rule agrees). `google-liftmail` verified live. `google-lift` (the gmail.com account) is `invalid_grant` again — 7-day External-client expiry, by design; re-mint only when the Sheet/old threads are needed (`toolbox/google-mcp/SETUP.md`).
+2. **The 7/14 draft had gone stale.** Re-verified 8/19: they launched a NEW site (`uszticsflowershop.com` → `generationsinbloompa.com`); it still links the old social handles; the Instagram now presents as "Lindsey Ramm (@uszticsflowershop)", not "Usztics' Flower Shop". Copy rewritten to today's facts, Facebook claim dropped (unverifiable today), "websites" dropped from the service list. Warm check run: Megan confirmed COLD. Never contacted from liftmail (searched, 0 hits). Reveal page 200.
+3. **NEW DRAFT `r-3880128668317725072` in megan@helloliftstudio.com Drafts**, signature baked in, no attachments, one link. The old gmail.com draft `r-7510003638149931172` is SUPERSEDED, not deleted.
+4. **Megan's ONE action: open the draft and click Send.** Sends are hers, permanently.
+5. **After the send (MIRA's job, needs the `lift` re-mint):** mark row 93 in the Pipeline sheet (it lives in the gmail.com account). Open flag: greeting is "Hi Azlynn" (Zola, 7/14); the "Lindsey Ramm" IG name hints at possible staff change — Megan may swap the greeting first.
+
+Full record + refreshed copy: `content-bank/generations-in-bloom-regen-test/FIRST_TOUCH_DRAFT.md` (8/19 block at top).
+
+### ▶ CURRENT — SENT, DEPLOYED, AND LIFT IS NOW A TWO-INBOX WORLD (2026-08-06 ~17:35 ET, Opus 5)
+
+Three things closed in one session: the page went live, Megan sent, and the second Lift inbox got authorized.
+
+**1. `helloliftstudio.com/creation-cakes` is LIVE** (see the deploy entry below — CLI only, drag-and-drop is dead).
+
+**2. Megan sent 8/6 4:53pm ET — but NOT the drafted email, and she was right.** She sent her own warm note (subject `Social Media Support`, thread `19fd8d38302657b4`, from **megan@helloliftstudio.com**, link live, no attachments, full signature). **Creation Cakes is a WARM contact:** she DMs Viviane on Instagram and was picking up a cake from her on 8/7. The six-pass-QA'd cold open was the wrong instrument, and the tracker had actively misled by showing `Sent / No Response` against a wrong email (`customorders.sbarb@gmail.com`) and an Illinois phone number. **Full send record + the lesson at the top of `content-bank/creation-cakes-and-desserts/FIRST_TOUCH_DRAFT.md`; new standing rule in memory `feedback_ask-if-warm-before-drafting-outreach` — ask whether she already knows them BEFORE drafting anything.**
+- **Brand Tracker row 6 updated:** contact corrected to Viviane / viviane@creationcakesanddesserts.com / (717) 298-6361, Response Status `Awaiting Reply`, Last Contacted 8/6, **Next Action: in person 8/7 at the cake pickup** (email follow-up only if that doesn't happen).
+
+**3. `google-liftmail` is BUILT and LIVE → megan@helloliftstudio.com.** Verified end to end: firewall confirms the account, Gmail and Drive both answering. Built on its **own Internal OAuth client** (Cloud project `mira-liftmail`), so **its token does not expire every 7 days** the way `google-lift` does. Chrome Profile 6. Steps + rationale in `toolbox/google-mcp/SETUP.md`; FOUNDATION.md identity map amended.
+- **THE TRAP, name it before it bites: a send from one Lift account is invisible to the other.** Megan's real send read as "never sent" until the right inbox was searched. Outbound + new threads = `google-liftmail`. Sheet, Drive, Netlify, Apps Script, all pre-August threads = `google-lift`. **Search both.**
+- `google-lift` still runs on the External client and still dies every 7 days (its token was last re-minted 8/6 16:11). Internal isn't available to a plain @gmail.com; publishing the External app is the only lever and is **a proposal for Megan, not a settled fix** — it requests a restricted scope. Her call.
+
+**Open, unchanged, needs her call:** the optional "five day-of posts a month" tier; the beach-cake slider defaulting to Sugar Rush; asking the client for their real logo vector; whether LIFT_SYSTEM §1.3 gets amended or this page is a deliberate one-off. **New:** whether §1.3's cold-open machinery should carry an explicit warm-contact branch now that one has come up.
+
+Canon sweep for this session: `~/.claude/state/canonsweep/0b689984-4695-4c28-9ce9-f142056f4f27.md`.
+
+### ▶ CURRENT — CREATION CAKES IS DEPLOYED. `helloliftstudio.com/creation-cakes` IS LIVE. (2026-08-06 ~17:30 ET, Opus 5)
+
+Megan: "pick up Cake Creations... I have to go to Netlify, right?" She tried the documented drag-and-drop and Netlify refused it: **browser uploads cap zips at 10MB and this site is 17MB** (the proposal page alone is 8.6MB of base64-inlined images). **The drag instruction that was in this lock and in RESUME.md was wrong; it is now corrected in both.**
+
+- **Deployed by CLI instead, and verified.** Draft first, checked `/`, `/creation-cakes`, and `/reveal/generations-in-bloom` all 200 with the right title and full 9.05MB payload, then promoted to prod and re-verified live. Netlify uploaded only 2 changed files, which confirms `site-live/` was a true copy of production and nothing was wiped.
+- **The deploy command, auth, and site ID are in `audits/creation-cakes-and-desserts/RESUME.md` blocker #2** and in memory `reference_netlify-deploy-lift-site`. Auth already on disk under **helloliftstudio@gmail.com** (firewall verified before deploying). **Megan never needs to touch Netlify again — this is MIRA's job now.**
+- **Blockers remaining, in order:** (1) **the send itself** — the email is written and QA'd at `content-bank/creation-cakes-and-desserts/FIRST_TOUCH_DRAFT.md`, recipient `viviane@creationcakesanddesserts.com`, and its link now resolves; (2) `google-lift` MCP still dead (`invalid_grant`), so the Gmail draft cannot be created from here — fix in `toolbox/google-mcp/SETUP.md`, or Megan pastes the draft herself.
+- **Still open, unchanged, needs her call:** the optional "five day-of posts a month" tier; the beach-cake slider defaulting to Sugar Rush; asking the client for their real logo vector; and whether LIFT_SYSTEM §1.3 gets amended or this page is a deliberate one-off.
+
+Canon sweep for this session: `~/.claude/state/canonsweep/0b689984-4695-4c28-9ce9-f142056f4f27.md`.
+
+### ▶ CURRENT — CREATION CAKES: THE PROPOSAL PAGE IS DONE. TWO THINGS BLOCK THE SEND. (2026-08-06 ~17:05 ET, Opus 5)
+
+Thread retired at ~9MB, image-heavy, by agreement. **Everything is in `audits/creation-cakes-and-desserts/RESUME.md` — read its top three sections before touching this.** Canon sweep for that session: `~/.claude/state/canonsweep/809b6221-3197-40ec-976a-f38a6735dc29.md`.
+
+**What the deliverable IS:** `helloliftstudio.com/creation-cakes`. Not a file, not the Claude link. The page is 9.05MB, fully self-contained (zero external refs), phone-responsive, light-mode locked.
+- **Megan's ONE action to ship it: drag `site-live/` into Netlify** (app.netlify.com → helloliftstudio site → Deploys). 17MB, contains the whole site, nothing gets wiped. `build-deliverable.py` rewrites `site-live/creation-cakes/index.html` on every run, so it is always current.
+- Working preview only, never send this: `https://claude.ai/code/artifact/621eedee-5054-4ce9-8627-a946857ecea3` (private).
+- **Never regenerate by hand.** `audits/creation-cakes-and-desserts/build-deliverable.py` is the only build path. Copy edits go in the source HTML; the proposal header, the how-it-works section and the sliders live in the build script because they depend on the inlined-image CSS vars.
+
+**Three rounds done today, all Megan-directed:** (1) packaged 104MB of loose PNGs into one portable phone-ready page; (2) added the "how this actually works" section with two before/Lifted sliders ported from the live Generations in Bloom reveal; (3) twelve copy edits including a proposal title block with the client's own logo, a cost-first headline, a brand-identity framing for the three directions, a Services heading, and a budget note. Six cross-account lessons promoted to `~/.claude/CREATIVE_PROTOCOL.md` PART 3.
+
+**BLOCKERS, in order:**
+1. **No contact email for the shop.** Unchanged from the earlier session. Megan opens facebook.com/creationcakesanddesserts/about. Do not guess a local part.
+2. **Not deployed.** Until she drags the folder, `helloliftstudio.com/creation-cakes` 404s and the email's only link is dead.
+3. `google-lift` MCP is dead (`invalid_grant`), so the Gmail draft cannot be created. Fix in `toolbox/google-mcp/SETUP.md`.
+
+**Open, not built, needs her call:** an optional "five day-of posts a month" tier she floated while correcting the turnaround language; the beach-cake slider defaulting to Sugar Rush instead of Sunday Best (measured, it aligns better); asking the client for their real logo vector.
+
+### ▶ PRIOR — CREATION CAKES: THE EMAIL IS WRITTEN, THE PAGE IS STAGED, ONE THING MISSING (2026-08-06 PM, Opus 5)
+
+Megan: "pick up Creation Cakes." Picked up at the point the 17.2MB thread died, which was the first-contact email. **Full detail in `audits/creation-cakes-and-desserts/RESUME.md` (top section) and the draft itself.**
+
+- **The email:** `content-bank/creation-cakes-and-desserts/FIRST_TOUCH_DRAFT.md`. Git-tracked on purpose (audits/ is gitignored; a send record should outlive the folder). Six-pass QA'd, zero em dashes, zero banned words, one link, 209 words. Opens on the dead-loop domain, names two of their own desserts, and holds back the four other profile findings per DIAGNOSIS SELLS.
+- **Two divergences from LIFT_SYSTEM, both recorded not hidden:** the close asks to connect (§4 prefers "the notes behind it," but her verbatim instruction was *"we should connect after"*), and the positioning line is rendered dash-free, which §2 allows her to lock once. **If she blesses the dash-free line it goes into §2 as the standard.**
+- **Recipient: `viviane@creationcakesanddesserts.com`** (Megan, off their Facebook About panel, after eleven directories plus Facebook and Yelp all 403'd automated fetches). The address also confirmed the baker's name and spelling, **Viviane**, which search had only produced unsourced; greeting updated. §3 is vindicated: Facebook About is where the local-business email lives, and when the fetch wall blocks it the answer is one human glance, never a guessed local part.
+- **Staged for the send:** the standalone page is at `site-live/creation-cakes/index.html`, so one Netlify drag gives `helloliftstudio.com/creation-cakes` and the send obeys §4's Lift-domain rule. Private artifact link is the no-deploy fallback.
+- **`google-lift` MCP is returning `invalid_grant`** (known 7-day refresh-token expiry). Blocks the Gmail draft and the "never contacted before" check. Band-aid re-mint, or publish the OAuth consent screen once (`toolbox/google-mcp/SETUP.md`).
+- **Flagged for her decision, not blocking:** this page is 18 images plus a five-point diagnosis, well past §1.3's "exactly ONE remade piece." Either §1.3 gets amended or this is a deliberate one-off; the next prospect asks the same question.
+- **Housekeeping:** two identical artifact URLs now exist for the same page (a parallel session published at 15:40, this one again at 15:52). Canon is `621eedee-5054-4ce9-8627-a946857ecea3`; the other is flagged "do not send" in RESUME.
+
+### ▶ CURRENT — THREE DIRECTIONS SPECIFIED + CREATIVE PROTOCOL PROMOTED HOUSE-WIDE (2026-08-05 ~19:30 ET)
+
+Megan approved the rebuilt variety set ("this is really great... awesome job") and gave two new orders.
+
+**1. Present the client THREE aesthetics, not one.** Defined as canon in `audits/creation-cakes-and-desserts/03-strategy/three-directions.md`, with a Lift-branded direction board built and headless-verified at `04-concepts/instagram/three-directions.html`:
+- **A "Sunday Best"** — BUILT (the current 12-tile feed). Warm heritage: clay/plum/ochre, linen with the fold, brass, script type. Sells weddings and the custom-cake side.
+- **B "Marble & Milk"** — her named ask. Cool modern patisserie: honed white marble, no fabric anywhere, one accent per post pulled from the dessert itself, harder shadow edge, no script type. Sells modern weddings, corporate, luxury.
+- **C "Sugar Rush"** — dealer's choice. Saturated colour-blocked play (never pastel-washed). Sells birthdays, cake pops, walk-in impulse — the half of her book neither A nor B speaks to.
+
+**Megan then said: "I like all these directions. Go ahead and execute for the feed for each one."** Executed as far as the tooling allows:
+
+- ✅ **BUILT — the menu tile in all three directions.** `cc-menu-grid.png` (A) · `cc-menu-grid-B.png` (Marble & Milk: matte white seamless, harder shadow edge, Hanken caps letterspaced, no script) · `cc-menu-grid-C.png` (Sugar Rush: raspberry colour field with real light fall-off, Hanken Bold, cream labels). All headless-verified. This tile needed **no generator** — cut-outs are ground-independent, which is why it was possible at all. The three side by side are the proof the direction system works: identical six desserts, three genuinely different personalities.
+- ✅ **BUILT — complete prompt kits for all 10 remaining photographs**, in `03-strategy/three-directions.md` → APPENDIX. Each carries the direction's surface/light/palette plus the shared negative-constraint block and the two never-optional structural rules. Paste-and-go.
+- ⚠️ **NOT BUILT — the 10 photographs.** The Runway, Higgsfield, Vibiz and Gamma connectors all dropped mid-session (they were working earlier — this is a disconnect, not an auth failure; ToolSearch confirms no image-generation tool is reachable). **Nothing was faked or substituted.** The CSS grounds on the B and C menu tiles are marked PROVISIONAL in their source comments and should be swapped for generated marble / colour-sweep plates when generation returns.
+
+**Megan approved the raspberry and said execute across all tiles for both brandings.** Generation was re-checked three ways and is still down (ToolSearch twice, plus a search for any local API credential — Runway here is an OAuth connector with nothing reusable on disk). The 10 photographs remain outstanding. **Deliberately did NOT manufacture filler tiles** — padding B and C with extra designed tiles would have let a tooling outage reshape the product away from the photograph-led feed A proved.
+
+**GV-16 SAVE this round:** the reference crops — the fidelity anchor for every Creation Cakes image ever made — were living **only in the session scratchpad**. Now durable at `02-assets/reference-crops/` (11 native-res crops + 12 upscaled + a README with the crop/upscale/host procedure and tag map). Hosted URLs are deliberately not recorded: their JWTs expire in ~24h and would rot into false canon; re-host from the files instead.
+
+**NEXT SESSION, in order:** (1) fire the 10 prompts from the `three-directions.md` appendix, re-hosting from `02-assets/reference-crops/`; (2) crop and host a cake reference for the B6/C6 cake-on-stand tiles (the only one missing); (3) swap the PROVISIONAL CSS grounds under the B and C menu tiles for generated marble / colour-sweep plates; (4) build the three-up client page — that page is the pitch, not the individual images.
+
+**2. This method is now the protocol for ALL creative, every project** (her words: *"across the board for all of our projects across AMP3, Lift Studio, AdviseHer, and everything"*). `~/.claude/CREATIVE_PROTOCOL.md` restructured into Part 1 assembly (unchanged) + Part 2 generated client imagery (new): fidelity line, single-hero rule, reference pipeline, prompt construction, composition law, cut-out tooling, audit loop, and the compounding rule that every rejection becomes a named law the same session. Registry **GV-19** added, GV-13 amended, `build-data.py` run (88 items), plain-language layer and memory updated.
+
+### Previous — VARIETY SET REBUILT AFTER MEGAN'S REVIEW (2026-08-05 ~18:40 ET, MIRA/Opus 5)
+
+She reviewed round 1 and rejected four of six. **Her notes produced four composition laws that now outrank fresh judgment on this account — all written to the audit `RESUME.md`:**
+
+1. **No-horizon rule** — never split the frame into a table band and a wall band ("half the background is the table, the other half is the wall. I really want to avoid that"). Shoot straight down, or fill the frame against one continuous seamless ground.
+2. **Studio, not kitchen counter** — a single hero dessert never sits on woven fabric; it read to her as "sitting on a couch." Singles go on a clean seamless ground.
+3. **The move she loves** — aerial + real linen with one fold left in the corner + crumbs where they fell. `v-blueberry-flatlay.png` is the named reference standard; variety comes from rotating palette and props inside that formula.
+4. **Props must be physically honest** — "cake pops don't go in ramekins like that." Never invent a presentation the food wouldn't really have.
+
+**Rebuilt:** mille-feuille (seamless plum, fills frame, layers read, one dessert only) · toasted coconut (clean studio seamless, sage plate, no fabric) · cheesecake (aerial on clay linen, fork, crumbs) · cake pops (aerial, laid flat, sticks fanned on ochre linen). **Cut entirely:** the bourbon/Blanton's drip cake — "doesn't look like it belongs, cut off at the bottom, really really bad." Deleted from the folder, do not re-add.
+
+**Menu tile rebuilt from scratch.** Round 1 used circular crops that each carried their own background — she read that instantly ("they all look like just cropped images"). Now six true cut-outs on one paper ground, one shared shadow, one label style, per idea2. Getting there produced durable tooling canon: white-on-white keying destroys her white frosting and white cake pops, so cut-outs are generated on a vivid-blue chroma ground and keyed with documented thresholds + spill suppression; and the generator will re-shape a dessert if the prompt names only a category (asked for "pastry" it returned a round key lime pie instead of her rectangular napoleon). Both recorded in RESUME.
+
+`feed.html` reflowed to 12 tiles, checked for repeats in both directions (the floral cake was appearing twice; swapped for the two-tier). Headless-verified.
+
+### Previous — round 1 of the same session (superseded above where they conflict)
+
+**Built and self-audited; needs Megan's eyes. Open `audits/creation-cakes-and-desserts/04-concepts/instagram/feed.html` in Chrome.**
+
+Six new pieces, each a different shot type, every dessert held pixel-true: mille-feuille side/eye-level (plum) · cake pops hero in a crock (ochre) · toasted-coconut macro (sage) · blueberry overhead flatlay (blush) · cheesecake styled table (clay) · `cc-menu-grid.png`, the idea2 labeled tile built plate+type (her six real desserts as colour discs on generated text-free paper, live Caveat labels). Plus both Desktop cakes folded in on the **real-photo track** (crop + warm grade, no generator): the 7-cupcake board, and the bourbon drip cake — that one by law, since its Blanton's bottle toppers are branded text and generators garble text. `feed.html` reflowed to 12 tiles, ordered so no two neighbours share a shot type and the palette rotates row to row.
+
+**Two things were rejected mid-build and are now recorded as method canon in the audit RESUME:** (1) a generated restage of her cupcake board **failed the count check — 6 rendered vs her real 7** — confirming that multi-item tableaux belong on the real-photo track, never through a generator; (2) a mirror-patch to remove an Instagram carousel arrow **grafted a visible duplicate cupcake** — cropping the UI chrome out is the fix, blind patching over content is a dead end. Also fixed a real GV-16 gap: last session proved the single-hero crop path but never wrote the crop coordinates down, so this session re-derived all of them. They are now canon in `RESUME.md`.
+
+**Flagged honestly for her:** `v-cakepops-hero.png` is the weakest of the six — the pops read rounder and glossier than her hand-dipped ones and the pink is more raspberry than her bubblegum. Look hardest there. Flavour labels: Fruit Tart / Key Lime / Cheesecake / Cake Pops are verified off her own case signs; Toasted Coconut / Blueberry are descriptive and need her confirm; header copy is placeholder.
+
+Still owed by Megan (only she can shoot): a real cut cross-section and a bite-on-a-fork of an actual cake interior — those are the two shot types the kit is still missing, and they cannot be fabricated. Also still the watermark-free original of the Alice pair; cc1 upload remains blocked by the local safety classifier (tooling, not licensing).
+
+Next after her verdict: the "Your photo → Lifted" drag-reveal + captions/posting calendar.
+
+### Previous Session Lock (2026-08-05 midday, preserved)
+- Agent: Claude Code (MIRA, Opus 4.8)
+- Date: 2026-08-05 ~12:30 ET
+- State: **Creation Cakes — session CLOSED to shed image weight (recurring API error = too many full-res references held in context; nothing lost, RESUME is the record).** Two things settled this session: (1) the "Case, Three Ways" round-2 pieces (labeled grid, menu tile, counter-tower) were **REJECTED by Megan — "hard no across the board for Lift"** — fidelity failure, and it's a METHOD failure: reconstructing a whole case of many small pastries makes the generator redraw every one, so they read AI. (2) **Fidelity path now PROVEN** — Megan pushed back ("can't you pull the desserts from the case shot?"), she was right; a single dessert cropped from `cc2.png` at native res + upscale holds real detail, and she confirmed the fruit-tart single-hero restage "much better." The winning rule: elevate case desserts ONE HERO AT A TIME, never the whole tableau. Full detail + the fourth-axis fidelity law now in memory `feedback_visual-regeneration-fidelity-line` and the audit RESUME.
+- **NEXT (approved by Megan): build the VARIETY SET.** Current feed reads monotonous — one shot type with cosmetic swaps. Render the tart + 3–4 other real case desserts each held pixel-true, across shot types (aerial · side · macro · cross-section · bite-on-a-fork), ONE labeled-grid tile per `idea2.png`, fold in the CC3 bars + Desktop cakes `~/Desktop/1.png`/`2.png`, reflow `feed.html` so rhythm varies. Reference map + crop coords + shot-type kit are in `audits/creation-cakes-and-desserts/RESUME.md` (audits/ gitignored → RESUME is the record). Self-audit fidelity + AI-tells + coherence before Megan sees anything.
+- Still owed by Megan (only she can shoot): a real cut cross-section + a bite-on-a-fork of an actual cake interior (can't fabricate a cake inside); the original Alice-pair photo (watermark-free). cc1 upload still blocked by the local safety classifier (tooling, not licensing — settled in her favor); graded real-photo `cc1-lifted.png` holds the slot.
+- After the variety set: the "Your photo → Lifted" drag-reveal + captions/posting calendar (the client-facing pitch).
+
+## Previous Session Lock (2026-07-14, preserved)
 - Agent: Claude Code (MIRA, Fable 5)
 - Date: 2026-07-14 22:15 ET
 - State: **Wednesday's first send is built and QA-passed.** Megan blessed the two Generations in Bloom finals tonight ("both, yes" — studio spray 01 + vase bouquet 06). Shipped (commit `562e20b`): the Lane V drag-to-reveal hook page (`site/reveal/generations-in-bloom/`, Lift palette/type, screenshot-verified desktop+phone) + the first-touch email draft with all six QA passes recorded (`content-bank/generations-in-bloom-regen-test/FIRST_TOUCH_DRAFT.md`). Prospect row added to the Pipeline sheet (row 93; never contacted — verified via Gmail search + sheet). Observed opener verified live: their site's social buttons still point to the old Usztics accounts.
