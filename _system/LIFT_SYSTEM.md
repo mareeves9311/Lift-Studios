@@ -37,11 +37,13 @@ These were decided, not defaulted. Do not reopen them without her.
 | Proof speed | Instant — they see their own photo lifted | Slow — rankings take months; sell the *finding* and the plan, promise no timeline |
 | Never | Generate food/products/people they don't have; fabricate before/afters | Ranking guarantees, traffic numbers without a fetched source, invented stats |
 
-**Positioning line — LOCKED BY MEGAN 2026-08-19, both lanes, goes in every send identically:**
+**Positioning line — LOCKED BY MEGAN 2026-08-19 (second pass, her own dictation), both lanes, goes in every send identically:**
 
-> *"I run Lift Studio. I work with businesses doing excellent work that their website and social don't reflect yet."*
+> *"I run Lift Studio. I work with small local businesses to bring their work up to the quality it actually deserves online."*
 
-Her words, from her own homepage ("Service-based and consumer-facing businesses doing excellent work that their website and social don't yet reflect"), chosen 8/19 from three options all drawn from live site copy. No em dash, so it satisfies the no-em-dash protocol with no workaround needed.
+Dictated by Megan 8/19 PM: *"I work with small local businesses to help bring their work to the quality it actually deserves through digital representation."* Tightened to "online" for the send; **if she wants "through digital representation" verbatim, that is a one-word swap and hers to call.** Earlier the same day she picked a homepage-mined version (*"...businesses doing excellent work that their website and social don't reflect yet"*) — same idea, superseded by her own later wording. No em dash either way.
+
+**Placement changed too (Megan, 8/19):** the positioning line moves ABOVE the visual, not below it. Her structure for a first touch: soft observational opener ("I was looking through your site and your Instagram, and I think I can help") → what Lift does → "here is an example" → the visual → the click-through. The specific observed fault is NOT the opening line; leading with a fault reads as a gotcha. It lands after the visual as a free gift ("one free thing while I am here"), which keeps QA specificity without the accusation.
 
 **The line it replaces was never hers, and that is the lesson.** *"I run Lift Studio — I find the specific things costing a local business customers, show the fix, and deliver it done"* was written by a MIRA session during the 7/9 `_system` consolidation (commit `a446d88`), carrying the caveat "Megan may rewrite" — provisional from birth. Nobody ever asked her, and it shipped into three drafts before she saw it and said: *"I don't like the things costing a local business customers and deliver it done. That does not sound good at all... I feel like we've never used that wording before. Where the fuck did you get that?"* **Standing rule: copy that speaks AS Megan is never invented when her own published words exist. Mine the live site, the brand kit, and her dictated notes first, and any placeholder that reaches a draft is flagged to her as unblessed, not carried silently.**
 
