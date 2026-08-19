@@ -1,8 +1,140 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-08-19 (Generations in Bloom draft REFRESHED and staged in megan@helloliftstudio.com — one click from Megan sends it)
+Last updated: 2026-08-19 ~18:25 ET (Tang round 2 built, deployed, live; one call open for Megan)
 
 ## Session Lock
+
+### ▶ CURRENT — TANG ROUND 2 IS LIVE. FIVE OF HER SIX NOTES BUILT, ONE SHE CANCELLED, ONE CALL WAITS ON HER (2026-08-19 ~18:25 ET, MIRA)
+
+**Resume phrase: "Mira, pick up Tang — I'll rule on the interior shot."**
+
+**State:** `helloliftstudio.com/tang` rebuilt and deployed (draft checked, then prod, all four
+routes 200, firewall verified helloliftstudio@gmail.com). Commit `1e6022d`. Hero is now
+"Tang, Lifted / Same food. New setting.", pair tags read Before and Lifted, the feed grid is
+full-bleed and is the biggest thing on the page, copy is cut to one method line, and two real
+interior photographs were added.
+
+**Her note #5 (full width) is CANCELLED and settled:** *"I forgot I told you I'm showing this on
+my phone, so it's fine that it's built for mobile, that it's skinnier."* The 620px column stays.
+Do not widen it in a later round.
+
+**WAITING ON MEGAN, one thing:** her #7, the before/lifted pair on a restaurant shot. Not built
+on purpose. An interior's subject is their actual room, so restaging it means showing Tang a
+dining room that does not exist. Three options laid out in the Tang RESUME under "THE ONE OPEN
+CALL". Everything else from her list shipped.
+
+**Still owed by MIRA, not by her:** the cold fresh-eyes verifier has never run on the four newer
+images (siu mai v4, scallion, potsticker, ramen). Round 2 was checked by the building session
+only, at true 390px phone width.
+
+Full detail, including the interior asset provenance and the headless-render trap that cost time
+twice, is in `audits/tang/RESUME.md`. Note `audits/` is gitignored by design, so the build script
+and assets are on disk only; the built page is what is tracked.
+
+---
+
+### ▶ PREVIOUS — TANG VISUAL PAGE LIVE. MEGAN GAVE 6 CHANGES FOR ROUND 2. **THREAD RETIRED AT ~16MB, START FRESH.** (2026-08-19 ~18:10 ET, MIRA)
+
+**Resume phrase: "Mira, pick up Tang — round 2 of the visual page, her notes are in the RESUME."**
+
+**State:** `helloliftstudio.com/tang` (visual hook) and `/tang/proposal` (full write-up) are both
+live and verified 200. Megan saw the visual page and said *"okay, it looks pretty good."* She is
+going to dinner at Tang tonight and can show what is live right now if she wants to. Nothing is
+broken and nothing is blocking her.
+
+**Round 2 is a REDESIGN of the visual page only, and her six notes are written verbatim in
+`audits/tang/RESUME.md` under "NEXT ROUND, HER EXACT DIRECTION".** Headlines: kill the "Your food,
+shot properly" hero for "Tang, Lifted / Same food. New setting."; retag pairs to "Before" and
+"Lifted"; make the feed grid bigger; add an interior shot of food on their own restaurant table;
+**stop being a skinny mobile column and use the full browser width** (`.wrap{max-width:620px}` is
+the culprit); and cut the copy hard.
+
+**Her interior screenshots are safe.** 19 screenshots she took 8/19 between 4:12 and 4:36 PM were
+copied off her Desktop into `audits/tang/02-assets/megan-desktop-2026-08-19/` this session, so the
+interior source cannot go missing when her Desktop gets cleaned.
+
+**One judgment call flagged for the next session, do not resolve it silently:** an interior is not
+food. The fidelity line protects the subject, and for a room shot the subject is their actual
+restaurant, so rebuilding the setting around it would mean fabricating their space. Restage the
+FOOD on their real table, or keep the interior as a straight crop, and ask her.
+
+**Still open:** cold fresh-eyes verifier has never run on the four new images (canon #7, and it
+caught a 0-for-3 failure earlier today); crepe-cake sugar dusting; customer-photo rights call;
+unconfirmed `tanghershey1134@gmail.com`; §1.3 one-piece rule, now three prospects deep.
+
+**Uncommitted:** `build-visual.py` (new), `build-deliverable.py`, `HOW_TO_USE_TONIGHT.md`,
+`RESUME.md`, the new lifts and before-crops, and the Desktop screenshot set. Nothing is committed
+yet because Megan has not approved round 2.
+
+### ▶ TANG SPLIT INTO A SHOW-IT PAGE AND A SEND-IT PAGE. BOTH LIVE. (2026-08-19 ~18:00 ET, MIRA)
+
+**Resume phrase: "Mira, pick up Tang — she's back from dinner."**
+
+**The pivot (Megan, 17:35, before leaving):** *"today I'm going to the restaurant for dinner, so I
+just want to have something more visual to show them... a bunch of snapshots of visually what I
+can do... then I can follow up with 'I'll send you the full proposal.'"* So the deliverable split
+in two, and this is now the pattern for any walk-in prospect:
+- **`helloliftstudio.com/tang`** = THE HOOK she shows at the table. Pictures, almost no words, no
+  gesture to fumble. Three before/after pairs plus a mock six-post Instagram grid. 1.98MB, dark,
+  built by `audits/tang/build-visual.py`.
+- **`helloliftstudio.com/tang/proposal`** = THE SEND. Diagnosis, stat block, pricing, services.
+  1.15MB, built by `build-deliverable.py`, output path moved, content otherwise unchanged.
+
+**Her three rejections at 17:35, all fixed and written as laws in `audits/tang/RESUME.md`:** the
+siu mai was "lackluster and boring... the POV angle is weird" (re-rolled at a low three-quarter
+angle with a styled slate ground and props, v4); the before frame is a customer's photo, not
+Tang's (now tagged THEIR PHOTO everywhere, including the spoken script); and it was "cut off at
+the top" (before frames are now letterboxed, contain never cover, AND two of them still had
+Google review chrome baked in, re-cut from source).
+
+**Three new restaged dishes** for the grid: scallion pancake, potstickers, ramen bowl. The
+single-hero rule caught a real error pre-generation: the wonton source was a multi-item spread and
+was re-cropped to the potstickers alone.
+
+**Also corrected this session, both stale against the restage:** `HOW_TO_USE_TONIGHT.md` was
+scripting Megan to tell the owner "nothing was faked, it is the same picture with the light
+fixed", which is false of a restaged frame. Rewritten twice, now matches the two-link flow. And
+the proposal page's own slider heading said "Same photograph. Same food." It now reads "Same food.
+New setting."
+
+**Deployed by CLI, draft then prod, all five routes re-checked 200** (`/`, `/tang`,
+`/tang/proposal`, `/creation-cakes`, `/reveal/generations-in-bloom`). Netlify auth firewall-verified
+on helloliftstudio@gmail.com. Zero em dashes, zero stale facts on the live pages.
+
+**OPEN, and Megan knows:** the cold fresh-eyes verifier has NOT run on the four new images. Canon
+#7 requires it before client-facing work and it caught a 0-for-3 failure earlier today. This round
+had the building session's own audit only (contact sheet plus headless render at 485). Everything
+else open is unchanged from the 17:15 lock: crepe-cake sugar dusting, customer-photo rights call,
+unconfirmed `tanghershey1134@gmail.com`, and the §1.3 one-piece rule.
+
+### ▶ CURRENT — TANG REBUILT THE RIGHT WAY AND LIVE. THE GRADE-ONLY LIFT IS DEAD, LAW WRITTEN. (2026-08-19 ~17:15 ET, MIRA)
+
+**Resume phrase: "Mira, pick up Tang — the restaged page is live, she saw it after dinner."**
+
+**What happened, short:** the 16:30 build's "lifts" were colour-grade passes on tiny customer
+screenshots. Megan rejected them furious, and she was right: the house method (CREATIVE_PROTOCOL
+Part 2, the Creation Cakes bars) is pixel-true product RESTAGED in a rebuilt setting, never a
+filter. Root cause + the doc-conflict that enabled it are written in `audits/tang/RESUME.md` and
+memory `feedback_lift-means-restage-never-regrade`. Her spec, now canon: LONG deliverable = CC
+full audit; SHORT = three lifted before/after examples. Tang got the short version.
+
+**Rebuilt via the CC pipeline** (ref crops 6x → Higgsfield hosting → Runway nano-banana-pro 2K
+tagged refs). Round 1 of the restage FAILED the cold verifier 0-for-3 for food idealization;
+re-rolled with the food's imperfections as protected prompt features; round 2 = SHIP on all
+three, 7/7 defects confirmed fixed. **The cold-verifier gate before Megan sees anything is now
+mandatory and it caught what my own contact-sheet pass missed.**
+
+**LIVE, re-verified 17:15:** `/tang` carries the three restaged sliders (coloured soup dumplings
+/ siu mai close / creme brulee crepe cake), honest method copy, correct facts, 0 em dashes;
+`/`, `/creation-cakes`, `/reveal/...` all 200. 1.15MB page.
+
+**Open:** (1) Megan reacts after dinner; (2) her photos from the table tonight = second-touch
+material; (3) crepe-cake sugar dusting touch-up if she wants it; (4) customer-photo rights call
+and unconfirmed tanghershey1134@gmail.com still stand from the 16:30 lock; (5) §1.3 one-piece
+rule still undecided, now three prospects deep.
+
+**This thread retired at its payload ceiling (~17MB) immediately after this lock.**
+
 
 ### ▶ CURRENT — TANG DUMPLINGS REBUILT AND LIVE AT `helloliftstudio.com/tang` (2026-08-19 ~16:30 ET, Opus 5)
 
