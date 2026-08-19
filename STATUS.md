@@ -1,10 +1,39 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-08-19 ~18:25 ET (Tang round 2 built, deployed, live; one call open for Megan)
+Last updated: 2026-08-19 ~18:45 ET (Tang round 3 live: the room is inside the feed mock)
 
 ## Session Lock
 
-### ▶ CURRENT — TANG ROUND 2 IS LIVE. FIVE OF HER SIX NOTES BUILT, ONE SHE CANCELLED, ONE CALL WAITS ON HER (2026-08-19 ~18:25 ET, MIRA)
+### ▶ CURRENT — TANG ROUND 3 IS LIVE. THE INTERIORS MOVED INTO THE FEED MOCK (2026-08-19 ~18:45 ET, MIRA)
+
+**Resume phrase: "Mira, pick up Tang."**
+
+**State:** `helloliftstudio.com/tang` rebuilt and deployed (draft checked, then prod, five routes
+200, firewall verified). Commit `7ed4100`. Megan killed the standalone interior band and asked
+for the room to appear inside the Instagram grid instead, off two references she named on her own
+Desktop: `t.png` (Yelp birdcage booth) and `y.png` (black table, red banquettes).
+
+Six tiles now: soup dumplings, **the birdcage booth re-shot straight on**, crepe cake /
+**an overhead of their own table** carrying the potstickers and scallion pancake, **the ramen
+re-shot low on the ingredients**, siu mai. Grid checked both directions, nothing repeats.
+
+**Two new laws in the Tang RESUME, both worth reading before the next generation:** (1) for a ROOM
+the room itself is the protected subject, so only camera and light may change, which is what stops
+"improve the POV" turning into inventing them a restaurant; (2) Tang's real tableware is branded,
+so every reference crop drags that mark in and the generator garbles it. The first overhead came
+back with mangled pseudo-Chinese seals on the plate rim and sauce dish and was re-rolled. Standing
+prompt language for it is in the RESUME.
+
+**Still owed by MIRA, not by her:** the cold fresh-eyes verifier has still never run on any of the
+generated tiles. Round 3 was checked by the building session only, including zooms on the plate
+rims and both lanterns.
+
+Full detail in `audits/tang/RESUME.md`. `audits/` is gitignored by design; the built page is what
+is tracked.
+
+---
+
+### ▶ PREVIOUS — TANG ROUND 2 IS LIVE. FIVE OF HER SIX NOTES BUILT, ONE SHE CANCELLED, ONE CALL WAITS ON HER (2026-08-19 ~18:25 ET, MIRA)
 
 **Resume phrase: "Mira, pick up Tang — I'll rule on the interior shot."**
 
