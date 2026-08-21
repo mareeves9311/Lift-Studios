@@ -1,10 +1,98 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-08-19 ~18:45 ET (Tang round 3 live: the room is inside the feed mock)
+Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul proposal is the next build)
 
 ## Session Lock
 
-### ▶ CURRENT — TANG ROUND 3 IS LIVE. THE INTERIORS MOVED INTO THE FEED MOCK (2026-08-19 ~18:45 ET, MIRA)
+### ▶ 2026-08-21 ~12:50 ET · **A SOUL imagery: D11-D13 judged (all killed single-shot), masked glass repair on D13a PASSED and shown to Megan ~13:00; full ledger lives in the ROOT lock (`Projects/STATUS.md`) and `toolbox/shoot/recipes/soul-ramen.yaml`** (MIRA)
+
+- Working prompts now on disk at `toolbox/shoot/recipes/soul-ramen/prompts/D8..D13.txt`. Verified tableware sheet v3 (no caddy). Judge's call: single-shot NB2 at its ceiling for the pod frame; last props by subtraction, then masked repair on the best frame. Megan's one decision, when she surfaces: send one phone photo of the real condiment caddy, or the caddy stays out of the frames.
+- Everything in the 8/20 19:15 entry below is unchanged (fast-lane approval, lineup verdict, bundled rate still open).
+
+### ▶ CURRENT — HER CHATGPT SHOTS WON THE ROOM, THE SCOUT REWROTE THE METHOD, ONE YES WAITS ON HER (2026-08-20 ~19:15 ET, MIRA)
+
+**Resume phrase: "Mira, pick up Tang and A Soul."** (Prior thread died at payload ceiling — everything below is durable.)
+
+**What happened after round 4 closed:** Megan fed her raw nest/booth photos to ChatGPT and got
+three high-end restages in ~30s each; called the process gap unacceptable, live. She is right and
+the evidence is in the repo: `audits/tang/02-assets/chatgpt-2026-08-20/` (3 shots + her BEFORE).
+Two are IN the grid board now (nest = room tile, booth room tile); MIRA's verifier-clean
+room-lifted-v4 moved to the bench. Known defect in both nest shots, zoom-confirmed: the floor
+decal regenerated as gibberish — paint out or crop BEFORE the client page, it's in the board legend.
+
+**Scout verdict (GV-22 dispatch, findings in `mira-brain/LEARNING/AI_RADAR_LOG.md` 8/20 evening,
+stamps touched):** method gap, not model gap. Interiors/rooms = EDIT-IN-PLACE on her full photo
+(gpt-image-2 first, NB2 second — both reachable via the Runway connector, so Higgsfield's 0
+credits is moot). Food lifts = edit-in-place FIRST roll (NB2), escalate to rebuild-from-crops only
+on drift. Rebuild-from-crops survives only for new-world composites/cut-outs. Real signage =
+never a generator, mask/recomposite real pixels. Working rounds: photo → one edit call → her, ~2
+min, no hosting step, no per-roll verifier; cold verifier runs ONCE at ship time on survivors.
+
+**THE ONE DECISION WAITING ON MEGAN:** approve the fast lane (edit-in-place default + QC once at **RESOLVED 2026-08-21 ~13:15 ET: "yes." Gate GV-25 + CREATIVE_PROTOCOL Part 0 #9.**
+ship). One yes also unlocks the staged CREATIVE_PROTOCOL Part 2 amendment + toolbox row updates
+(staged in the scout's AI_RADAR_LOG entry, deliberately not written without her).
+
+**Also still open:** her lineup verdict on the board · bundled rate + her 8/19 photo(s) for the
+combined Tang + A Soul page · A Soul source mining (MIRA's job) · Tang round-4 ship list is
+verifier-clean in RESUME "FINAL VERIFIER VERDICT".
+
+---
+
+### ▶ PREVIOUS — ROUND 4 DONE: ALL 8 GENERATED TILES VERIFIER-CLEAN FOR THE FIRST TIME (2026-08-20 ~18:55 ET, MIRA)
+
+**Resume phrase: "Mira, pick up Tang and A Soul."**
+
+**State:** her three 8/20 tile notes are built AND the cold fresh-eyes verifier (the debt
+carried since round 1) ran on every generated tile — it failed 3 of 8 on the first pass
+(melted XLB pleats on the round-1 dumplings, invented lantern fretwork, composited steam
+plume), all three were re-rolled with the findings as prompt constraints, and the final set
+is clean. Ship list in `audits/tang/RESUME.md` "FINAL VERIFIER VERDICT": dumplings-v6,
+crepecake-v3, potsticker, scallion, siumai-v4, room-v4, ramen-steam-v2, table-aerial-v2.
+Grid v2 board (`04-concepts/grid-v2-board/`) carries exactly these, opened for her in Chrome.
+Three new client laws written to the RESUME (pleat-knot, fretwork-repeat, steam-physics);
+friction strikes logged per GV-22. Dumplings took 3 rolls (count drift), room took 3 (the
+silhouette tactic finally beat the fretwork problem) — both tactics noted in RESUME for a
+future closeout promotion review, deliberately NOT promoted mid-stream.
+
+**Engine:** Higgsfield hit 0 credits (free plan) — nano_banana_2 ran via the Runway connector
+instead (same model, verified). One fallback step, circuit breaker respected. Megan decides:
+top up Higgsfield or let Runway carry the default.
+
+**WAITING ON MEGAN, one thing: her lineup verdict on the updated board.** Then the combined
+Tang + A Soul proposal build, which still waits on (1) the bundled rate, (2) her 8/19
+restaurant photo(s). A Soul source mining is MIRA's job, not started.
+
+---
+
+### ▶ PREVIOUS — MEETING WON. NEXT BUILD: ONE COMBINED TANG + A SOUL RAMEN PROPOSAL LINK (2026-08-20, MIRA)
+
+**Resume phrase: "Mira, pick up Tang and A Soul."**
+
+**State:** Megan showed `/tang` to the assistant manager in person 8/19 evening; the AM was
+impressed and told her to DM both the Tang and A Soul Ramen IG accounts. Full direction for the
+final deliverable is captured in `audits/tang/RESUME.md` under "2026-08-20 — THE MEETING
+HAPPENED" (one link, section per restaurant + bundle rate, effortless/done-for-you as the core
+message, CC-mirrored grid mockups WITHOUT the free profile-fix section, no sliders, light-touch
+brand identity, aerial tile re-rolled tighter).
+
+**Waiting on Megan before the build:** (1) the bundled rate — not in LIFT_SERVICES_REFERENCE_V3,
+§1.5 forbids inventing it; (2) the photo(s) she took at the restaurant 8/19 evening. A Soul
+Ramen has ZERO assets in the repo — source mining (IG/Google/Yelp) is MIRA's job, not hers.
+
+**Same evening:** her 139 Desktop screenshots secured to
+`audits/tang/02-assets/megan-desktop-2026-08-20/`; rough 12-tile grid v2 concept board built
+(no generator) at `audits/tang/04-concepts/grid-v2-board/index.html`. Handle recommendation
+locked: **@tang_dumpling** (she verified it available). **Her verdict: lineup APPROVED; two
+tiles rejected with named laws (0.5x-warp on the birdcage, same-table-monotony on the ramen)
+— see RESUME.** Next session = generation round: those two + the tighter table aerial, canon
+pre-flight first, then the cold verifier debt (never run on any generated Tang tile).
+
+**Still owed by MIRA, carried from round 3:** cold fresh-eyes verifier has never run on the
+generated Tang tiles.
+
+---
+
+### ▶ PREVIOUS — TANG ROUND 3 IS LIVE. THE INTERIORS MOVED INTO THE FEED MOCK (2026-08-19 ~18:45 ET, MIRA)
 
 **Resume phrase: "Mira, pick up Tang."**
 

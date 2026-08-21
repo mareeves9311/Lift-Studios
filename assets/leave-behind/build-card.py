@@ -24,6 +24,7 @@ and never on the green one.
 
 import base64
 import mimetypes
+import re
 import pathlib
 import shutil
 import subprocess
@@ -132,7 +133,34 @@ def ground_css(face: str, fallback: str) -> str:
     return f"background-color:{fallback};"
 
 
+# At 300dpi one point is 300/72 px. Print's practical floor for tracked caps is
+# ~6pt; body text wants 7pt+. This is the corollary of the physical-size law:
+# type that looks comfortable on an enlarged render can be unreadable in the hand.
+PT = 300 / 72
+MIN_PT = 6.0
+
+
 def page(body: str, css: str) -> str:
+    """The measuring script runs in every render. It writes computed type sizes and
+    bounding boxes into a hidden node, which --dump-dom reads back, so 'does this
+    print' is a number rather than an opinion. Hidden, so it never affects pixels."""
+    probe = """
+<div id="mira-metrics" style="display:none"></div>
+<script>
+(function(){
+  var out=[];
+  document.querySelectorAll('.card *').forEach(function(el){
+    if(el.id==='mira-metrics') return;
+    var txt=(el.innerText||'').trim();
+    if(!txt || el.children.length) return;
+    var cs=getComputedStyle(el), r=el.getBoundingClientRect();
+    out.push({t:txt.slice(0,44), px:parseFloat(cs.fontSize),
+              l:Math.round(r.left), rt:Math.round(r.right),
+              tp:Math.round(r.top), b:Math.round(r.bottom)});
+  });
+  document.getElementById('mira-metrics').textContent=JSON.stringify(out);
+})();
+</script>"""
     return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
 {font_faces()}
 @page {{ size:3.75in 2.25in; margin:0; }}
@@ -141,7 +169,7 @@ html,body {{ width:{W}px; height:{H}px; overflow:hidden; }}
 body {{ font-family:"Hanken Grotesk",sans-serif; -webkit-font-smoothing:antialiased; }}
 .card {{ position:relative; width:{W}px; height:{H}px; overflow:hidden; }}
 {css}
-</style></head><body>{body}</body></html>"""
+</style></head><body>{body}{probe}</body></html>"""
 
 
 # ── FRONT ────────────────────────────────────────────────────────────────────
@@ -163,10 +191,12 @@ FRONT_CSS = f"""
 .words .desc {{ font-family:"Newsreader",serif; font-style:italic; font-weight:300;
                 font-size:34px; line-height:1.28; color:{SAGE}; margin-top:11px;
                 letter-spacing:.005em; }}
-/* Opacity kept off the service line: sage at full strength is already quiet on
-   forest, and dimming small tracked type is what makes it vanish in print. */
-.services {{ position:absolute; left:0; right:0; bottom:{SAFE}px; text-align:center;
-             font-size:17px; font-weight:500; letter-spacing:.30em; color:{SAGE}; }}
+/* 25px = 6.0pt, the print floor. Tracking pulled back from .30em to .16em to buy
+   the width the larger size costs; opacity kept OFF, because dimming small tracked
+   type is what makes it vanish on paper. */
+.services {{ position:absolute; left:{SAFE}px; right:{SAFE}px; bottom:{SAFE}px;
+             text-align:center; font-size:25px; font-weight:500;
+             letter-spacing:.16em; color:{SAGE}; }}
 """
 
 FRONT_BODY = f"""<div class="card">
@@ -201,15 +231,17 @@ BACK_CSS = f"""
             line-height:1.28; color:{FOREST}; letter-spacing:-.004em;
             margin-top:-38px; }}
 .ident {{ display:flex; flex-direction:column; position:absolute; left:0; bottom:0; }}
-.who {{ font-size:22px; font-weight:600; letter-spacing:.235em; color:{INK}; }}
-.hair {{ width:46px; height:1.5px; background:{SAGE}; margin:14px 0 16px; }}
-.contact {{ display:flex; flex-direction:column; gap:6px; font-size:21px;
-            font-weight:400; color:{INK_MUTED}; letter-spacing:.012em; }}
+/* 31px = 7.4pt name, 30px = 7.2pt contact. Business-card body text is 7-9pt; the
+   round-3 values (5.3pt and 5.0pt) were below the readable floor in the hand. */
+.who {{ font-size:31px; font-weight:600; letter-spacing:.20em; color:{INK}; }}
+.hair {{ width:46px; height:1.5px; background:{SAGE}; margin:14px 0 15px; }}
+.contact {{ display:flex; flex-direction:column; gap:7px; font-size:30px;
+            font-weight:400; color:{INK_MUTED}; letter-spacing:.008em; }}
 .contact .site {{ color:{FOREST}; font-weight:500; }}
-.right {{ align-items:center; justify-content:center; gap:13px; }}
+.right {{ align-items:center; justify-content:center; gap:15px; }}
 .qr {{ width:{QR_PX}px; height:{QR_PX}px; display:block; }}
 .qr svg {{ width:100%; height:100%; display:block; shape-rendering:crispEdges; }}
-.scan {{ font-size:15px; font-weight:600; letter-spacing:.26em; color:{INK_MUTED};
+.scan {{ font-size:25px; font-weight:600; letter-spacing:.18em; color:{INK_MUTED};
          text-align:center; }}
 """
 
@@ -249,6 +281,43 @@ def render_pdf(html_paths: list[pathlib.Path], pdf_path: pathlib.Path) -> None:
             [CHROME, "--headless", "--disable-gpu", "--no-pdf-header-footer",
              f"--print-to-pdf={pdf_path.parent / (hp.stem + '.pdf')}", f"file://{hp}"],
             check=True, capture_output=True, timeout=120)
+
+
+def verify_type(html_path: pathlib.Path, label: str) -> list[str]:
+    """Read the measuring probe back out of the rendered DOM and gate on it:
+    nothing below the print floor, nothing outside the safe area. Measured, not
+    argued, and re-measured on every build so it cannot silently regress."""
+    import json
+
+    dom = subprocess.run(
+        [CHROME, "--headless", "--disable-gpu", "--virtual-time-budget=3000",
+         "--dump-dom", f"file://{html_path}"],
+        check=True, capture_output=True, timeout=120).stdout.decode("utf-8", "replace")
+
+    m = re.search(r'id="mira-metrics"[^>]*>(.*?)</div>', dom, re.S)
+    if not m or not m.group(1).strip():
+        sys.exit(f"{label}: measuring probe returned nothing. "
+                 "A gate that cannot read the page is not a gate.")
+
+    problems = []
+    for el in json.loads(html_unescape(m.group(1))):
+        pt = el["px"] / PT
+        flag = ""
+        if pt < MIN_PT:
+            flag = f"BELOW {MIN_PT}pt PRINT FLOOR"
+            problems.append(f"{label}: {pt:.1f}pt  {el['t']!r}  ({flag})")
+        if el["l"] < SAFE - 1 or el["rt"] > W - SAFE + 1 or \
+           el["tp"] < SAFE - 1 or el["b"] > H - SAFE + 1:
+            over = (f"l={el['l']} r={el['rt']} t={el['tp']} b={el['b']} "
+                    f"vs safe box [{SAFE},{SAFE},{W-SAFE},{H-SAFE}]")
+            problems.append(f"{label}: {el['t']!r} breaks the safe area ({over})")
+        print(f"    {pt:5.1f}pt  {'!' if flag else ' '} {el['t'][:40]!r}")
+    return problems
+
+
+def html_unescape(s: str) -> str:
+    import html
+    return html.unescape(s)
 
 
 def proof_sheet() -> None:
@@ -327,6 +396,14 @@ def main() -> None:
     render_pdf([front_html, back_html], OUT / "x.pdf")
 
     proof_sheet()
+
+    print("  measuring type against the print floor and the safe area ...")
+    problems = verify_type(front_html, "front") + verify_type(back_html, "back")
+    if problems:
+        print()
+        for p in problems:
+            print(f"    {p}")
+        sys.exit("\nTYPE GATE FAILED. Card not shipped.")
 
     print("  verifying the QR off the finished card ...")
     verify_qr(OUT / "lift-card-back.png")

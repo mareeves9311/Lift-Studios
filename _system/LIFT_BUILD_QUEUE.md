@@ -28,4 +28,4 @@ This is where the deleted agent-roster ambition lives now: as one working, sophi
 
 ## Megan's items (not Claude Code's)
 
-Turn off Snov.io tracking/wrapping · take invented case studies off the live site · fix the audit GPT's netlify.app link in GPT Builder · stand up `megan@helloliftstudio.com` + warmup (FOUNDATION amendment already applied) · confirm Witmer's web team exists before that deck ships · check whether Tang actually has an Instagram before any Tang plan · set menu prices for any Witmer-style scope she intends to keep selling.
+Turn off Snov.io tracking/wrapping · take invented case studies off the live site · fix the audit GPT's netlify.app link in GPT Builder · stand up `megan@helloliftstudio.com` + warmup (FOUNDATION amendment already applied) · confirm Witmer's web team exists before that deck ships · ~~check whether Tang actually has an Instagram before any Tang plan~~ **CLOSED 2026-08-19: yes, @tangdumpling2026, 2 posts / 84 followers / 1 following, dormant. Evidence in `audits/tang/RESUME.md`** · set menu prices for any Witmer-style scope she intends to keep selling.
