@@ -57,6 +57,7 @@ future closeout promotion review, deliberately NOT promoted mid-stream.
 **Engine:** Higgsfield hit 0 credits (free plan) — nano_banana_2 ran via the Runway connector
 instead (same model, verified). One fallback step, circuit breaker respected. Megan decides:
 top up Higgsfield or let Runway carry the default.
+  DECIDED 2026-08-21 (Megan, AI OS thread): Runway carries the default. No Higgsfield top-up. Canon in memory reference_image-generator-fallback-chain.md + toolbox/shoot/HOW_TO_USE.md.
 
 **WAITING ON MEGAN, one thing: her lineup verdict on the updated board.** Then the combined
 Tang + A Soul proposal build, which still waits on (1) the bundled rate, (2) her 8/19
