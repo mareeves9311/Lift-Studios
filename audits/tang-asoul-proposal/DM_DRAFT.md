@@ -1,4 +1,11 @@
-# Instagram DM: Tang + Asoul (v2, approved shape, Megan sends)
+# Instagram DM: Tang + Asoul
+
+## SENT by Megan 2026-08-23 ~18:05 ET, to BOTH @tangdumpling2026 and @asoulramen.
+
+Sent without the assistant manager's name (not on record). Link at send time:
+https://helloliftstudio.com/tang-asoul/ (live, unlisted, noindex, footer contact
+megan@helloliftstudio.com). Follow-up check is on the board for 2026-08-28: if no reply in
+5 days, ONE short follow-up, drafted by MIRA, sent by Megan.
 
 Updated 2026-08-23 on her second pass. Same message to **both** @tangdumpling2026 and
 @asoulramen, because the assistant manager told her to send it on both accounts.
