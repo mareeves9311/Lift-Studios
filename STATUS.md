@@ -4,6 +4,18 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~17:45 ET · **She killed the generated room tile. New law: a room does not need lifting, crop it and leave it. Pricing revised photo-heavy. Real logos in.** (MIRA)
+
+**Resume phrase: "Mira, pick up the proposal."**
+
+- **KILLED: `round4-brand/tang-room-pro.png`.** Her words: *"that's not what the restaurant looks like. You took a little too much creative freedom."* Replaced with their REAL photograph, `02-assets/cropped/14_interior-birdcage_RebeccaPavlick_5days.png`, centre-cropped square and nothing else done to it.
+- **THE LAW THIS PRODUCES, and it is the most transferable thing from today: A ROOM DOES NOT NEED LIFTING. CROP IT AND LEAVE IT.** The Lift promise is a dish photographed badly in a good room, moved to a better setting. A room has no such gap: it already looks how it looks, so a generator has nothing to anchor to and produces a plausible restaurant that is not theirs. **Before generating anything, ask whether the subject has a gap between how it looks and how it photographs. Food does. Product does. A designed interior does not.**
+- **Her four designated reference photos** (sent 2026-08-23) are now the only truth for that room: Rebecca Pavlick (birdcage pods, red circular banquettes inside), Theodore C (aisle, blue mural windows), Tang official (wide aisle), JT (red booths, bamboo dividers). Three are on disk as `14_`, `11_`, `07_`/`10_`. **The JT frame is NOT on disk and is owed there under GV-16.**
+- **PRICING REVISED on her direction** (*"more photo-heavy for sure, maybe like 30 photos, with an option if video is of interest"*): the bundle now leads with **30 finished photographs per restaurant per month**, video pulled out of the bundle entirely and offered as a separately priced add-on (10 concepts per restaurant, filmed on a phone by whoever is on shift). Lighter tier is 15 photos each; single restaurant is 30 photos. **The $1,600 number has NOT moved and is still unapproved.**
+- **REAL LOGOS IN THE PROFILE MOCKS**, replacing the CSS placeholder circles. Tang's is the real file (`02-assets/official/tang-logo-primary.webp`). **A Soul's is a crop off their website hero and needs her eye** — there is no standalone A Soul logo file on disk, and I did not want to fake their mark. If the crop is off, the fix is her dropping the file in.
+- **Proposal republished, same URL:** https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886
+- **PAYLOAD: this thread is at ~8MB and errors have been measured from ~7MB up on this machine.** Canon is swept and current as of this entry. A fresh thread is the right next move; everything needed to resume is in this lock plus `TANG_PALETTE.md`, `TANG_ART_DIRECTION.md`, `PALETTE_LOCKED.md` and `soul-ramen.yaml`.
+
 ### ▶ 2026-08-23 ~17:25 ET · **REAL PROFILE NUMBERS IN AT LAST (she sent both screenshots). Proposal restructured visuals-first, Tang room tile shot. A SOUL HAS 1,886 FOLLOWERS AND 2 POSTS.** (MIRA)
 
 **Resume phrase: "Mira, pick up the proposal."**
