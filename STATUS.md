@@ -4,6 +4,19 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~10:20 ET · **A SOUL: NEW CONCEPT SHOT AND ON HER SCREEN. One drink held, honeycomb elevated behind, two ideas. Waiting on N1 or N2.** (MIRA)
+
+**Resume phrase: "Mira, Asoul is N1" (or N2) — or pick up Asoul for the queue behind it.**
+
+- **What she is looking at:** `audits/asoul-ramen/drink-honeycomb-round1.html`, Chrome. N1 held out at chest height with the pods and staircase melted behind; N2 raised and backlit with the hexes large and graphic. Labelled rough. Files in `toolbox/shoot/recipes/soul-ramen/round16-drink-honeycomb/`.
+- **Her brief, verbatim:** *"a photo like this where the honeycomb's in the background, but they're holding the drink. The honeycomb, let's elevate that at the background and make it look a lot more professional, high-quality photo. Just one glass is going to be held."*
+- **Both her reference screenshots were already on disk.** Drinks = `refs/sr19.png`, honeycomb = `01-source/src-10`. Nothing needed re-sending. Built from real Asoul pixels: @glass is an sr19 crop at Lanczos 6x, @room is src-10 at 4x.
+- **Measured:** N1 median hue 28.1 / N2 26.9, both inside the locked H28-H45 band, zero cool pixels in either. The drink's own red is the one red thing per frame.
+- **THE TUMBLER PRINT HELD, first time in one pass.** The round-6 law records NB2 stacking the glass wordmark 2 of 3 times. Both rolls came back correct: one line "ASOUL·RAMEN" plus one kana row, red dot intact. The fix was stating the LAYOUT as a rule and naming the failure modes ("never stack, never repeat, never wrap twice"), not just quoting the words. Reusable for any client product carrying printed text.
+- **Faults I can see at round 1, before her verdict:** N1 has a bright pale blown band of ceiling light crossing the mid-background that competes with the glass. N2's lime wheel sits high and reads oversized. Neither may bother her.
+- **NEEDS FIXING, found this session: `01-source/SOURCES.md` is mislabelled.** It calls src-08 "inside a pod, LED seams blazing" (it is a sushi web-gallery tile on a blue/cream diagonal) and src-10 "the branded chopstick sleeve" (it is the wide honeycomb hall). Matters because SOURCES.md credits src-07/src-08 as the provenance of the honey blond `#E2D5BE` step in the locked palette. The hexes were measured and are not in doubt; which file they came off is.
+- **Queue behind this, unchanged:** three roll-picks with nothing to shoot (G2-ink a/b, page already open at `audits/asoul-ramen/G2-ink-pick.html` · G1b-ink a/b · L1a-honey a/b) · one screenshot of the top of @asoulramen · the bundled rate · the flowery wontons (refs/inspo/n6, never shot) · round7 E1/E2 never verdicted · the grid rebuild.
+
 ### ▶ 2026-08-23 ~10:15 ET · **A SOUL K2 DONE AND APPROVED: "I love B. Amber." Five of nine tiles now on the locked palette. Three roll-picks are all that stand between here and the grid rebuild.** (MIRA)
 
 **Resume phrase: "Mira, pick up Asoul" — the next thing is three roll-picks, nothing needs shooting.**
