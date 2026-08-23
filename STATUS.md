@@ -4,6 +4,21 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~17:25 ET · **REAL PROFILE NUMBERS IN AT LAST (she sent both screenshots). Proposal restructured visuals-first, Tang room tile shot. A SOUL HAS 1,886 FOLLOWERS AND 2 POSTS.** (MIRA)
+
+**Resume phrase: "Mira, pick up the proposal."**
+
+- **VERIFIED FROM HER SCREENSHOTS, 2026-08-23 ~13:09.** The 403 blocker is closed.
+  - **@asoulramen** "Asoul Ramen": **2 posts · 1,886 followers · 2 following.** Bio is the street address only (3735 Capital City Mall Drive, Camp Hill, PA). Name field says nothing searchable. Two posts are a sakura reel and the logo card.
+  - **@tangdumpling2026** "TANG Dumpling": **2 posts · 86 followers · 1 following** (was 84 on 8/19). Bio "Not Just Dumpling". Both posts are reels with baked-in text overlays.
+- **THE HOOK IS NOW A NUMBER, NOT AN ARGUMENT: A Soul has 1,886 followers and has shown them two posts.** Those people already opted in. That single fact does more selling than any paragraph, and it went to the top.
+- **Restructured on her direction** (*"visuals at the very top, too much text, get right into the visuals, no fluff, this is going to the manager"*): full-bleed four-image band before any copy · masthead cut to one line · the three numbers as the hook · the AM quote and the customer-post evidence trimmed to one short block · **Tang's handle recommendation moved to the TOP of its section as the opening ask**, since @tang_dumpling is free and 86 followers means nothing to lose.
+- **TANG ROOM TILE SHOT** (`audits/tang/04-concepts/round4-brand/tang-room-pro.png`), her ask for "one shot of the space, lighting high, professional look." Built from `room-birdcage-straight_REF.png`, normal lens, straight on, verticals parallel, with the 8/20 0.5x-warp rejection guarded explicitly in the prompt. **It measures 22% red where the five food tiles average 3%.** One room frame carries more of Tang's brand colour than the entire food set, which is the grid-red fix arriving as a by-product of what she asked for on instinct.
+- **Tang grid now:** dumplings · ROOM · ramen steam / boba pour · crepe cake · potstickers. The room sits at position 2 to break the food run; the two dark anchors (room, pour) fall on a diagonal. Siu mai dropped, dim sum already covered by the dumplings tile.
+- **Proposal republished, same URL:** https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886
+- **Note:** her message carried a Wispr Flow referral line and a fragment ("By the way, Mira, Lift") that were dictation noise, not instructions. Not acted on.
+- **Still the one blocker:** her yes on the $1,600 bundled rate. Also open: the two A Soul roll-picks, the JT red-booth photo to disk, and the four remaining Tang food tiles still needing red.
+
 ### ▶ 2026-08-23 ~16:55 ET · **CLOSED. A Soul feed final at 6 tiles, combined proposal built and live, Tang brand kit measured. ONE thing blocks shipping: her yes on the bundled rate.** (MIRA)
 
 **Resume phrase: "Mira, pick up Asoul" or "Mira, put the red back in Tang."**
