@@ -4,6 +4,20 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~11:15 ET · **A SOUL: D9 v2 APPROVED ("perfect, that's the one"). Grid mockup built and it caught four faults no single frame showed. Her call owed on the light tile.** (MIRA)
+
+**Resume phrase: "Mira, pick up Asoul."**
+
+- **APPROVED, FINAL:** `round17-ramen-ink/D9-ink-v2.png`. Her words: *"Perfect, that's the one."* Staged at `04-concepts/tiles/t-ramen.jpg`. Its 35% ink / #5C381B mean is now the working target for any Asoul interior tile.
+- **What she is looking at:** `audits/asoul-ramen/asoul-grid.html`, Chrome. Phone-frame IG profile, 3-wide, eight approved tiles squared the way IG squares them, posts at full height below. Slot 9 left visibly empty.
+- **THE GRID CAUGHT FOUR THINGS EIGHTEEN ROUNDS OF SINGLE-FRAME REVIEW DID NOT:**
+  1. **Tile 7, the rolls, is the only light tile among eight.** Seven are ink-grounded; that one sits on pale honey and at thumbnail size reads as the odd one out rather than as variety. Round 14 nudged it cream to honey blond, correct against the palette *in isolation*. **LAW: a per-tile palette check is not a grid check. A tile can pass the book alone and still break the set.**
+  2. **Tiles 6 and 8 are the same product twice, in the same row** (both sakura matcha, lineup vs four-hands). Two compositions, one product, two of nine slots. **Count products across a grid, not just compositions.**
+  3. **Sakura is exceeding "once per nine"** — pink cups on 6 and 8, petals on 6, and the signature sakura tile is not even shot. The rule was written about the tree and is being silently spent by drinks packaging.
+  4. **The dessert tile holds the only cool note in eight tiles**, the blue and grey shovel spoons. They are her own M1a law so they stay unless she says otherwise.
+- **METHOD, for every client:** build the grid mockup BEFORE the set is finished, not after. Four real faults in one look.
+- **Owed from her:** what to do about the light tile (re-ground it onto ink, or keep one light tile as a deliberate breather). Then the three roll-picks, none of which need generating, and the sakura for slot 9.
+
 ### ▶ 2026-08-23 ~10:55 ET · **A SOUL: wontons approved (W1), ramen tile revised to her midpoint with the tall glass. Two laws corrected by her, both now binding. Verdict owed on D9 v2.** (MIRA)
 
 **Resume phrase: "Mira, pick up Asoul."**
