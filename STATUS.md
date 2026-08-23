@@ -4,6 +4,15 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-22 ~21:05 ET · **A SOUL SECTION BUILT (rough) — copy + IG grid mock on her screen; profile facts deliberately blank, waiting on one screenshot** (MIRA)
+
+- File: `audits/asoul-ramen/04-concepts/asoul-section.html` (+ `tiles/`), opened in Chrome 21:05 ET. `audits/` is gitignored by design, so the section lives on disk only, same as Tang's.
+- Built to her 8/20 direction: mirrors the Creation Cakes shape (profile header + full grid mock), NO bio-fix section, NO sliders, light-touch identity, effortless as the spine, the AM's "it kind of falls off" line quoted back as the section's hinge. Two supply modes presented (the bank / monthly + calendar).
+- Handle VERIFIED tonight: **@asoulramen**, 3735 Capital City Mall Dr, Camp Hill. Direction item 8 ("handle unverified") is closed.
+- Post / follower / following counts, bio and name field are NOT verified — Instagram 403s and Yelp 403s from here. Left visibly blank in the stat row and finding 04 flagged "needs your screenshot" rather than invented (§1.5 / verify-before-claims).
+- Grid carries 3 built tiles (D9, D13a glass-repair, D3 overhead, square-cropped bottom-anchored so the rim mark survives) and 3 marked slots. Client version needs nine: katsu, sakura tree room, rolls close, a drink, pod from outside, one overhead group.
+- Open, one at a time: (1) one screenshot of the top of @asoulramen; (2) keep/kill on D13a, still open from 8/21; (3) bundled rate for the pricing section (not in this file).
+
 ### ▶ 2026-08-21 ~12:50 ET · **A SOUL imagery: D11-D13 judged (all killed single-shot), masked glass repair on D13a PASSED and shown to Megan ~13:00; full ledger lives in the ROOT lock (`Projects/STATUS.md`) and `toolbox/shoot/recipes/soul-ramen.yaml`** (MIRA)
 
 - Working prompts now on disk at `toolbox/shoot/recipes/soul-ramen/prompts/D8..D13.txt`. Verified tableware sheet v3 (no caddy). Judge's call: single-shot NB2 at its ceiling for the pod frame; last props by subtraction, then masked repair on the best frame. Megan's one decision, when she surfaces: send one phone photo of the real condiment caddy, or the caddy stays out of the frames.
