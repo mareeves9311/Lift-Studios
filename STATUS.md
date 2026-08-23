@@ -4,6 +4,20 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~10:40 ET · **A SOUL: the ramen tile was NOT compliant after all (ink 2% vs the book's 15-21%), now re-grounded; and the flower wontons are shot at last. Two verdicts owed.** (MIRA)
+
+**Resume phrase: "Mira, pick up Asoul."**
+
+- **What she is looking at:** `audits/asoul-ramen/comb-and-wontons.html`, Chrome. Section 1 is D9 before and after; section 2 is wontons W1 and W2. Labelled rough.
+- **THE COMB-THROUGH FOUND A REAL MISS, and this file was the thing that was wrong.** `soul-ramen.yaml` said twice that D9 was "already compliant, shot in their real 2700K room." Measured: hue 31.3 pass, cool 0% pass, **ink 2% fail** against the book's 15-21% of every interior frame. All blond table, blond banquette, pale wall. Warm, on hue, and with no ground at all.
+- **Fixed:** `round17-ramen-ink/D9-ink.png`, ink 2% to 70%. Edit-in-place, food and both printed wordmarks held, condiment caddy removed because its red bottle caps were a third red thing alongside the broth and the iced tea where the book allows one. Minor accepted drift: chopsticks sit a touch further forward, glass moved in slightly.
+- **THE PATTERN, now twice in one morning:** "shot in their real room so it is fine" has been wrong on K2 and on D9, in opposite directions. K2 had a ground and no light; D9 had the light and no ground. The two-question audit is not optional even for frames staged in the real room.
+- **A metric of mine turned out to be conditional, and I would rather say so than have it quoted at a client.** Median hue is a valid brand check only while the room is visible. Past roughly 50% ink the surviving saturated pixels are the food (broth about H22, fried crust about H26), so the number drops below the book's H28-H45 band and reads as a fail when nothing is wrong. D9-ink reads 22.5 for exactly that reason. **The cool-pixel test is the one that generalizes at any ink level.**
+- **The wontons are shot:** `round18-wontons/W1-low.png` (three, low and raking, the flower stands up) and `W2-overhead.png` (five, straight down, long side shadows, graphic). Built on their own dish, verified against `refs/inspo/n6.png` before prompting. W1 cool 1% ink 69%, W2 cool 0% ink 37%.
+- **Why this concept was the cheapest on the account:** the dish already IS the locked palette. Golden wrapper is the amber ramp, black slate is ink, tobiko is the seal-red punctuation. Nothing had to be invented or corrected. Worth carrying to other clients: shoot the dish whose own plating already matches the book first.
+- **OPEN AND DELIBERATELY NOT RESOLVED:** their real sauce is pale yellow-green and it sits on the plate in both wonton rolls, most visible as the long diagonal in W2. She locked "green is OUT completely", but that lock was about the kelly wall as a brand colour, and "do not clean up the food" says a real sauce stays. Kept, kept small, and put to her. Do not resolve silently.
+- **Two verdicts owed:** the D9 ink re-ground (keep or not), and W1 vs W2. Plus the three older roll-picks still queued (G2-ink a/b, page open in a tab · G1b-ink a/b · L1a-honey a/b).
+
 ### ▶ 2026-08-23 ~10:30 ET · **A SOUL: THE RAISED DRINK IS APPROVED ("N2"). Seven of nine concepts exist. What is left is three roll-picks and two never-shot concepts.** (MIRA)
 
 **Resume phrase: "Mira, pick up Asoul." The next thing needs no shooting, only her eye.**
