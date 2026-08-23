@@ -4,6 +4,19 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~16:30 ET · **Tang boba swapped twice on her call (condensation, then the neon pour). GRID-LEVEL AUDIT FOUND THE REAL DISEASE: Tang's feed has almost no red.** (MIRA)
+
+**Resume phrase: "Mira, put the red back in Tang."**
+
+- **Her two calls, both actioned:** (1) *"we did iterations of the boba that were a lot more elevated, with condensation on the outside"* and (2) *"let's do the neon pour in the feed."* The pour is now the feed tile; the condensation frame is banked at `audits/tang/04-concepts/round4-brand/boba-neon-condensation.png` and is available as a second drinks tile or a before/after.
+- **The condensation route, worth reusing:** the frame she remembered the condensation on was `brand_red_pair`, which is the frame FURTHEST from her corrected palette (flat red field, no black structure, distance 124). So rather than use it, its one good property was moved onto the frame that already fit: one edit-in-place on `neon_pair`, "add condensation, change nothing else." Score improved 35 to 33, lids stayed plain (the round-2 invented lid logo was named as a negative), the TEA mark held. **Law: when a rejected frame has one good property, port the property, do not resurrect the frame.**
+- **THE GRID-LEVEL AUDIT, and it is the real finding.** Scored all six Tang tiles as they sit in the feed: grid average **ink 42** (room is 40, correct) but **red 3%** against a room that runs **26%**, with five of six tiles at 0 to 4%. **Tang's second lead colour is effectively absent from Tang's feed.** No per-tile score surfaced this; only the grid average did. The neon pour is the reddest tile in the set at 12% and the darkest at 72% ink, so it works as the grid's dramatic anchor rather than as a typical tile.
+- **One number deliberately NOT chased:** wood at 4% against 22%. Wood in this room is the plank floor, and a tabletop food close-up will never contain a floor. Room-level shares apply to room frames. Chasing it would repeat this morning's 70%-ink overshoot on A Soul.
+- **So the re-grounding job is narrow: put red back.** Red here is booths, lanterns and the ceiling cove, all of which can legitimately sit behind a plated dish. It is the one missing element a food tile can actually carry.
+- **Both artifacts republished, same URLs.** Proposal https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886 · Tang brand kit https://claude.ai/code/artifact/4b4227bf-b9b8-4c88-96e0-b2d401b6a808
+- **Note on my own verification:** the image-read budget was spent, so the condensation check and the boba comparison were both done on screen-sized copies rather than full-res files. Nothing pixel-level was judged from them.
+- **Still owed:** her lock on the Tang palette, her yes on the $1,600 bundle, her @asoulramen screenshot, the JT red-booth reference photo saved to disk, and the two open A Soul roll-picks.
+
 ### ▶ 2026-08-23 ~12:35 ET · **TANG RATIOS CORRECTED BY MEGAN, and the re-measure proved her right. Two measurement errors of mine named and fixed. Board republished.** (MIRA)
 
 **Resume phrase: "Mira, lock the Tang palette."**
