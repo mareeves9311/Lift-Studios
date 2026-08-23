@@ -4,6 +4,14 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~14:35 ET · **THE "OTHER SESSION" IDENTIFIED: a cloud session on Megan's phone, running off a July-12 clone of ~/.claude (GitHub repo `mira-global-toolkit`), republished the proposal blind. Its branch is QUARANTINED, not merged.** (MIRA)
+
+- **What overwrote the artifact** (version `1787508111-448c`, ~14:22 ET): cloud session on branch `claude/asol-tang-proposal-g0cmuf` of `mira-global-toolkit`. It had no Lift folder, no `PALETTE_LOCKED` / `TANG_PALETTE` / `TANG_ART_DIRECTION`, no brand-kit section, no "crop the room and leave it" law, no pricing revision. Its own lock says what it did: A Soul first, draggable before/after sliders (4 A Soul, 2 Tang), about a third of the copy cut, three image defects fixed (a reviewer's name burned into the Tang room shot, carousel arrows in an A Soul customer photo, a "wordmark" that was a crop of a wooden rail). It kept Tang's birdcage tile as the raw photo.
+- It also generated **three Runway room renders** of the birdcage (nano-banana-pro; task IDs sit in that branch's STATUS.md) and asked a local session to fetch and show them. **Dead on arrival:** Megan killed generated room tiles at ~13:45 ET today. Do not fetch, do not show.
+- **Clock correction:** the three entries below this one carry UTC written as ET (18:15 = 14:15 ET); the commits (13:27, 13:32, 14:02) are the true clock. Sequence: local brand-kit republish ~14:02 ET, cloud republish ~14:22 ET.
+- **Reconcile before any republish.** Live = cloud version (sliders + defect fixes, no brand kit, old pricing). Disk `audits/tang-asoul-proposal/artifact.html` + `build_artifact.py` = brand-kit version (both real palettes, real room photo, real logos, 30-photo pricing). Worth carrying from the cloud copy: the three defect fixes, possibly the sliders. Resume shape: fresh thread, a subagent fetches the live version (1.6 MB of inlined images, never the main thread), merge into `build_artifact.py`, republish with `url` set. The decision on this reaches Megan AFTER the phone-session fix (root lock, 8/23 14:35).
+- "Mira, pick up the proposal" still works; read this entry first.
+
 ### ▶ 2026-08-23 ~18:15 ET · **STOP: the proposal artifact was republished by ANOTHER session. This thread's copy is stale. Do not republish from here.** (MIRA)
 
 - The artifact at https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886 is now version `1787508111-448c`, published by a session that is not this one. The local file at `audits/tang-asoul-proposal/artifact.html` and this thread's build script no longer match what is live.
