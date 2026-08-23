@@ -4,6 +4,18 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~10:55 ET · **A SOUL: wontons approved (W1), ramen tile revised to her midpoint with the tall glass. Two laws corrected by her, both now binding. Verdict owed on D9 v2.** (MIRA)
+
+**Resume phrase: "Mira, pick up Asoul."**
+
+- **APPROVED, FINAL:** `round18-wontons/W1-low.png`, the low raking wontons. Staged at `04-concepts/tiles/t-wontons.jpg`. W2 (overhead, five) killed, and her reason is the law below. She did not dispute the green sauce, so it stays as shot; do not raise it again unprompted.
+- **PORTION-COUNT LAW (Megan, 2026-08-23), every client:** *"I don't think the dish is served with 5. Just for reality's sake."* The number of pieces in a frame is a factual claim about the menu, not a compositional choice. If the dish is served as 3, the frame shows 3, even when 5 composes better. Confirm the served count off a real source before any multi-piece plating shot; if it cannot be confirmed, match the client's own photo.
+- **THE GLASS IS TALL, and this voids an old waiver.** Her words: *"the glass needs to be tall. There are no short ASOUL glasses."* Round 5 had already caught this, called tall the canon, then waived it as "not a kill either way at feed size." That waiver is now void and the line is struck in place in `soul-ramen.yaml`. Short glass is a kill. Every drink frame passes `refs/drink-glass-6x.jpg` as a shape reference and says "tall" in the prompt, because the generator defaults to short.
+- **THE INK LAW, corrected by her:** v1 pushed ink to 70% and lost the room. The book's 15-21% is a RANGE, not a floor to beat. Ink anchors a room that is still visible; it never replaces it. An interior frame that goes fully black stops being an interior frame, and the honeycomb is the single most distinctive thing Asoul owns. **Generalizes: overshooting a compliance number is still a miss, and it reads to a client as "you deleted my restaurant" rather than as a technical fault.**
+- **Her revision, one edit-in-place call:** `round17-ramen-ink/D9-ink-v2.png`. Ink 2% to 70% to **35%**, mean tone #A78157 to #35200F to **#5C381B**, both landing between the two. Cool 0% throughout. Tall glass in, Thai iced tea contents held, both printed wordmarks correct, pod wall and LED strip legible again, caddy still gone. On her screen at `audits/asoul-ramen/D9-v2.html`.
+- **Prompt discipline worth reusing:** when a reference is passed for SHAPE ONLY, name what must not come across. The glass ref carried a red drink; the line "only the glass shape and height come from @glass, the drink inside stays the iced tea already in the picture" is what stopped it bleeding.
+- **Owed:** her yes on D9 v2. Then the three older roll-picks, none of which need generating (G2-ink a/b, page open in a tab · G1b-ink a/b · L1a-honey a/b).
+
 ### ▶ 2026-08-23 ~10:40 ET · **A SOUL: the ramen tile was NOT compliant after all (ink 2% vs the book's 15-21%), now re-grounded; and the flower wontons are shot at last. Two verdicts owed.** (MIRA)
 
 **Resume phrase: "Mira, pick up Asoul."**
