@@ -4,6 +4,21 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~12:10 ET · **TANG BRAND KIT BUILT, measured the same way A Soul's was. Diagnosis: the Tang tiles are in A SOUL'S palette, which is why she said Tang stopped looking good. Her lock owed on the palette.** (MIRA)
+
+**Resume phrase: "Mira, lock the Tang palette" or "Mira, re-ground the Tang tiles."**
+
+- **Her trigger:** looked at the combined proposal on her phone and said *"love it but now tang doesn't look as good lol."* Then, unprompted and correctly: *"I think we need to make a brand kit for Tang like we did with A-Soul."*
+- **ON HER PHONE:** brand kit board at **https://claude.ai/code/artifact/4b4227bf-b9b8-4c88-96e0-b2d401b6a808** (built in Tang's own palette so it argues for itself). Combined proposal from earlier at https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886
+- **Canon on disk:** `audits/tang/TANG_PALETTE.md` (measured, marked PROPOSAL pending her lock) and `audits/tang/TANG_ART_DIRECTION.md` (the argument, the audit table, the fix). `audits/` is gitignored, so these live on disk only, same as A Soul's.
+- **THE DIAGNOSIS, measured, share of saturated pixels.** Their room: red 17% / amber 56% / blue 12% / ink 15%. Four of the six proposal tiles are 82 to 96% amber with 0 to 2% blue and almost no red. **They are A Soul's book wearing Tang's name.** The one tile that passes is `boba-lifted-r1` (red 23 / amber 37 / blue 17) and it is the only one staged with the room reference in frame.
+- **THE REAL LESSON, and it generalizes past both clients:** an image model left unprompted lights food in warm neutral amber, because that is what most food photography looks like. **A Soul's book happens to agree with that default, which is why A Soul landed fast. Tang's book disagrees with it.** Any client whose palette is not generic-food-amber must name its colours out loud in every prompt or the frames drift back to the default. This is why "it looked fine on its own" and "it looks weak next to the other client" can both be true.
+- **THE RESOLUTION (Tang's version of "the bowl already solved it"):** the birdcage booth. A warm red glow held inside a black cage, in a cold blue room, under a gold fan neon. **Black is the structure, red is the glow, blue is the air, gold is the fixture.** A Soul is one light; Tang is a lit set. Six laws written, the sharpest being that A Soul has NO cool tone and Tang MUST have one, and it only ever comes from a light source.
+- **Palette:** Ink `#0D0B0B`/`#151515`/`#1C1B1F` · Lacquer red `#5E0D11`/`#8B0F07`/`#A41A0C`/`#C9162B` · Burnt gold `#553B1E`/`#AA5114`/`#9E8135`/`#C4BCAC` · Neon blue `#343E4F`/`#4066A5`/`#82A6BE`/`#AABFE8` · Fan yellow `#D1BE5B`/`#F0CF40`. **Their logo red `#B8140C` sits inside the measured room-red ramp: the logo red IS the room red.**
+- **A NEAR MISS WORTH KEEPING.** My first sample ran over 156 files from her 8/20 Desktop drop and returned "blue 36.5%". That folder mixes Brahmin work and an unrelated venue walkthrough in with the Tang material. Caught it, re-derived from 34 curated frames only. **A brand book built on the first pass would have been confidently, measurably false.** Law: derive a palette only from a curated, named set, never from a whole drop folder.
+- **Next, and it is cheap:** re-ground the five drifted tiles by edit-in-place, roughly 90 seconds each, per the method proven on A Soul today. Do NOT touch the boba tile. Do NOT push red to a percentage; it is a glow from a practical source, and flooding a frame red is the same error as the 70% ink overshoot on A Soul's ramen.
+- **Also still owed:** her yes on the $1,600 bundle, her @asoulramen screenshot, the two open A Soul roll-picks, and the two Tang tiles rejected 8/20 (0.5x-warp room, same-table ramen) which are not in the proposal.
+
 ### ▶ 2026-08-23 ~11:35 ET · **A SOUL grid finalised at 3x2, and THE COMBINED TANG + A SOUL PROPOSAL IS BUILT. One link, two sections, bundle priced. Her sign-off owed on the rate before it goes anywhere.** (MIRA)
 
 **Resume phrase: "Mira, pick up the proposal."**
