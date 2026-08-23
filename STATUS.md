@@ -4,9 +4,13 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
-### ▶ 2026-08-23 ~10:20 ET · **A SOUL: NEW CONCEPT SHOT AND ON HER SCREEN. One drink held, honeycomb elevated behind, two ideas. Waiting on N1 or N2.** (MIRA)
+### ▶ 2026-08-23 ~10:30 ET · **A SOUL: THE RAISED DRINK IS APPROVED ("N2"). Seven of nine concepts exist. What is left is three roll-picks and two never-shot concepts.** (MIRA)
 
-**Resume phrase: "Mira, Asoul is N1" (or N2) — or pick up Asoul for the queue behind it.**
+**Resume phrase: "Mira, pick up Asoul." The next thing needs no shooting, only her eye.**
+
+- **APPROVED, FINAL:** `toolbox/shoot/recipes/soul-ramen/round16-drink-honeycomb/N2-raised.png`. Megan, ~10:2x: *"N2."* Staged for the grid at `audits/asoul-ramen/04-concepts/tiles/t-drink.jpg`. N1 is killed as the direction but the frame is sound; banked, do not re-roll.
+- **She was told about the oversized lime wheel before she picked and picked N2 anyway.** That is a verdict on the frame as it stands. Do not "fix" the lime unprompted.
+- **CONCEPT LAW, new, and it generalizes:** raised and backlit beats held-out-flat for any drink tile on this account. A glass is a translucent hero, so putting the light BEHIND it is what makes it read expensive; lighting it from the front just lights a hand. Applies to any glass, bottle, or broth-on-a-spoon shot, any client.
 
 - **What she is looking at:** `audits/asoul-ramen/drink-honeycomb-round1.html`, Chrome. N1 held out at chest height with the pods and staircase melted behind; N2 raised and backlit with the hexes large and graphic. Labelled rough. Files in `toolbox/shoot/recipes/soul-ramen/round16-drink-honeycomb/`.
 - **Her brief, verbatim:** *"a photo like this where the honeycomb's in the background, but they're holding the drink. The honeycomb, let's elevate that at the background and make it look a lot more professional, high-quality photo. Just one glass is going to be held."*
