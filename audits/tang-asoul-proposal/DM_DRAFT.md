@@ -1,45 +1,52 @@
-# Instagram DM — Tang + Asoul (draft, Megan sends)
+# Instagram DM — Tang + Asoul (v2, approved shape, Megan sends)
 
-Drafted 2026-08-23 on her ask. Same message to **both** @tangdumpling2026 and @asoulramen,
-because the assistant manager told her to send it on both accounts. Kept short for a phone DM.
+Updated 2026-08-23 on her second pass. Same message to **both** @tangdumpling2026 and
+@asoulramen, because the assistant manager told her to send it on both accounts.
 
-**Grounded in facts she gave, nothing invented:** she was in Tang last week (the in-person meeting
-is on record, 8/19 evening, Lift lock), spoke with the assistant manager, showed her some of the
-work, the AM was impressed, took her info, and said to send it via Instagram.
+**Her additions, all applied:** (1) hedge that the AM may not have told the owner yet;
+(2) name what she showed the AM: "for potential social media and content support";
+(3) "entirely from the photos you already have"; (4) a line that shows the expertise,
+"built from simple photos and a suite of tools that take them to the next level",
+the same note she made for Creation Cakes.
 
-**Open:** the assistant manager's NAME is not on record anywhere in the repo. If Megan knows it,
-dropping it in ("I spoke with Sarah") makes the opener land much harder. Flagged, not guessed.
+**Link is LIVE:** https://helloliftstudio.com/tang-asoul/ (published to prod 2026-08-23,
+unlisted and noindex, nothing on the site links to it; homepage, /tang, /tang/proposal
+and /creation-cakes all verified 200 after the deploy).
 
-**Link:** needs the page promoted to `helloliftstudio.com/tang-asoul/` first. A
-`6a8b662d...netlify.app` URL in a cold DM looks like a test link.
+**Still open:** the assistant manager's NAME is not on record anywhere in the repo. If Megan
+knows it, "I talked with Sarah" beats "your assistant manager". Flagged, never guessed.
 
 ---
 
 ## The draft
 
-> Hi! Megan here, from Lift Studio. I was in Tang last week and talked with your assistant manager.
-> I showed her some of what I'd put together for you and she loved it, so I gave her my information
-> and she said to send it over here.
+> Hi! Megan here, from Lift Studio. I was in Tang last week and talked with your assistant
+> manager. I don't know if she has had a chance to mention it to the owner yet, but I showed her
+> some of what I put together for you for potential social media and content support, and she
+> loved it. She took my information and said to send it over here.
 >
-> It's one page covering both restaurants: what each feed could look like, built entirely from
-> photos you already have. Drag the sliders and you can see your own photos before and after.
+> It's one page covering both restaurants: what each feed could look like, entirely from the
+> photos you already have. Built from simple photos and a suite of tools that take them to the
+> next level. Drag the sliders to see your own before and after.
 >
 > helloliftstudio.com/tang-asoul
 >
 > No shoot day, no photographer, nothing landing on your staff. Let me know what you think.
 
-92 words. No em dashes.
+126 words. No em dashes.
 
 ## If it reads long on the phone, the cut
 
-> Hi! Megan here, from Lift Studio. I was in Tang last week and talked with your assistant manager.
-> She loved what I showed her, took my information, and said to send it over here.
+> Hi! Megan here, from Lift Studio. I was in Tang last week and talked with your assistant
+> manager. I don't know if she has mentioned it to the owner yet, but I showed her some of what I
+> put together for you for potential social media and content support, and she loved it. She took
+> my information and said to send it over here.
 >
-> One page for both restaurants, built entirely from photos you already have. Drag the sliders to
-> see the before and after on your own photos.
+> One page for both restaurants, entirely from the photos you already have. Built from simple
+> photos and a suite of tools that take them to the next level.
 >
 > helloliftstudio.com/tang-asoul
 >
 > No shoot day and nothing landing on your staff. Let me know what you think.
 
-74 words.
+104 words.
