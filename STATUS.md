@@ -4,6 +4,20 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~12:35 ET · **TANG RATIOS CORRECTED BY MEGAN, and the re-measure proved her right. Two measurement errors of mine named and fixed. Board republished.** (MIRA)
+
+**Resume phrase: "Mira, lock the Tang palette."**
+
+- **Her call, from two whole-room photos she sent:** *"blue and yellow should be much more like accents, and red and black should be more like the main colors."* Correct on both counts.
+- **ERROR ONE, mine: I averaged food close-ups into a room palette.** Food is warm by nature. Measured apart, the food frames run gold 14.2% / red 3.7%; the room frames run red 13.7% / gold 5.9%. Mixing them dragged the read toward amber and buried the red. **A room palette is measured from room frames. The food is the subject, not the ground.**
+- **ERROR TWO, mine, and the more useful one: share-of-saturated pixels is structurally blind to black.** Black cannot be saturated, so that measure cannot see it at all. For a brand whose entire ground is black it is the wrong instrument, not a rounding error. **Measure share of ALL pixels whenever the ground is achromatic.** Re-measured across 13 room-only frames: black 24.5% · red 13.7% · warm wood 12.9% · blue 9.4% · gold 5.9%.
+- **AND ONE THING ARITHMETIC STILL GOT WRONG THAT HER EYE CAUGHT:** blue measures 9.4% of the room but every bit of it is the backlit mural panels. That is one object, not a ground. **Area is not emphasis.** A large single feature still reads as a note. Worth carrying to every palette job.
+- **PRESCRIBED RATIO NOW:** Ink 40% (the structure) · Lacquer red 26% (the brand, a field) · Warm wood 22% (the body, neutral, never a brand colour) · Gold light 8% (accent, the underglow) · Neon blue 4% (accent, the mural only). Red and black carry two thirds; gold and blue together are one eighth.
+- **THESIS REWRITTEN** from "black is the structure, red is the glow, blue is the air, gold is the fixture" (which overweighted blue) to **"Black builds it. Red fills it. Gold and blue only ever come from a light."**
+- **Board republished, same URL:** https://claude.ai/code/artifact/4b4227bf-b9b8-4c88-96e0-b2d401b6a808 — now carries a dedicated correction section naming both errors. Canon updated at `audits/tang/TANG_PALETTE.md`.
+- **OWED, small:** her two reference photos are not on disk (they came through chat, and nothing new landed on her Desktop today). The 7-months-ago official interior is almost certainly already `02-assets/cropped/07` or `10`; the JT 4-weeks-ago red-booth frame looks new and should be saved into `02-assets/cropped/` under GV-16 so the corrected ratio has its source on disk.
+- **Next:** her lock on the palette, then re-ground the five drifted tiles by edit-in-place. Do not touch the boba tile.
+
 ### ▶ 2026-08-23 ~12:10 ET · **TANG BRAND KIT BUILT, measured the same way A Soul's was. Diagnosis: the Tang tiles are in A SOUL'S palette, which is why she said Tang stopped looking good. Her lock owed on the palette.** (MIRA)
 
 **Resume phrase: "Mira, lock the Tang palette" or "Mira, re-ground the Tang tiles."**
