@@ -4,6 +4,20 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~18:05 ET · **Brand-kit section added to the proposal, showing BOTH real palettes. The kit stops being a promise and becomes the proof.** (MIRA)
+
+**Resume phrase: "Mira, pick up the proposal."**
+
+- **Her ask:** *"include how we create the branding kit, like how we did that for creation cakes. The first thing I would do for each brand is develop the branding for it so that there is harmony in the social account... I can show a sample brand kit recommendation for both brands."*
+- **Built as PROOF rather than description**, because both kits already exist from today's work. The section sits BEFORE the two client sections (it is the first thing done, so it reads first) and shows each palette as a real swatch bar plus its one-line thesis:
+  - **A Soul, "one light":** ink · the five-value amber ramp · seal red · sakura. *Your bowl already solved it. A warm photographic world, with black and red as the seal on top of it, never as the field.*
+  - **Tang, "a lit set":** two inks · three reds · wood · gold · neon blue. *Your birdcage already solved it. Black builds it. Red fills it. Gold and blue only ever come from a light.*
+- **The closing line is the real sales argument and it is true:** two restaurants, two deliberately different worlds, which is why the two feeds will never look like the same agency made them. That claim is defensible because the palettes were measured off each room, not chosen.
+- **Also carried:** A Soul's logo red note ("your logo red turned out to be the same red as the room, so there was nothing to reconcile") is Tang's, and it is a genuine finding from the measurement, not flattery.
+- **Proposal republished, same URL:** https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886
+- **Still open and unchanged:** her yes on the $1,600 · the A Soul logo crop needs her eye (no logo file on disk) · the JT room photo owed to disk · the two A Soul roll-picks · Tang's four remaining food tiles still short on red.
+- **PAYLOAD: thread is past 8MB.** Canon is swept and current through this entry. A fresh thread resumes cleanly from this lock plus `TANG_PALETTE.md`, `TANG_ART_DIRECTION.md`, `PALETTE_LOCKED.md`, `soul-ramen.yaml` and `PRICING_RATIONALE.md`.
+
 ### ▶ 2026-08-23 ~17:45 ET · **She killed the generated room tile. New law: a room does not need lifting, crop it and leave it. Pricing revised photo-heavy. Real logos in.** (MIRA)
 
 **Resume phrase: "Mira, pick up the proposal."**
