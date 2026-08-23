@@ -4,6 +4,16 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-22 ~22:35 ET · **A SOUL: SECTION BUILT + FOUR TILES APPROVED IN ONE EVENING (rounds 7-12). Grid is half-populated; her a/b on the K2 noodle edit is the only thing owed.** (MIRA)
+
+- **Approved by Megan tonight:** `round8/G2.png` (matcha lineup, no hands, ground #DAABC3 sampled off her own inspo) · `round8/G1b.png` (matcha, four hands, "I love") · `round11/K2.png` + its noodle edit (the chopstick pull: white tee, standing, hard shadow across the shirt; "K2, it is love") · `round12/L1a-cream.png` (California rolls, cream #EAD8BB, hand-laid grid, parallel shadows). With D9 from 8/21 that is FIVE of the nine tiles the client grid needs.
+- **Banked, liked but not chosen:** L1b, L2a, L2b (rolls, coral ground + hand). Not killed, not to be re-rolled.
+- **Never verdicted:** round7 E1a/E1b (the styled aerial that replaced the "boring" middle tile) and E2a/E2b (the sakura flat lay, Sakura Matcha with the lid off). Both are built and waiting on her look.
+- **Section:** `audits/asoul-ramen/04-concepts/asoul-section.html` (+ tiles/). Handle verified @asoulramen. Profile counts/bio still blank pending one screenshot from her: IG and Yelp both 403.
+- **Laws this evening produced, all in `toolbox/shoot/recipes/soul-ramen.yaml`:** LIMB ACCOUNTING (she caught two arms on one cup in G1a; NB2 then put three hands in 3/3 frames of the next round and only "exactly TWO arms and TWO hands exist, because there is one person" held it) · the pull concept lives on ANGLE + SHADOW, not the pull (straight-on, seated, symmetrical is dead) · colour grounds are SAMPLED off her inspo, never eyeballed · never copy an inspo's dish (their rolls are rice-outside California, the inspo was salmon-wrapped: copying would invent a menu item).
+- **Not done, stated to her:** MIRA's own QC went blind after the house image gate hit its 6-read cap and the override was denied by the permission classifier. G1a's two-arm error and round 9's three hands were both caught by looking; everything from round 10 onward she saw first. Worth raising the cap or fixing the override path for creative sessions.
+- **Next, in order:** her a/b on the K2 noodle edit · the flowery wontons on colour (refs/inspo/n6) · mini desserts on little plates (n4/n5/sr12) · then the grid rebuild in the section, then the bundled rate.
+
 ### ▶ 2026-08-22 ~21:05 ET · **A SOUL SECTION BUILT (rough) — copy + IG grid mock on her screen; profile facts deliberately blank, waiting on one screenshot** (MIRA)
 
 - File: `audits/asoul-ramen/04-concepts/asoul-section.html` (+ `tiles/`), opened in Chrome 21:05 ET. `audits/` is gitignored by design, so the section lives on disk only, same as Tang's.
