@@ -4,6 +4,20 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~11:35 ET · **A SOUL grid finalised at 3x2, and THE COMBINED TANG + A SOUL PROPOSAL IS BUILT. One link, two sections, bundle priced. Her sign-off owed on the rate before it goes anywhere.** (MIRA)
+
+**Resume phrase: "Mira, pick up the proposal."**
+
+- **THE PROPOSAL:** `audits/tang-asoul-proposal/index.html` (+ `img/`, 24 assets, 2.2MB). Phone-first, single scroll, built for IG DM delivery per her 8/20 direction. Sections: the shared argument · Tang · A Soul · how it works · the bundle. Opened in Chrome 11:34 ET. **ROUGH round 1.**
+- **PRICING IS MY RECOMMENDATION, NOT CANON.** Full reasoning in `audits/tang-asoul-proposal/PRICING_RATIONALE.md`. Printed: **$1,600/month for both** against $1,900 run separately, framed as $800 per restaurant, profile setup for both included ($500 one-time given away deliberately, because a one-time giveaway does not reset the recurring anchor). Fallbacks shown: $1,100 lighter tier for both, $950 single. **§1.5 says a number MIRA proposes is a proposal until Megan signs it. The link does not go to a client until she does.**
+- **Her call concession, advised:** discount the FIRST MONTH ($800, half), never the recurring rate. Dropping to $1,400 feels similar in the moment, costs $2,400 a year forever, and can never be walked back up. $1,500 is the floor if she insists on a recurring cut. Free third lever: start immediately rather than at the top of a month.
+- **A SOUL GRID FINAL, 3x2 six tiles:** pull · wontons · desserts · lineup(a) · rolls(a) · raised drink. Only one ramen so nothing doubles; the two drink tiles sit at 4 and 6 with the rolls between; the two lightest frames sit on a diagonal so brightness is spread, not banded.
+- **Her rulings on my four grid findings, recorded so they are not re-raised:** cool shovel spoons KEEP ("that's what the color shovels are") · light sushi tile KEEP ("it adds some lightness") · double matcha and sakura-over-budget both fixed by dropping G1b from the feed. G1b and D9-ink-v2 are not killed, they moved into the proposal as before-and-afters.
+- **LAW she proved by editing:** a grid finding is only as good as the grid it was measured against. My "the light tile is an outlier" call was right at eight tiles and wrong at six. Re-check grid findings after any change to set size before acting on them.
+- **WHAT IS UNVERIFIED IN THE PROPOSAL AND MUST STAY THAT WAY:** A Soul follower and following counts are blank (IG and Yelp both 403 from here) and need her screenshot before this ships. Tang's "2 posts, 84 followers, follows 1" carries over from the proposal the AM already saw, so it is verified. The four customer-post credits (1 day, 5 days, 3 weeks, 2 months) come from the dated filenames in `tang/02-assets/customer-photos/`.
+- **One honesty flag:** the six Tang tiles are pulled from her approved 8/20 twelve-tile lineup, excluding the two she rejected (the 0.5x-warp room and the same-table ramen). I did NOT re-verify them by eye this session, image-read budget was spent. She is the judge on those.
+- **Owed:** her yes on the bundled rate, her @asoulramen screenshot, and the two open roll-picks (G2-ink a/b, L1a-honey a/b) which are showing roll a in both the grid and the proposal.
+
 ### ▶ 2026-08-23 ~11:15 ET · **A SOUL: D9 v2 APPROVED ("perfect, that's the one"). Grid mockup built and it caught four faults no single frame showed. Her call owed on the light tile.** (MIRA)
 
 **Resume phrase: "Mira, pick up Asoul."**
