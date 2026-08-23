@@ -4,6 +4,24 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~16:55 ET · **CLOSED. A Soul feed final at 6 tiles, combined proposal built and live, Tang brand kit measured. ONE thing blocks shipping: her yes on the bundled rate.** (MIRA)
+
+**Resume phrase: "Mira, pick up Asoul" or "Mira, put the red back in Tang."**
+
+**Two links on her phone, both private, both current:**
+- Proposal (Tang + A Soul, one scroll, DM-ready) https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886
+- Tang brand kit https://claude.ai/code/artifact/4b4227bf-b9b8-4c88-96e0-b2d401b6a808
+
+**Done today, all approved by her:** K2 regraded to 2700K amber (`K2-amber-b`) · the raised backlit drink shot new (`N2-raised`) · the ramen tile combed, re-grounded and revised to her midpoint with the tall glass (`D9-ink-v2`) · the flower wontons shot at last (`W1-low`) · A Soul feed finalised at 3x2 · combined proposal built · Tang palette measured and ratios corrected by her · Tang boba swapped to the neon pour.
+
+**THE ONE BLOCKER: the $1,600/month bundled rate is MIRA's recommendation, not canon.** §1.5 says a number MIRA proposes stays a proposal until Megan signs it. Nothing goes to the client until she does. Reasoning + what to concede on the call: `audits/tang-asoul-proposal/PRICING_RATIONALE.md`. Short version: discount the FIRST MONTH ($800), never the recurring rate.
+
+**Queued behind it, none of it needing generation:** her @asoulramen screenshot (counts are blank, IG and Yelp 403 from here) · two A Soul roll-picks (G2-ink a/b, page still open in a tab; L1a-honey a/b) · the JT red-booth reference photo saved to disk · Tang's five drifted tiles need red put back (grid average red is 3% against a room at 26%).
+
+**NOT swept, and saying so rather than doing it silently:** the Projects root still has ~68 uncommitted files older than 3 days, flagged at boot. Megan called time; a 68-file sweep is its own session and would have been unasked work at the end of a long one. It carries to the next session.
+
+**Session note:** this ran long, and the last stretch was me debugging a gate after she asked a clarifying question. The fix was real and is committed (`4478c17`), but it was not what she asked for at that moment.
+
 ### ▶ 2026-08-23 ~16:30 ET · **Tang boba swapped twice on her call (condensation, then the neon pour). GRID-LEVEL AUDIT FOUND THE REAL DISEASE: Tang's feed has almost no red.** (MIRA)
 
 **Resume phrase: "Mira, put the red back in Tang."**
