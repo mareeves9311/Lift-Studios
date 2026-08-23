@@ -1,4 +1,4 @@
-# Instagram DM — Tang + Asoul (v2, approved shape, Megan sends)
+# Instagram DM: Tang + Asoul (v2, approved shape, Megan sends)
 
 Updated 2026-08-23 on her second pass. Same message to **both** @tangdumpling2026 and
 @asoulramen, because the assistant manager told her to send it on both accounts.
