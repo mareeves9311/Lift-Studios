@@ -4,6 +4,21 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~10:15 ET · **A SOUL K2 DONE AND APPROVED: "I love B. Amber." Five of nine tiles now on the locked palette. Three roll-picks are all that stand between here and the grid rebuild.** (MIRA)
+
+**Resume phrase: "Mira, pick up Asoul" — the next thing is three roll-picks, nothing needs shooting.**
+
+- **K2 IS CLOSED.** Megan, 2026-08-23 ~10:1x: *"I love B. Amber."* One word settled both open questions on this tile: the noodle variant is B, and the 2700K amber grade is the shipping look. FINAL FILE: `toolbox/shoot/recipes/soul-ramen/round15-K2-amber/K2-amber-b.png`. Staged for the grid at `audits/asoul-ramen/04-concepts/tiles/t-k2.jpg` (1045x1400, 3:4). K2-amber-a and both round11 noodle drafts are superseded; do not re-roll this concept.
+- **One thing deliberately NOT guessed:** the section's existing tiles are 1080x1080 squares and K2 is 3:4. Square centre-crop vs 4:5 portrait is a GRID decision, not a tile decision, so the full frame is staged faithfully and the crop question belongs to the grid rebuild.
+
+- **What she is looking at:** `audits/asoul-ramen/K2-amber-compare.html`, opened in Chrome 10:09 ET. Four up: A before | A amber | B before | B amber, on ink, with the locked swatch strip and the measurement table.
+- **What was done:** K2 was the last approved tile not on the locked palette. It has no ground to swap (the white tee fills all four edges), so the rebrand was a LIGHT question: neutral daylight out, single hard 2700K tungsten in, shirt reads as warm ivory lit by their room. Edit-in-place, nano-banana-2 on Runway, 3:4 @2K, source geometry 1792x2400 preserved. Files: `toolbox/shoot/recipes/soul-ramen/round15-K2-amber/K2-amber-a.png` and `-b.png`.
+- **Fired on BOTH variants deliberately.** The a/b noodle question was left open from 8/22 and the lock said "ask first". Rather than stall her for an answer and then run the edit, the same grade went on both, so her one pick closes the a/b AND the rebrand together.
+- **Evidence, measured off the files:** median hue 35.7 -> 29.2 (a), 36.0 -> 28.7 (b), both inside the book's H28-H45 amber band. Cool pixels (H180-270) 39% -> 0% on both. Mean tone #B7A59D -> #BA8F68 / #B38A66. The "no cool tone in this brand" law is now literally true of this frame.
+- **NEW, and it generalizes past this client:** a frame with no ground still has a rebrand cost, and it is the light. Round 14 logged "K2 needs no ground work" — right about the ground, wrong about the tile. A neutral-daylight frame in a feed where every other tile is 2700K breaks the grid even when its palette contains no banned colour. So the rebrand audit asks TWO questions per tile: what is the ground, and what is the light. Cheap test for the second: measure the share of cool pixels. Written into `soul-ramen.yaml` round-15 block.
+- **Still open, unchanged from last night, in rough priority:** verdicts on G1b-ink a/b and L1a-honey a/b · one screenshot of the top of @asoulramen (IG and Yelp both 403 from here, so the profile header and finding 04 stay blank) · the bundled rate for the pricing section · the flowery wontons concept (refs staged at `soul-ramen/refs/inspo/n6`, never shot) · round7 E1/E2 never verdicted · rebuild the grid in `audits/asoul-ramen/04-concepts/asoul-section.html` with the locked-palette tiles.
+- **Grid count:** five of nine tiles approved, and with K2 settled all five will be on the locked palette.
+
 ### ▶ 2026-08-22 ~23:30 ET · **A SOUL, CLOSED FOR THE NIGHT. Palette locked, every approved tile re-grounded onto it. NEXT SESSION: rebrand the white-tee ramen frame (K2).** (MIRA)
 
 **Resume phrase: "Mira, pick up Asoul K2."**
