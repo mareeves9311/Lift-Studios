@@ -4,6 +4,14 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-22 ~22:45 ET · **A SOUL: BRAND KIT LANDED ELSEWHERE AND IS NOT ON DISK. Six tiles approved tonight; the colour-ground ones are now provisional until the kit is written down.** (MIRA)
+
+- Megan, 22:4x: "we just solidified the concept for the Asoul branding kit... everything that we've created that I've landed on is going to have to be redone through the branding that we just solidified. Some of these recent mock-ups, like some of the background colors, aren't going to work."
+- **The kit is NOT in the repo.** Searched `sponsor-brand-kits/`, every `*brand*kit*` path in Lift Studio, the whole Projects tree for `*asoul*`, and everything created since 8/22 noon. The only Asoul brand document on disk is `toolbox/shoot/recipes/soul-ramen/BRAND_READ.md`, which reads the RESTAURANT's existing identity off their photos and is not the designed kit. GV-16 says this gets written down before it dies with the thread that made it. **That is the one thing owed by Megan.**
+- **Also approved tonight, after the earlier entry:** `round13/M1a-pastel.png` (all three real desserts, two of each, on pastel plates on a sampled blue, shovel spoons scattered on the ground). Her reason is the reusable law: the shovels read as a scatter on the table, never as place settings on each plate.
+- **Rebrand cost, assessed:** ground-dependent and needing a re-run = G2, G1b, L1a, M1a and the banked L2 pair. Ground-free and safe = K2 + its noodle edit (the white shirt fills the frame), D9, round7 E1. The fix is an edit-in-place ground swap on each approved frame, roughly 90 seconds per tile, not a re-shoot: composition, pose, props, crops and the pixel-true food all carry.
+- Everything below still stands.
+
 ### ▶ 2026-08-22 ~22:35 ET · **A SOUL: SECTION BUILT + FOUR TILES APPROVED IN ONE EVENING (rounds 7-12). Grid is half-populated; her a/b on the K2 noodle edit is the only thing owed.** (MIRA)
 
 - **Approved by Megan tonight:** `round8/G2.png` (matcha lineup, no hands, ground #DAABC3 sampled off her own inspo) · `round8/G1b.png` (matcha, four hands, "I love") · `round11/K2.png` + its noodle edit (the chopstick pull: white tee, standing, hard shadow across the shirt; "K2, it is love") · `round12/L1a-cream.png` (California rolls, cream #EAD8BB, hand-laid grid, parallel shadows). With D9 from 8/21 that is FIVE of the nine tiles the client grid needs.
