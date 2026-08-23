@@ -4,6 +4,14 @@ Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul pro
 
 ## Session Lock
 
+### ▶ 2026-08-23 ~18:15 ET · **STOP: the proposal artifact was republished by ANOTHER session. This thread's copy is stale. Do not republish from here.** (MIRA)
+
+- The artifact at https://claude.ai/code/artifact/fd6b7242-9641-43c1-b17e-42d87e0a9886 is now version `1787508111-448c`, published by a session that is not this one. The local file at `audits/tang-asoul-proposal/artifact.html` and this thread's build script no longer match what is live.
+- **Publishing from this thread would overwrite that other session's work.** Not doing it. Any further edit must start by reading the live version.
+- **This was NOT Megan.** No input from her since the brand-kit section landed; this is a background notification only.
+- **The safe resume:** in a fresh thread, WebFetch the live artifact first, reconcile it against `build_artifact.py`, then edit. Fetching it here is the wrong move because this thread is already past 8MB and the page carries about 1.6MB of inlined images.
+- Everything else in the entry below this one still stands.
+
 ### ▶ 2026-08-23 ~18:05 ET · **Brand-kit section added to the proposal, showing BOTH real palettes. The kit stops being a promise and becomes the proof.** (MIRA)
 
 **Resume phrase: "Mira, pick up the proposal."**
