@@ -1,8 +1,37 @@
 # Lift Studio Operating Status
 
-Last updated: 2026-08-20 (meeting went well — final combined Tang + A Soul proposal is the next build)
+Last updated: 2026-08-24 (call-first amendment landed in LIFT_SYSTEM §4; first ten product-business targets built with verified phones)
 
 ## Session Lock
+
+### ▶ 2026-08-24 · **CALL-FIRST OUTREACH IS CANON (LIFT_SYSTEM §2, §4, §9 patched). Ten product-business targets built with verified phone numbers. ONE thing waiting on Megan: which name gets the first proposal.** (MIRA, cloud session)
+
+- **Her ask, verbatim:** *"for new clients... it just doesn't work with just an email. I think I should call and say, hey, I built this proposal. I would love to send it. If interested, where's your email address?"* Plus the segment call: bakeries and floral yes, *"services like a salon or a med spa"* no, because *"I can make it look prettier, but I can't recreate before-and-after content."*
+- **Patched, not added as a new doc** (the `_system` five-file rule): §2 Lane V "Who" row now reads product-led businesses with medspas/salons/aesthetics/wellness explicitly OUT, with the results-photography reasoning under it · §4 carries the call-first amendment and its three rules · §9's phone-first row is NARROWED so a future session cannot cite it to kill her own decision. No sixth file created, no parallel tracker created.
+- **The finding worth more than the list.** The June workbook (`automation/Lift Studio Master Pipeline - Consolidated 2026-06-16.xlsx`) shows the target universe behind the 55 zero-reply sends: ten queries per town, all of them med spa / esthetician / salon / day spa / cosmetic dentist / interior designer / wedding photographer / wedding planner / boutique fitness / chiropractor, across six towns. All sixteen named leads are medspa, aesthetics, salon, nail, dentist, interior design or photography. Not one bakery, florist, chocolatier or product shop. Bakeries were the top opener category (×8) per §2 and are not in this snapshot, so they entered later; the shape holds anyway. **The zero-reply campaign was aimed almost entirely at the segment she just cut for being undeliverable.** Offer-to-segment mismatch is a third explanation alongside pitch and format, and it means the visual lane has never actually been tested at volume on product businesses.
+- **Also true and load-bearing:** the only Lift engagement that ever reached a priced yes ($1,600/mo, 8/23) ran in exactly the call-first shape. In-person meeting 8/19 → proposal built → link delivered by DM. Human contact first, artifact second, address last. Her instinct is the pattern that worked, made repeatable.
+- **Call sheet artifact** (tap-to-dial, phone ready, call order + fit reasoning + sources): https://claude.ai/code/artifact/fa447a9c-48a8-4259-8fed-80aaefd8c469
+- **The ten, verified 2026-08-24 against each business's own site, Yelp, chamber listing or Facebook. Staged for the Pipeline tab, NOT written to it (§10, no sheet writes without approval), and NOT stored as a second tracker (§8).** Paste-ready:
+
+| # | business_name | category | city | phone | email |
+|---|---|---|---|---|---|
+| 1 | Wild Briar Blooms | Floral (farm + florist) | Mechanicsburg PA | (717) 979-4050 | wildbriarblooms@gmail.com |
+| 2 | Blooms by Vickrey | Floral | Camp Hill PA | (717) 737-0212 | |
+| 3 | The Pennsylvania Bakery | Bakery | Camp Hill PA | (717) 763-7755 | |
+| 4 | Macris Chocolates | Chocolate | Lemoyne PA | (717) 412-7129 | |
+| 5 | The Gleeful Candle Co. | Candles | Mechanicsburg PA | (717) 748-6899 | |
+| 6 | Gray Owl Candle Co | Candles (online) | Mechanicsburg PA | (717) 602-9427 | hello@grayowlcandleco.com |
+| 7 | Meeka Fine Jewelry | Jewelry | Camp Hill PA | (717) 979-5448 | |
+| 8 | Salted Butter Bakery & Cafe | Bakery | Harrisburg PA | (717) 315-3972 | |
+| 9 | Anna Rose Bakery & Coffee Shop | Bakery | Harrisburg PA | (717) 236-3149 | |
+| 10 | Cornerstone Coffeehouse | Coffee | Camp Hill PA | (717) 737-5026 | |
+
+  Bench, each for a named reason: **Cocoa Creek Chocolates** (18 S 18th St, Camp Hill) is a near-perfect fit with NO public voice line anywhere, only fax 717-731-9081 and sales@cocoacreekchocolates.com, so call-first cannot reach it and it is a walk in · **Amber & Alchemy** (2205 Market St, Camp Hill, 717-456-0590) is a multi-maker boutique, so the products belong to the makers rather than the shop · **Lonely Monk Coffee Roasting** (303 Herman Ave, Lemoyne, 717-473-9607) is a good small roaster whose published hours are Wed and Thu 9 to 12 only.
+- **Graveyard cross-check RUN, and it is clean:** none of the thirteen appears anywhere in this repo, including the June workbook. No name on this list has been contacted before. (The Google Sheet is the authority and was not read from here, so this is repo-complete, not Sheet-complete.)
+- **Geography:** five of the thirteen sit between 1713 and 2205 Market Street in Camp Hill (PA Bakery, Blooms by Vickrey, Cornerstone, Meeka, Amber & Alchemy), Cocoa Creek a block off it. A five block walk holds six proposals.
+- **Not done, and named rather than guessed:** (1) **the warm check** — only Megan knows if she already knows any of these owners, and a warm name gets her own note, never the cold open; (2) **no feed audit** — Instagram and Yelp both 403 from a cloud container, so the ranking rests on what each business SELLS, not on what its photography currently looks like, and the per-proposal feed read can reorder the list; (3) **§5 stage 3 has not run** — the mechanical number diff against a verified-facts file is required before any of these phones reaches a client-facing artifact.
+- **Overdue and unrelated to this ask, surfaced because it sat:** the §7 two-lane decision checkpoint was 2026-08-07 with a hard backstop of **2026-08-21**. Both have passed with no recorded decision. §7 says a session reaching the date must force the choice, not extend it. The 8/24 segment cut arguably decides it in Lane V's favour by default, but it has not been written as the decision.
+- **Still open from 8/23, unchanged:** the Tang/Asoul DM reply, or the 8/28 follow-up guard.
 
 ### ▶ 2026-08-23 ~15:30 ET · **PROPOSAL RECONCILED ON DISK and staged on the Lift domain (draft). Live artifact left as-is (publish tool absent on the phone line). ONE blocker stands: her yes on $1,600.** (MIRA, from the phone via Remote Control)
 

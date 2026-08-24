@@ -30,12 +30,16 @@ These were decided, not defaulted. Do not reopen them without her.
 
 | | **Lane V — Visual** | **Lane S — Search** |
 |---|---|---|
-| Who | Image-driven local businesses: bakeries, food, medspas, aesthetics, salons, wellness, boutiques | Trades & local services: HVAC, plumbing, roofing, landscaping, electrical, local practices |
+| Who | Product-led local businesses whose thing sits still on a table: bakeries, food, floral, chocolate, candles, jewelry, coffee, packaged goods, boutiques. **Medspas, aesthetics, salons and wellness are OUT as of 2026-08-24** (Megan, below) | Trades & local services: HVAC, plumbing, roofing, landscaping, electrical, local practices |
 | The evidence so far | Every likely-human opener from the 55 sends (bakery ×8 opens, medspa ×5, aesthetics, prosthodontist) | Zero human engagement from ~6 sends — small sample, unproven either way |
 | Free hook | One of **their own** posts/photos, lifted per CREATIVE_PROTOCOL Part 2: their FOOD/PRODUCT stays pixel-true (never generated, never redrawn); the SETTING, surface, light and camera may be fully rebuilt around it. A colour grade alone is a filter, not a lift — Megan's ruling 8/19 after Tang ("we made an entirely new photo that looked amazing"). Shown as a drag-to-reveal before/after link | One specific, named, checkable search finding ("your last blog post is from 14 months ago — that's 14 months of 'near me' searches with no reason to show you") |
 | Product | Monthly content batch from their real photos, AI-enhanced, **Megan-curated** — menu rungs: Starter Content Kit / Content Bank, Instagram Refresh add-on | Blog & SEO Foundation (one-time) → Blog Essentials / Blog Growth retainer — menu rungs, prices per menu |
 | Proof speed | Instant — they see their own photo lifted | Slow — rankings take months; sell the *finding* and the plan, promise no timeline |
 | Never | Generate food/products/people they don't have; fabricate before/afters | Ranking guarantees, traffic numbers without a fetched source, invented stats |
+
+**THE RESULTS-PHOTOGRAPHY CUT — Megan, 2026-08-24.** Her words: *"I worry about services like a salon or a med spa, because I can make it look prettier, but I can't recreate before-and-after content. I can't change that, so it's a little more limited."* The filter is now a delivery-capability test, not a taste one: **Lift restages a photograph that exists; it cannot manufacture a result that did not happen.** A business whose marketing rests on before-and-after results photography is asking for the one thing the house method cannot produce, and §10's "no generated client product" makes that permanent rather than a current limitation. Bakeries, floral, chocolate, candles, jewelry, coffee, packaged goods all pass: the product is a real object, already photographed, and the whole job is the setting and the light around it.
+
+**What this cut is worth knowing about the 55 zero-reply sends.** The June prospecting workbook (`automation/Lift Studio Master Pipeline - Consolidated 2026-06-16.xlsx`) shows the target universe it was built on: ten search queries per town — med spa, esthetician, salon, day spa, cosmetic dentist, interior designer, wedding photographer, wedding planner, boutique fitness studio, chiropractor — across Hershey, Harrisburg, Camp Hill, Mechanicsburg, Lancaster and York. All sixteen named leads in it are medspa, aesthetics, salon, nail, dentist, interior design or photography. **Not one bakery, florist, chocolatier or product shop.** Bakeries do appear in this doc's own opener evidence (×8 opens, the top category), so they entered the sends later and are not in this snapshot; the point stands anyway. The campaign that returned zero was aimed almost entirely at the segment Megan has now cut for being undeliverable, which is a third explanation for the zero alongside pitch and format: **offer-to-segment mismatch.** Do not treat this as proving the visual lane fails. It has never been tested at volume on product businesses.
 
 **Positioning line — LOCKED BY MEGAN 2026-08-19 (second pass, her own dictation), both lanes, goes in every send identically:**
 
@@ -91,6 +95,18 @@ Audit mechanics live in `skills/liftaudit/` (now wired to the imported 990-line 
 **Follow-up cadence (locked):** Day 4–5 FU1 (reply in-thread, restate the strongest original observation, refreshed subject allowed) · Day 10–12 FU2 (last note, lowest pressure) · then stop. No FU3. Immediate stop on bounce or "not interested."
 
 **Replies and calls (added 2026-07-09, Megan's call):** cold prospecting stays digital — that's the business. But a warm reply may be offered a 15-minute call, and Megan is willing to take/make that call to close. Calls are a closing tool for people already interested, never a prospecting tool. This is the difference between "hustling cold calling" (out, permanently) and "picking up the phone for someone who raised their hand" (in).
+
+**AMENDED BY MEGAN 2026-08-24 — CALL FIRST, FOR THE EMAIL ONLY.** For new clients, first contact by cold email alone is retired. Her words: *"it just doesn't work with just an email. I think I should call and say, hey, I built this proposal. I would love to send it. If interested, where's your email address?"* The sequence is now **build → call → ask for the address → send**.
+
+This does not reopen cold calling, and the distinction is the whole point. The call is not a pitch and carries no offer: it is a thirty-second request for permission and a delivery address, on the back of work that already exists. The prospect is not being asked to buy, or to meet, or to listen. They are being asked where to send something already made for them. "Hustling cold calling" is still out.
+
+Three rules that come with it, none of them optional:
+
+1. **The proposal exists before the phone is picked up.** The line is only true if it is true. Build one, call one, send it, then the next name. Ten speculative builds is the email strategy wearing a phone, and it is the system-building displacement pattern, not selling.
+2. **The proposal is a proposal, not the product.** §1.3 and §3 both still bind: one remade piece of their existing content, the diagnosis named completely, the finished artifact withheld, the priced next step from the menu. The word "proposal" in her line must not quietly become the free delivery of the thing she sells.
+3. **The Sheet before the phone, same as the Sheet before the send** (§8). One prospect, one channel, once.
+
+**Why this is not a hunch:** the only Lift engagement that has ever reached a priced yes ran in exactly this shape. Tang and Asoul came from an in-person meeting on 8/19, a proposal built against it, $1,600/month approved 8/23, and the link delivered by DM on 8/23 — human contact first, artifact second, email or DM last. Nothing in the 72 cold-email threads got past open. Treat the amendment as the pattern that worked being made repeatable, and log it in the Sheet like any other lane so it can be judged on replies rather than on how it feels.
 
 ---
 
@@ -151,7 +167,7 @@ The reason "both" works as a decision instead of a hedge: it ends.
 | "Buy Ahrefs/Semrush" | Free tier + manual SERP checks produced the best number in the Witmer audit. GSC/AWT are free the moment a client signs. Buy tools with client revenue. |
 | "Give Tang ten finished posts free" | Gives away the product (§1.3) and was built on an unverified premise — Tang may not have an Instagram at all. |
 | The 17-agent roster, proof-gate ladder, 90-day plan, weekly-routine doc, pipeline-week CSV system | A manufacturing system for a factory with no orders. 24 docs agreed with each other and not with reality. Rebuild *from revenue*, not ahead of it. |
-| Phone-first outreach for trades | Contradicts the digital-first business Megan is deliberately building. Her call, made. |
+| Phone-first outreach for trades | Contradicts the digital-first business Megan is deliberately building. Her call, made. **NARROWED 2026-08-24, do not cite this row to kill the call-first amendment in §4.** What stays dead is cold *pitching* by phone, to trades, with nothing built. What Megan authorised on 8/24 is a call to a product business asking only where to send a proposal that already exists. Different act, her call, made. |
 
 **Verify before building on (still unverified):** whether Tang has an Instagram at all · whether Witmer has a web team (boyfriend can answer in seconds — required before that deck ships) · true open rate (Apple MPP inflation) · whether any opener would ever pay (the Monday probe is the test).
 
